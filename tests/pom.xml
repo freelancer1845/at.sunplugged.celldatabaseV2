@@ -14,5 +14,6 @@
 	</parent>
 
 	<modules>
+		<module>at.sunplugged.celldatabaseV2.persistence.xmi.tests</module>
 	</modules>
 </project>

@@ -5,7 +5,8 @@ Bundle-SymbolicName: at.sunplugged.celldatabaseV2.persistence.xmi
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: at.sunplugged.celldatabaseV2.persistence.api,
- datamodel
+ datamodel,
+ org.osgi.service.component.annotations;version="1.2.0"
 Service-Component: OSGI-INF/at.sunplugged.celldatabaseV2.persistence.xmi.DatabaseServiceImpl.xml
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.emf.common,
