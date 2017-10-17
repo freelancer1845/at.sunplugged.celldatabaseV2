@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmi:id="_c3AF0MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.application" bindingContexts="_c3AF2cjYEeSyMNYR5xypkQ">
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_c3AF0cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.window.main" label="Empty E4 Application" width="500" height="400">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_c3AF0cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.window.main" label="Cell Database" width="500" height="400">
     <children xsi:type="basic:PartSashContainer" xmi:id="_ttVt4LNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.partsashcontainer.0" horizontal="true">
-      <children xsi:type="basic:PartStack" xmi:id="_vRfBMLNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.partstack.0"/>
+      <children xsi:type="basic:PartStack" xmi:id="_vRfBMLNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.partstack.0">
+        <children xsi:type="basic:Part" xmi:id="_g8lvgLNYEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.part.modelviewer" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.parts.ModelViewerPart" label="Model Viewer"/>
+      </children>
       <children xsi:type="basic:PartStack" xmi:id="_wZJM0LNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.partstack.1"/>
     </children>
     <trimBars xmi:id="_xbgowLNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.trimbar.0"/>

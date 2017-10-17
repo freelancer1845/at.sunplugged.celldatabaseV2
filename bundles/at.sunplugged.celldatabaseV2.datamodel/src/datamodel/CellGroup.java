@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link datamodel.CellGroup#getName <em>Name</em>}</li>
  *   <li>{@link datamodel.CellGroup#getDescription <em>Description</em>}</li>
  *   <li>{@link datamodel.CellGroup#getCellResults <em>Cell Results</em>}</li>
- *   <li>{@link datamodel.CellGroup#isCustomName <em>Custom Name</em>}</li>
  * </ul>
  *
  * @see datamodel.DatamodelPackage#getCellGroup()
@@ -28,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface CellGroup extends EObject {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * The default value is <code>"Unkown Group"</code>.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Name</em>' attribute isn't clear,
@@ -37,7 +37,7 @@ public interface CellGroup extends EObject {
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
    * @see datamodel.DatamodelPackage#getCellGroup_Name()
-   * @model volatile="true" derived="true"
+   * @model default="Unkown Group"
    * @generated
    */
   String getName();
@@ -93,31 +93,5 @@ public interface CellGroup extends EObject {
    * @generated
    */
   EList<CellResult> getCellResults();
-
-  /**
-   * Returns the value of the '<em><b>Custom Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Custom Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Custom Name</em>' attribute.
-   * @see #setCustomName(boolean)
-   * @see datamodel.DatamodelPackage#getCellGroup_CustomName()
-   * @model
-   * @generated
-   */
-  boolean isCustomName();
-
-  /**
-   * Sets the value of the '{@link datamodel.CellGroup#isCustomName <em>Custom Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Custom Name</em>' attribute.
-   * @see #isCustomName()
-   * @generated
-   */
-  void setCustomName(boolean value);
 
 } // CellGroup

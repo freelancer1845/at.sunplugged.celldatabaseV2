@@ -7,19 +7,33 @@
    </configIni>
 
    <launcherArgs>
+      <programArgs>-clearPersistedState
+      </programArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
    </launcherArgs>
+
+   <launcher>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
 
    <plugins>
    </plugins>
 
    <features>
-      <feature id="org.eclipse.e4.rcp" version="1.6.1.v20170928-1359"/>
       <feature id="at.sunplugged.celldatabaseV2.feature" version="1.0.0.qualifier"/>
-      <feature id="org.eclipse.emf.ecore" version="2.13.0.v20170609-0707"/>
-      <feature id="org.eclipse.emf.common" version="2.13.0.v20170609-0707"/>
-      <feature id="org.eclipse.emf.edit" version="2.12.0.v20170609-0928"/>
+      <feature id="org.eclipse.emf" version="2.13.0.v20170609-0928"/>
+      <feature id="org.eclipse.platform" version="4.7.1.v20171009-0410"/>
+      <feature id="org.eclipse.jdt" version="3.13.1.v20171009-0410"/>
+      <feature id="org.eclipse.ecf.core.feature" version="1.4.0.v20170516-2248"/>
+      <feature id="org.eclipse.ecf.filetransfer.feature" version="3.13.8.v20170715-2257"/>
+      <feature id="org.eclipse.net4j" version="4.6.0.v20170522-0642"/>
+      <feature id="org.eclipse.emf.ecp.emfforms.runtime.feature" version="1.14.0.20170911-0944"/>
    </features>
 
    <configurations>

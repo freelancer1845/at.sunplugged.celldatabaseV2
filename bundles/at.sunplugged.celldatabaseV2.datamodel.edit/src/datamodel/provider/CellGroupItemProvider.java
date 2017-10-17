@@ -66,7 +66,6 @@ public class CellGroupItemProvider
       addNamePropertyDescriptor(object);
       addDescriptionPropertyDescriptor(object);
       addCellResultsPropertyDescriptor(object);
-      addCustomNamePropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -133,28 +132,6 @@ public class CellGroupItemProvider
          false,
          true,
          null,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Custom Name feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addCustomNamePropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_CellGroup_customName_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_CellGroup_customName_feature", "_UI_CellGroup_type"),
-         DatamodelPackage.Literals.CELL_GROUP__CUSTOM_NAME,
-         true,
-         false,
-         false,
-         ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
          null,
          null));
   }
@@ -229,7 +206,6 @@ public class CellGroupItemProvider
     switch (notification.getFeatureID(CellGroup.class)) {
       case DatamodelPackage.CELL_GROUP__NAME:
       case DatamodelPackage.CELL_GROUP__DESCRIPTION:
-      case DatamodelPackage.CELL_GROUP__CUSTOM_NAME:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case DatamodelPackage.CELL_GROUP__CELL_RESULTS:

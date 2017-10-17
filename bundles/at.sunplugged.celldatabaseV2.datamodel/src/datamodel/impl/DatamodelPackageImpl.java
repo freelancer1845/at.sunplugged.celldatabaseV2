@@ -332,15 +332,6 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellGroup_CustomName() {
-    return (EAttribute)cellGroupEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getCellMeasurementDataSet() {
     return cellMeasurementDataSetEClass;
   }
@@ -479,7 +470,6 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
     createEAttribute(cellGroupEClass, CELL_GROUP__NAME);
     createEAttribute(cellGroupEClass, CELL_GROUP__DESCRIPTION);
     createEReference(cellGroupEClass, CELL_GROUP__CELL_RESULTS);
-    createEAttribute(cellGroupEClass, CELL_GROUP__CUSTOM_NAME);
 
     cellMeasurementDataSetEClass = createEClass(CELL_MEASUREMENT_DATA_SET);
     createEAttribute(cellMeasurementDataSetEClass, CELL_MEASUREMENT_DATA_SET__NAME);
@@ -546,10 +536,9 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
     initEAttribute(getCellResult_MaximumPower(), ecorePackage.getEDouble(), "maximumPower", null, 0, 1, CellResult.class, !IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
     initEClass(cellGroupEClass, CellGroup.class, "CellGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getCellGroup_Name(), ecorePackage.getEString(), "name", null, 0, 1, CellGroup.class, !IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCellGroup_Name(), ecorePackage.getEString(), "name", "Unkown Group", 0, 1, CellGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCellGroup_Description(), ecorePackage.getEString(), "description", null, 0, 1, CellGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCellGroup_CellResults(), this.getCellResult(), null, "cellResults", null, 0, -1, CellGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getCellGroup_CustomName(), ecorePackage.getEBoolean(), "customName", null, 0, 1, CellGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(cellMeasurementDataSetEClass, CellMeasurementDataSet.class, "CellMeasurementDataSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getCellMeasurementDataSet_Name(), ecorePackage.getEString(), "name", null, 0, 1, CellMeasurementDataSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
