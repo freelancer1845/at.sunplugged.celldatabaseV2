@@ -28,9 +28,9 @@ public class DatabaseServiceImpl implements DatabaseService {
 
   @Override
   public Database getDatabase() {
-
-    database = createDefaultDatabase();
-
+    if (database == null) {
+      database = createDefaultDatabase();
+    }
     return database;
   }
 
@@ -47,6 +47,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     database.getCellGroups().add(cellGroup);
 
     resource.getContents().add(database);
+
     return database;
   }
 

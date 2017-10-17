@@ -1,13 +1,22 @@
 
 package at.sunplugged.celldatabasev2.rcp.main.parts;
 
+import java.util.EventObject;
 import javax.annotation.PostConstruct;
 import org.eclipse.e4.ui.di.Persist;
+import org.eclipse.e4.ui.services.EMenuService;
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.emf.common.command.CommandStack;
+import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emfforms.spi.swt.treemasterdetail.TreeViewerSWTFactory;
 import org.eclipse.jface.viewers.ILabelDecorator;
 import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
@@ -20,13 +29,15 @@ import datamodel.Database;
 public class ModelViewerPart {
 
   @PostConstruct
-  public void postConstruct(Composite parent, DatabaseService databaseService) {
+  public void postConstruct(Composite parent, DatabaseService databaseService,
+      EMenuService menuService, ESelectionService selectionService) {
     Database database = databaseService.getDatabase();
 
-    createTreeViewer(parent, database);
+    createTreeViewer(parent, database, menuService, selectionService);
   }
 
-  private void createTreeViewer(Composite parent, Database database) {
+  private void createTreeViewer(Composite parent, Database database, EMenuService menuService,
+      ESelectionService selectionService) {
     TreeViewer treeViewer = TreeViewerSWTFactory.fillDefaults(parent, database)
         .customizeLabelDecorator(new ILabelDecorator() {
 
@@ -110,6 +121,30 @@ public class ModelViewerPart {
             return new Object[] {};
           }
         }).create();
+
+
+    CommandStack commandStack =
+        AdapterFactoryEditingDomain.getEditingDomainFor(database).getCommandStack();
+    commandStack.addCommandStackListener(new CommandStackListener() {
+
+      @Override
+      public void commandStackChanged(EventObject event) {
+        treeViewer.refresh();
+      }
+    });
+
+    menuService.registerContextMenu(treeViewer.getControl(),
+        "at.sunplugged.celldatabasev2.rcp.main.popupmenu.treemenu");
+
+    treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+
+      @Override
+      public void selectionChanged(SelectionChangedEvent event) {
+        IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+        selectionService.setSelection(
+            selection.size() == 1 ? selection.getFirstElement() : selection.toArray());
+      }
+    });
   }
 
   @Persist

@@ -1,19 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmi:id="_c3AF0MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.application" bindingContexts="_c3AF2cjYEeSyMNYR5xypkQ">
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmlns:ui="http://www.eclipse.org/ui/2010/UIModel/application/ui" xmi:id="_c3AF0MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.application" bindingContexts="_c3AF2cjYEeSyMNYR5xypkQ">
   <children xsi:type="basic:TrimmedWindow" xmi:id="_c3AF0cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.window.main" label="Cell Database" width="500" height="400">
     <children xsi:type="basic:PartSashContainer" xmi:id="_ttVt4LNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.partsashcontainer.0" horizontal="true">
       <children xsi:type="basic:PartStack" xmi:id="_vRfBMLNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.partstack.0">
-        <children xsi:type="basic:Part" xmi:id="_g8lvgLNYEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.part.modelviewer" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.parts.ModelViewerPart" label="Model Viewer"/>
+        <children xsi:type="basic:Part" xmi:id="_g8lvgLNYEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.part.modelviewer" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.parts.ModelViewerPart" label="Model Viewer">
+          <menus xsi:type="menu:PopupMenu" xmi:id="_tct8ULNlEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.popupmenu.treemenu" label="TreeMenu">
+            <children xsi:type="menu:HandledMenuItem" xmi:id="_y3mQoLNlEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.createcellgroup" label="Create CellGroup" command="_v9yK4LNlEee9C5ECqbuxVA"/>
+            <children xsi:type="menu:HandledMenuItem" xmi:id="_BiyLULNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.delete" label="Delete" command="_-7xs0LNoEee9C5ECqbuxVA">
+              <visibleWhen xsi:type="ui:ImperativeExpression" xmi:id="_PrFtULNqEee9C5ECqbuxVA" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.imperativeexp.IsEObjectSelected"/>
+            </children>
+            <children xsi:type="menu:HandledMenuItem" xmi:id="_2dp0gLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.undo" label="Undo" command="_yHo2gLNpEee9C5ECqbuxVA">
+              <visibleWhen xsi:type="ui:ImperativeExpression" xmi:id="_sAfcoLNqEee9C5ECqbuxVA" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.imperativeexp.CanUndo"/>
+            </children>
+            <children xsi:type="menu:HandledMenuItem" xmi:id="_3v6GkLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.redo" label="Redo" command="_zI9JkLNpEee9C5ECqbuxVA">
+              <visibleWhen xsi:type="ui:ImperativeExpression" xmi:id="_8oVjMLNrEee9C5ECqbuxVA" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.imperativeexp.CanRedo"/>
+            </children>
+          </menus>
+        </children>
       </children>
       <children xsi:type="basic:PartStack" xmi:id="_wZJM0LNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.partstack.1"/>
     </children>
     <trimBars xmi:id="_xbgowLNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.trimbar.0"/>
     <trimBars xmi:id="_x20EsLNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.trimbar.1" side="Bottom"/>
   </children>
+  <handlers xmi:id="_2VWJ4LNlEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.0" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.CreateCellGroupHandler" command="_v9yK4LNlEee9C5ECqbuxVA"/>
+  <handlers xmi:id="_GEFMQLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.1" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.Delete" command="_-7xs0LNoEee9C5ECqbuxVA"/>
+  <handlers xmi:id="_5iHEALNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.2" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.Undo" command="_yHo2gLNpEee9C5ECqbuxVA"/>
+  <handlers xmi:id="_GDaocLNqEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.3" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.RedoHandler" command="_zI9JkLNpEee9C5ECqbuxVA"/>
   <rootContext xmi:id="_c3AF2cjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_c3AF28jYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
+  <commands xmi:id="_v9yK4LNlEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.createcellgroup" commandName="Create CellGroup"/>
+  <commands xmi:id="_-7xs0LNoEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.delete" commandName="Delete"/>
+  <commands xmi:id="_yHo2gLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.undo" commandName="Undo"/>
+  <commands xmi:id="_zI9JkLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.redo" commandName="Redo"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

@@ -13,7 +13,7 @@
       </vmArgsMac>
    </launcherArgs>
 
-   <launcher>
+   <launcher name="CellDatabase">
       <win useIco="false">
          <bmp/>
       </win>
