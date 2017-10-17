@@ -23,4 +23,32 @@
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="at.sunplugged.celldatabaseV2.datamodel"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="at.sunplugged.celldatabaseV2.datamodel.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="at.sunplugged.celldatabaseV2.persistence.api"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="at.sunplugged.celldatabaseV2.persistence.xmi"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
