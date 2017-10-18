@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,7 +101,8 @@ public class SprodConnection {
           dataPoint.setCurrent(lightData.getDouble(2));
           lightDataList.add(dataPoint);
         }
-        Collections.sort(lightDataList, (a, b) -> Double.compare(a.getVoltage(), b.getVoltage()));
+        // Collections.sort(lightDataList, (a, b) -> Double.compare(a.getVoltage(),
+        // b.getVoltage()));
 
         lightDataSet.getData().addAll(lightDataList);
         result.setLightMeasurementDataSet(lightDataSet);
@@ -123,11 +123,14 @@ public class SprodConnection {
           darkDataList.add(dataPoint);
 
         }
-        Collections.sort(darkDataList, (a, b) -> Double.compare(a.getVoltage(), b.getVoltage()));
+        // Collections.sort(darkDataList, (a, b) -> Double.compare(a.getVoltage(), b.getVoltage()));
         darkDataSet.setName(result.getName() + " (dark)");
         darkDataSet.getData().addAll(darkDataList);
-        result.setDarkMeasuremenetDataSet(darkDataSet);
-
+        if (darkDataList.isEmpty() == false) {
+          result.setDarkMeasuremenetDataSet(darkDataSet);
+        } else {
+          LOG.warn("No dark data found for Sprod data with id: " + id);
+        }
         sql = String.format("SELECT Surf FROM MesCel WHERE ID = %d", idRow.getInt(3));
         ResultSet surfResultSet = stm.executeQuery(sql);
         if (surfResultSet.next() == false) {

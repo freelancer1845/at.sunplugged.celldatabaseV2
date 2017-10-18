@@ -3,6 +3,7 @@ package at.sunplugged.celldatabaseV2.sprodaccess.ui.wizard.internal;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import org.eclipse.core.databinding.observable.Observables;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;
@@ -20,6 +21,8 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -58,6 +61,8 @@ public class PageOne extends WizardPage {
 
   private TableViewer viewer;
 
+  private Text txtIds;
+
 
 
   public PageOne(SprodAccessService sprodAccessService) {
@@ -88,12 +93,36 @@ public class PageOne extends WizardPage {
     btnSprodFile.setText("Choose file...");
     btnSprodFile.addSelectionListener(new BtnSprodFileSelectionListener());
 
+    Label label = new Label(container, SWT.NONE);
+    label.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+    label.setText("Set IDs");
+    label.setToolTipText("For example: 3,4,75,30-46");
+
+    txtIds = new Text(container, SWT.BORDER | SWT.SINGLE);
+    txtIds.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+
 
     btnImport = new Button(container, SWT.PUSH);
     btnImport.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
     btnImport.setText("Import");
     btnImport.addSelectionListener(new BtnImportSelectionListener());
+    txtIds.addModifyListener(new ModifyListener() {
 
+      @Override
+      public void modifyText(ModifyEvent e) {
+        String currentText = txtIds.getText();
+        try {
+          int[] ids = getIdsFromText(currentText);
+          btnImport.setEnabled(true);
+          if (ids.length == 0) {
+            throw new NumberFormatException();
+          }
+        } catch (NumberFormatException e1) {
+          txtIds.setToolTipText("Input not correct...");
+          btnImport.setEnabled(false);
+        }
+      }
+    });
 
     TableViewerSWTBuilder builder = TableViewerFactory.fillDefaults(container, SWT.NONE,
         Observables.staticObservableList(sprodResults));
@@ -207,14 +236,36 @@ public class PageOne extends WizardPage {
     }
   }
 
+  private int[] getIdsFromText(String input) {
+    String[] elements = input.split(",");
+    List<Integer> values = new LinkedList<>();
+    for (String element : elements) {
+      element.replace(" ", "");
+      if (element.contains("-")) {
+        String[] startAndEnd = element.split("-");
+        if (startAndEnd.length != 2) {
+          throw new NumberFormatException();
+        }
+        int start = Integer.valueOf(startAndEnd[0]);
+        int end = Integer.valueOf(startAndEnd[1]);
+        for (int i = start; i <= end; i++) {
+          values.add(i);
+        }
+      } else {
+        values.add(Integer.valueOf(element));
+      }
+    }
+
+    return values.stream().mapToInt(value -> value).toArray();
+  }
+
   private final class BtnImportSelectionListener extends SelectionAdapter {
     @Override
     public void widgetSelected(SelectionEvent e) {
       try {
         sprodResults.clear();
         sprodAccessService.openFile(new File(txtSprodFile.getText()));
-        // sprodResults.addAll(sprodAccessService.getByIds(new int[] {560, 561, 563, 564}));
-        sprodResults.addAll(sprodAccessService.getAll());
+        sprodResults.addAll(sprodAccessService.getByIds(getIdsFromText(txtIds.getText())));
         sprodAccessService.close();
         viewer.refresh();
         setPageComplete(true);

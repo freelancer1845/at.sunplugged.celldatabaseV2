@@ -2,9 +2,9 @@
 package at.sunplugged.celldatabasev2.rcp.main.handler;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.inject.Named;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -15,17 +15,38 @@ import org.eclipse.swt.widgets.Shell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.export.api.ExcelOutputHelper;
+import datamodel.CellGroup;
 import datamodel.CellResult;
 
 public class ExportExcelGroup {
   private static final Logger LOG = LoggerFactory.getLogger(ExportExcelGroup.class);
 
   @Execute
-  public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) Object[] selection, Shell parent) {
+  public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) Object selection, Shell parent) {
     LOG.debug("Exporting Excel CellResults...");
+    List<CellResult> cellResults = new ArrayList<>();
+    if (selection instanceof Object[]) {
+      Arrays.stream((Object[]) selection).sequential().forEach(object -> {
+        if (object instanceof CellGroup) {
+          CellGroup group = (CellGroup) object;
+          group.getCellResults().stream().sequential().forEach(result -> {
+            if (cellResults.contains(result) == false) {
+              cellResults.add(result);
+            }
+          });
+        } else if (object instanceof CellResult) {
+          CellResult result = (CellResult) object;
+          if (cellResults.contains(result) == false) {
+            cellResults.add(result);
+          }
+        }
 
-    List<CellResult> cellResults = Arrays.stream(selection)
-        .map(cellResult -> (CellResult) cellResult).collect(Collectors.toList());
+      });
+    } else if (selection instanceof CellGroup) {
+      cellResults.addAll(((CellGroup) selection).getCellResults());
+    } else if (selection instanceof CellResult) {
+      cellResults.add((CellResult) selection);
+    }
 
     if (cellResults.isEmpty()) {
       LOG.warn("Tried to export 0 CellResults...");
@@ -45,15 +66,24 @@ public class ExportExcelGroup {
 
 
   @CanExecute
-  public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) Object[] selection) {
+  public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) Object selection) {
     if (selection == null) {
       return false;
     }
-    if (selection.length == 0) {
-      return false;
-    } else if (Arrays.stream(selection).anyMatch(object -> !(object instanceof CellResult))) {
-      return false;
+    if (selection instanceof Object[]) {
+      Object[] selections = (Object[]) selection;
+      if (selections.length == 0) {
+        return false;
+      } else if (Arrays.stream(selections)
+          .anyMatch(object -> !(object instanceof CellResult) && !(object instanceof CellGroup))) {
+        return false;
+      }
+    } else if (selection instanceof CellGroup) {
+      return true;
+    } else if (selection instanceof CellResult) {
+      return true;
     }
+
     return true;
   }
 

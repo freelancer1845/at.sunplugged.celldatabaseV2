@@ -157,7 +157,7 @@ public class ModelViewerPart {
       @Override
       public void commandStackChanged(EventObject event) {
         treeViewer.refresh();
-        dirtyable.setDirty(true);
+        dirtyable.setDirty(commandStack.canUndo());
       }
     });
 

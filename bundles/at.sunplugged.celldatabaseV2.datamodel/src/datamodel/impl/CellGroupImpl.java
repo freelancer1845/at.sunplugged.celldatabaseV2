@@ -103,6 +103,7 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
           if (cellResults == null || cellResults.isEmpty()) {
             String name = "Cannot be deduced...";
             setName(name);
+            return;
           }
           String regex = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS)
               .get(RegexPatterns.LABVIEW_GROUP_COMPLEMENT, "");

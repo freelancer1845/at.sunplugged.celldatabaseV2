@@ -41,6 +41,9 @@ public class ExcelOutputHelper {
       new String[] {"Cell", "Voc[V]", "Jsc[A/mm^2]", "Rp[ohm/mm^2]", "RpDark[ohm/mm^2]",
           "Rs[ohm/mm^2]", "RsDark[ohm/mm^2]", "MP[W/mm^2]", "Efficency[%]", "FillFactor",};
 
+  private static final String[] DATA_SET_ROW_NAMES =
+      new String[] {"Name", "Area[mm^2]", "PowerInput"};
+
   private static final EAttribute[] LITERALS =
       new EAttribute[] {Literals.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE,
           Literals.CELL_RESULT__SHORT_CIRCUIT_CURRENT, Literals.CELL_RESULT__PARALLEL_RESISTANCE,
@@ -356,13 +359,30 @@ public class ExcelOutputHelper {
 
     XSSFCell cCell;
 
-    for (EAttribute attr : resAttribs) {
-      cCell = nameRow.createCell(colId);
-      cCell.setCellStyle(headerCellStyle);
-      writeValueToCell(cCell, attr.getName());
-      cCell = valueRow.createCell(colId++);
-      writeValueToCell(cCell, res.eGet(attr), attr);
-    }
+    double area = res.getLightMeasurementDataSet().getArea() * 1000000;
+
+    cCell = nameRow.createCell(colId);
+    fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
+        GROUP_ROW_NAMES[0], res.getName());
+    fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
+        GROUP_ROW_NAMES[1], res.getParallelResistance());
+    fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
+        GROUP_ROW_NAMES[2], res.getShortCircuitCurrent() / area);
+    fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
+        GROUP_ROW_NAMES[3], res.getParallelResistance() / area);
+    fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
+        GROUP_ROW_NAMES[4], res.getDarkParallelResistance() / area);
+    fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
+        GROUP_ROW_NAMES[5], res.getSeriesResistance() / area);
+    fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
+        GROUP_ROW_NAMES[6], res.getDarkSeriesResistance() / area);
+    fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
+        GROUP_ROW_NAMES[7], res.getMaximumPower() / area);
+    fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
+        GROUP_ROW_NAMES[8], res.getEfficiency());
+    fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
+        GROUP_ROW_NAMES[9], res.getFillFactor());
+
 
     colId = 0;
 
@@ -379,15 +399,14 @@ public class ExcelOutputHelper {
 
     nameRow = sheet.createRow(rowId++);
     valueRow = sheet.createRow(rowId++);
-    for (EAttribute attr : DatamodelPackage.eINSTANCE.getCellMeasurementDataSet()
-        .getEAttributes()) {
-      cCell = nameRow.createCell(colId);
-      cCell.setCellStyle(headerCellStyle);
-      writeValueToCell(cCell, attr.getName());
-      cCell = valueRow.createCell(colId++);
-      writeValueToCell(cCell, dataSet.eGet(attr), attr);
 
-    }
+    fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
+        DATA_SET_ROW_NAMES[0], dataSet.getName());
+    fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
+        DATA_SET_ROW_NAMES[1], dataSet.getArea() * 1000000);
+    fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
+        DATA_SET_ROW_NAMES[2], dataSet.getPowerInput());
+
 
     rowId++;
     XSSFRow seperatorRow2 = sheet.createRow(rowId++);
@@ -396,27 +415,58 @@ public class ExcelOutputHelper {
     cCell.setCellStyle(headerCellStyle);
 
     XSSFRow dataNameRow = sheet.createRow(rowId++);
+    colId = 0;
 
-    cCell = dataNameRow.createCell(0);
+    cCell = dataNameRow.createCell(colId++);
     cCell.setCellStyle(headerCellStyle);
     cCell.setCellValue("Voltage[V]");
-    cCell = dataNameRow.createCell(1);
+
+    cCell = dataNameRow.createCell(colId++);
     cCell.setCellStyle(headerCellStyle);
     cCell.setCellValue("Current [A]");
+
+    cCell = dataNameRow.createCell(colId++);
+    cCell.setCellStyle(headerCellStyle);
+    cCell.setCellValue("Power [W]");
+
+    cCell = dataNameRow.createCell(colId++);
+    cCell.setCellStyle(headerCellStyle);
+    cCell.setCellValue("Current [A/mm^2]");
+
+    cCell = dataNameRow.createCell(colId++);
+    cCell.setCellStyle(headerCellStyle);
+    cCell.setCellValue("Power [W/mm^2]");
+
+
 
     XSSFRow cRow;
     for (UIDataPoint dataPoint : dataSet.getData()) {
       cRow = sheet.createRow(rowId++);
-      cCell = cRow.createCell(0);
+      colId = 0;
+
+      cCell = cRow.createCell(colId++);
       cCell.setCellValue(dataPoint.getVoltage());
-      cCell = cRow.createCell(1);
+      cCell = cRow.createCell(colId++);
       cCell.setCellValue(dataPoint.getCurrent());
+      cCell = cRow.createCell(colId++);
+      cCell.setCellValue(dataPoint.getVoltage() * dataPoint.getCurrent());
+      cCell = cRow.createCell(colId++);
+      cCell.setCellValue(dataPoint.getCurrent() / area);
+      cCell = cRow.createCell(colId++);
+      cCell.setCellValue(dataPoint.getCurrent() * dataPoint.getVoltage() / area);
     }
 
     for (int i = 0; i < 15; i++) {
       sheet.getColumnHelper().setColWidth(i, 18);
     }
 
+  }
+
+  private void fillHeaderAndValueCell(XSSFCell nameCell, XSSFCell valueCell, String name,
+      Object value) {
+    nameCell.setCellStyle(headerCellStyle);
+    writeValueToCell(nameCell, name);
+    writeValueToCell(valueCell, value);
   }
 
   private void writeWorkbook(String filePath, XSSFWorkbook workbook) {
