@@ -21,7 +21,7 @@
 		<module>at.sunplugged.celldatabaseV2.persistence.xmi</module>
 		<module>at.sunplugged.celldatabaseV2.labviewimport</module>
 		<module>at.sunplugged.celldatabaseV2.labviewimport.ui</module>
-		<module>at.sunplugged.celldatabase.export</module>
-		<module>at.sunplugged.celldatabase.export.ui</module>
+		<module>at.sunplugged.celldatabaseV2.export</module>
+		<module>at.sunplugged.celldatabaseV2.export.ui</module>
 	</modules>
 </project>

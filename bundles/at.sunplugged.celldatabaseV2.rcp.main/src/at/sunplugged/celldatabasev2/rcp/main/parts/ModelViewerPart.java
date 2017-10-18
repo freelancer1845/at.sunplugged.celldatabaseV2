@@ -35,7 +35,10 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.persistence.api.DatabaseService;
+import at.sunplugged.celldatabaseV2.persistence.api.DatabaseServiceException;
 import datamodel.CellGroup;
 import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;
@@ -43,16 +46,17 @@ import datamodel.Database;
 
 public class ModelViewerPart {
 
+  private static final Logger LOG = LoggerFactory.getLogger(ModelViewerPart.class);
+
   @Inject
   private MDirtyable dirtyable;
 
   private Map<URI, MPart> createdEditors = new HashMap<>();
 
   @PostConstruct
-  public void postConstruct(Composite parent, DatabaseService databaseService,
-      EMenuService menuService, ESelectionService selectionService, EPartService partService,
-      EModelService modelService, MApplication app) {
-    Database database = databaseService.getDatabase();
+  public void postConstruct(Composite parent, Database database, EMenuService menuService,
+      ESelectionService selectionService, EPartService partService, EModelService modelService,
+      MApplication app) {
 
     createTreeViewer(parent, database, menuService, selectionService, partService, modelService,
         app);
@@ -144,8 +148,8 @@ public class ModelViewerPart {
             return new Object[] {};
           }
         }).create();
-
-
+    treeViewer.setAutoExpandLevel(0);
+    treeViewer.collapseAll();
     CommandStack commandStack =
         AdapterFactoryEditingDomain.getEditingDomainFor(database).getCommandStack();
     commandStack.addCommandStackListener(new CommandStackListener() {
@@ -171,11 +175,17 @@ public class ModelViewerPart {
     });
 
     treeViewer.addDoubleClickListener(new DoubleClickListener(partService, modelService, app));
+
   }
 
   @Persist
   public void save(DatabaseService databaseService) {
-    databaseService.saveDatabase();
+    try {
+      databaseService.saveDatabase();
+      dirtyable.setDirty(false);
+    } catch (DatabaseServiceException e) {
+      LOG.error("Failed to persit modelviewer part", e);
+    }
   }
 
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmlns:ui="http://www.eclipse.org/ui/2010/UIModel/application/ui" xmi:id="_c3AF0MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.application" bindingContexts="_c3AF2cjYEeSyMNYR5xypkQ">
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_c3AF0cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.window.main" label="Cell Database" width="500" height="400">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_c3AF0cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.window.main" label="Cell Database" width="1000" height="800">
     <children xsi:type="basic:PartSashContainer" xmi:id="_ttVt4LNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.partsashcontainer.0" horizontal="true">
-      <children xsi:type="basic:PartStack" xmi:id="_vRfBMLNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.partstack.0">
+      <children xsi:type="basic:PartStack" xmi:id="_vRfBMLNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.partstack.0" containerData="4000">
         <children xsi:type="basic:Part" xmi:id="_g8lvgLNYEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.part.modelviewer" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.parts.ModelViewerPart" label="Model Viewer">
           <menus xsi:type="menu:PopupMenu" xmi:id="_tct8ULNlEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.popupmenu.treemenu" label="TreeMenu">
             <children xsi:type="menu:HandledMenuItem" xmi:id="_y3mQoLNlEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.createcellgroup" label="Create CellGroup" command="_v9yK4LNlEee9C5ECqbuxVA"/>
@@ -18,13 +18,17 @@
           </menus>
         </children>
       </children>
-      <children xsi:type="basic:PartStack" xmi:id="_wZJM0LNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.partstack.1"/>
+      <children xsi:type="basic:PartStack" xmi:id="_wZJM0LNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.partstack.1" containerData="10000"/>
     </children>
     <mainMenu xmi:id="_7KFZ4LPWEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.menu.0">
+      <children xsi:type="menu:Menu" xmi:id="_MEGKgLQEEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.menu.database" label="Database">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_M1yGILQEEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.save" label="Save" command="_I0eM0LQEEee9C5ECqbuxVA"/>
+      </children>
       <children xsi:type="menu:Menu" xmi:id="_8D9oMLPWEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.menu.import" label="Import/Export">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_9HSGYLPWEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.importfromlabview" label="Import from Labview" command="_eJyEILNtEee9C5ECqbuxVA"/>
         <children xsi:type="menu:MenuSeparator" xmi:id="_nIDtoLPkEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.menuseparator.0"/>
         <children xsi:type="menu:DirectMenuItem" xmi:id="_pfk-oLPkEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.directmenuitem.excelexportgroupssummary" label="Excel Export Groups Summary" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ExportExcelGroupSummaries"/>
+        <children xsi:type="menu:DirectMenuItem" xmi:id="_oRyaYLQnEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.directmenuitem.excelexportgroup" label="Excel Export Group" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ExportExcelGroup"/>
       </children>
       <children xsi:type="menu:Menu" xmi:id="_dryogLPZEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.menu.settings" label="Settings">
         <children xsi:type="menu:DirectMenuItem" xmi:id="_jEUzcLPZEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.directmenuitem.pythonsettings" label="Python Settings" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.PythonSettingsHandler"/>
@@ -34,10 +38,11 @@
     <trimBars xmi:id="_x20EsLNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.trimbar.1" side="Bottom"/>
   </children>
   <handlers xmi:id="_2VWJ4LNlEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.0" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.CreateCellGroupHandler" command="_v9yK4LNlEee9C5ECqbuxVA"/>
-  <handlers xmi:id="_GEFMQLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.1" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.Delete" command="_-7xs0LNoEee9C5ECqbuxVA"/>
+  <handlers xmi:id="_GEFMQLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.1" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.DeleteHandler" command="_-7xs0LNoEee9C5ECqbuxVA"/>
   <handlers xmi:id="_5iHEALNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.2" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.Undo" command="_yHo2gLNpEee9C5ECqbuxVA"/>
   <handlers xmi:id="_GDaocLNqEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.3" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.RedoHandler" command="_zI9JkLNpEee9C5ECqbuxVA"/>
   <handlers xmi:id="_hDkUsLNtEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.4" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ImportFromLabviewHandler" command="_eJyEILNtEee9C5ECqbuxVA"/>
+  <handlers xmi:id="_QRy6ALQEEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.5" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.SaveHandler" command="_I0eM0LQEEee9C5ECqbuxVA"/>
   <rootContext xmi:id="_c3AF2cjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_c3AF28jYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
@@ -48,6 +53,7 @@
   <commands xmi:id="_yHo2gLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.undo" commandName="Undo"/>
   <commands xmi:id="_zI9JkLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.redo" commandName="Redo"/>
   <commands xmi:id="_eJyEILNtEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.importfromlabview" commandName="Import From Labview"/>
+  <commands xmi:id="_I0eM0LQEEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.save" commandName="Save"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

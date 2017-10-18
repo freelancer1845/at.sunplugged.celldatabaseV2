@@ -15,8 +15,10 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 import org.slf4j.ILoggerFactory;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.persistence.api.DatabaseService;
+import at.sunplugged.celldatabaseV2.persistence.api.DatabaseServiceException;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
@@ -29,6 +31,8 @@ import datamodel.Database;
  **/
 @SuppressWarnings("restriction")
 public class E4LifeCycle {
+  private static final Logger LOG = LoggerFactory.getLogger(E4LifeCycle.class);
+
 
 
   @PostContextCreate
@@ -37,7 +41,13 @@ public class E4LifeCycle {
 
 
     DatabaseService databaseService = workbenchContext.get(DatabaseService.class);
-    Database database = databaseService.getDatabase();
+    Database database;
+    try {
+      database = databaseService.getDatabase();
+    } catch (DatabaseServiceException e) {
+      LOG.error("Faild to load database intially...", e);
+      return;
+    }
     EditingDomain domain = AdapterFactoryEditingDomain.getEditingDomainFor(database);
 
     workbenchContext.set(ContextKeys.EDITING_DOMAIN, domain);

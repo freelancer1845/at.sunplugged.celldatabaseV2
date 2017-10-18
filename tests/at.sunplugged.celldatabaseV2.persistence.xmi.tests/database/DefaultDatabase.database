@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="ASCII"?>
+<at.sunplugged.cdv.datamodel:Database xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:at.sunplugged.cdv.datamodel="http://at/sunplugged/cdv/datamodel">
+  <cellGroups name="TestGroup"/>
+</at.sunplugged.cdv.datamodel:Database>

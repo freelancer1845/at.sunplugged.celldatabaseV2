@@ -116,20 +116,6 @@
          unpack="false"/>
 
    <plugin
-         id="at.sunplugged.celldatabase.export"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="at.sunplugged.celldatabase.export.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.apache.commons.math3"
          download-size="0"
          install-size="0"
@@ -166,6 +152,20 @@
 
    <plugin
          id="org.apache.xmlbeans"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="at.sunplugged.celldatabaseV2.export"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="at.sunplugged.celldatabaseV2.export.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"

@@ -33,9 +33,9 @@ public class CellMeasurementDataSetItemProvider extends ItemProviderAdapter
     implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider,
     IItemLabelProvider, IItemPropertySource {
   /**
-   * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!--
+   * This constructs an instance from a factory and a notifier.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @generated
    */
   public CellMeasurementDataSetItemProvider(AdapterFactory adapterFactory) {
@@ -43,9 +43,9 @@ public class CellMeasurementDataSetItemProvider extends ItemProviderAdapter
   }
 
   /**
-   * This returns the property descriptors for the adapted class. <!-- begin-user-doc --> <!--
+   * This returns the property descriptors for the adapted class.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @generated
    */
   @Override
@@ -69,45 +69,63 @@ public class CellMeasurementDataSetItemProvider extends ItemProviderAdapter
    * @generated
    */
   protected void addNamePropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellMeasurementDataSet_name_feature"),
-        getString("_UI_PropertyDescriptor_description", "_UI_CellMeasurementDataSet_name_feature",
-            "_UI_CellMeasurementDataSet_type"),
-        DatamodelPackage.Literals.CELL_MEASUREMENT_DATA_SET__NAME, true, false, false,
-        ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellMeasurementDataSet_name_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellMeasurementDataSet_name_feature", "_UI_CellMeasurementDataSet_type"),
+         DatamodelPackage.Literals.CELL_MEASUREMENT_DATA_SET__NAME,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This adds a property descriptor for the Description feature. <!-- begin-user-doc --> <!--
+   * This adds a property descriptor for the Description feature.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @generated
    */
   protected void addDescriptionPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellMeasurementDataSet_description_feature"),
-        getString("_UI_PropertyDescriptor_description",
-            "_UI_CellMeasurementDataSet_description_feature", "_UI_CellMeasurementDataSet_type"),
-        DatamodelPackage.Literals.CELL_MEASUREMENT_DATA_SET__DESCRIPTION, true, false, false,
-        ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellMeasurementDataSet_description_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellMeasurementDataSet_description_feature", "_UI_CellMeasurementDataSet_type"),
+         DatamodelPackage.Literals.CELL_MEASUREMENT_DATA_SET__DESCRIPTION,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This adds a property descriptor for the Date Measured feature. <!-- begin-user-doc --> <!--
+   * This adds a property descriptor for the Date Measured feature.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @generated
    */
   protected void addDateMeasuredPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellMeasurementDataSet_dateMeasured_feature"),
-        getString("_UI_PropertyDescriptor_description",
-            "_UI_CellMeasurementDataSet_dateMeasured_feature", "_UI_CellMeasurementDataSet_type"),
-        DatamodelPackage.Literals.CELL_MEASUREMENT_DATA_SET__DATE_MEASURED, true, false, false,
-        ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellMeasurementDataSet_dateMeasured_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellMeasurementDataSet_dateMeasured_feature", "_UI_CellMeasurementDataSet_type"),
+         DatamodelPackage.Literals.CELL_MEASUREMENT_DATA_SET__DATE_MEASURED,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
@@ -117,38 +135,49 @@ public class CellMeasurementDataSetItemProvider extends ItemProviderAdapter
    * @generated
    */
   protected void addAreaPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellMeasurementDataSet_area_feature"),
-        getString("_UI_PropertyDescriptor_description", "_UI_CellMeasurementDataSet_area_feature",
-            "_UI_CellMeasurementDataSet_type"),
-        DatamodelPackage.Literals.CELL_MEASUREMENT_DATA_SET__AREA, true, false, false,
-        ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellMeasurementDataSet_area_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellMeasurementDataSet_area_feature", "_UI_CellMeasurementDataSet_type"),
+         DatamodelPackage.Literals.CELL_MEASUREMENT_DATA_SET__AREA,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This adds a property descriptor for the Power Input feature. <!-- begin-user-doc --> <!--
+   * This adds a property descriptor for the Power Input feature.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @generated
    */
   protected void addPowerInputPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellMeasurementDataSet_powerInput_feature"),
-        getString("_UI_PropertyDescriptor_description",
-            "_UI_CellMeasurementDataSet_powerInput_feature", "_UI_CellMeasurementDataSet_type"),
-        DatamodelPackage.Literals.CELL_MEASUREMENT_DATA_SET__POWER_INPUT, true, false, false,
-        ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellMeasurementDataSet_powerInput_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellMeasurementDataSet_powerInput_feature", "_UI_CellMeasurementDataSet_type"),
+         DatamodelPackage.Literals.CELL_MEASUREMENT_DATA_SET__POWER_INPUT,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate
-   * feature for an {@link org.eclipse.emf.edit.command.AddCommand},
-   * {@link org.eclipse.emf.edit.command.RemoveCommand} or
-   * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}. <!-- begin-user-doc
+   * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+   * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+   * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
@@ -162,7 +191,6 @@ public class CellMeasurementDataSetItemProvider extends ItemProviderAdapter
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
@@ -192,9 +220,10 @@ public class CellMeasurementDataSetItemProvider extends ItemProviderAdapter
    */
   @Override
   public String getText(Object object) {
-    String label = ((CellMeasurementDataSet) object).getName();
-    return label == null || label.length() == 0 ? getString("_UI_CellMeasurementDataSet_type")
-        : getString("_UI_CellMeasurementDataSet_type") + " " + label;
+    String label = ((CellMeasurementDataSet)object).getName();
+    return label == null || label.length() == 0 ?
+      getString("_UI_CellMeasurementDataSet_type") :
+      getString("_UI_CellMeasurementDataSet_type") + " " + label;
   }
 
 
@@ -202,7 +231,6 @@ public class CellMeasurementDataSetItemProvider extends ItemProviderAdapter
    * This handles model notifications by calling {@link #updateChildren} to update any cached
    * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
@@ -215,36 +243,35 @@ public class CellMeasurementDataSetItemProvider extends ItemProviderAdapter
       case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__DATE_MEASURED:
       case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__AREA:
       case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__POWER_INPUT:
-        fireNotifyChanged(
-            new ViewerNotification(notification, notification.getNotifier(), false, true));
+        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case DatamodelPackage.CELL_MEASUREMENT_DATA_SET__DATA:
-        fireNotifyChanged(
-            new ViewerNotification(notification, notification.getNotifier(), true, false));
+        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
     }
     super.notifyChanged(notification);
   }
 
   /**
-   * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children that
-   * can be created under this object. <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
+   * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+   * that can be created under this object.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   @Override
   protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
     super.collectNewChildDescriptors(newChildDescriptors, object);
 
-    newChildDescriptors
-        .add(createChildParameter(DatamodelPackage.Literals.CELL_MEASUREMENT_DATA_SET__DATA,
-            DatamodelFactory.eINSTANCE.createUIDataPoint()));
+    newChildDescriptors.add
+      (createChildParameter
+        (DatamodelPackage.Literals.CELL_MEASUREMENT_DATA_SET__DATA,
+         DatamodelFactory.eINSTANCE.createUIDataPoint()));
   }
 
   /**
-   * Return the resource locator for this item provider's resources. <!-- begin-user-doc --> <!--
+   * Return the resource locator for this item provider's resources.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @generated
    */
   @Override

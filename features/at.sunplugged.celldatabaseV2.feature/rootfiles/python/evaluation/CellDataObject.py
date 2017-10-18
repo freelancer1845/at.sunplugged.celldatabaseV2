@@ -101,7 +101,7 @@ class CellDataObject():
         if area != None:
             cellDataObject.Area = area
         if area != None and powerInput != None:
-            cellDataObject.Eff = calculateEff(cellDataObject.Mpp / area, powerInput)
+            cellDataObject.Eff = calculateEff(cellDataObject.Mpp / area / 1000000, powerInput)
             cellDataObject.powerInput = powerInput
 
         return cellDataObject

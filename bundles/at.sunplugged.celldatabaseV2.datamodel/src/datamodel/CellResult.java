@@ -438,21 +438,10 @@ public interface CellResult extends EObject {
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Maximum Power</em>' attribute.
-   * @see #setMaximumPower(double)
    * @see datamodel.DatamodelPackage#getCellResult_MaximumPower()
-   * @model volatile="true" derived="true"
+   * @model transient="true" changeable="false" volatile="true" derived="true"
    * @generated
    */
   double getMaximumPower();
-
-  /**
-   * Sets the value of the '{@link datamodel.CellResult#getMaximumPower <em>Maximum Power</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Maximum Power</em>' attribute.
-   * @see #getMaximumPower()
-   * @generated
-   */
-  void setMaximumPower(double value);
 
 } // CellResult

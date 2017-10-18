@@ -26,7 +26,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="darkMeasuremenetDataSet"
         eType="#//CellMeasurementDataSet" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximumPower" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
-        volatile="true" derived="true"/>
+        changeable="false" volatile="true" transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CellGroup">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"

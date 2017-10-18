@@ -13,6 +13,7 @@ import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.persistence.api.DatabaseService;
+import at.sunplugged.celldatabaseV2.persistence.api.DatabaseServiceException;
 import datamodel.Database;
 import datamodel.DatamodelFactory;
 
@@ -34,7 +35,7 @@ public class DatabaseServiceImpl implements DatabaseService {
   }
 
   @Override
-  public Database getDatabase() {
+  public Database getDatabase() throws DatabaseServiceException {
     resource = createXmiResource();
     database = loadXmiDatabase();
     if (database == null) {
@@ -60,7 +61,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     return database;
   }
 
-  private Resource createXmiResource() {
+  private Resource createXmiResource() throws DatabaseServiceException {
     Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
     Map<String, Object> m = reg.getExtensionToFactoryMap();
 
@@ -70,7 +71,15 @@ public class DatabaseServiceImpl implements DatabaseService {
     try {
       resource.load(Collections.EMPTY_MAP);
     } catch (IOException e) {
-      LOG.error("Failed to load resource...");
+      LOG.debug("Failed to load resource...", e);
+      LOG.debug("Assuming it does not exist...");
+      try {
+        resource.save(Collections.EMPTY_MAP);
+      } catch (IOException e1) {
+        LOG.error("Failed to create xmi resource...");
+        throw new DatabaseServiceException(e);
+      }
+
     }
     return resource;
   }
@@ -84,11 +93,13 @@ public class DatabaseServiceImpl implements DatabaseService {
   }
 
   @Override
-  public void saveDatabase() {
+  public void saveDatabase() throws DatabaseServiceException {
+    LOG.debug("Saving database...");
     try {
       resource.save(Collections.EMPTY_MAP);
     } catch (IOException e) {
       LOG.error("Failed to save Resource...", e);
+      throw new DatabaseServiceException(e);
     }
   }
 
