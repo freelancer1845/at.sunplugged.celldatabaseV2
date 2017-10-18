@@ -13,10 +13,13 @@
 	</parent>
 
 	<modules>
+		<module>at.sunplugged.celldatabaseV2.common</module>
 		<module>at.sunplugged.celldatabaseV2.rcp.main</module>
 		<module>at.sunplugged.celldatabaseV2.datamodel</module>
 		<module>at.sunplugged.celldatabaseV2.datamodel.edit</module>
 		<module>at.sunplugged.celldatabaseV2.persistence.api</module>
 		<module>at.sunplugged.celldatabaseV2.persistence.xmi</module>
+		<module>at.sunplugged.celldatabaseV2.labviewimport</module>
+		<module>at.sunplugged.celldatabaseV2.labviewimport.ui</module>
 	</modules>
 </project>

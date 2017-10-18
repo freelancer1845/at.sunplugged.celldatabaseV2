@@ -27,6 +27,7 @@
   <handlers xmi:id="_GEFMQLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.1" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.Delete" command="_-7xs0LNoEee9C5ECqbuxVA"/>
   <handlers xmi:id="_5iHEALNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.2" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.Undo" command="_yHo2gLNpEee9C5ECqbuxVA"/>
   <handlers xmi:id="_GDaocLNqEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.3" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.RedoHandler" command="_zI9JkLNpEee9C5ECqbuxVA"/>
+  <handlers xmi:id="_hDkUsLNtEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.4" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ImportFromLabviewHandler" command="_eJyEILNtEee9C5ECqbuxVA"/>
   <rootContext xmi:id="_c3AF2cjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_c3AF28jYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
@@ -35,6 +36,7 @@
   <commands xmi:id="_-7xs0LNoEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.delete" commandName="Delete"/>
   <commands xmi:id="_yHo2gLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.undo" commandName="Undo"/>
   <commands xmi:id="_zI9JkLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.redo" commandName="Redo"/>
+  <commands xmi:id="_eJyEILNtEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.importfromlabview" commandName="Import From Labview"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
