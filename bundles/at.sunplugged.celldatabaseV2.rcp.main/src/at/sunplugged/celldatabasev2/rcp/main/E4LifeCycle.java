@@ -32,6 +32,7 @@ public class E4LifeCycle {
     workbenchContext.set(ContextKeys.COMMAND_STACK, domain.getCommandStack());
     workbenchContext.set(EditingDomain.class, domain);
     workbenchContext.set(CommandStack.class, domain.getCommandStack());
+    workbenchContext.set(Database.class, database);
   }
 
   @PreSave
