@@ -23,6 +23,8 @@
     <mainMenu xmi:id="_7KFZ4LPWEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.menu.0">
       <children xsi:type="menu:Menu" xmi:id="_MEGKgLQEEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.menu.database" label="Database">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_M1yGILQEEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.save" label="Save" command="_I0eM0LQEEee9C5ECqbuxVA"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_nQLggLQ0Eee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.menuseparator.1"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_niL2gLQ0Eee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.plotcellresults" label="Plot CellResults" command="_B8qjgLQwEee9C5ECqbuxVA"/>
       </children>
       <children xsi:type="menu:Menu" xmi:id="_8D9oMLPWEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.menu.import" label="Import/Export">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_9HSGYLPWEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.importfromlabview" label="Import from Labview" command="_eJyEILNtEee9C5ECqbuxVA"/>
@@ -43,6 +45,7 @@
   <handlers xmi:id="_GDaocLNqEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.3" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.RedoHandler" command="_zI9JkLNpEee9C5ECqbuxVA"/>
   <handlers xmi:id="_hDkUsLNtEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.4" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ImportFromLabviewHandler" command="_eJyEILNtEee9C5ECqbuxVA"/>
   <handlers xmi:id="_QRy6ALQEEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.5" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.SaveHandler" command="_I0eM0LQEEee9C5ECqbuxVA"/>
+  <handlers xmi:id="_DYYTkLQwEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.6" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.PlotCellResultsHandler" command="_B8qjgLQwEee9C5ECqbuxVA"/>
   <rootContext xmi:id="_c3AF2cjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_c3AF28jYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
@@ -54,6 +57,7 @@
   <commands xmi:id="_zI9JkLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.redo" commandName="Redo"/>
   <commands xmi:id="_eJyEILNtEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.importfromlabview" commandName="Import From Labview"/>
   <commands xmi:id="_I0eM0LQEEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.save" commandName="Save"/>
+  <commands xmi:id="_B8qjgLQwEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.plotcellresults" commandName="Plot CellResults"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

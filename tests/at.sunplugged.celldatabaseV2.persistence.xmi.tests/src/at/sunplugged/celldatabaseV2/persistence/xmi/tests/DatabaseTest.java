@@ -6,6 +6,7 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.junit.Before;
 import org.junit.Test;
 import at.sunplugged.celldatabaseV2.persistence.api.DatabaseService;
+import at.sunplugged.celldatabaseV2.persistence.api.DatabaseServiceException;
 import at.sunplugged.celldatabaseV2.persistence.xmi.DatabaseServiceImpl;
 import datamodel.CellGroup;
 import datamodel.Database;
@@ -21,18 +22,18 @@ public class DatabaseTest {
   }
 
   @Test
-  public void databaseNotNull() {
+  public void databaseNotNull() throws DatabaseServiceException {
     assertNotNull(databaseService.getDatabase());
   }
 
   @Test
-  public void hasEditingDomain() {
+  public void hasEditingDomain() throws DatabaseServiceException {
     Database database = databaseService.getDatabase();
     assertNotNull(AdapterFactoryEditingDomain.getEditingDomainFor(database));
   }
 
   @Test
-  public void savesData() {
+  public void savesData() throws DatabaseServiceException {
     Database database = databaseService.getDatabase();
     CellGroup group = DatamodelFactory.eINSTANCE.createCellGroup();
     group.setName("TestGroup");

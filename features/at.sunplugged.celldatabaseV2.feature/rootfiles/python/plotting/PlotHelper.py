@@ -23,25 +23,31 @@ class PlotHelper():
         Constructor
         '''
         
-        self.cellDataObjects = []
+        self.plotObjects = []
         
         
+   
+    
     def addJsonFile(self, filePath):
-        cellResults = json.load(filePath)
-        for cellResult in cellResults:
-            cellData = self._desearilizeCellResult(cellResult)
-            self.cellDataObjects.append(cellData)
+        eObjects = json.load(filePath)
+        for eObject in eObjects:
+            if 'area' in eObject:
+                dataSet = self._desearilizeDataSet(eObject)
+                self.plotObjects.append(dataSet)
+            else:
+                cellData = self._desearilizeCellResult(eObject)
+                self.plotObjects.append(cellData)
     
     def showPlot(self):
         self._simpleUIDataPlot()
     
     
     def _simpleUIDataPlot(self):
-        if (len(self.cellDataObjects) == 0):
+        if (len(self.plotObjects) == 0):
             return
-        ymin, ymax = self._findYMaxAndMin(self.cellDataObjects)
+        ymin, ymax = self._findYMaxAndMin(self.plotObjects)
         
-        for cellData in self.cellDataObjects:
+        for cellData in self.plotObjects:
             data = cellData.data;
             plt.plot(data[:,0], data[:,1], label=cellData.Id)
         
@@ -59,6 +65,7 @@ class PlotHelper():
         for cellData in dataObjects:
             yminT = min(cellData.data[:,1]) - 0.1 * abs(min(cellData.data[:,1]))
             ymaxT = max(cellData.data[:,1]) + 0.1 * abs(max(cellData.data[:,1]))
+         
             if (yminT < ymin):
                 ymin = yminT
             if (ymaxT > ymax):
@@ -87,4 +94,16 @@ class PlotHelper():
         
         return cellData
         
-        
+    def _desearilizeDataSet(self, eObject):
+        dataSet = CellDataObject()
+
+        dataSet.Id = eObject['name']
+        dataArray = np.array(eObject['data'])
+        dataArrayFlat = []
+        for point in dataArray:
+            dataArrayFlat.append([point['voltage'], point['current']])
+        dataSet.data = np.array(dataArrayFlat)
+        return dataSet
+
+    
+    

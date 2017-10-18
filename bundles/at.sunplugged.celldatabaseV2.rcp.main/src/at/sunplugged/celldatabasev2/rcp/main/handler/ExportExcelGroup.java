@@ -46,6 +46,9 @@ public class ExportExcelGroup {
 
   @CanExecute
   public boolean canExecute(@Named(IServiceConstants.ACTIVE_SELECTION) Object[] selection) {
+    if (selection == null) {
+      return false;
+    }
     if (selection.length == 0) {
       return false;
     } else if (Arrays.stream(selection).anyMatch(object -> !(object instanceof CellResult))) {

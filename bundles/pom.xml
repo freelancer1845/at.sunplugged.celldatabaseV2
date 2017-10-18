@@ -23,5 +23,6 @@
 		<module>at.sunplugged.celldatabaseV2.labviewimport.ui</module>
 		<module>at.sunplugged.celldatabaseV2.export</module>
 		<module>at.sunplugged.celldatabaseV2.export.ui</module>
+		<module>at.sunplugged.celldatabaseV2.plotting</module>
 	</modules>
 </project>
