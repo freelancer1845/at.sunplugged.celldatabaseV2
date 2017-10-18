@@ -40,6 +40,7 @@
     <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_c3AF28jYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
+  <descriptors xmi:id="_nQvpMLPcEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.partdescriptor.modeleditor" label="Model Editor" allowMultiple="true" closeable="true" dirtyable="true" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.partdescriptors.ModelEditorDescriptor"/>
   <commands xmi:id="_v9yK4LNlEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.createcellgroup" commandName="Create CellGroup"/>
   <commands xmi:id="_-7xs0LNoEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.delete" commandName="Delete"/>
   <commands xmi:id="_yHo2gLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.undo" commandName="Undo"/>

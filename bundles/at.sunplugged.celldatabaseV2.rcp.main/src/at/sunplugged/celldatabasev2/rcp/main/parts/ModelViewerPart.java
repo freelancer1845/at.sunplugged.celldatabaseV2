@@ -2,15 +2,28 @@
 package at.sunplugged.celldatabasev2.rcp.main.parts;
 
 import java.util.EventObject;
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import org.eclipse.e4.ui.di.Persist;
+import org.eclipse.e4.ui.model.application.MApplication;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.services.EMenuService;
+import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emfforms.spi.swt.treemasterdetail.TreeViewerSWTFactory;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ILabelDecorator;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -28,16 +41,21 @@ import datamodel.Database;
 
 public class ModelViewerPart {
 
+  private Map<URI, MPart> createdEditors = new HashMap<>();
+
   @PostConstruct
   public void postConstruct(Composite parent, DatabaseService databaseService,
-      EMenuService menuService, ESelectionService selectionService) {
+      EMenuService menuService, ESelectionService selectionService, EPartService partService,
+      EModelService modelService, MApplication app) {
     Database database = databaseService.getDatabase();
 
-    createTreeViewer(parent, database, menuService, selectionService);
+    createTreeViewer(parent, database, menuService, selectionService, partService, modelService,
+        app);
   }
 
   private void createTreeViewer(Composite parent, Database database, EMenuService menuService,
-      ESelectionService selectionService) {
+      ESelectionService selectionService, EPartService partService, EModelService modelService,
+      MApplication app) {
     TreeViewer treeViewer = TreeViewerSWTFactory.fillDefaults(parent, database)
         .customizeLabelDecorator(new ILabelDecorator() {
 
@@ -145,6 +163,8 @@ public class ModelViewerPart {
             selection.size() == 1 ? selection.getFirstElement() : selection.toArray());
       }
     });
+
+    treeViewer.addDoubleClickListener(new DoubleClickListener(partService, modelService, app));
   }
 
   @Persist
@@ -152,4 +172,83 @@ public class ModelViewerPart {
 
   }
 
+
+  private final class DoubleClickListener implements IDoubleClickListener {
+
+    private final EPartService partService;
+
+    private final EModelService modelService;
+
+    private final MApplication app;
+
+    public DoubleClickListener(EPartService partService, EModelService modelService,
+        MApplication app) {
+      this.partService = partService;
+      this.modelService = modelService;
+      this.app = app;
+    }
+
+    @Override
+    public void doubleClick(DoubleClickEvent event) {
+      TreeViewer treeViewer = (TreeViewer) event.getViewer();
+      Object selectedElement = (EObject) treeViewer.getStructuredSelection().getFirstElement();
+      if (selectedElement instanceof EObject == false) {
+        return;
+      }
+
+      String label = null;
+      if (selectedElement instanceof EObject) {
+        EObject eObject = (EObject) selectedElement;
+        EAttribute attribute = eObject.eClass().getEAttributes().stream()
+            .filter(attr -> attr.getName() == "name").findFirst().orElse(null);
+        if (attribute != null) {
+          label = (String) eObject.eGet(attribute);
+        }
+
+      }
+      if (label == null) {
+        label = "Editor";
+      }
+
+      URI uri = EcoreUtil.getURI((EObject) selectedElement);
+
+      MPart editorPart;
+
+      editorPart = createdEditors.get(uri);
+      if (editorPart != null) {
+        partService.showPart(editorPart, PartState.ACTIVATE);
+        return;
+      }
+      editorPart = partService.getParts().stream()
+          .filter(part -> part.getElementId()
+              .equals("at.sunplugged.celldatabasev2.rcp.main.partdescriptor.modeleditor"))
+          .filter(part -> {
+            Object partUri = part.getTransientData().get("uri");
+            if (partUri != null) {
+              return partUri.equals(uri);
+            } else {
+              return false;
+            }
+          }).findAny().orElse(null);
+      if (editorPart != null) {
+        partService.showPart(editorPart, PartState.ACTIVATE);
+        return;
+      }
+      editorPart = partService
+          .createPart("at.sunplugged.celldatabasev2.rcp.main.partdescriptor.modeleditor");
+
+      editorPart.setLabel(label);
+      editorPart.getTransientData().put("data", selectedElement);
+
+      editorPart.getTransientData().put("uri", uri);
+      createdEditors.put(uri, editorPart);
+      MPartStack partStack =
+          (MPartStack) modelService.find("at.sunplugged.celldatabasev2.rcp.main.partstack.1", app);
+
+      partStack.getChildren().add(editorPart);
+      partService.showPart(editorPart, PartState.ACTIVATE);
+
+    }
+
+  }
 }
