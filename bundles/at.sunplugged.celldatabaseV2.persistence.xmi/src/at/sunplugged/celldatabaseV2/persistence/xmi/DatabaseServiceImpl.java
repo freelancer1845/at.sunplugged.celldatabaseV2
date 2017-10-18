@@ -13,7 +13,6 @@ import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.persistence.api.DatabaseService;
-import datamodel.CellGroup;
 import datamodel.Database;
 import datamodel.DatamodelFactory;
 
@@ -55,12 +54,6 @@ public class DatabaseServiceImpl implements DatabaseService {
   private Database createDefaultDatabase() {
 
     Database database = DatamodelFactory.eINSTANCE.createDatabase();
-
-    CellGroup cellGroup = DatamodelFactory.eINSTANCE.createCellGroup();
-
-    cellGroup.setName("Default Name");
-
-    database.getCellGroups().add(cellGroup);
 
     resource.getContents().add(database);
     database = (Database) resource.getContents().get(0);
