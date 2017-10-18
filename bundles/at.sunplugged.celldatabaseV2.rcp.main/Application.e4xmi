@@ -28,6 +28,7 @@
       </children>
       <children xsi:type="menu:Menu" xmi:id="_8D9oMLPWEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.menu.import" label="Import/Export">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_9HSGYLPWEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.importfromlabview" label="Import from Labview" command="_eJyEILNtEee9C5ECqbuxVA"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_KpSlULREEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.importfromsprodfile" label="Import from Sprod File" command="_u5DYkLRDEeevVvMUer7mvw"/>
         <children xsi:type="menu:MenuSeparator" xmi:id="_nIDtoLPkEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.menuseparator.0"/>
         <children xsi:type="menu:DirectMenuItem" xmi:id="_pfk-oLPkEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.directmenuitem.excelexportgroupssummary" label="Excel Export Groups Summary" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ExportExcelGroupSummaries"/>
         <children xsi:type="menu:DirectMenuItem" xmi:id="_oRyaYLQnEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.directmenuitem.excelexportgroup" label="Excel Export Group" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ExportExcelGroup"/>
@@ -46,6 +47,7 @@
   <handlers xmi:id="_hDkUsLNtEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.4" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ImportFromLabviewHandler" command="_eJyEILNtEee9C5ECqbuxVA"/>
   <handlers xmi:id="_QRy6ALQEEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.5" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.SaveHandler" command="_I0eM0LQEEee9C5ECqbuxVA"/>
   <handlers xmi:id="_DYYTkLQwEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.6" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.PlotCellResultsHandler" command="_B8qjgLQwEee9C5ECqbuxVA"/>
+  <handlers xmi:id="_wHL_oLRDEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.7" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ImportFromSprodHandler" command="_u5DYkLRDEeevVvMUer7mvw"/>
   <rootContext xmi:id="_c3AF2cjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_c3AF28jYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
@@ -58,6 +60,7 @@
   <commands xmi:id="_eJyEILNtEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.importfromlabview" commandName="Import From Labview"/>
   <commands xmi:id="_I0eM0LQEEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.save" commandName="Save"/>
   <commands xmi:id="_B8qjgLQwEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.plotcellresults" commandName="Plot CellResults"/>
+  <commands xmi:id="_u5DYkLRDEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.command.importfromsprod" commandName="Import From Sprod"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

@@ -24,5 +24,7 @@
 		<module>at.sunplugged.celldatabaseV2.export</module>
 		<module>at.sunplugged.celldatabaseV2.export.ui</module>
 		<module>at.sunplugged.celldatabaseV2.plotting</module>
+		<module>at.sunplugged.celldatabaseV2.sprodaccess</module>
+		<module>at.sunplugged.celldatabaseV2.sprodaccess.ui</module>
 	</modules>
 </project>

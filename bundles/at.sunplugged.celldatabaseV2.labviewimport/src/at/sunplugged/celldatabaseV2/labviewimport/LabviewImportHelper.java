@@ -106,7 +106,7 @@ public class LabviewImportHelper {
       result.setOpenCircuitVoltage(p.getVoc());
       result.setShortCircuitCurrent(p.getIsc());
       result.setFillFactor(p.getFF());
-      result.setEfficiency(p.getEff());
+      result.setEfficiency(p.getEff() * 100);
       result.setMaximumPowerCurrent(p.getMaximumPowerI());
       result.setMaximumPowerVoltage(p.getMaximumPowerV());
       result.setDataEvaluated(new Date());

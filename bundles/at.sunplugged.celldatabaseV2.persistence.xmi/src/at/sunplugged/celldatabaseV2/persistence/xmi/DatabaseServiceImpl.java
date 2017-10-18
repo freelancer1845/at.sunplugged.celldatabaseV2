@@ -101,6 +101,7 @@ public class DatabaseServiceImpl implements DatabaseService {
       LOG.error("Failed to save Resource...", e);
       throw new DatabaseServiceException(e);
     }
+    LOG.debug("Save completed...");
   }
 
 }

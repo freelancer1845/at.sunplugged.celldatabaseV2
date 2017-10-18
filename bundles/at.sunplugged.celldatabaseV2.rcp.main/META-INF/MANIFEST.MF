@@ -28,6 +28,8 @@ Import-Package: at.sunplugged.celldatabaseV2.common,
  at.sunplugged.celldatabaseV2.labviewimport.ui.wizard,
  at.sunplugged.celldatabaseV2.persistence.api,
  at.sunplugged.celldatabaseV2.plotting,
+ at.sunplugged.celldatabaseV2.sprodaccess.api,
+ at.sunplugged.celldatabaseV2.sprodaccess.ui.wizard,
  datamodel,
  javax.annotation;version="1.0.0";resolution:=optional,
  javax.inject;version="1.0.0"
