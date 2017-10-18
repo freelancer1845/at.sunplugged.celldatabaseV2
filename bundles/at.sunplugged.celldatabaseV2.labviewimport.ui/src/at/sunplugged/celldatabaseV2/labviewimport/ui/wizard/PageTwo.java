@@ -154,12 +154,11 @@ public class PageTwo extends WizardPage {
 
   @Override
   public void setVisible(boolean visible) {
+    super.setVisible(visible);
     if (visible == true) {
       tempGroup.getCellResults().clear();
       calculateResults();
     }
-
-    super.setVisible(visible);
   }
 
   private void calculateResults() {
