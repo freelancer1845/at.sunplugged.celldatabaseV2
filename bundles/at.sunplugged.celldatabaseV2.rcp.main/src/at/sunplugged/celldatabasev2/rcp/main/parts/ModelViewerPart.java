@@ -5,8 +5,10 @@ import java.util.EventObject;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.MApplication;
+import org.eclipse.e4.ui.model.application.ui.MDirtyable;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.services.EMenuService;
@@ -40,6 +42,9 @@ import datamodel.CellResult;
 import datamodel.Database;
 
 public class ModelViewerPart {
+
+  @Inject
+  private MDirtyable dirtyable;
 
   private Map<URI, MPart> createdEditors = new HashMap<>();
 
@@ -148,6 +153,7 @@ public class ModelViewerPart {
       @Override
       public void commandStackChanged(EventObject event) {
         treeViewer.refresh();
+        dirtyable.setDirty(true);
       }
     });
 
@@ -168,8 +174,8 @@ public class ModelViewerPart {
   }
 
   @Persist
-  public void save() {
-
+  public void save(DatabaseService databaseService) {
+    databaseService.saveDatabase();
   }
 
 

@@ -1,10 +1,13 @@
 package at.sunplugged.celldatabaseV2.labviewimport.ui.wizard;
 
 import java.io.File;
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
+import java.util.Locale;
+import java.util.stream.Collectors;
+import org.eclipse.core.runtime.ICoreRunnable;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.util.EList;
@@ -30,6 +33,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.labviewimport.LabviewImportHelper;
@@ -50,6 +54,8 @@ public class PageTwo extends WizardPage {
   private List<LabviewDataFile> dataFiles;
 
   private CellGroup tempGroup = DatamodelFactory.eINSTANCE.createCellGroup();
+
+  private TreeViewer treeViewer;
 
   protected PageTwo(List<LabviewDataFile> dataFiles) {
     super(TITLE);
@@ -72,7 +78,7 @@ public class PageTwo extends WizardPage {
     container.setLayout(layout);
 
     tempGroup.setName("LabviewImportGroup");
-    TreeViewer treeViewer = TreeViewerSWTFactory.fillDefaults(container, tempGroup).create();
+    treeViewer = TreeViewerSWTFactory.fillDefaults(container, tempGroup).create();
 
     treeViewer.addDoubleClickListener(new IDoubleClickListener() {
 
@@ -147,6 +153,7 @@ public class PageTwo extends WizardPage {
         }.open();
       }
     });
+    treeViewer.getControl().setEnabled(false);
     setControl(container);
     setPageComplete(true);
 
@@ -156,27 +163,53 @@ public class PageTwo extends WizardPage {
   public void setVisible(boolean visible) {
     super.setVisible(visible);
     if (visible == true) {
-      tempGroup.getCellResults().clear();
-      calculateResults();
     }
   }
 
-  private void calculateResults() {
+  public void calculateResults() {
+    tempGroup.getCellResults().clear();
 
-    for (LabviewDataFile dataFile : dataFiles) {
+    Job job = Job.create("Calculating results..", (ICoreRunnable) monitor -> {
+      List<CellResult> results = new ArrayList<>();
+      List<Job> subJobs = new LinkedList<>();
+      for (LabviewDataFile dataFile : dataFiles) {
+        Job subJob = Job.create("Subjob... " + dataFile.getName(), (ICoreRunnable) monitorSub -> {
+          try {
+            CellResult result = LabviewImportHelper.readAndCalculateFile(dataFile.getName(),
+                new File(dataFile.getAbsolutPathDark()), new File(dataFile.getAbsolutPathLight()),
+                dataFile.getArea(), dataFile.getPowerInput());
+            if (result != null) {
+              results.add(result);
+            } else {
+              LOG.error("Failed to calculate for: " + dataFile.getName());
+            }
 
-      Job job = new Job("Calculation result... " + dataFile.getNameLight()) {
-        protected IStatus run(IProgressMonitor monitor) {
-          CellResult result = LabviewImportHelper.readAndCalculateFile(dataFile.getName(),
-              new File(dataFile.getAbsolutPathDark()), new File(dataFile.getAbsolutPathLight()),
-              dataFile.getArea(), dataFile.getPowerInput());
-          tempGroup.getCellResults().add(result);
-          return Status.OK_STATUS;
+          } catch (Exception e) {
+            LOG.error("Failed to calculate for: " + dataFile.getName(), e);
+          }
+        });
+        subJob.setPriority(Job.LONG);
+        subJob.schedule();
+        subJobs.add(subJob);
+
+      }
+      subJobs.forEach(subJob -> {
+        try {
+          subJob.join();
+        } catch (InterruptedException e) {
+          LOG.error("Subjob interupted: " + subJob.getName());
         }
-      };
-      job.setPriority(Job.LONG);
-      job.schedule();
-    }
+      });
+      List<CellResult> sortedResults =
+          results.stream().sorted((res1, res2) -> Collator.getInstance(Locale.GERMANY)
+              .compare(res1.getName(), res2.getName())).collect(Collectors.toList());
+      tempGroup.getCellResults().addAll(sortedResults);
+      Display.getDefault().asyncExec(() -> treeViewer.getControl().setEnabled(true));
+    });
+
+    job.setPriority(Job.LONG);
+    job.schedule();
+
   }
 
   public EList<CellResult> getCellResults() {

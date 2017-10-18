@@ -1,10 +1,11 @@
 package at.sunplugged.celldatabaseV2.labviewimport.ui.wizard;
 
-import datamodel.CellResult;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
+import datamodel.CellResult;
 
 public class LabviewImportWizard extends Wizard {
 
@@ -17,34 +18,42 @@ public class LabviewImportWizard extends Wizard {
   private EList<CellResult> cellResults;
 
   public LabviewImportWizard() {
-      super();
-      setNeedsProgressMonitor(true);
+    super();
+    setNeedsProgressMonitor(true);
   }
 
   @Override
   public void addPages() {
-      pageOne = new PageOne(dataFiles);
-      pageTwo = new PageTwo(dataFiles);
-      addPage(pageOne);
-      addPage(pageTwo);
+    pageOne = new PageOne(dataFiles);
+    pageTwo = new PageTwo(dataFiles);
+    addPage(pageOne);
+    addPage(pageTwo);
+  }
+
+  @Override
+  public IWizardPage getNextPage(IWizardPage page) {
+    if (page == pageTwo) {
+      pageTwo.calculateResults();
+    }
+    return super.getNextPage(page);
   }
 
   @Override
   public String getWindowTitle() {
-      return "Import Labview Data";
+    return "Import Labview Data";
   }
 
   @Override
   public boolean performFinish() {
-      cellResults = pageTwo.getCellResults();
-      if (cellResults.isEmpty() == true) {
-          return false;
-      }
-      return true;
+    cellResults = pageTwo.getCellResults();
+    if (cellResults.isEmpty() == true) {
+      return false;
+    }
+    return true;
   }
 
   public EList<CellResult> getCellResults() {
-      return cellResults;
+    return cellResults;
   }
 
 }
