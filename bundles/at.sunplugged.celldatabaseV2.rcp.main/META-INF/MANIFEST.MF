@@ -17,8 +17,11 @@ Require-Bundle: javax.inject;bundle-version="0.0.0",
   org.eclipse.emf.ecore,
   org.eclipse.emfforms.swt.treemasterdetail;bundle-version="1.14.0",
   org.eclipse.emf.edit
-Import-Package: at.sunplugged.celldatabaseV2.persistence.api,
-  datamodel,
-  javax.annotation;version="1.0.0";resolution:=optional,
-  javax.inject;version="1.0.0"
+Import-Package: at.sunplugged.celldatabaseV2.common,
+ at.sunplugged.celldatabaseV2.labviewimport.ui.wizard,
+ at.sunplugged.celldatabaseV2.persistence.api,
+ datamodel,
+ javax.annotation;version="1.0.0";resolution:=optional,
+ javax.inject;version="1.0.0",
+ org.slf4j;version="1.7.10"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

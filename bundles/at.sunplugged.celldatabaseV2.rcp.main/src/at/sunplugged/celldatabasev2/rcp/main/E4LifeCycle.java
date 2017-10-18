@@ -21,6 +21,8 @@ public class E4LifeCycle {
 
   @PostContextCreate
   void postContextCreate(IEclipseContext workbenchContext) {
+    at.sunplugged.celldatabaseV2.common.Utils.setDefaultSettings(false);
+
 
     DatabaseService databaseService = workbenchContext.get(DatabaseService.class);
     Database database = databaseService.getDatabase();

@@ -44,7 +44,16 @@ public class LabviewImportHelper {
         preferences.get(PythonSettings.PYTHON_PATH, "D:\\Anaconda3\\python.exe");
     String pythonScript = preferences.get(PythonSettings.LABVIEW_IMPORT_SCRIPT_PATH,
         "C:\\Users\\jasch\\SunpluggedJob\\at.sunplugged.celldatabase.master\\at.sunplugged.celldatabase\\bundles\\at.sunplugged.celldatabase.datareader\\pythonsrc\\main.py");
-    String pluginLocation = Activator.getContext().getBundle().getLocation();
+    String pluginLocation = Activator.getContext().getBundle().getDataFile("").getAbsolutePath();
+
+    if (pythonScript.isEmpty()) {
+      LOG.error("Python Script not specified...");
+      throw new IllegalArgumentException();
+    } else if (new File(pythonScript).exists() == false) {
+      LOG.error("Python Script file does not exist...");
+      throw new IllegalArgumentException();
+    }
+
     int randomLoc = new Random().nextInt() * -1;
 
     CommandLine cmdLine = new CommandLine(pythonLocation);

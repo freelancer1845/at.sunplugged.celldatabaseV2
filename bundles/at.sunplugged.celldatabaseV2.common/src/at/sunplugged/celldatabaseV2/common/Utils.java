@@ -10,6 +10,11 @@ public class Utils {
     }
   }
 
+  public static void setDefaultSettings(boolean b) {
+    RegexPatterns.setDefaults(b);
+    PythonSettings.setDefaults(b);
+  }
+
   private Utils() {
 
   }

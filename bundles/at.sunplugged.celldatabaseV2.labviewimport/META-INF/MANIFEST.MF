@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Labview
-Bundle-SymbolicName: at.sunplugged.celldatabaseV2.labviewimport
+Bundle-SymbolicName: at.sunplugged.celldatabaseV2.labviewimport;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: at.sunplugged.celldatabaseV2.common,
@@ -15,3 +15,5 @@ Require-Bundle: org.eclipse.equinox.registry,
  org.eclipse.emf.common,
  org.eclipse.emf.ecore;bundle-version="2.13.0"
 Bundle-Activator: at.sunplugged.celldatabaseV2.labviewimport.Activator
+Export-Package: at.sunplugged.celldatabaseV2.labviewimport
+Bundle-ActivationPolicy: lazy

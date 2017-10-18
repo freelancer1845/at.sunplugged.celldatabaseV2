@@ -8,7 +8,7 @@ import at.sunplugged.celldatabaseV2.persistence.api.DatabaseService;
 import at.sunplugged.celldatabaseV2.persistence.xmi.DatabaseServiceImpl;
 import datamodel.Database;
 
-public class LoadTests {
+public class LoadTest {
 
   private DatabaseService databaseService;
 

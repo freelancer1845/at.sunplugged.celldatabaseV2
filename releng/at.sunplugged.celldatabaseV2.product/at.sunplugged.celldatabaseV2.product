@@ -34,6 +34,7 @@
       <feature id="org.eclipse.ecf.filetransfer.feature" version="3.13.8.v20170715-2257"/>
       <feature id="org.eclipse.net4j" version="4.6.0.v20170522-0642"/>
       <feature id="org.eclipse.emf.ecp.emfforms.runtime.feature" version="1.14.0.20170911-0944"/>
+      <feature id="org.eclipse.emf.ecp.viewmodel.feature" version="1.14.0.20170911-0944"/>
    </features>
 
    <configurations>

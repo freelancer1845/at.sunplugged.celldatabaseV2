@@ -13,12 +13,12 @@ public class Activator implements BundleActivator {
 
   @Override
   public void start(BundleContext context) throws Exception {
-    this.context = context;
+    Activator.context = context;
   }
 
   @Override
   public void stop(BundleContext context) throws Exception {
-    context = null;
+    Activator.context = null;
   }
 
 }
