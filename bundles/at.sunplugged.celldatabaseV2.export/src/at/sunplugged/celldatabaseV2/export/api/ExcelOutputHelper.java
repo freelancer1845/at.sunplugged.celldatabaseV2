@@ -365,7 +365,7 @@ public class ExcelOutputHelper {
     fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
         GROUP_ROW_NAMES[0], res.getName());
     fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
-        GROUP_ROW_NAMES[1], res.getParallelResistance());
+        GROUP_ROW_NAMES[1], res.getOpenCircuitVoltage());
     fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
         GROUP_ROW_NAMES[2], res.getShortCircuitCurrent() / area);
     fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
