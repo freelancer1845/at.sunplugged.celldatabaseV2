@@ -197,7 +197,10 @@ public class PageOne extends WizardPage {
             errorMessage.append(fail);
             errorMessage.append("\n");
           }
-          errorMessage.append("These will be ignored...");
+          errorMessage.append(
+              "These will be ignored...\nPattern must match \n\"YYYYMMDD-[probename]_[cellnumber]-[0 (dark) or 1(light)]\"");
+          errorMessage.append("\n");
+          errorMessage.append("For Example: \"21001224-e7_1-0.txt\"");
           MessageDialog.openError(getShell(), "Wrong filenames...", errorMessage.toString());
         }
       }

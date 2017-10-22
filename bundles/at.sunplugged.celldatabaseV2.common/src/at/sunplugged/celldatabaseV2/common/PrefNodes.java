@@ -8,6 +8,8 @@ public class PrefNodes {
 
   public static final String LOCATIONS = "locations.general";
 
+  public static final String GENERAL = "settings.general";
+
   private PrefNodes() {
 
   }

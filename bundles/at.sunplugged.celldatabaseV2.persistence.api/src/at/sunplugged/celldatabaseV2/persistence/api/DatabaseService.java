@@ -4,7 +4,9 @@ import datamodel.Database;
 
 public interface DatabaseService {
 
-  Database getDatabase() throws DatabaseServiceException;
+  void openDatabase(String path) throws DatabaseServiceException;
+
+  Database getDatabase();
 
   void saveDatabase() throws DatabaseServiceException;
 

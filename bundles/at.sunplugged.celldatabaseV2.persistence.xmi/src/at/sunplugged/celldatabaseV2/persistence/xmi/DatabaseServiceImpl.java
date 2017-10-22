@@ -35,12 +35,16 @@ public class DatabaseServiceImpl implements DatabaseService {
   }
 
   @Override
-  public Database getDatabase() throws DatabaseServiceException {
-    resource = createXmiResource();
+  public void openDatabase(String path) throws DatabaseServiceException {
+    resource = createXmiResource(path);
     database = loadXmiDatabase();
     if (database == null) {
       database = createDefaultDatabase();
     }
+  }
+
+  @Override
+  public Database getDatabase() {
     return database;
   }
 
@@ -61,13 +65,13 @@ public class DatabaseServiceImpl implements DatabaseService {
     return database;
   }
 
-  private Resource createXmiResource() throws DatabaseServiceException {
+  private Resource createXmiResource(String path) throws DatabaseServiceException {
     Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
     Map<String, Object> m = reg.getExtensionToFactoryMap();
 
-    m.put("database", new XMIResourceFactoryImpl());
+    m.put("xmi", new XMIResourceFactoryImpl());
 
-    Resource resource = editingDomain.createResource("database/DefaultDatabase.database");
+    Resource resource = editingDomain.createResource("file://" + path);
     try {
       resource.load(Collections.EMPTY_MAP);
     } catch (IOException e) {
@@ -103,5 +107,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
     LOG.debug("Save completed...");
   }
+
+
 
 }

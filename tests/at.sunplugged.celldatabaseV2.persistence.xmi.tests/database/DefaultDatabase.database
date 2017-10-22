@@ -4,4 +4,6 @@
   <cellGroups name="TestGroup"/>
   <cellGroups name="TestGroup"/>
   <cellGroups name="TestGroup"/>
+  <cellGroups name="TestGroup"/>
+  <cellGroups name="TestGroup"/>
 </at.sunplugged.cdv.datamodel:Database>
