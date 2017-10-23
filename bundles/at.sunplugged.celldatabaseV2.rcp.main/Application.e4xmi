@@ -18,6 +18,9 @@
             <children xsi:type="menu:MenuSeparator" xmi:id="_mvLfsLRJEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.menuseparator.3"/>
             <children xsi:type="menu:DirectMenuItem" xmi:id="_q4mzMLRJEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.directmenuitem.exportgroupssummary" label="Export Groups Summary" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ExportExcelGroupSummaries"/>
             <children xsi:type="menu:DirectMenuItem" xmi:id="_sx6eMLRJEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.directmenuitem.exportgroupcellresults" label="Export Group/CellResults" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ExportExcelGroup"/>
+            <children xsi:type="menu:MenuSeparator" xmi:id="_uc5FgLe7EeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.menuseparator.5"/>
+            <children xsi:type="menu:HandledMenuItem" xmi:id="_vd5PgLe7EeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.importfromlabview" label="Import from Labview" command="_eJyEILNtEee9C5ECqbuxVA"/>
+            <children xsi:type="menu:HandledMenuItem" xmi:id="_zP9y8Le7EeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.importfromsprod" label="Import from Sprod" command="_u5DYkLRDEeevVvMUer7mvw"/>
           </menus>
         </children>
       </children>

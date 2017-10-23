@@ -99,25 +99,16 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
       @Override
       public void notifyChanged(Notification msg) {
         if (msg.getFeature().equals(DatamodelPackage.Literals.CELL_GROUP__CELL_RESULTS)) {
-          EList<CellResult> cellResults = getCellResults();
-          if (cellResults == null || cellResults.isEmpty()) {
-            String name = "Cannot be deduced...";
-            setName(name);
-            return;
-          }
-          String regex = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS)
-              .get(RegexPatterns.LABVIEW_GROUP_COMPLEMENT, "");
-          Map<String, List<CellResult>> grouped = cellResults.stream().collect(
-              Collectors.groupingBy(cellResult -> cellResult.getName().replaceAll(regex, "")));
-          String name = grouped.entrySet().stream()
-              .max((a, b) -> Integer.max(a.getValue().size(), b.getValue().size())).orElse(null)
-              .getKey();
-          setName(name);
+          calculateNewName();
         }
       }
+
+
     });
 
   }
+
+
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -181,7 +172,27 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
   public EList<CellResult> getCellResults() {
     if (cellResults == null) {
       cellResults = new EObjectContainmentEList<CellResult>(CellResult.class, this,
-          DatamodelPackage.CELL_GROUP__CELL_RESULTS);
+          DatamodelPackage.CELL_GROUP__CELL_RESULTS) {
+        /**
+             * 
+             */
+        private static final long serialVersionUID = -2620365050176043748L;
+
+        @Override
+        protected void didAdd(int index, CellResult newObject) {
+          newObject.eAdapters().add(new AdapterImpl() {
+
+            @Override
+            public void notifyChanged(Notification msg) {
+              if (msg.getFeature() == DatamodelPackage.Literals.CELL_RESULT__NAME) {
+                calculateNewName();
+              }
+            }
+
+          });
+          super.didAdd(index, newObject);
+        }
+      };
     }
     return cellResults;
   }
@@ -299,6 +310,27 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
     result.append(description);
     result.append(')');
     return result.toString();
+  }
+
+  /**
+   * 
+   * 
+   * @generated NOT
+   */
+  private void calculateNewName() {
+    EList<CellResult> cellResults = getCellResults();
+    if (cellResults == null || cellResults.isEmpty()) {
+      String name = "Cannot be deduced...";
+      setName(name);
+      return;
+    }
+    String regex = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS)
+        .get(RegexPatterns.LABVIEW_GROUP_COMPLEMENT, "");
+    Map<String, List<CellResult>> grouped = cellResults.stream()
+        .collect(Collectors.groupingBy(cellResult -> cellResult.getName().replaceAll(regex, "")));
+    String name = grouped.entrySet().stream()
+        .max((a, b) -> Integer.max(a.getValue().size(), b.getValue().size())).orElse(null).getKey();
+    setName(name);
   }
 
 } // CellGroupImpl

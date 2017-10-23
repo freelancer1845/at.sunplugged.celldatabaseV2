@@ -18,6 +18,8 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
@@ -213,15 +215,13 @@ public class ModelViewerPart {
       }
 
       String label = null;
-      if (selectedElement instanceof EObject) {
-        EObject eObject = (EObject) selectedElement;
-        EAttribute attribute = eObject.eClass().getEAttributes().stream()
-            .filter(attr -> attr.getName() == "name").findFirst().orElse(null);
-        if (attribute != null) {
-          label = (String) eObject.eGet(attribute);
-        }
-
+      EObject eObject = (EObject) selectedElement;
+      EAttribute attribute = eObject.eClass().getEAttributes().stream()
+          .filter(attr -> attr.getName() == "name").findFirst().orElse(null);
+      if (attribute != null) {
+        label = (String) eObject.eGet(attribute);
       }
+
       if (label == null) {
         label = "Editor";
       }
@@ -250,6 +250,9 @@ public class ModelViewerPart {
         partService.showPart(editorPart, PartState.ACTIVATE);
         return;
       }
+
+
+
       editorPart = partService
           .createPart("at.sunplugged.celldatabasev2.rcp.main.partdescriptor.modeleditor");
 
@@ -257,6 +260,8 @@ public class ModelViewerPart {
       editorPart.getTransientData().put("data", selectedElement);
 
       editorPart.getTransientData().put("uri", uri);
+
+      eObject.eAdapters().add(new EditorLabelAdapter(editorPart, attribute));
       createdEditors.put(uri, editorPart);
       MPartStack partStack =
           (MPartStack) modelService.find("at.sunplugged.celldatabasev2.rcp.main.partstack.1", app);
@@ -266,5 +271,28 @@ public class ModelViewerPart {
 
     }
 
+  }
+
+  private final class EditorLabelAdapter extends AdapterImpl {
+    private final MPart editorPart;
+    private final EAttribute attribute;
+
+    public EditorLabelAdapter(MPart editorPart, EAttribute attribute) {
+      super();
+      this.editorPart = editorPart;
+      this.attribute = attribute;
+    }
+
+    @Override
+    public void notifyChanged(Notification msg) {
+      if (msg.getFeature().equals(attribute)) {
+        String label = msg.getNewStringValue();
+
+        if (label == null) {
+          label = "Editor";
+        }
+        editorPart.setLabel(label);
+      }
+    }
   }
 }
