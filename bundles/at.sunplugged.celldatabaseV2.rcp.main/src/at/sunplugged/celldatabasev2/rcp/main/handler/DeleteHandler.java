@@ -31,20 +31,24 @@ public class DeleteHandler {
     } else {
       objectsToDelete = Arrays.asList((EObject) selection);
     }
+    EcoreUtil.getAllContents(objectsToDelete).forEachRemaining(eObject -> {
 
-    objectsToDelete.stream().map(eObject -> EcoreUtil.getURI(eObject)).forEach(uri -> {
-      MPart editorPart = partService.getParts().stream().filter(part -> {
-        Object partUri = part.getTransientData().get("uri");
-        if (partUri instanceof URI) {
-          return partUri.equals(uri);
-        } else {
-          return false;
+      if (eObject instanceof EObject) {
+        URI uri = EcoreUtil.getURI((EObject) eObject);
+        MPart editorPart = partService.getParts().stream().filter(part -> {
+          Object partUri = part.getTransientData().get("uri");
+          if (partUri instanceof URI) {
+            return partUri.equals(uri);
+          } else {
+            return false;
+          }
+
+        }).findAny().orElse(null);
+        if (editorPart != null) {
+          partService.hidePart(editorPart, true);
         }
-
-      }).findAny().orElse(null);
-      if (editorPart != null) {
-        partService.hidePart(editorPart, true);
       }
+
     });
 
     Command cmd = RemoveCommand.create(editingDomain, objectsToDelete);
