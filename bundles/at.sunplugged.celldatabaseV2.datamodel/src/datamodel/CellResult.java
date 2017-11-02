@@ -4,6 +4,8 @@ package datamodel;
 
 import java.util.Date;
 
+import java.util.Map;
+import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -443,5 +445,13 @@ public interface CellResult extends EObject {
    * @generated
    */
   double getMaximumPower();
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @model
+   * @generated
+   */
+  boolean validateName(DiagnosticChain chain, Map<?, ?> context);
 
 } // CellResult

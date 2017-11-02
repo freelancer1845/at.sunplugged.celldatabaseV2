@@ -24,18 +24,18 @@ import datamodel.DatamodelFactory;
 import datamodel.DatamodelPackage;
 
 /**
- * This is the item provider adapter for a {@link datamodel.CellResult} object. <!-- begin-user-doc
+ * This is the item provider adapter for a {@link datamodel.CellResult} object.
+ * <!-- begin-user-doc
  * --> <!-- end-user-doc -->
- * 
  * @generated
  */
 public class CellResultItemProvider extends ItemProviderAdapter
     implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider,
     IItemLabelProvider, IItemPropertySource {
   /**
-   * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!--
+   * This constructs an instance from a factory and a notifier.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @generated
    */
   public CellResultItemProvider(AdapterFactory adapterFactory) {
@@ -43,9 +43,9 @@ public class CellResultItemProvider extends ItemProviderAdapter
   }
 
   /**
-   * This returns the property descriptors for the adapted class. <!-- begin-user-doc --> <!--
+   * This returns the property descriptors for the adapted class.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @generated
    */
   @Override
@@ -78,230 +78,313 @@ public class CellResultItemProvider extends ItemProviderAdapter
    * @generated
    */
   protected void addNamePropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellResult_name_feature"),
-        getString("_UI_PropertyDescriptor_description", "_UI_CellResult_name_feature",
-            "_UI_CellResult_type"),
-        DatamodelPackage.Literals.CELL_RESULT__NAME, true, false, false,
-        ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_name_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_name_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__NAME,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This adds a property descriptor for the Description feature. <!-- begin-user-doc --> <!--
+   * This adds a property descriptor for the Description feature.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @generated
    */
   protected void addDescriptionPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellResult_description_feature"),
-        getString("_UI_PropertyDescriptor_description", "_UI_CellResult_description_feature",
-            "_UI_CellResult_type"),
-        DatamodelPackage.Literals.CELL_RESULT__DESCRIPTION, true, false, false,
-        ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_description_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_description_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__DESCRIPTION,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This adds a property descriptor for the Data Evaluated feature. <!-- begin-user-doc --> <!--
+   * This adds a property descriptor for the Data Evaluated feature.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @generated
    */
   protected void addDataEvaluatedPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellResult_dataEvaluated_feature"),
-        getString("_UI_PropertyDescriptor_description", "_UI_CellResult_dataEvaluated_feature",
-            "_UI_CellResult_type"),
-        DatamodelPackage.Literals.CELL_RESULT__DATA_EVALUATED, true, false, false,
-        ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_dataEvaluated_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_dataEvaluated_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__DATA_EVALUATED,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This adds a property descriptor for the Open Circuit Voltage feature. <!-- begin-user-doc -->
+   * This adds a property descriptor for the Open Circuit Voltage feature.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @generated
    */
   protected void addOpenCircuitVoltagePropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellResult_openCircuitVoltage_feature"),
-        getString("_UI_PropertyDescriptor_description", "_UI_CellResult_openCircuitVoltage_feature",
-            "_UI_CellResult_type"),
-        DatamodelPackage.Literals.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE, true, false, false,
-        ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_openCircuitVoltage_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_openCircuitVoltage_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This adds a property descriptor for the Short Circuit Current feature. <!-- begin-user-doc -->
+   * This adds a property descriptor for the Short Circuit Current feature.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @generated
    */
   protected void addShortCircuitCurrentPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellResult_shortCircuitCurrent_feature"),
-        getString("_UI_PropertyDescriptor_description",
-            "_UI_CellResult_shortCircuitCurrent_feature", "_UI_CellResult_type"),
-        DatamodelPackage.Literals.CELL_RESULT__SHORT_CIRCUIT_CURRENT, true, false, false,
-        ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_shortCircuitCurrent_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_shortCircuitCurrent_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__SHORT_CIRCUIT_CURRENT,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This adds a property descriptor for the Parallel Resistance feature. <!-- begin-user-doc -->
+   * This adds a property descriptor for the Parallel Resistance feature.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @generated
    */
   protected void addParallelResistancePropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellResult_parallelResistance_feature"),
-        getString("_UI_PropertyDescriptor_description", "_UI_CellResult_parallelResistance_feature",
-            "_UI_CellResult_type"),
-        DatamodelPackage.Literals.CELL_RESULT__PARALLEL_RESISTANCE, true, false, false,
-        ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_parallelResistance_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_parallelResistance_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__PARALLEL_RESISTANCE,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This adds a property descriptor for the Dark Parallel Resistance feature. <!-- begin-user-doc
+   * This adds a property descriptor for the Dark Parallel Resistance feature.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   protected void addDarkParallelResistancePropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellResult_darkParallelResistance_feature"),
-        getString("_UI_PropertyDescriptor_description",
-            "_UI_CellResult_darkParallelResistance_feature", "_UI_CellResult_type"),
-        DatamodelPackage.Literals.CELL_RESULT__DARK_PARALLEL_RESISTANCE, true, false, false,
-        ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_darkParallelResistance_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_darkParallelResistance_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__DARK_PARALLEL_RESISTANCE,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This adds a property descriptor for the Series Resistance feature. <!-- begin-user-doc --> <!--
+   * This adds a property descriptor for the Series Resistance feature.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @generated
    */
   protected void addSeriesResistancePropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellResult_seriesResistance_feature"),
-        getString("_UI_PropertyDescriptor_description", "_UI_CellResult_seriesResistance_feature",
-            "_UI_CellResult_type"),
-        DatamodelPackage.Literals.CELL_RESULT__SERIES_RESISTANCE, true, false, false,
-        ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_seriesResistance_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_seriesResistance_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__SERIES_RESISTANCE,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This adds a property descriptor for the Dark Series Resistance feature. <!-- begin-user-doc -->
+   * This adds a property descriptor for the Dark Series Resistance feature.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @generated
    */
   protected void addDarkSeriesResistancePropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellResult_darkSeriesResistance_feature"),
-        getString("_UI_PropertyDescriptor_description",
-            "_UI_CellResult_darkSeriesResistance_feature", "_UI_CellResult_type"),
-        DatamodelPackage.Literals.CELL_RESULT__DARK_SERIES_RESISTANCE, true, false, false,
-        ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_darkSeriesResistance_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_darkSeriesResistance_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__DARK_SERIES_RESISTANCE,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This adds a property descriptor for the Maximum Power Voltage feature. <!-- begin-user-doc -->
+   * This adds a property descriptor for the Maximum Power Voltage feature.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @generated
    */
   protected void addMaximumPowerVoltagePropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellResult_maximumPowerVoltage_feature"),
-        getString("_UI_PropertyDescriptor_description",
-            "_UI_CellResult_maximumPowerVoltage_feature", "_UI_CellResult_type"),
-        DatamodelPackage.Literals.CELL_RESULT__MAXIMUM_POWER_VOLTAGE, true, false, false,
-        ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_maximumPowerVoltage_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_maximumPowerVoltage_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__MAXIMUM_POWER_VOLTAGE,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This adds a property descriptor for the Maximum Power Current feature. <!-- begin-user-doc -->
+   * This adds a property descriptor for the Maximum Power Current feature.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @generated
    */
   protected void addMaximumPowerCurrentPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellResult_maximumPowerCurrent_feature"),
-        getString("_UI_PropertyDescriptor_description",
-            "_UI_CellResult_maximumPowerCurrent_feature", "_UI_CellResult_type"),
-        DatamodelPackage.Literals.CELL_RESULT__MAXIMUM_POWER_CURRENT, true, false, false,
-        ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_maximumPowerCurrent_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_maximumPowerCurrent_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__MAXIMUM_POWER_CURRENT,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This adds a property descriptor for the Efficiency feature. <!-- begin-user-doc --> <!--
+   * This adds a property descriptor for the Efficiency feature.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @generated
    */
   protected void addEfficiencyPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellResult_efficiency_feature"),
-        getString("_UI_PropertyDescriptor_description", "_UI_CellResult_efficiency_feature",
-            "_UI_CellResult_type"),
-        DatamodelPackage.Literals.CELL_RESULT__EFFICIENCY, true, false, false,
-        ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_efficiency_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_efficiency_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__EFFICIENCY,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This adds a property descriptor for the Fill Factor feature. <!-- begin-user-doc --> <!--
+   * This adds a property descriptor for the Fill Factor feature.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @generated
    */
   protected void addFillFactorPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellResult_fillFactor_feature"),
-        getString("_UI_PropertyDescriptor_description", "_UI_CellResult_fillFactor_feature",
-            "_UI_CellResult_type"),
-        DatamodelPackage.Literals.CELL_RESULT__FILL_FACTOR, true, false, false,
-        ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_fillFactor_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_fillFactor_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__FILL_FACTOR,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This adds a property descriptor for the Maximum Power feature. <!-- begin-user-doc --> <!--
+   * This adds a property descriptor for the Maximum Power feature.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @generated
    */
   protected void addMaximumPowerPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add(createItemPropertyDescriptor(
-        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-        getString("_UI_CellResult_maximumPower_feature"),
-        getString("_UI_PropertyDescriptor_description", "_UI_CellResult_maximumPower_feature",
-            "_UI_CellResult_type"),
-        DatamodelPackage.Literals.CELL_RESULT__MAXIMUM_POWER, true, false, false,
-        ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_maximumPower_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_maximumPower_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__MAXIMUM_POWER,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
   }
 
   /**
-   * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate
-   * feature for an {@link org.eclipse.emf.edit.command.AddCommand},
-   * {@link org.eclipse.emf.edit.command.RemoveCommand} or
-   * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}. <!-- begin-user-doc
+   * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+   * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+   * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+   * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
@@ -316,7 +399,6 @@ public class CellResultItemProvider extends ItemProviderAdapter
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
@@ -345,8 +427,10 @@ public class CellResultItemProvider extends ItemProviderAdapter
    */
   @Override
   public String getText(Object object) {
-    String label = ((CellResult) object).getName();
-    return label == null || label.length() == 0 ? getString("_UI_CellResult_type") : label;
+    String label = ((CellResult)object).getName();
+    return label == null || label.length() == 0 ?
+      getString("_UI_CellResult_type") :
+      getString("_UI_CellResult_type") + " " + label;
   }
 
 
@@ -354,7 +438,6 @@ public class CellResultItemProvider extends ItemProviderAdapter
    * This handles model notifications by calling {@link #updateChildren} to update any cached
    * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
@@ -376,35 +459,35 @@ public class CellResultItemProvider extends ItemProviderAdapter
       case DatamodelPackage.CELL_RESULT__EFFICIENCY:
       case DatamodelPackage.CELL_RESULT__FILL_FACTOR:
       case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER:
-        fireNotifyChanged(
-            new ViewerNotification(notification, notification.getNotifier(), false, true));
+        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case DatamodelPackage.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET:
       case DatamodelPackage.CELL_RESULT__DARK_MEASUREMENET_DATA_SET:
-        fireNotifyChanged(
-            new ViewerNotification(notification, notification.getNotifier(), true, false));
+        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
     }
     super.notifyChanged(notification);
   }
 
   /**
-   * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children that
-   * can be created under this object. <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
+   * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+   * that can be created under this object.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   @Override
   protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
     super.collectNewChildDescriptors(newChildDescriptors, object);
 
-    newChildDescriptors
-        .add(createChildParameter(DatamodelPackage.Literals.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET,
-            DatamodelFactory.eINSTANCE.createCellMeasurementDataSet()));
+    newChildDescriptors.add
+      (createChildParameter
+        (DatamodelPackage.Literals.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET,
+         DatamodelFactory.eINSTANCE.createCellMeasurementDataSet()));
 
-    newChildDescriptors
-        .add(createChildParameter(DatamodelPackage.Literals.CELL_RESULT__DARK_MEASUREMENET_DATA_SET,
-            DatamodelFactory.eINSTANCE.createCellMeasurementDataSet()));
+    newChildDescriptors.add
+      (createChildParameter
+        (DatamodelPackage.Literals.CELL_RESULT__DARK_MEASUREMENET_DATA_SET,
+         DatamodelFactory.eINSTANCE.createCellMeasurementDataSet()));
   }
 
   /**
@@ -420,20 +503,21 @@ public class CellResultItemProvider extends ItemProviderAdapter
     Object childObject = child;
 
     boolean qualify =
-        childFeature == DatamodelPackage.Literals.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET
-            || childFeature == DatamodelPackage.Literals.CELL_RESULT__DARK_MEASUREMENET_DATA_SET;
+      childFeature == DatamodelPackage.Literals.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET ||
+      childFeature == DatamodelPackage.Literals.CELL_RESULT__DARK_MEASUREMENET_DATA_SET;
 
     if (qualify) {
-      return getString("_UI_CreateChild_text2", new Object[] {getTypeText(childObject),
-          getFeatureText(childFeature), getTypeText(owner)});
+      return getString
+        ("_UI_CreateChild_text2",
+         new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
     }
     return super.getCreateChildText(owner, feature, child, selection);
   }
 
   /**
-   * Return the resource locator for this item provider's resources. <!-- begin-user-doc --> <!--
+   * Return the resource locator for this item provider's resources.
+   * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @generated
    */
   @Override

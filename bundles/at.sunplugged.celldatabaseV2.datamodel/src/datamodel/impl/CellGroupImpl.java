@@ -2,6 +2,7 @@
  */
 package datamodel.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,9 @@ import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -22,6 +26,7 @@ import at.sunplugged.celldatabaseV2.common.RegexPatterns;
 import datamodel.CellGroup;
 import datamodel.CellResult;
 import datamodel.DatamodelPackage;
+import datamodel.util.DatamodelValidator;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Cell Group</b></em>'. <!--
@@ -95,17 +100,6 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
    */
   protected CellGroupImpl() {
     super();
-    this.eAdapters().add(new AdapterImpl() {
-      @Override
-      public void notifyChanged(Notification msg) {
-        if (msg.getFeature().equals(DatamodelPackage.Literals.CELL_GROUP__CELL_RESULTS)) {
-          calculateNewName();
-        }
-      }
-
-
-    });
-
   }
 
 
@@ -167,35 +161,54 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * 
-   * @generated
+   * @generated NOT
    */
   public EList<CellResult> getCellResults() {
     if (cellResults == null) {
       cellResults = new EObjectContainmentEList<CellResult>(CellResult.class, this,
           DatamodelPackage.CELL_GROUP__CELL_RESULTS) {
         /**
-             * 
-             */
-        private static final long serialVersionUID = -2620365050176043748L;
+         * 
+         */
+        private static final long serialVersionUID = -4800878187497603123L;
 
         @Override
         protected void didAdd(int index, CellResult newObject) {
+          super.didAdd(index, newObject);
           newObject.eAdapters().add(new AdapterImpl() {
-
             @Override
             public void notifyChanged(Notification msg) {
-              if (msg.getFeature() == DatamodelPackage.Literals.CELL_RESULT__NAME) {
+              if (msg.getFeature().equals(DatamodelPackage.Literals.CELL_RESULT__NAME)) {
                 calculateNewName();
               }
+              super.notifyChanged(msg);
             }
-
           });
-          super.didAdd(index, newObject);
         }
       };
     }
     return cellResults;
   }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @generated NOT
+   */
+  public boolean cellResultsNamesCorrect(DiagnosticChain chain, Map<?, ?> context) {
+    if (cellResultsNamedProperly() == false) {
+      if (chain != null) {
+        chain.add(new BasicDiagnostic(Diagnostic.WARNING, DatamodelValidator.DIAGNOSTIC_SOURCE,
+            DatamodelValidator.CELL_GROUP__CELL_RESULTS_NAMES_CORRECT,
+            "CellResults are not correctly named.",
+            new Object[] {this, DatamodelPackage.eINSTANCE.getCellResult_Name()}));
+      }
+      return false;
+    }
+    return true;
+  }
+
+
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -299,6 +312,23 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
    * @generated
    */
   @Override
+  public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
+    switch (operationID) {
+      case DatamodelPackage.CELL_GROUP___CELL_RESULTS_NAMES_CORRECT__DIAGNOSTICCHAIN_MAP:
+        return cellResultsNamesCorrect((DiagnosticChain) arguments.get(0),
+            (Map<?, ?>) arguments.get(1));
+    }
+    return super.eInvoke(operationID, arguments);
+  }
+
+
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @generated
+   */
+  @Override
   public String toString() {
     if (eIsProxy())
       return super.toString();
@@ -328,9 +358,33 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
         .get(RegexPatterns.LABVIEW_GROUP_COMPLEMENT, "");
     Map<String, List<CellResult>> grouped = cellResults.stream()
         .collect(Collectors.groupingBy(cellResult -> cellResult.getName().replaceAll(regex, "")));
+
     String name = grouped.entrySet().stream()
         .max((a, b) -> Integer.max(a.getValue().size(), b.getValue().size())).orElse(null).getKey();
+
+    if (grouped.keySet().size() != 1) {
+      setName(name + " (Not named properly)");
+      return;
+    }
     setName(name);
+  }
+
+  /**
+   * @generated NOT
+   */
+  private boolean cellResultsNamedProperly() {
+    EList<CellResult> cellResults = getCellResults();
+    if (cellResults == null || cellResults.isEmpty()) {
+      return false;
+    }
+    String regex = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS)
+        .get(RegexPatterns.LABVIEW_GROUP_COMPLEMENT, "");
+    Map<String, List<CellResult>> grouped = cellResults.stream()
+        .collect(Collectors.groupingBy(cellResult -> cellResult.getName().replaceAll(regex, "")));
+    if (grouped.keySet().size() != 1) {
+      return false;
+    }
+    return true;
   }
 
 } // CellGroupImpl

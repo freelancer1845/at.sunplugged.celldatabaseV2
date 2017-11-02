@@ -2,6 +2,8 @@
  */
 package datamodel;
 
+import java.util.Map;
+import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -93,5 +95,13 @@ public interface CellGroup extends EObject {
    * @generated
    */
   EList<CellResult> getCellResults();
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @model
+   * @generated
+   */
+  boolean cellResultsNamesCorrect(DiagnosticChain chain, Map<?, ?> context);
 
 } // CellGroup

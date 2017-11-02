@@ -2,16 +2,28 @@
  */
 package datamodel.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import datamodel.CellGroup;
 import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;
 import datamodel.DatamodelPackage;
+import datamodel.util.DatamodelUtils;
+import datamodel.util.DatamodelValidator;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Cell Result</b></em>'. <!--
@@ -670,6 +682,44 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @generated NOT
+   */
+  public boolean validateName(DiagnosticChain chain, Map<?, ?> context) {
+    if (nameIsOff() == true) {
+      if (chain != null) {
+        chain.add(new BasicDiagnostic(Diagnostic.WARNING, DatamodelValidator.DIAGNOSTIC_SOURCE,
+            DatamodelValidator.CELL_RESULT__VALIDATE_NAME,
+            "Name pattern does not match others in group.",
+            new Object[] {this, DatamodelPackage.eINSTANCE.getCellResult_Name()}));
+      }
+      return false;
+    }
+    return true;
+  }
+
+  private boolean nameIsOff() {
+    EObject object = eContainer();
+    if (object instanceof CellGroup) {
+      EList<CellResult> cellResults = ((CellGroup) object).getCellResults();
+      Map<String, List<CellResult>> grouped = DatamodelUtils.groupCellResultsByName(cellResults);
+      Map<String, Integer> groupSizes = grouped.entrySet().stream()
+          .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().size()));
+
+      String maxGroup = groupSizes.entrySet().stream()
+          .max((e1, e2) -> Integer.compare(e1.getValue(), e2.getValue())).get().getKey();
+      if (getName().startsWith(maxGroup)) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   @Override
@@ -880,6 +930,19 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
         return getMaximumPower() != MAXIMUM_POWER_EDEFAULT;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
+    switch (operationID) {
+      case DatamodelPackage.CELL_RESULT___VALIDATE_NAME__DIAGNOSTICCHAIN_MAP:
+        return validateName((DiagnosticChain)arguments.get(0), (Map<?, ?>)arguments.get(1));
+    }
+    return super.eInvoke(operationID, arguments);
   }
 
   /**

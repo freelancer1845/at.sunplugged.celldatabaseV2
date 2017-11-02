@@ -4,6 +4,7 @@ package datamodel;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -257,13 +258,22 @@ public interface DatamodelPackage extends EPackage {
   int CELL_RESULT_FEATURE_COUNT = 16;
 
   /**
+   * The operation id for the '<em>Validate Name</em>' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CELL_RESULT___VALIDATE_NAME__DIAGNOSTICCHAIN_MAP = 0;
+
+  /**
    * The number of operations of the '<em>Cell Result</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CELL_RESULT_OPERATION_COUNT = 0;
+  int CELL_RESULT_OPERATION_COUNT = 1;
 
   /**
    * The meta object id for the '{@link datamodel.impl.CellGroupImpl <em>Cell Group</em>}' class.
@@ -312,13 +322,22 @@ public interface DatamodelPackage extends EPackage {
   int CELL_GROUP_FEATURE_COUNT = 3;
 
   /**
+   * The operation id for the '<em>Cell Results Names Correct</em>' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CELL_GROUP___CELL_RESULTS_NAMES_CORRECT__DIAGNOSTICCHAIN_MAP = 0;
+
+  /**
    * The number of operations of the '<em>Cell Group</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CELL_GROUP_OPERATION_COUNT = 0;
+  int CELL_GROUP_OPERATION_COUNT = 1;
 
   /**
    * The meta object id for the '{@link datamodel.impl.CellMeasurementDataSetImpl <em>Cell Measurement Data Set</em>}' class.
@@ -657,6 +676,16 @@ public interface DatamodelPackage extends EPackage {
   EAttribute getCellResult_MaximumPower();
 
   /**
+   * Returns the meta object for the '{@link datamodel.CellResult#validateName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Validate Name</em>}' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the '<em>Validate Name</em>' operation.
+   * @see datamodel.CellResult#validateName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+   * @generated
+   */
+  EOperation getCellResult__ValidateName__DiagnosticChain_Map();
+
+  /**
    * Returns the meta object for class '{@link datamodel.CellGroup <em>Cell Group</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -698,6 +727,16 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    */
   EReference getCellGroup_CellResults();
+
+  /**
+   * Returns the meta object for the '{@link datamodel.CellGroup#cellResultsNamesCorrect(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Cell Results Names Correct</em>}' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the '<em>Cell Results Names Correct</em>' operation.
+   * @see datamodel.CellGroup#cellResultsNamesCorrect(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+   * @generated
+   */
+  EOperation getCellGroup__CellResultsNamesCorrect__DiagnosticChain_Map();
 
   /**
    * Returns the meta object for class '{@link datamodel.CellMeasurementDataSet <em>Cell Measurement Data Set</em>}'.
@@ -987,6 +1026,14 @@ public interface DatamodelPackage extends EPackage {
     EAttribute CELL_RESULT__MAXIMUM_POWER = eINSTANCE.getCellResult_MaximumPower();
 
     /**
+     * The meta object literal for the '<em><b>Validate Name</b></em>' operation.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EOperation CELL_RESULT___VALIDATE_NAME__DIAGNOSTICCHAIN_MAP = eINSTANCE.getCellResult__ValidateName__DiagnosticChain_Map();
+
+    /**
      * The meta object literal for the '{@link datamodel.impl.CellGroupImpl <em>Cell Group</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1019,6 +1066,14 @@ public interface DatamodelPackage extends EPackage {
      * @generated
      */
     EReference CELL_GROUP__CELL_RESULTS = eINSTANCE.getCellGroup_CellResults();
+
+    /**
+     * The meta object literal for the '<em><b>Cell Results Names Correct</b></em>' operation.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EOperation CELL_GROUP___CELL_RESULTS_NAMES_CORRECT__DIAGNOSTICCHAIN_MAP = eINSTANCE.getCellGroup__CellResultsNamesCorrect__DiagnosticChain_Map();
 
     /**
      * The meta object literal for the '{@link datamodel.impl.CellMeasurementDataSetImpl <em>Cell Measurement Data Set</em>}' class.

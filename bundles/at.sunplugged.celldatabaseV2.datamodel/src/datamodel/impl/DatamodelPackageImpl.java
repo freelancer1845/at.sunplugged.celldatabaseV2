@@ -2,6 +2,14 @@
  */
 package datamodel.impl;
 
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EGenericType;
+import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.emf.ecore.impl.EPackageImpl;
 import datamodel.CellGroup;
 import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;
@@ -9,52 +17,39 @@ import datamodel.Database;
 import datamodel.DatamodelFactory;
 import datamodel.DatamodelPackage;
 import datamodel.UIDataPoint;
-
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-
-import org.eclipse.emf.ecore.impl.EPackageImpl;
+import datamodel.util.DatamodelValidator;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model <b>Package</b>.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
  * @generated
  */
 public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPackage {
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   private EClass databaseEClass = null;
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   private EClass cellResultEClass = null;
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   private EClass cellGroupEClass = null;
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   private EClass cellMeasurementDataSetEClass = null;
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   private EClass uiDataPointEClass = null;
@@ -67,8 +62,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * factory method {@link #init init()}, which also performs
    * initialization of the package, or returns the registered package,
    * if one already exists.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @see org.eclipse.emf.ecore.EPackage.Registry
    * @see datamodel.DatamodelPackage#eNS_URI
    * @see #init()
@@ -79,8 +73,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   private static boolean isInited = false;
@@ -90,8 +83,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * 
    * <p>This method is used to initialize {@link DatamodelPackage#eINSTANCE} when that field is accessed.
    * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @see #eNS_URI
    * @see #createPackageContents()
    * @see #initializePackageContents()
@@ -111,6 +103,15 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
     // Initialize created meta-data
     theDatamodelPackage.initializePackageContents();
 
+    // Register package validator
+    EValidator.Registry.INSTANCE.put
+      (theDatamodelPackage, 
+       new EValidator.Descriptor() {
+         public EValidator getEValidator() {
+           return DatamodelValidator.INSTANCE;
+         }
+       });
+
     // Mark meta-data to indicate it can't be changed
     theDatamodelPackage.freeze();
 
@@ -121,8 +122,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EClass getDatabase() {
@@ -130,8 +130,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EReference getDatabase_CellGroups() {
@@ -139,8 +138,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EClass getCellResult() {
@@ -148,8 +146,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellResult_Name() {
@@ -157,8 +154,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellResult_Description() {
@@ -166,8 +162,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellResult_DataEvaluated() {
@@ -175,8 +170,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellResult_OpenCircuitVoltage() {
@@ -184,8 +178,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellResult_ShortCircuitCurrent() {
@@ -193,8 +186,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellResult_ParallelResistance() {
@@ -202,8 +194,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellResult_DarkParallelResistance() {
@@ -211,8 +202,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellResult_SeriesResistance() {
@@ -220,8 +210,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellResult_DarkSeriesResistance() {
@@ -229,8 +218,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellResult_MaximumPowerVoltage() {
@@ -238,8 +226,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellResult_MaximumPowerCurrent() {
@@ -247,8 +234,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellResult_Efficiency() {
@@ -256,8 +242,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellResult_FillFactor() {
@@ -265,8 +250,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EReference getCellResult_LightMeasurementDataSet() {
@@ -274,8 +258,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EReference getCellResult_DarkMeasuremenetDataSet() {
@@ -283,8 +266,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellResult_MaximumPower() {
@@ -296,13 +278,20 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- end-user-doc -->
    * @generated
    */
+  public EOperation getCellResult__ValidateName__DiagnosticChain_Map() {
+    return cellResultEClass.getEOperations().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getCellGroup() {
     return cellGroupEClass;
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellGroup_Name() {
@@ -310,8 +299,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellGroup_Description() {
@@ -319,8 +307,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EReference getCellGroup_CellResults() {
@@ -328,8 +315,15 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * @generated
+   */
+  public EOperation getCellGroup__CellResultsNamesCorrect__DiagnosticChain_Map() {
+    return cellGroupEClass.getEOperations().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EClass getCellMeasurementDataSet() {
@@ -337,8 +331,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellMeasurementDataSet_Name() {
@@ -346,8 +339,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellMeasurementDataSet_Description() {
@@ -355,8 +347,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellMeasurementDataSet_DateMeasured() {
@@ -364,8 +355,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellMeasurementDataSet_Area() {
@@ -373,8 +363,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getCellMeasurementDataSet_PowerInput() {
@@ -382,8 +371,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EReference getCellMeasurementDataSet_Data() {
@@ -391,8 +379,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EClass getUIDataPoint() {
@@ -400,8 +387,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getUIDataPoint_Voltage() {
@@ -409,8 +395,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EAttribute getUIDataPoint_Current() {
@@ -418,8 +403,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public DatamodelFactory getDatamodelFactory() {
@@ -427,8 +411,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   private boolean isCreated = false;
@@ -436,8 +419,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   /**
    * Creates the meta-model objects for the package.  This method is
    * guarded to have no affect on any invocation but its first.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public void createPackageContents() {
@@ -465,11 +447,13 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
     createEReference(cellResultEClass, CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET);
     createEReference(cellResultEClass, CELL_RESULT__DARK_MEASUREMENET_DATA_SET);
     createEAttribute(cellResultEClass, CELL_RESULT__MAXIMUM_POWER);
+    createEOperation(cellResultEClass, CELL_RESULT___VALIDATE_NAME__DIAGNOSTICCHAIN_MAP);
 
     cellGroupEClass = createEClass(CELL_GROUP);
     createEAttribute(cellGroupEClass, CELL_GROUP__NAME);
     createEAttribute(cellGroupEClass, CELL_GROUP__DESCRIPTION);
     createEReference(cellGroupEClass, CELL_GROUP__CELL_RESULTS);
+    createEOperation(cellGroupEClass, CELL_GROUP___CELL_RESULTS_NAMES_CORRECT__DIAGNOSTICCHAIN_MAP);
 
     cellMeasurementDataSetEClass = createEClass(CELL_MEASUREMENT_DATA_SET);
     createEAttribute(cellMeasurementDataSetEClass, CELL_MEASUREMENT_DATA_SET__NAME);
@@ -485,8 +469,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   private boolean isInitialized = false;
@@ -494,8 +477,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   /**
    * Complete the initialization of the package and its meta-model.  This
    * method is guarded to have no affect on any invocation but its first.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public void initializePackageContents() {
@@ -535,10 +517,28 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
     initEReference(getCellResult_DarkMeasuremenetDataSet(), this.getCellMeasurementDataSet(), null, "darkMeasuremenetDataSet", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCellResult_MaximumPower(), ecorePackage.getEDouble(), "maximumPower", null, 0, 1, CellResult.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
+    EOperation op = initEOperation(getCellResult__ValidateName__DiagnosticChain_Map(), ecorePackage.getEBoolean(), "validateName", 0, 1, IS_UNIQUE, IS_ORDERED);
+    addEParameter(op, ecorePackage.getEDiagnosticChain(), "chain", 0, 1, IS_UNIQUE, IS_ORDERED);
+    EGenericType g1 = createEGenericType(ecorePackage.getEMap());
+    EGenericType g2 = createEGenericType();
+    g1.getETypeArguments().add(g2);
+    g2 = createEGenericType();
+    g1.getETypeArguments().add(g2);
+    addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
+
     initEClass(cellGroupEClass, CellGroup.class, "CellGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getCellGroup_Name(), ecorePackage.getEString(), "name", "Unkown Group", 0, 1, CellGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCellGroup_Description(), ecorePackage.getEString(), "description", null, 0, 1, CellGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCellGroup_CellResults(), this.getCellResult(), null, "cellResults", null, 0, -1, CellGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    op = initEOperation(getCellGroup__CellResultsNamesCorrect__DiagnosticChain_Map(), ecorePackage.getEBoolean(), "cellResultsNamesCorrect", 0, 1, IS_UNIQUE, IS_ORDERED);
+    addEParameter(op, ecorePackage.getEDiagnosticChain(), "chain", 0, 1, IS_UNIQUE, IS_ORDERED);
+    g1 = createEGenericType(ecorePackage.getEMap());
+    g2 = createEGenericType();
+    g1.getETypeArguments().add(g2);
+    g2 = createEGenericType();
+    g1.getETypeArguments().add(g2);
+    addEParameter(op, g1, "context", 0, 1, IS_UNIQUE, IS_ORDERED);
 
     initEClass(cellMeasurementDataSetEClass, CellMeasurementDataSet.class, "CellMeasurementDataSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getCellMeasurementDataSet_Name(), ecorePackage.getEString(), "name", null, 0, 1, CellMeasurementDataSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -556,4 +556,4 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
     createResource(eNS_URI);
   }
 
-} //DatamodelPackageImpl
+} // DatamodelPackageImpl

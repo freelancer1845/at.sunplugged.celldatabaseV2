@@ -27,11 +27,19 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datamodel.ecore#//CellResult/lightMeasurementDataSet"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datamodel.ecore#//CellResult/darkMeasuremenetDataSet"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/maximumPower"/>
+      <genOperations ecoreOperation="datamodel.ecore#//CellResult/validateName">
+        <genParameters ecoreParameter="datamodel.ecore#//CellResult/validateName/chain"/>
+        <genParameters ecoreParameter="datamodel.ecore#//CellResult/validateName/context"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="datamodel.ecore#//CellGroup">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellGroup/name"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellGroup/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellGroup/description"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference datamodel.ecore#//CellGroup/cellResults"/>
+      <genOperations ecoreOperation="datamodel.ecore#//CellGroup/cellResultsNamesCorrect">
+        <genParameters ecoreParameter="datamodel.ecore#//CellGroup/cellResultsNamesCorrect/chain"/>
+        <genParameters ecoreParameter="datamodel.ecore#//CellGroup/cellResultsNamesCorrect/context"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="datamodel.ecore#//CellMeasurementDataSet">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellMeasurementDataSet/name"/>

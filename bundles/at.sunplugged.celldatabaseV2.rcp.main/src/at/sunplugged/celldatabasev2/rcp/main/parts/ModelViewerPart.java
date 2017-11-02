@@ -25,17 +25,20 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.emf.edit.ui.provider.DiagnosticDecorator;
 import org.eclipse.emfforms.spi.swt.treemasterdetail.TreeViewerSWTFactory;
+import org.eclipse.jface.viewers.DecoratingLabelProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
-import org.eclipse.jface.viewers.ILabelDecorator;
-import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,47 +61,24 @@ public class ModelViewerPart {
   @PostConstruct
   public void postConstruct(Composite parent, Database database, EMenuService menuService,
       ESelectionService selectionService, EPartService partService, EModelService modelService,
-      MApplication app) {
+      MApplication app, EditingDomain editingDomain) {
 
     createTreeViewer(parent, database, menuService, selectionService, partService, modelService,
-        app);
+        app, editingDomain);
   }
 
   private void createTreeViewer(Composite parent, Database database, EMenuService menuService,
       ESelectionService selectionService, EPartService partService, EModelService modelService,
-      MApplication app) {
+      MApplication app, EditingDomain editingDomain) {
+
+    ComposedAdapterFactory composedAdapterFactory =
+        new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+
+    AdapterFactoryLabelProvider labelProvider =
+        new AdapterFactoryLabelProvider(composedAdapterFactory);
+
     TreeViewer treeViewer = TreeViewerSWTFactory.fillDefaults(parent, database)
-        .customizeLabelDecorator(new ILabelDecorator() {
-
-          @Override
-          public void removeListener(ILabelProviderListener listener) {
-
-        }
-
-          @Override
-          public boolean isLabelProperty(Object element, String property) {
-            return false;
-          }
-
-          @Override
-          public void dispose() {}
-
-          @Override
-          public void addListener(ILabelProviderListener listener) {}
-
-          @Override
-          public String decorateText(String text, Object element) {
-            // if (dirtyTreeElements.contains(element)) {
-            // return "*" + text;
-            // }
-            return text;
-          }
-
-          @Override
-          public Image decorateImage(Image image, Object element) {
-            return null;
-          }
-        }).customizeContentProvider(new ITreeContentProvider() {
+        .customizeContentProvider(new ITreeContentProvider() {
 
           @Override
           public boolean hasChildren(Object element) {
@@ -150,8 +130,15 @@ public class ModelViewerPart {
             return new Object[] {};
           }
         }).create();
+
+    treeViewer.setLabelProvider(
+        new DecoratingLabelProvider((ILabelProvider) treeViewer.getLabelProvider(),
+            new DiagnosticDecorator(editingDomain, treeViewer)));
+
     treeViewer.setAutoExpandLevel(0);
     treeViewer.collapseAll();
+
+
     CommandStack commandStack =
         AdapterFactoryEditingDomain.getEditingDomainFor(database).getCommandStack();
     commandStack.addCommandStackListener(new CommandStackListener() {
