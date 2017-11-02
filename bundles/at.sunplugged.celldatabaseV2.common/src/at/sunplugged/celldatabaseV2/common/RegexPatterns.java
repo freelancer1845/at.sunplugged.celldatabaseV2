@@ -15,7 +15,7 @@ public class RegexPatterns {
 
   public static final String LABVIEW_FILE = "labview.file";
 
-  private static final String DEFAULT_LABVIEW_FILE = "^[0-9]+-[0-9]+[a-zA-Z]+_[0-9]+-[01]\\.txt$";
+  private static final String DEFAULT_LABVIEW_FILE = "^.+-[01]\\.txt$";
 
   public static final String LABVIEW_GROUP_COMPLEMENT = "labview.group.complement";
 

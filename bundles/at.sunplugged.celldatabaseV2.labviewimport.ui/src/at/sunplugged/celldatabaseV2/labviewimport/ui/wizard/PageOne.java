@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.eclipse.jface.dialogs.IInputValidator;
@@ -179,15 +180,23 @@ public class PageOne extends WizardPage {
 
       private String[] filterNames(String[] names) {
         final String fileRegex = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS)
-            .get(RegexPatterns.LABVIEW_FILE, "");
-        return Arrays.stream(names).filter(name -> name.matches(fileRegex)).toArray(String[]::new);
+            .get(RegexPatterns.LABVIEW_ENDING, "");
+
+        Pattern pattern = Pattern.compile(fileRegex);
+
+        return Arrays.stream(names).filter(name -> pattern.matcher(name).find())
+            .toArray(String[]::new);
       }
 
       private void checkNamesForLabviewFiles(String[] names) {
         final String fileRegex = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS)
-            .get(RegexPatterns.LABVIEW_FILE, "");
+            .get(RegexPatterns.LABVIEW_ENDING, "");
 
-        List<String> fails = Arrays.stream(names).filter(name -> !name.matches(fileRegex))
+        Pattern pattern = Pattern.compile(fileRegex);
+
+
+
+        List<String> fails = Arrays.stream(names).filter(name -> !pattern.matcher(name).find())
             .collect(Collectors.toList());
         if (fails.isEmpty() == false) {
           StringBuilder errorMessage = new StringBuilder();
@@ -197,8 +206,8 @@ public class PageOne extends WizardPage {
             errorMessage.append(fail);
             errorMessage.append("\n");
           }
-          errorMessage.append(
-              "These will be ignored...\nPattern must match \n\"YYYYMMDD-[probename]_[cellnumber]-[0 (dark) or 1(light)]\"");
+          errorMessage
+              .append("These will be ignored...\nPattern must match \n\"-[0 (dark) or 1(light)]\"");
           errorMessage.append("\n");
           errorMessage.append("For Example: \"21001224-e7_1-0.txt\"");
           MessageDialog.openError(getShell(), "Wrong filenames...", errorMessage.toString());
