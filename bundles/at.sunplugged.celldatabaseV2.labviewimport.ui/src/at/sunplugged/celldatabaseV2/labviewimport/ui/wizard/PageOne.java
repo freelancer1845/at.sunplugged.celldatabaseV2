@@ -264,7 +264,7 @@ public class PageOne extends WizardPage {
         IStructuredSelection selection = viewer.getStructuredSelection();
         if (selection.isEmpty() == false) {
           InputDialog inputDialog = new InputDialog(getShell(), "Set PowerInput...",
-              "PowerInput to set...", "0", new IInputValidator() {
+              "PowerInput[W/m^2] to set...", "0", new IInputValidator() {
 
                 @Override
                 public String isValid(String newText) {
@@ -313,7 +313,7 @@ public class PageOne extends WizardPage {
 
   private void createColumns(TableViewer viewer2) {
 
-    String[] titles = {"Name", "Area [cm^2]", "Power Input"};
+    String[] titles = {"Name", "Area [cm^2]", "Power Input[W/m^2]"};
     int[] bounds = {150, 80, 80};
 
     TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);

@@ -38,11 +38,11 @@ public class ExcelOutputHelper {
   private static final String SHEET_NAME_SUMMARY = "Summary";
 
   private static final String[] GROUP_ROW_NAMES =
-      new String[] {"Cell", "Voc[V]", "Jsc[A/mm^2]", "Rp[ohm/mm^2]", "RpDark[ohm/mm^2]",
-          "Rs[ohm/mm^2]", "RsDark[ohm/mm^2]", "MP[W/mm^2]", "Efficency[%]", "FillFactor",};
+      new String[] {"Cell", "Voc[V]", "Jsc[A/cm^2]", "Rp[ohm/cm^2]", "RpDark[ohm/cm^2]",
+          "Rs[ohm/cm^2]", "RsDark[ohm/cm^2]", "MP[W/cm^2]", "Efficency[%]", "FillFactor",};
 
   private static final String[] DATA_SET_ROW_NAMES =
-      new String[] {"Name", "Area[mm^2]", "PowerInput"};
+      new String[] {"Name", "Area[cm^2]", "PowerInput[W/m^2]"};
 
   private static final EAttribute[] LITERALS =
       new EAttribute[] {Literals.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE,
@@ -225,24 +225,23 @@ public class ExcelOutputHelper {
       writeValueToCell(cRow.createCell(colId++), result.getOpenCircuitVoltage(),
           Literals.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE);
       writeValueToCell(cRow.createCell(colId++),
-          result.getShortCircuitCurrent() / result.getLightMeasurementDataSet().getArea() / 1000000,
+          result.getShortCircuitCurrent() / result.getLightMeasurementDataSet().getArea() / 10000,
           Literals.CELL_RESULT__SHORT_CIRCUIT_CURRENT);
       writeValueToCell(cRow.createCell(colId++),
-          result.getParallelResistance() / result.getLightMeasurementDataSet().getArea() / 1000000,
+          result.getParallelResistance() / result.getLightMeasurementDataSet().getArea() / 10000,
           Literals.CELL_RESULT__PARALLEL_RESISTANCE);
       writeValueToCell(
           cRow.createCell(colId++), result.getDarkParallelResistance()
-              / result.getLightMeasurementDataSet().getArea() / 1000000,
+              / result.getLightMeasurementDataSet().getArea() / 10000,
           Literals.CELL_RESULT__DARK_PARALLEL_RESISTANCE);
       writeValueToCell(cRow.createCell(colId++),
-          result.getSeriesResistance() / result.getLightMeasurementDataSet().getArea() / 1000000,
+          result.getSeriesResistance() / result.getLightMeasurementDataSet().getArea() / 10000,
           Literals.CELL_RESULT__SERIES_RESISTANCE);
-      writeValueToCell(
-          cRow.createCell(colId++), result.getDarkSeriesResistance()
-              / result.getLightMeasurementDataSet().getArea() / 1000000,
+      writeValueToCell(cRow.createCell(colId++),
+          result.getDarkSeriesResistance() / result.getLightMeasurementDataSet().getArea() / 10000,
           Literals.CELL_RESULT__DARK_SERIES_RESISTANCE);
       writeValueToCell(cRow.createCell(colId++),
-          result.getMaximumPower() / result.getLightMeasurementDataSet().getArea() / 1000000,
+          result.getMaximumPower() / result.getLightMeasurementDataSet().getArea() / 10000,
           Literals.CELL_RESULT__MAXIMUM_POWER);
       writeValueToCell(cRow.createCell(colId++), result.getEfficiency(),
           Literals.CELL_RESULT__EFFICIENCY);
@@ -359,7 +358,7 @@ public class ExcelOutputHelper {
 
     XSSFCell cCell;
 
-    double area = res.getLightMeasurementDataSet().getArea() * 1000000;
+    double area = res.getLightMeasurementDataSet().getArea() * 10000;
 
     cCell = nameRow.createCell(colId);
     fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
