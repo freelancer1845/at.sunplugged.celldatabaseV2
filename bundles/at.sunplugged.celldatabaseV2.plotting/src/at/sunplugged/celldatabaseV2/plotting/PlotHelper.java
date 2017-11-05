@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.commons.exec.CommandLine;
@@ -14,6 +15,7 @@ import org.apache.commons.exec.ExecuteResultHandler;
 import org.apache.commons.exec.Executor;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.eclipse.emf.ecore.EObject;
+import org.jfree.chart.JFreeChart;
 import org.osgi.service.prefs.Preferences;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,8 @@ import com.google.gson.reflect.TypeToken;
 import at.sunplugged.celldatabaseV2.common.PrefNodes;
 import at.sunplugged.celldatabaseV2.common.PythonSettings;
 import at.sunplugged.celldatabaseV2.plotting.internal.CellResultExclusingStrategy;
+import at.sunplugged.celldatabaseV2.plotting.internal.CellResultJFreeChartPlotter;
+import at.sunplugged.celldatabaseV2.plotting.internal.ChartPlotter;
 import at.sunplugged.celldatabaseV2.plotting.osgi.Activator;
 import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;
@@ -30,6 +34,19 @@ import datamodel.CellResult;
 public class PlotHelper {
 
   private final static Logger LOG = LoggerFactory.getLogger(PlotHelper.class);
+
+
+  public static JFreeChart createJFreeChart(CellResult cellResult) {
+    ChartPlotter chartPlotter = new CellResultJFreeChartPlotter(Arrays.asList(cellResult));
+
+    return chartPlotter.getChart();
+  }
+
+  public static JFreeChart createJFreeChart(List<CellResult> cellResults) {
+    ChartPlotter chartPlotter = new CellResultJFreeChartPlotter(cellResults);
+
+    return chartPlotter.getChart();
+  }
 
 
   public static void plotCellResults(List<CellResult> cellResults,

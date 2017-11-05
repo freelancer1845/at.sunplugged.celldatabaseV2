@@ -14,6 +14,7 @@
             <children xsi:type="menu:HandledMenuItem" xmi:id="_3v6GkLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.redo" label="Redo" command="_zI9JkLNpEee9C5ECqbuxVA"/>
             <children xsi:type="menu:HandledMenuItem" xmi:id="_5t7BoLRJEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.save" label="Save" command="_I0eM0LQEEee9C5ECqbuxVA"/>
             <children xsi:type="menu:MenuSeparator" xmi:id="_wK0TsLRJEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.menuseparator.4"/>
+            <children xsi:type="menu:HandledMenuItem" xmi:id="_25-9sMFrEee9YMg6vBL86g" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.plotlocal" label="Plot Local" command="_FKwKEMFrEee9YMg6vBL86g"/>
             <children xsi:type="menu:HandledMenuItem" xmi:id="_fQ5wQLRJEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.plot" label="Plot..." command="_B8qjgLQwEee9C5ECqbuxVA"/>
             <children xsi:type="menu:MenuSeparator" xmi:id="_mvLfsLRJEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.menuseparator.3"/>
             <children xsi:type="menu:DirectMenuItem" xmi:id="_q4mzMLRJEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.directmenuitem.exportgroupssummary" label="Export Groups Summary" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ExportExcelGroupSummaries"/>
@@ -56,6 +57,7 @@
   <handlers xmi:id="_QRy6ALQEEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.5" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.SaveHandler" command="_I0eM0LQEEee9C5ECqbuxVA"/>
   <handlers xmi:id="_DYYTkLQwEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.6" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.PlotCellResultsHandler" command="_B8qjgLQwEee9C5ECqbuxVA"/>
   <handlers xmi:id="_wHL_oLRDEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.7" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ImportFromSprodHandler" command="_u5DYkLRDEeevVvMUer7mvw"/>
+  <handlers xmi:id="_GeseMMFrEee9YMg6vBL86g" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.8" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.PlotLocalHandler" command="_FKwKEMFrEee9YMg6vBL86g"/>
   <bindingTables xmi:id="_H2iCcLRHEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.bindingtable.0" bindingContext="_c3AF2cjYEeSyMNYR5xypkQ">
     <bindings xmi:id="_I8838LRHEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.keybinding.0" keySequence="M1+S" command="_I0eM0LQEEee9C5ECqbuxVA">
       <tags>type:user</tags>
@@ -75,6 +77,7 @@
     <children xmi:id="_c3AF28jYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
   <descriptors xmi:id="_nQvpMLPcEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.partdescriptor.modeleditor" label="Model Editor" allowMultiple="true" closeable="true" dirtyable="true" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.partdescriptors.ModelEditorDescriptor"/>
+  <descriptors xmi:id="_ChR8gMFiEee9YMg6vBL86g" elementId="at.sunplugged.celldatabasev2.rcp.main.partdescriptor.chart" label="Chart" allowMultiple="true" closeable="true" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.partdescriptors.ChartDescriptor"/>
   <commands xmi:id="_v9yK4LNlEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.createcellgroup" commandName="Create CellGroup"/>
   <commands xmi:id="_-7xs0LNoEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.delete" commandName="Delete"/>
   <commands xmi:id="_yHo2gLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.undo" commandName="Undo"/>
@@ -83,6 +86,7 @@
   <commands xmi:id="_I0eM0LQEEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.save" commandName="Save"/>
   <commands xmi:id="_B8qjgLQwEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.plotcellresults" commandName="Plot CellResults"/>
   <commands xmi:id="_u5DYkLRDEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.command.importfromsprod" commandName="Import From Sprod"/>
+  <commands xmi:id="_FKwKEMFrEee9YMg6vBL86g" elementId="at.sunplugged.celldatabasev2.rcp.main.command.plotlocal" commandName="Plot Local"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

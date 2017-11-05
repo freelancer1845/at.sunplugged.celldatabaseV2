@@ -11,7 +11,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Chart;
+import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.ss.usermodel.charts.AxisCrosses;
+import org.apache.poi.ss.usermodel.charts.AxisOrientation;
+import org.apache.poi.ss.usermodel.charts.AxisPosition;
+import org.apache.poi.ss.usermodel.charts.ChartAxis;
+import org.apache.poi.ss.usermodel.charts.ChartDataSource;
+import org.apache.poi.ss.usermodel.charts.ChartLegend;
+import org.apache.poi.ss.usermodel.charts.DataSources;
+import org.apache.poi.ss.usermodel.charts.LegendPosition;
+import org.apache.poi.ss.usermodel.charts.ScatterChartData;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -439,6 +452,7 @@ public class ExcelOutputHelper {
 
 
     XSSFRow cRow;
+    int dataRowStart = rowId;
     for (UIDataPoint dataPoint : dataSet.getData()) {
       cRow = sheet.createRow(rowId++);
       colId = 0;
@@ -454,10 +468,31 @@ public class ExcelOutputHelper {
       cCell = cRow.createCell(colId++);
       cCell.setCellValue(dataPoint.getCurrent() * dataPoint.getVoltage() / area);
     }
+    int dataRowStop = rowId;
 
     for (int i = 0; i < 15; i++) {
       sheet.getColumnHelper().setColWidth(i, 18);
     }
+
+
+    Drawing drawing = sheet.createDrawingPatriarch();
+    ClientAnchor anchor = drawing.createAnchor(0, 0, 0, 0, colId + 3, 5, colId + 13, 30);
+    Chart chart = drawing.createChart(anchor);
+    ChartLegend legend = chart.getOrCreateLegend();
+    legend.setPosition(LegendPosition.TOP_RIGHT);
+    ScatterChartData data = chart.getChartDataFactory().createScatterChartData();
+    ChartAxis xAxis = chart.getChartAxisFactory().createValueAxis(AxisPosition.BOTTOM);
+    xAxis.setOrientation(AxisOrientation.MIN_MAX);
+    xAxis.setCrosses(AxisCrosses.AUTO_ZERO);
+    ChartAxis yAxis = chart.getChartAxisFactory().createValueAxis(AxisPosition.LEFT);
+    yAxis.setOrientation(AxisOrientation.MIN_MAX);
+    yAxis.setCrosses(AxisCrosses.AUTO_ZERO);
+    ChartDataSource<Number> xS = DataSources.fromNumericCellRange(sheet,
+        new CellRangeAddress(dataRowStart - 1, dataRowStop, 0, 0));
+    ChartDataSource<Number> yS = DataSources.fromNumericCellRange(sheet,
+        new CellRangeAddress(dataRowStart - 1, dataRowStop, 1, 1));
+    data.addSerie(xS, yS);
+    chart.plot(data, xAxis, yAxis);
 
   }
 

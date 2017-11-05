@@ -120,6 +120,7 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
    * @generated
    */
   public String getName() {
+    calculateNewName();
     return name;
   }
 
@@ -175,15 +176,17 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
         @Override
         protected void didAdd(int index, CellResult newObject) {
           super.didAdd(index, newObject);
-          newObject.eAdapters().add(new AdapterImpl() {
-            @Override
-            public void notifyChanged(Notification msg) {
-              if (msg.getFeature().equals(DatamodelPackage.Literals.CELL_RESULT__NAME)) {
-                calculateNewName();
-              }
-              super.notifyChanged(msg);
-            }
-          });
+          newObject.eAdapters()
+              .add(new AdapterImpl() {
+                @Override
+                public void notifyChanged(Notification msg) {
+                  if (msg.getFeature()
+                      .equals(DatamodelPackage.Literals.CELL_RESULT__NAME)) {
+                    calculateNewName();
+                  }
+                  super.notifyChanged(msg);
+                }
+              });
         }
       };
     }
@@ -357,12 +360,20 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
     String regex = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS)
         .get(RegexPatterns.LABVIEW_GROUP_COMPLEMENT, "");
     Map<String, List<CellResult>> grouped = cellResults.stream()
-        .collect(Collectors.groupingBy(cellResult -> cellResult.getName().replaceAll(regex, "")));
+        .collect(Collectors.groupingBy(cellResult -> cellResult.getName()
+            .replaceAll(regex, "")));
 
-    String name = grouped.entrySet().stream()
-        .max((a, b) -> Integer.max(a.getValue().size(), b.getValue().size())).orElse(null).getKey();
+    String name = grouped.entrySet()
+        .stream()
+        .max((a, b) -> Integer.max(a.getValue()
+            .size(),
+            b.getValue()
+                .size()))
+        .orElse(null)
+        .getKey();
 
-    if (grouped.keySet().size() != 1) {
+    if (grouped.keySet()
+        .size() != 1) {
       setName(name + " (Not named properly)");
       return;
     }
@@ -380,8 +391,10 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
     String regex = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS)
         .get(RegexPatterns.LABVIEW_GROUP_COMPLEMENT, "");
     Map<String, List<CellResult>> grouped = cellResults.stream()
-        .collect(Collectors.groupingBy(cellResult -> cellResult.getName().replaceAll(regex, "")));
-    if (grouped.keySet().size() != 1) {
+        .collect(Collectors.groupingBy(cellResult -> cellResult.getName()
+            .replaceAll(regex, "")));
+    if (grouped.keySet()
+        .size() != 1) {
       return false;
     }
     return true;

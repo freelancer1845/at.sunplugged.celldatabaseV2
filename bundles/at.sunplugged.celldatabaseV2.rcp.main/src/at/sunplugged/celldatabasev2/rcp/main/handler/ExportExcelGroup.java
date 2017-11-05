@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import at.sunplugged.celldatabaseV2.export.api.ExcelOutputHelper;
+import at.sunplugged.celldatabaseV2.export.api.SimpleApiExporterHelper;
 import datamodel.CellGroup;
 import datamodel.CellResult;
 
@@ -54,12 +54,22 @@ public class ExportExcelGroup {
     }
 
     FileDialog dialog = new FileDialog(parent, SWT.SAVE);
-    dialog.setFilterExtensions(new String[] {"*.xlsx"});
-    dialog.setFilterNames(new String[] {"Ms Excel Open XML Format Spreadsheet"});
+    dialog.setFilterExtensions(new String[] {"*.ods"});
+    dialog.setFilterNames(new String[] {"Open Document Format Spreadsheet"});
     if (dialog.open() != null) {
-      ExcelOutputHelper helper = new ExcelOutputHelper(cellResults,
-          Paths.get(dialog.getFilterPath(), dialog.getFileName()).toString());
-      helper.execute();
+      // ExcelOutputHelper helper = new ExcelOutputHelper(cellResults,
+      // Paths.get(dialog.getFilterPath(), dialog.getFileName()).toString());
+      // helper.execute();
+      // GenericExcelExporter helper = new GenericExcelExporter(
+      // Paths.get(dialog.getFilterPath(), dialog.getFileName()).toString(), cellResults);
+      // helper.execute();
+      try {
+        SimpleApiExporterHelper.exportCellResults(
+            Paths.get(dialog.getFilterPath(), dialog.getFileName()).toString(), cellResults);
+      } catch (Exception e) {
+        LOG.error("Failed to export...", e);
+        return;
+      }
     }
     LOG.debug("Done exporting Excel CellResults");
   }

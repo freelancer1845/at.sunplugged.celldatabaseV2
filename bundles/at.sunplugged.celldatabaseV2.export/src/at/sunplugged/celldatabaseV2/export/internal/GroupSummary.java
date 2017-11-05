@@ -3,6 +3,7 @@ package at.sunplugged.celldatabaseV2.export.internal;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 import org.eclipse.emf.ecore.EAttribute;
 import datamodel.CellGroup;
+import datamodel.CellResult;
 import datamodel.DatamodelPackage;
 
 public class GroupSummary {
@@ -14,6 +15,7 @@ public class GroupSummary {
   }
 
 
+
   public double getAverage(EAttribute attribute, PostCalculator postCalculator) {
     return calculateAverage(attribute, postCalculator);
   }
@@ -21,6 +23,28 @@ public class GroupSummary {
 
   public double getStd(EAttribute attribute, PostCalculator postCalculator) {
     return calculateStd(attribute, postCalculator);
+  }
+
+  public double getMax(EAttribute attribute, PostCalculator postCalculator) {
+    return calculateMax(attribute, postCalculator);
+  }
+
+
+  private double calculateMax(EAttribute attribute, PostCalculator postCalculator) {
+    return group.getCellResults().stream()
+        .mapToDouble(result -> postCalculator.calc(getValue(result, attribute), result)).max()
+        .getAsDouble();
+  }
+
+  private double getValue(CellResult result, EAttribute attribute) {
+    if (DatamodelPackage.Literals.CELL_RESULT.getEStructuralFeatures().contains(attribute)) {
+      return (double) result.eGet(attribute);
+    } else if (DatamodelPackage.Literals.CELL_MEASUREMENT_DATA_SET.getEStructuralFeatures()
+        .contains(attribute)) {
+      return (double) result.getLightMeasurementDataSet().eGet(attribute);
+    } else {
+      throw new IllegalArgumentException("EAttribute not found...");
+    }
   }
 
 

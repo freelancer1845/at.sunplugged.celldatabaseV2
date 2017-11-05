@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Export
-Bundle-SymbolicName: at.sunplugged.celldatabaseV2.export
+Bundle-SymbolicName: at.sunplugged.celldatabaseV2.export;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.emf.ecore,
@@ -9,6 +9,38 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.apache.poi.ooxml;bundle-version="3.9.0",
  org.eclipse.core.jobs,
  org.eclipse.equinox.registry,
- org.apache.commons.math3;bundle-version="3.5.0"
-Import-Package: datamodel
+ org.apache.commons.math3;bundle-version="3.5.0",
+ org.eclipse.osgi,
+ org.apache.xerces;bundle-version="2.9.0"
+Import-Package: at.sunplugged.celldatabaseV2.plotting,
+ datamodel,
+ org.jfree.chart,
+ org.slf4j;version="1.7.10"
 Export-Package: at.sunplugged.celldatabaseV2.export.api
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: at.sunplugged.celldatabaseV2.export.Activator
+Bundle-ClassPath: .,
+ lib/commons-beanutils-1.9.2.jar,
+ lib/commons-collections-3.2.2.jar,
+ lib/commons-digester-1.8.1.jar,
+ lib/commons-fileupload-1.2.2.jar,
+ lib/commons-logging-1.2.jar,
+ lib/commons-validator-1.5.0.jar,
+ lib/isorelax-20090621.jar,
+ lib/isorelax-jaxp-bridge-1.0.jar,
+ lib/java-rdfa-0.4.2.jar,
+ lib/jena-core-2.11.2.jar,
+ lib/jena-iri-1.0.2.jar,
+ lib/log4j-1.2.17.jar,
+ lib/msv-core-2013.6.1.jar,
+ lib/odfdom-java-0.8.11-incubating.jar,
+ lib/relaxngDatatype-20020414.jar,
+ lib/simple-odf-0.8.2-incubating.jar,
+ lib/slf4j-api-1.7.6.jar,
+ lib/slf4j-log4j12-1.7.6.jar,
+ lib/taglets-0.8.11-incubating.jar,
+ lib/xercesImpl-2.9.1.jar,
+ lib/xml-apis-1.3.04.jar,
+ lib/xsdlib-2013.6.1.jar,
+ lib/xslt-runner-1.2.4-incubating.jar,
+ lib/xslt-runner-task-1.2.4-incubating.jar
