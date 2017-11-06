@@ -1,5 +1,6 @@
 package at.sunplugged.celldatabaseV2.persistence.xmi;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
@@ -49,8 +50,10 @@ public class DatabaseServiceImpl implements DatabaseService {
   }
 
   private Database loadXmiDatabase() {
-    if (resource.getContents().isEmpty() == false) {
-      return (Database) resource.getContents().get(0);
+    if (resource.getContents()
+        .isEmpty() == false) {
+      return (Database) resource.getContents()
+          .get(0);
     } else {
       return null;
     }
@@ -60,8 +63,10 @@ public class DatabaseServiceImpl implements DatabaseService {
 
     Database database = DatamodelFactory.eINSTANCE.createDatabase();
 
-    resource.getContents().add(database);
-    database = (Database) resource.getContents().get(0);
+    resource.getContents()
+        .add(database);
+    database = (Database) resource.getContents()
+        .get(0);
     return database;
   }
 
@@ -70,8 +75,17 @@ public class DatabaseServiceImpl implements DatabaseService {
     Map<String, Object> m = reg.getExtensionToFactoryMap();
 
     m.put("xmi", new XMIResourceFactoryImpl());
-
-    Resource resource = editingDomain.createResource("file://" + path);
+    File file = new File(path);
+    if (file.exists() == false) {
+      try {
+        LOG.debug("Database file didnt exist.... creating new one: " + file.getAbsolutePath());
+        file.createNewFile();
+      } catch (IOException e) {
+        LOG.error("Failed to create database file.", e);
+        throw new DatabaseServiceException("Failed to create database file");
+      }
+    }
+    Resource resource = editingDomain.createResource("file://" + file.getAbsolutePath());
     try {
       resource.load(Collections.EMPTY_MAP);
     } catch (IOException e) {

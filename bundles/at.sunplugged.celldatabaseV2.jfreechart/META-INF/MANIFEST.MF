@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Jfreechart
-Bundle-SymbolicName: at.sunplugged.celldatabseV2.jfreechart
+Bundle-SymbolicName: at.sunplugged.celldatabaseV2.jfreechart
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: lib/jcommon-1.0.23.jar,

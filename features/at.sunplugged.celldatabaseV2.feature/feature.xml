@@ -200,13 +200,6 @@
          unpack="false"/>
 
    <plugin
-         id="at.sunplugged.celldatabseV2.jfreechart"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.apache.xerces"
          download-size="0"
          install-size="0"
@@ -222,6 +215,13 @@
 
    <plugin
          id="org.apache.xml.serializer"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="at.sunplugged.celldatabaseV2.jfreechart"
          download-size="0"
          install-size="0"
          version="0.0.0"

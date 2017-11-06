@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import at.sunplugged.celldatabaseV2.export.api.SimpleApiExporterHelper;
+import at.sunplugged.celldatabaseV2.export.api.ExcelExports;
 import datamodel.CellGroup;
 import datamodel.CellResult;
 
@@ -26,22 +26,27 @@ public class ExportExcelGroup {
     LOG.debug("Exporting Excel CellResults...");
     List<CellResult> cellResults = new ArrayList<>();
     if (selection instanceof Object[]) {
-      Arrays.stream((Object[]) selection).sequential().forEach(object -> {
-        if (object instanceof CellGroup) {
-          CellGroup group = (CellGroup) object;
-          group.getCellResults().stream().sequential().forEach(result -> {
-            if (cellResults.contains(result) == false) {
-              cellResults.add(result);
+      Arrays.stream((Object[]) selection)
+          .sequential()
+          .forEach(object -> {
+            if (object instanceof CellGroup) {
+              CellGroup group = (CellGroup) object;
+              group.getCellResults()
+                  .stream()
+                  .sequential()
+                  .forEach(result -> {
+                    if (cellResults.contains(result) == false) {
+                      cellResults.add(result);
+                    }
+                  });
+            } else if (object instanceof CellResult) {
+              CellResult result = (CellResult) object;
+              if (cellResults.contains(result) == false) {
+                cellResults.add(result);
+              }
             }
-          });
-        } else if (object instanceof CellResult) {
-          CellResult result = (CellResult) object;
-          if (cellResults.contains(result) == false) {
-            cellResults.add(result);
-          }
-        }
 
-      });
+          });
     } else if (selection instanceof CellGroup) {
       cellResults.addAll(((CellGroup) selection).getCellResults());
     } else if (selection instanceof CellResult) {
@@ -54,8 +59,8 @@ public class ExportExcelGroup {
     }
 
     FileDialog dialog = new FileDialog(parent, SWT.SAVE);
-    dialog.setFilterExtensions(new String[] {"*.ods"});
-    dialog.setFilterNames(new String[] {"Open Document Format Spreadsheet"});
+    dialog.setFilterExtensions(new String[] {"*.xlsx"});
+    dialog.setFilterNames(new String[] {"Microsoft Open XML Format"});
     if (dialog.open() != null) {
       // ExcelOutputHelper helper = new ExcelOutputHelper(cellResults,
       // Paths.get(dialog.getFilterPath(), dialog.getFileName()).toString());
@@ -64,8 +69,8 @@ public class ExportExcelGroup {
       // Paths.get(dialog.getFilterPath(), dialog.getFileName()).toString(), cellResults);
       // helper.execute();
       try {
-        SimpleApiExporterHelper.exportCellResults(
-            Paths.get(dialog.getFilterPath(), dialog.getFileName()).toString(), cellResults);
+        ExcelExports.exportCellResults(Paths.get(dialog.getFilterPath(), dialog.getFileName())
+            .toString(), cellResults);
       } catch (Exception e) {
         LOG.error("Failed to export...", e);
         return;

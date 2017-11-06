@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -32,13 +34,41 @@ public class GenericExcelExporter {
 
   private List<CellResult> cellResults;
 
+  private XSSFWorkbook workbook;
+
+  private CellStyle dateCellStyle;
+
+  private CellStyle headerCellStyle;
+
+  private CellStyle doubleCellStyle;
+
+  {
+    CellStyle cellStyle = workbook.createCellStyle();
+    CreationHelper createHelper = workbook.getCreationHelper();
+    cellStyle.setDataFormat(createHelper.createDataFormat()
+        .getFormat("m/d/yy h:mm"));
+    dateCellStyle = cellStyle;
+    headerCellStyle = workbook.createCellStyle();
+
+    headerCellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+    headerCellStyle.setBorderTop(CellStyle.BORDER_THIN);
+    headerCellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+    headerCellStyle.setBorderRight(CellStyle.BORDER_THIN);
+
+    cellStyle = workbook.createCellStyle();
+    cellStyle.setDataFormat(createHelper.createDataFormat()
+        .getFormat("0,000E+00"));
+    doubleCellStyle = cellStyle;
+  }
+
+
+
   public GenericExcelExporter(String outputFileName, List<CellResult> cellResults) {
     this.outputFileName = outputFileName;
     this.cellResults = cellResults;
   }
 
   public void execute() {
-    XSSFWorkbook workbook;
     try {
       workbook = createRawTemplatedWorkbook();
     } catch (IOException e) {
@@ -81,7 +111,8 @@ public class GenericExcelExporter {
         writeCellValue(cell, cellResult.getName());
         break;
       case Keys.AREA:
-        writeCellValue(cell, cellResult.getLightMeasurementDataSet().getArea() * 10000.0);
+        writeCellValue(cell, cellResult.getLightMeasurementDataSet()
+            .getArea() * 10000.0);
         break;
       case Keys.EFF:
         writeCellValue(cell, cellResult.getEfficiency());
@@ -96,14 +127,16 @@ public class GenericExcelExporter {
         writeCellValue(cell, cellResult.getShortCircuitCurrent());
         break;
       case Keys.JSC:
-        writeCellValue(cell, cellResult.getShortCircuitCurrent()
-            / cellResult.getLightMeasurementDataSet().getArea() * 10000.0);
+        writeCellValue(cell,
+            cellResult.getShortCircuitCurrent() / cellResult.getLightMeasurementDataSet()
+                .getArea() * 10000.0);
         break;
       case Keys.MP:
         writeCellValue(cell, cellResult.getMaximumPower());
         break;
       case Keys.POWER_INPUT:
-        writeCellValue(cell, cellResult.getLightMeasurementDataSet().getPowerInput());
+        writeCellValue(cell, cellResult.getLightMeasurementDataSet()
+            .getPowerInput());
         break;
       case Keys.RP:
         writeCellValue(cell, cellResult.getParallelResistance());
@@ -136,7 +169,8 @@ public class GenericExcelExporter {
     int startRow = cell.getRowIndex();
     int col = cell.getColumnIndex();
 
-    for (UIDataPoint dataPoint : cellResult.getLightMeasurementDataSet().getData()) {
+    for (UIDataPoint dataPoint : cellResult.getLightMeasurementDataSet()
+        .getData()) {
       Row row = sheet.getRow(startRow);
       if (row == null) {
         row = sheet.createRow(startRow);
@@ -152,7 +186,8 @@ public class GenericExcelExporter {
     int startRow = cell.getRowIndex();
     int col = cell.getColumnIndex();
 
-    for (UIDataPoint dataPoint : cellResult.getLightMeasurementDataSet().getData()) {
+    for (UIDataPoint dataPoint : cellResult.getLightMeasurementDataSet()
+        .getData()) {
       Row row = sheet.getRow(startRow);
       if (row == null) {
         row = sheet.createRow(startRow);
@@ -167,6 +202,7 @@ public class GenericExcelExporter {
   private void writeCellValue(Cell cell, Object value) {
     if (value instanceof Double) {
       cell.setCellValue((double) value);
+      cell.setCellStyle(doubleCellStyle);
     } else {
       cell.setCellValue(value.toString());
     }
@@ -175,9 +211,10 @@ public class GenericExcelExporter {
   private XSSFWorkbook createRawTemplatedWorkbook() throws IOException {
     File cellResultTemplateFile;
     XSSFWorkbook workbook;
-    cellResultTemplateFile = new File(
-        Paths.get(FileLocator.getBundleFile(Activator.getContext().getBundle()).getAbsolutePath(),
-            cellResultTemplate).toString());
+    cellResultTemplateFile = new File(Paths.get(FileLocator.getBundleFile(Activator.getContext()
+        .getBundle())
+        .getAbsolutePath(), cellResultTemplate)
+        .toString());
     File outputFile = new File(outputFileName);
     if (outputFile.exists()) {
       outputFile.delete();
@@ -187,7 +224,9 @@ public class GenericExcelExporter {
     if (cellResultTemplateFile.exists() == true) {
       try (FileInputStream fSource = new FileInputStream(cellResultTemplateFile);
           FileOutputStream fTarget = new FileOutputStream(outputFile)) {
-        fTarget.getChannel().transferFrom(fSource.getChannel(), 0, fSource.getChannel().size());
+        fTarget.getChannel()
+            .transferFrom(fSource.getChannel(), 0, fSource.getChannel()
+                .size());
       } catch (IOException e) {
         throw e;
       }

@@ -1,15 +1,20 @@
 package at.sunplugged.celldatabaseV2.export.ui.wizards;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
-import at.sunplugged.celldatabaseV2.export.api.ExcelOutputHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import at.sunplugged.celldatabaseV2.export.api.ExcelExports;
 import datamodel.Database;
 
 public class SummaryExportWizard extends Wizard {
+
+  private static final Logger LOG = LoggerFactory.getLogger(SummaryExportWizard.class);
 
   private static final String WINDOW_TITLE = "Summary Export Wizard";
 
@@ -44,9 +49,12 @@ public class SummaryExportWizard extends Wizard {
 
     if (dialog.open() != null) {
       Path filePath = Paths.get(dialog.getFilterPath(), dialog.getFileName());
-      ExcelOutputHelper helper =
-          new ExcelOutputHelper(pageOne.getReducedDatabase().getCellGroups(), filePath);
-      helper.execute();
+      try {
+        ExcelExports.exportCellGroups(pageOne.getReducedDatabase()
+            .getCellGroups(), filePath.toString());
+      } catch (IOException e) {
+        LOG.error("Failed to export CellGroups...", e);
+      }
 
     }
 

@@ -1,18 +1,23 @@
 package at.sunplugged.celldatabaseV2.export.internal;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.ClientAnchor;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.ss.usermodel.Picture;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.util.IOUtils;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
-import org.odftoolkit.odfdom.type.CellRangeAddress;
-import org.odftoolkit.simple.SpreadsheetDocument;
-import org.odftoolkit.simple.draw.Image;
-import org.odftoolkit.simple.table.Cell;
-import org.odftoolkit.simple.table.Row;
-import org.odftoolkit.simple.table.Table;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.export.Activator;
@@ -20,9 +25,9 @@ import at.sunplugged.celldatabaseV2.plotting.PlotHelper;
 import datamodel.CellResult;
 import datamodel.UIDataPoint;
 
-public class CellResultSheetCreator {
+public class CellResultSheetXSSFCreator {
 
-  private static final Logger LOG = LoggerFactory.getLogger(CellResultSheetCreator.class);
+  private static final Logger LOG = LoggerFactory.getLogger(CellResultSheetXSSFCreator.class);
 
 
   public static final String TEMPLATE_SHEET = "templateResultSheet";
@@ -31,99 +36,85 @@ public class CellResultSheetCreator {
 
   private String tableName;
 
-  private SpreadsheetDocument document;
 
-  private CellRangeAddress currentCellRangeAddress;
+  private CustomXSSFWorkbook workbook;
 
-  private CellRangeAddress voltageCellRangeAddress;
 
-  private Table newTable;
+  private XSSFSheet sheet;
 
-  public CellResultSheetCreator(CellResult cellResult) {
+
+
+  public CellResultSheetXSSFCreator(CellResult cellResult) {
     this.cellResult = cellResult;
   }
 
-  public void execute(SpreadsheetDocument document) {
-    this.document = document;
+  public void execute(CustomXSSFWorkbook workbook) throws IOException {
+    this.workbook = workbook;
     long startTime = System.currentTimeMillis();
-    Table table = document.getSheetByName(TEMPLATE_SHEET);
-    newTable = document.insertSheet(table, document.getSheetCount() - 1);
-    tableName = cellResult.getName();
-    newTable.setTableName(tableName);
-    List<Row> copyRows = new ArrayList<>(newTable.getRowList());
-    int colCount = copyRows.get(0)
-        .getCellCount();
-    copyRows.forEach(row -> {
+    sheet = workbook.cloneSheet(workbook.getSheetIndex(TEMPLATE_SHEET));
+    workbook.setSheetName(workbook.getSheetIndex(sheet), cellResult.getName());
 
-      for (int col = 0; col < colCount; col++) {
-
-        Cell cell = row.getCellByIndex(col);
-        try {
-          handleCellCellResult(cell);
-        } catch (IOException e) {
-          LOG.error("failed to handle cell: " + e);
-        }
+    for (Row row : sheet) {
+      XSSFRow xssfRow = (XSSFRow) row;
+      for (Cell cell : xssfRow) {
+        XSSFCell xssfCell = (XSSFCell) cell;
+        handleCellCellResult(xssfCell);
       }
-    });
+    }
 
-    // List<Chart> charts = document.getChartByTitle(Keys.UI_PLOT);
-    // if (charts.size() > 0) {
-    // handleChart(charts.get(0));
-    // }
 
-    document.removeSheet(document.getSheetCount());
     System.out.println("Time needed: " + (System.currentTimeMillis() - startTime));
   }
 
 
   private void handleCellCellResult(Cell cell) throws IOException {
-    String value = cell.getStringValue();
+    String value = cell.getStringCellValue();
     if (value.isEmpty()) {
       return;
     }
     switch (value) {
       case Keys.NAME:
-        writeCellValue(cell, cellResult.getName());
+        workbook.writeValueToCell(cell, cellResult.getName());
         break;
       case Keys.AREA:
-        writeCellValue(cell, cellResult.getLightMeasurementDataSet()
+        workbook.writeValueToCell(cell, cellResult.getLightMeasurementDataSet()
             .getArea() * 10000.0);
         break;
       case Keys.EFF:
-        writeCellValue(cell, cellResult.getEfficiency());
+        workbook.writeValueToCell(cell, cellResult.getEfficiency());
         break;
       case Keys.FF:
-        writeCellValue(cell, cellResult.getFillFactor());
+        workbook.writeValueToCell(cell, cellResult.getFillFactor());
         break;
       case Keys.VOC:
-        writeCellValue(cell, cellResult.getOpenCircuitVoltage());
+        workbook.writeValueToCell(cell, cellResult.getOpenCircuitVoltage());
         break;
       case Keys.ISC:
-        writeCellValue(cell, cellResult.getShortCircuitCurrent());
+        workbook.writeValueToCell(cell, cellResult.getShortCircuitCurrent());
         break;
       case Keys.JSC:
-        writeCellValue(cell,
+        workbook.writeValueToCell(cell,
             cellResult.getShortCircuitCurrent() / cellResult.getLightMeasurementDataSet()
                 .getArea() * 10000.0);
         break;
       case Keys.MP:
-        writeCellValue(cell, cellResult.getMaximumPower());
+        workbook.writeValueToCell(cell, cellResult.getMaximumPower());
         break;
       case Keys.POWER_INPUT:
-        writeCellValue(cell, cellResult.getLightMeasurementDataSet()
+        workbook.writeValueToCell(cell, cellResult.getLightMeasurementDataSet()
             .getPowerInput());
         break;
       case Keys.RP:
-        writeCellValue(cell, cellResult.getParallelResistance());
+        workbook.writeValueToCell(cell, cellResult.getParallelResistance());
         break;
       case Keys.RP_DARK:
-        writeCellValue(cell, cellResult.getDarkParallelResistance());
+        workbook.writeValueToCell(cell, cellResult.getDarkParallelResistance());
         break;
       case Keys.RS:
-        writeCellValue(cell, cellResult.getSeriesResistance());
+        workbook.writeValueToCell(cell, cellResult.getSeriesResistance());
         break;
       case Keys.RS_DARK:
-        writeCellValue(cell, cellResult.getDarkSeriesResistance());
+        workbook.writeValueToCell(cell, cellResult.getDarkSeriesResistance());
         break;
       case Keys.VOLTAGE_DATA:
         writeVoltageData(cell);
@@ -151,27 +142,33 @@ public class CellResultSheetCreator {
       throw e;
     }
 
-    Image image = cell.setImage(imageFile.toURI());
+    BufferedInputStream in = new BufferedInputStream(new FileInputStream(imageFile));
+    byte[] bytes = IOUtils.toByteArray(in);
+    int imageIndex = workbook.addPicture(bytes, Workbook.PICTURE_TYPE_JPEG);
+    in.close();
+    CreationHelper helper = workbook.getCreationHelper();
+    Drawing drawing = sheet.createDrawingPatriarch();
+    ClientAnchor anchor = helper.createClientAnchor();
+    anchor.setCol1(cell.getColumnIndex());
+    anchor.setCol2(cell.getColumnIndex() + 2);
+    anchor.setRow1(cell.getRowIndex());
+    anchor.setRow2(cell.getRowIndex() + 2);
+    anchor.setAnchorType(3);
+    Picture pic = drawing.createPicture(anchor, imageIndex);
+    pic.resize();
+
   }
 
-  private void writeCellValue(Cell cell, Object value) {
-    if (value instanceof Double) {
-      cell.setDoubleValue((Double) value);
-    } else {
-      cell.setStringValue(value.toString());
-    }
-  }
+
 
   private void writeVoltageData(Cell cell) {
-    Table table = cell.getTable();
     int startRow = cell.getRowIndex();
     int col = cell.getColumnIndex();
     int rowIndex = startRow;
     for (UIDataPoint dataPoint : cellResult.getLightMeasurementDataSet()
         .getData()) {
-      Row row = table.getRowByIndex(rowIndex);
-      Cell cCell = row.getCellByIndex(col);
-      writeCellValue(cCell, dataPoint.getVoltage());
+      XSSFCell cCell = getOrCreateCell(rowIndex, col);
+      workbook.writeValueToCell(cCell, dataPoint.getVoltage());
       rowIndex++;
     }
     char colChar = (char) (65 + col);
@@ -185,21 +182,17 @@ public class CellResultSheetCreator {
     builder.append(".");
     builder.append(colChar);
     builder.append(rowIndex);
-    System.out.println(builder.toString());
-    voltageCellRangeAddress = new CellRangeAddress(builder.toString());
   }
 
   private void writeCurrentData(Cell cell) {
-    Table table = cell.getTable();
     int startRow = cell.getRowIndex();
     int col = cell.getColumnIndex();
     int rowIndex = startRow;
 
     for (UIDataPoint dataPoint : cellResult.getLightMeasurementDataSet()
         .getData()) {
-      Row row = table.getRowByIndex(rowIndex);
-      Cell cCell = row.getCellByIndex(col);
-      writeCellValue(cCell, dataPoint.getCurrent());
+      XSSFCell cCell = getOrCreateCell(rowIndex, col);
+      workbook.writeValueToCell(cCell, dataPoint.getCurrent());
       rowIndex++;
     }
     char colChar = (char) (65 + col);
@@ -213,7 +206,19 @@ public class CellResultSheetCreator {
     builder.append(".");
     builder.append(colChar);
     builder.append(rowIndex);
-    currentCellRangeAddress = new CellRangeAddress(builder.toString());
+  }
+
+  private XSSFCell getOrCreateCell(int row, int col) {
+    XSSFRow xssfRow = sheet.getRow(row);
+    if (xssfRow == null) {
+      xssfRow = sheet.createRow(row);
+    }
+    XSSFCell xssfCell = xssfRow.getCell(col);
+    if (xssfCell == null) {
+      xssfCell = xssfRow.createCell(col);
+    }
+    return xssfCell;
+
   }
 
 

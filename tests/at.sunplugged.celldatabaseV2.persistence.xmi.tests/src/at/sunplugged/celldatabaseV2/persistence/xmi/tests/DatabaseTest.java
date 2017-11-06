@@ -17,8 +17,9 @@ public class DatabaseTest {
   private DatabaseService databaseService;
 
   @Before
-  public void setup() {
+  public void setup() throws DatabaseServiceException {
     databaseService = new DatabaseServiceImpl();
+    databaseService.openDatabase("database/Database");
   }
 
   @Test
@@ -37,12 +38,15 @@ public class DatabaseTest {
     Database database = databaseService.getDatabase();
     CellGroup group = DatamodelFactory.eINSTANCE.createCellGroup();
     group.setName("TestGroup");
-    database.getCellGroups().add(group);
+    database.getCellGroups()
+        .add(group);
     databaseService.saveDatabase();
 
     DatabaseService tempService = new DatabaseServiceImpl();
     Database tempDatabase = tempService.getDatabase();
-    assertTrue("TestGroup".equals(tempDatabase.getCellGroups().get(0).getName()));
+    assertTrue("TestGroup".equals(tempDatabase.getCellGroups()
+        .get(0)
+        .getName()));
   }
 
 

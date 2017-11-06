@@ -76,18 +76,21 @@ public class ExcelOutputHelper {
 
   private final String fileName;
 
-  private List<EAttribute> resAttribs =
-      DatamodelPackage.eINSTANCE.getCellResult().getEAllAttributes();
+  private List<EAttribute> resAttribs = DatamodelPackage.eINSTANCE.getCellResult()
+      .getEAllAttributes();
 
   private XSSFWorkbook workbook = new XSSFWorkbook();
 
   private CellStyle dateCellStyle;
 
   private CellStyle headerCellStyle;
+
+  private CellStyle doubleCellStyle;
   {
     CellStyle cellStyle = workbook.createCellStyle();
     CreationHelper createHelper = workbook.getCreationHelper();
-    cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("m/d/yy h:mm"));
+    cellStyle.setDataFormat(createHelper.createDataFormat()
+        .getFormat("m/d/yy h:mm"));
     dateCellStyle = cellStyle;
     headerCellStyle = workbook.createCellStyle();
 
@@ -95,13 +98,21 @@ public class ExcelOutputHelper {
     headerCellStyle.setBorderTop(CellStyle.BORDER_THIN);
     headerCellStyle.setBorderLeft(CellStyle.BORDER_THIN);
     headerCellStyle.setBorderRight(CellStyle.BORDER_THIN);
+
+    cellStyle = workbook.createCellStyle();
+    cellStyle.setDataFormat(createHelper.createDataFormat()
+        .getFormat("0,000E+00"));
+    doubleCellStyle = cellStyle;
   }
+
+
 
   private XSSFSheet summarySheet;
 
   public ExcelOutputHelper(List<CellResult> cellResults, String fileName) {
-    this.cellResults =
-        cellResults.stream().map(result -> EcoreUtil.copy(result)).collect(Collectors.toList());
+    this.cellResults = cellResults.stream()
+        .map(result -> EcoreUtil.copy(result))
+        .collect(Collectors.toList());
     this.fileName = fileName;
 
     this.cellGroups = null;
@@ -110,8 +121,9 @@ public class ExcelOutputHelper {
   }
 
   public ExcelOutputHelper(List<CellGroup> cellGroups, Path path) {
-    this.cellGroups =
-        cellGroups.stream().map(group -> EcoreUtil.copy(group)).collect(Collectors.toList());
+    this.cellGroups = cellGroups.stream()
+        .map(group -> EcoreUtil.copy(group))
+        .collect(Collectors.toList());
     this.path = path;
 
     this.groupSummarys = this.cellGroups.stream()
@@ -185,7 +197,8 @@ public class ExcelOutputHelper {
 
       cRow = summarySheet.createRow(rowId++);
 
-      cRow.createCell(colId++).setCellValue(group.getName());
+      cRow.createCell(colId++)
+          .setCellValue(group.getName());
       GroupSummary summary = groupSummarys.get(group);
 
       for (EAttribute literal : LITERALS) {
@@ -199,11 +212,14 @@ public class ExcelOutputHelper {
               summary.getStd(literal, (value, result) -> value), literal);
 
         } else {
-          writeValueToCell(cRow.createCell(colId++), summary.getAverage(literal,
-              (value, result) -> value / result.getLightMeasurementDataSet().getArea() / 1000000),
+          writeValueToCell(cRow.createCell(colId++),
+              summary.getAverage(literal,
+                  (value, result) -> value / result.getLightMeasurementDataSet()
+                      .getArea() / 1000000),
               literal);
-          writeValueToCell(cRow.createCell(colId++), summary.getStd(literal,
-              (value, result) -> value / result.getLightMeasurementDataSet().getArea() / 1000000),
+          writeValueToCell(cRow.createCell(colId++),
+              summary.getStd(literal, (value, result) -> value / result.getLightMeasurementDataSet()
+                  .getArea() / 1000000),
               literal);
         }
       }
@@ -225,7 +241,8 @@ public class ExcelOutputHelper {
 
     cRow = sheet.createRow(rowId++);
     for (String rowName : GROUP_ROW_NAMES) {
-      sheet.getColumnHelper().setColWidth(colId, 18);
+      sheet.getColumnHelper()
+          .setColWidth(colId, 18);
       cCell = cRow.createCell(colId++);
       cCell.setCellValue(rowName);
       cCell.setCellStyle(headerCellStyle);
@@ -238,23 +255,28 @@ public class ExcelOutputHelper {
       writeValueToCell(cRow.createCell(colId++), result.getOpenCircuitVoltage(),
           Literals.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE);
       writeValueToCell(cRow.createCell(colId++),
-          result.getShortCircuitCurrent() / result.getLightMeasurementDataSet().getArea() / 10000,
+          result.getShortCircuitCurrent() / result.getLightMeasurementDataSet()
+              .getArea() / 10000,
           Literals.CELL_RESULT__SHORT_CIRCUIT_CURRENT);
       writeValueToCell(cRow.createCell(colId++),
-          result.getParallelResistance() / result.getLightMeasurementDataSet().getArea() / 10000,
+          result.getParallelResistance() / result.getLightMeasurementDataSet()
+              .getArea() / 10000,
           Literals.CELL_RESULT__PARALLEL_RESISTANCE);
-      writeValueToCell(
-          cRow.createCell(colId++), result.getDarkParallelResistance()
-              / result.getLightMeasurementDataSet().getArea() / 10000,
+      writeValueToCell(cRow.createCell(colId++),
+          result.getDarkParallelResistance() / result.getLightMeasurementDataSet()
+              .getArea() / 10000,
           Literals.CELL_RESULT__DARK_PARALLEL_RESISTANCE);
       writeValueToCell(cRow.createCell(colId++),
-          result.getSeriesResistance() / result.getLightMeasurementDataSet().getArea() / 10000,
+          result.getSeriesResistance() / result.getLightMeasurementDataSet()
+              .getArea() / 10000,
           Literals.CELL_RESULT__SERIES_RESISTANCE);
       writeValueToCell(cRow.createCell(colId++),
-          result.getDarkSeriesResistance() / result.getLightMeasurementDataSet().getArea() / 10000,
+          result.getDarkSeriesResistance() / result.getLightMeasurementDataSet()
+              .getArea() / 10000,
           Literals.CELL_RESULT__DARK_SERIES_RESISTANCE);
       writeValueToCell(cRow.createCell(colId++),
-          result.getMaximumPower() / result.getLightMeasurementDataSet().getArea() / 10000,
+          result.getMaximumPower() / result.getLightMeasurementDataSet()
+              .getArea() / 10000,
           Literals.CELL_RESULT__MAXIMUM_POWER);
       writeValueToCell(cRow.createCell(colId++), result.getEfficiency(),
           Literals.CELL_RESULT__EFFICIENCY);
@@ -266,8 +288,10 @@ public class ExcelOutputHelper {
     XSSFRow stdRow = sheet.createRow(rowId++);
 
     colId = 0;
-    averageRow.createCell(colId).setCellValue("Average");
-    stdRow.createCell(colId++).setCellValue("Std");
+    averageRow.createCell(colId)
+        .setCellValue("Average");
+    stdRow.createCell(colId++)
+        .setCellValue("Std");
 
     GroupSummary summary = groupSummarys.get(cellGroup);
 
@@ -281,7 +305,8 @@ public class ExcelOutputHelper {
             (value, result) -> value);
       } else {
         createAverageAndStdRowForLiteral(averageRow, stdRow, colId++, summary, literal,
-            (value, result) -> value / result.getLightMeasurementDataSet().getArea() / 1000000);
+            (value, result) -> value / result.getLightMeasurementDataSet()
+                .getArea() / 1000000);
       }
 
     }
@@ -304,7 +329,8 @@ public class ExcelOutputHelper {
 
     CellGroup tempGroup = DatamodelFactory.eINSTANCE.createCellGroup();
     tempGroup.setName("Summary");
-    tempGroup.getCellResults().addAll(cellResults);
+    tempGroup.getCellResults()
+        .addAll(cellResults);
 
     groupSummarys.put(tempGroup, new GroupSummary(tempGroup));
 
@@ -315,10 +341,11 @@ public class ExcelOutputHelper {
 
     monitor.subTask("Creating Result Sheets");
 
-    cellResults.stream().forEach(res -> {
-      createCellResultSheet(res);
-      monitor.worked(1);
-    });
+    cellResults.stream()
+        .forEach(res -> {
+          createCellResultSheet(res);
+          monitor.worked(1);
+        });
 
     monitor.subTask("Writing to hard drive...");
 
@@ -356,7 +383,8 @@ public class ExcelOutputHelper {
     }
 
     for (int i = 0; i < 15; i++) {
-      summarySheet.getColumnHelper().setColWidth(i, 18);
+      summarySheet.getColumnHelper()
+          .setColWidth(i, 18);
     }
   }
 
@@ -371,7 +399,8 @@ public class ExcelOutputHelper {
 
     XSSFCell cCell;
 
-    double area = res.getLightMeasurementDataSet().getArea() * 10000;
+    double area = res.getLightMeasurementDataSet()
+        .getArea() * 10000;
 
     cCell = nameRow.createCell(colId);
     fillHeaderAndValueCell(nameRow.createCell(colId), valueRow.createCell(colId++),
@@ -471,7 +500,8 @@ public class ExcelOutputHelper {
     int dataRowStop = rowId;
 
     for (int i = 0; i < 15; i++) {
-      sheet.getColumnHelper().setColWidth(i, 18);
+      sheet.getColumnHelper()
+          .setColWidth(i, 18);
     }
 
 
@@ -480,11 +510,14 @@ public class ExcelOutputHelper {
     Chart chart = drawing.createChart(anchor);
     ChartLegend legend = chart.getOrCreateLegend();
     legend.setPosition(LegendPosition.TOP_RIGHT);
-    ScatterChartData data = chart.getChartDataFactory().createScatterChartData();
-    ChartAxis xAxis = chart.getChartAxisFactory().createValueAxis(AxisPosition.BOTTOM);
+    ScatterChartData data = chart.getChartDataFactory()
+        .createScatterChartData();
+    ChartAxis xAxis = chart.getChartAxisFactory()
+        .createValueAxis(AxisPosition.BOTTOM);
     xAxis.setOrientation(AxisOrientation.MIN_MAX);
     xAxis.setCrosses(AxisCrosses.AUTO_ZERO);
-    ChartAxis yAxis = chart.getChartAxisFactory().createValueAxis(AxisPosition.LEFT);
+    ChartAxis yAxis = chart.getChartAxisFactory()
+        .createValueAxis(AxisPosition.LEFT);
     yAxis.setOrientation(AxisOrientation.MIN_MAX);
     yAxis.setCrosses(AxisCrosses.AUTO_ZERO);
     ChartDataSource<Number> xS = DataSources.fromNumericCellRange(sheet,
@@ -524,9 +557,12 @@ public class ExcelOutputHelper {
   private void writeValueToCell(XSSFCell cell, Object value, EAttribute attr) {
     if (value != null) {
       if (attr != null) {
-        if (attr.getEAttributeType().equals(EcorePackage.Literals.EDOUBLE)) {
+        if (attr.getEAttributeType()
+            .equals(EcorePackage.Literals.EDOUBLE)) {
           cell.setCellValue((double) value);
-        } else if (attr.getEAttributeType().equals(EcorePackage.Literals.EDATE)) {
+          cell.setCellStyle(doubleCellStyle);
+        } else if (attr.getEAttributeType()
+            .equals(EcorePackage.Literals.EDATE)) {
 
           Date date = (Date) value;
           cell.setCellValue((Date) date);
