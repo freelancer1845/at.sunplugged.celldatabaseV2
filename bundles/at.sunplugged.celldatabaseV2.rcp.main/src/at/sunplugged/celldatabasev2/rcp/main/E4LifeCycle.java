@@ -92,14 +92,15 @@ public class E4LifeCycle {
     JoranConfigurator configurator = new JoranConfigurator();
     configurator.setContext(loggerContext);
     try {
-      Bundle bundle = Platform.getBundle(FrameworkUtil.getBundle(getClass()).getSymbolicName());
+      Bundle bundle = Platform.getBundle(FrameworkUtil.getBundle(getClass())
+          .getSymbolicName());
       configurator
           .doConfigure(FileLocator.openStream(bundle, new Path("resources/logback.xml"), false));
     } catch (JoranException e) {
       throw new IOException(e.getMessage(), e);
     }
-
-    LoggerFactory.getLogger(getClass()).debug("Logging Configuration loaded...");
+    LoggerFactory.getLogger(getClass())
+        .debug("Logging Configuration loaded...");
   }
 
   @ProcessRemovals
