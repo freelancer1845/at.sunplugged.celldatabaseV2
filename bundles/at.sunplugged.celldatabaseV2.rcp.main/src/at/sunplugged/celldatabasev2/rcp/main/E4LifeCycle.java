@@ -49,7 +49,7 @@ public class E4LifeCycle {
     at.sunplugged.celldatabaseV2.common.Utils.setDefaultSettings(false);
 
 
-    final Shell shell = new Shell(SWT.TOOL | SWT.NO_TRIM);
+    final Shell shell = new Shell(SWT.TOOL | SWT.NO_TRIM | SWT.APPLICATION_MODAL);
 
     StartupWizard startupWizard = new StartupWizard();
 
@@ -77,6 +77,8 @@ public class E4LifeCycle {
     workbenchContext.set(EditingDomain.class, domain);
     workbenchContext.set(CommandStack.class, domain.getCommandStack());
     workbenchContext.set(Database.class, database);
+    LOG.debug(System.getenv()
+        .toString());
   }
 
 
@@ -96,6 +98,7 @@ public class E4LifeCycle {
           .getSymbolicName());
       configurator
           .doConfigure(FileLocator.openStream(bundle, new Path("resources/logback.xml"), false));
+
     } catch (JoranException e) {
       throw new IOException(e.getMessage(), e);
     }

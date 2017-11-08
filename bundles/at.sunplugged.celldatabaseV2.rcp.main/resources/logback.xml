@@ -12,7 +12,7 @@
 
 	<appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${user.dir}/workspace/.metadata/celldatabase.log</file>
+		<file>/log.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} -
 				%msg%n
@@ -20,7 +20,7 @@
 		</encoder>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-			<FileNamePattern>${user.dir}/workspace/.metadata/%i.log.zip</FileNamePattern>
+			<FileNamePattern>/%i.log.zip</FileNamePattern>
 			<MinIndex>1</MinIndex>
 			<MaxIndex>10</MaxIndex>
 		</rollingPolicy>
@@ -34,6 +34,7 @@
 
 	<logger name="at.sunplugged.celldatabaseV2.logger" level="INFO" additivity="false">
 		<appender-ref ref="STDOUT"/>
+		<appender-ref ref="FILE" />
 	</logger>
 
 	<root level="DEBUG">
