@@ -50,7 +50,6 @@ public class CellResultSheetXSSFCreator {
 
   public void execute(CustomXSSFWorkbook workbook) throws IOException {
     this.workbook = workbook;
-    long startTime = System.currentTimeMillis();
     sheet = workbook.cloneSheet(workbook.getSheetIndex(TEMPLATE_SHEET));
     workbook.setSheetName(workbook.getSheetIndex(sheet), cellResult.getName());
 
@@ -63,7 +62,6 @@ public class CellResultSheetXSSFCreator {
     }
 
 
-    System.out.println("Time needed: " + (System.currentTimeMillis() - startTime));
   }
 
 

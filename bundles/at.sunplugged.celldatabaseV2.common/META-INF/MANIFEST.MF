@@ -1,8 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Common
-Bundle-SymbolicName: at.sunplugged.celldatabaseV2.common
+Bundle-SymbolicName: at.sunplugged.celldatabaseV2.common;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: org.eclipse.equinox.preferences
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.13.0"
 Export-Package: at.sunplugged.celldatabaseV2.common
+Bundle-Activator: at.sunplugged.celldatabaseV2.common.Activator
+Bundle-ActivationPolicy: lazy

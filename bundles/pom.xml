@@ -27,5 +27,6 @@
 		<module>at.sunplugged.celldatabaseV2.sprodaccess</module>
 		<module>at.sunplugged.celldatabaseV2.sprodaccess.ui</module>
 		<module>at.sunplugged.celldatabaseV2.jfreechart</module>
+		<module>at.sunplugged.celldatabaseV2.logging</module>
 	</modules>
 </project>

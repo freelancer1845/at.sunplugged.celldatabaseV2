@@ -37,16 +37,15 @@ public class DatabaseTest {
   public void savesData() throws DatabaseServiceException {
     Database database = databaseService.getDatabase();
     CellGroup group = DatamodelFactory.eINSTANCE.createCellGroup();
-    group.setName("TestGroup");
     database.getCellGroups()
         .add(group);
     databaseService.saveDatabase();
 
     DatabaseService tempService = new DatabaseServiceImpl();
+    tempService.openDatabase("database/Database");
     Database tempDatabase = tempService.getDatabase();
-    assertTrue("TestGroup".equals(tempDatabase.getCellGroups()
-        .get(0)
-        .getName()));
+    assertTrue("Database was empty after loading...", tempDatabase.getCellGroups()
+        .size() > 0);
   }
 
 

@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.inject.Named;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ICoreRunnable;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
@@ -62,21 +66,28 @@ public class ExportExcelGroup {
     dialog.setFilterExtensions(new String[] {"*.xlsx"});
     dialog.setFilterNames(new String[] {"Microsoft Open XML Format"});
     if (dialog.open() != null) {
-      // ExcelOutputHelper helper = new ExcelOutputHelper(cellResults,
-      // Paths.get(dialog.getFilterPath(), dialog.getFileName()).toString());
-      // helper.execute();
-      // GenericExcelExporter helper = new GenericExcelExporter(
-      // Paths.get(dialog.getFilterPath(), dialog.getFileName()).toString(), cellResults);
-      // helper.execute();
-      try {
-        ExcelExports.exportCellResults(Paths.get(dialog.getFilterPath(), dialog.getFileName())
-            .toString(), cellResults);
-      } catch (Exception e) {
-        LOG.error("Failed to export...", e);
-        return;
-      }
+      Job exportJob = Job.create("Cell Results export Job", new ICoreRunnable() {
+
+        @Override
+        public void run(IProgressMonitor monitor) throws CoreException {
+          try {
+            monitor.beginTask("Exporting...", 1);
+            ExcelExports.exportCellResults(Paths.get(dialog.getFilterPath(), dialog.getFileName())
+                .toString(), cellResults);
+            LOG.debug("Done exporting Excel CellResults");
+
+          } catch (Exception e) {
+            LOG.error("Failed to export...", e);
+            return;
+          } finally {
+            monitor.done();
+          }
+        }
+      });
+      exportJob.setPriority(Job.LONG);
+      exportJob.schedule();
     }
-    LOG.debug("Done exporting Excel CellResults");
+
   }
 
 

@@ -5,13 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import at.sunplugged.celldatabaseV2.export.Activator;
+import at.sunplugged.celldatabaseV2.common.FileUtils;
 import at.sunplugged.celldatabaseV2.export.internal.CellGroupSummarySheetXSSFCreator;
 import at.sunplugged.celldatabaseV2.export.internal.CellGroupsSummarySheetXSSFCreator;
 import at.sunplugged.celldatabaseV2.export.internal.CellResultSheetXSSFCreator;
@@ -22,7 +20,7 @@ import datamodel.DatamodelFactory;
 
 public class ExcelExports {
 
-  private static String cellResultTemplate = "resources/cellResultTemplate.xlsx";
+  private static String cellResultTemplate = "excelTemplate/template.xlsx";
 
   public static void exportCellResults(String outputFileName, List<CellResult> _results)
       throws IOException {
@@ -95,10 +93,7 @@ public class ExcelExports {
       throws IOException {
     File cellResultTemplateFile;
     CustomXSSFWorkbook workbook;
-    cellResultTemplateFile = new File(Paths.get(FileLocator.getBundleFile(Activator.getContext()
-        .getBundle())
-        .getAbsolutePath(), cellResultTemplate)
-        .toString());
+    cellResultTemplateFile = FileUtils.locateRootFile(cellResultTemplate);
     File outputFile = new File(outputFileName);
     if (outputFile.exists()) {
       outputFile.delete();

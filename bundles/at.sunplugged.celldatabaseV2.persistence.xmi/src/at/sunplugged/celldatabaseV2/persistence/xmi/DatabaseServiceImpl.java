@@ -79,6 +79,10 @@ public class DatabaseServiceImpl implements DatabaseService {
     if (file.exists() == false) {
       try {
         LOG.debug("Database file didnt exist.... creating new one: " + file.getAbsolutePath());
+        if (file.getParentFile()
+            .mkdirs() == false) {
+          throw new IOException("Failed to create direcotries...");
+        }
         file.createNewFile();
       } catch (IOException e) {
         LOG.error("Failed to create database file.", e);

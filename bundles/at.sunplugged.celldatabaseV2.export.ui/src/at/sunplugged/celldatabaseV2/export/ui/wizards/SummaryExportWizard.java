@@ -3,6 +3,10 @@ package at.sunplugged.celldatabaseV2.export.ui.wizards;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ICoreRunnable;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
@@ -49,12 +53,27 @@ public class SummaryExportWizard extends Wizard {
 
     if (dialog.open() != null) {
       Path filePath = Paths.get(dialog.getFilterPath(), dialog.getFileName());
-      try {
-        ExcelExports.exportCellGroups(pageOne.getReducedDatabase()
-            .getCellGroups(), filePath.toString());
-      } catch (IOException e) {
-        LOG.error("Failed to export CellGroups...", e);
-      }
+
+      Job exportJob = Job.create("Excel Export Job", new ICoreRunnable() {
+
+        @Override
+        public void run(IProgressMonitor monitor) throws CoreException {
+          try {
+            LOG.debug("Exporting Cell Groups...");
+            monitor.beginTask("Export Cell Groups...", 1);
+            ExcelExports.exportCellGroups(pageOne.getReducedDatabase()
+                .getCellGroups(), filePath.toString());
+            monitor.done();
+          } catch (IOException e) {
+            LOG.error("Failed to export CellGroups...", e);
+          } finally {
+            LOG.debug("Done exporting Cell Groups.");
+          }
+        }
+
+      });
+      exportJob.setPriority(Job.LONG);
+      exportJob.schedule();
 
     }
 

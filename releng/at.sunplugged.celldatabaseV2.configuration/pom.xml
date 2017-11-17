@@ -8,6 +8,7 @@
 	<properties>
 		<tycho.version>1.0.0</tycho.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<mars-repo.url>http://download.eclipse.org/releases/mars</mars-repo.url>
 	</properties>
 
 	<!-- Repositories should be commented out to only use the target definition 
@@ -25,6 +26,12 @@
 
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>1.0.0</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho.version}</version>
 				<configuration>
@@ -38,18 +45,8 @@
 
 
 					<environments>
-						<!--  
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86_64</arch>
-						</environment>
-						-->
+						<!-- <environment> <os>linux</os> <ws>gtk</ws> <arch>x86</arch> </environment> 
+							<environment> <os>linux</os> <ws>gtk</ws> <arch>x86_64</arch> </environment> -->
 						<environment>
 							<os>win32</os>
 							<ws>win32</ws>
@@ -60,13 +57,8 @@
 							<ws>win32</ws>
 							<arch>x86_64</arch>
 						</environment>
-						<!--
-						<environment>
-							<os>macosx</os>
-							<ws>cocoa</ws>
-							<arch>x86_64</arch>
-						</environment>
-						-->
+						<!-- <environment> <os>macosx</os> <ws>cocoa</ws> <arch>x86_64</arch> 
+							</environment> -->
 					</environments>
 				</configuration>
 			</plugin>
