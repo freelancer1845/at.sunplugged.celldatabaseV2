@@ -31,6 +31,7 @@ import at.sunplugged.celldatabasev2.rcp.main.wizards.StartupWizard;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
+import ch.qos.logback.core.util.StatusPrinter;
 import datamodel.Database;
 
 /**
@@ -87,7 +88,12 @@ public class E4LifeCycle {
 
   @ProcessAdditions
   void processAdditions(IEclipseContext workbenchContext) throws IOException {
-
+    try {
+      System.out.println(Class.forName("ch.qos.logback.core.rolling.RollingFileAppender")
+          .getName());
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
     ILoggerFactory iLoggerFactory = LoggerFactory.getILoggerFactory();
     LoggerContext loggerContext = (LoggerContext) iLoggerFactory;
     loggerContext.reset();
@@ -104,6 +110,8 @@ public class E4LifeCycle {
     }
     LoggerFactory.getLogger(getClass())
         .debug("Logging Configuration loaded...");
+    StatusPrinter.print(loggerContext);
+
   }
 
   @ProcessRemovals
