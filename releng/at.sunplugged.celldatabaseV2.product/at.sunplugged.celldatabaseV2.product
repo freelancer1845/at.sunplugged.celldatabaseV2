@@ -35,6 +35,7 @@
       <feature id="org.eclipse.net4j" version="4.6.0.v20170522-0642"/>
       <feature id="org.eclipse.emf.ecp.emfforms.runtime.feature" version="1.14.0.20170911-0944"/>
       <feature id="org.eclipse.emf.ecp.viewmodel.feature" version="1.14.0.20170911-0944"/>
+      <feature id="org.eclipse.e4.ui.progress.feature" version="0.1.0.v20150731-0425"/>
    </features>
 
    <configurations>

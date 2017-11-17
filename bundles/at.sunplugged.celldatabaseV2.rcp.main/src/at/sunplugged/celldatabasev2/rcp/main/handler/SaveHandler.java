@@ -13,10 +13,12 @@ public class SaveHandler {
 
   @Execute
   public void execute(EPartService partService) {
-    MPart viewerPart = partService.getParts().stream()
+    MPart viewerPart = partService.getParts()
+        .stream()
         .filter(part -> part.getElementId()
             .equals("at.sunplugged.celldatabasev2.rcp.main.part.modelviewer"))
-        .findAny().orElse(null);
+        .findAny()
+        .orElse(null);
     if (viewerPart != null) {
       partService.savePart(viewerPart, false);
     } else {

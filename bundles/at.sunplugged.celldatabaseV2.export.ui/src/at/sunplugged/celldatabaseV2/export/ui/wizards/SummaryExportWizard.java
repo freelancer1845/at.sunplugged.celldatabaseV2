@@ -3,6 +3,7 @@ package at.sunplugged.celldatabaseV2.export.ui.wizards;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ICoreRunnable;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -14,6 +15,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.export.api.ExcelExports;
+import datamodel.CellGroup;
 import datamodel.Database;
 
 public class SummaryExportWizard extends Wizard {
@@ -53,7 +55,8 @@ public class SummaryExportWizard extends Wizard {
 
     if (dialog.open() != null) {
       Path filePath = Paths.get(dialog.getFilterPath(), dialog.getFileName());
-
+      final List<CellGroup> reducedCellGroups = pageOne.getReducedDatabase()
+          .getCellGroups();
       Job exportJob = Job.create("Excel Export Job", new ICoreRunnable() {
 
         @Override
@@ -61,8 +64,7 @@ public class SummaryExportWizard extends Wizard {
           try {
             LOG.debug("Exporting Cell Groups...");
             monitor.beginTask("Export Cell Groups...", 1);
-            ExcelExports.exportCellGroups(pageOne.getReducedDatabase()
-                .getCellGroups(), filePath.toString());
+            ExcelExports.exportCellGroups(reducedCellGroups, filePath.toString());
             monitor.done();
           } catch (IOException e) {
             LOG.error("Failed to export CellGroups...", e);

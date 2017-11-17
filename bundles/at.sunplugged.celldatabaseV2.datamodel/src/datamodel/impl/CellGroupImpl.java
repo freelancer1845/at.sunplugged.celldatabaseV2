@@ -180,9 +180,11 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
               .add(new AdapterImpl() {
                 @Override
                 public void notifyChanged(Notification msg) {
-                  if (msg.getFeature()
-                      .equals(DatamodelPackage.Literals.CELL_RESULT__NAME)) {
-                    calculateNewName();
+                  if (msg.getFeature() != null) {
+                    if (msg.getFeature()
+                        .equals(DatamodelPackage.Literals.CELL_RESULT__NAME)) {
+                      calculateNewName();
+                    }
                   }
                   super.notifyChanged(msg);
                 }

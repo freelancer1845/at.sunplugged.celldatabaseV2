@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="at.sunplugged.celldatabasev2.rcp.main.ContextFunctions.EditingDomainContextFunction">
+   <property name="service.context.key" value="org.eclipse.emf.edit.domain.EditingDomain"/>
+   <service>
+      <provide interface="org.eclipse.e4.core.contexts.IContextFunction"/>
+   </service>
+   <implementation class="at.sunplugged.celldatabasev2.rcp.main.ContextFunctions.EditingDomainContextFunction"/>
+</scr:component>

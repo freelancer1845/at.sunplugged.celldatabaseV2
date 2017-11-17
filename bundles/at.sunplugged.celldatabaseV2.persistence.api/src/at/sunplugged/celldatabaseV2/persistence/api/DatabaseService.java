@@ -10,5 +10,8 @@ public interface DatabaseService {
 
   void saveDatabase() throws DatabaseServiceException;
 
+  void saveDatabase(String path) throws DatabaseServiceException;
+
+  void importDatabase(String path) throws DatabaseServiceException;
 
 }

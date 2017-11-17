@@ -1,13 +1,18 @@
 package at.sunplugged.celldatabaseV2.persistence.xmi;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.Resource.Factory;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.osgi.service.component.annotations.Component;
@@ -37,6 +42,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 
   @Override
   public void openDatabase(String path) throws DatabaseServiceException {
+    unloadDatabase();
     resource = createXmiResource(path);
     database = loadXmiDatabase();
     if (database == null) {
@@ -47,6 +53,14 @@ public class DatabaseServiceImpl implements DatabaseService {
   @Override
   public Database getDatabase() {
     return database;
+  }
+
+  private void unloadDatabase() {
+    if (resource != null) {
+      resource.unload();
+      database = null;
+      resource = null;
+    }
   }
 
   private Database loadXmiDatabase() {
@@ -114,6 +128,15 @@ public class DatabaseServiceImpl implements DatabaseService {
     return composedAdapterFactory;
   }
 
+  private Resource loadXmiResource(String path) {
+    Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+    Factory xmiFactory = (Factory) reg.getExtensionToFactoryMap()
+        .get("xmi");
+
+    Resource resource = xmiFactory.createResource(URI.createFileURI(path));
+    return resource;
+  }
+
   @Override
   public void saveDatabase() throws DatabaseServiceException {
     LOG.debug("Saving database...");
@@ -124,6 +147,56 @@ public class DatabaseServiceImpl implements DatabaseService {
       throw new DatabaseServiceException(e);
     }
     LOG.debug("Save completed...");
+  }
+
+  @Override
+  public void importDatabase(String path) throws DatabaseServiceException {
+
+    if (getDatabase() == null) {
+      throw new IllegalArgumentException("No database loaded...");
+    }
+    Resource resource = loadXmiResource(path);
+    try {
+      resource.load(Collections.EMPTY_MAP);
+    } catch (IOException e) {
+      LOG.error("Failed to load Database to import... \"" + path + "\"", e);
+      throw new DatabaseServiceException("Failed to load Database...", e);
+    }
+    Database databaseToImport = (Database) resource.getContents()
+        .get(0);
+    Command cmd =
+        AddCommand.create(editingDomain, getDatabase(), null, databaseToImport.getCellGroups());
+
+    editingDomain.getCommandStack()
+        .execute(cmd);
+    resource.unload();
+  }
+
+  @Override
+  public void saveDatabase(String path) throws DatabaseServiceException {
+    try {
+      LOG.debug("Saving database to (new) file");
+      File file = new File(path);
+      if (file.exists() == false) {
+        file.getParentFile()
+            .mkdirs();
+        file.createNewFile();
+      }
+
+      if (file.exists() == false) {
+        throw new IllegalStateException("Failed to create file...");
+      }
+
+      FileOutputStream outputStream = new FileOutputStream(file);
+
+      resource.save(outputStream, Collections.EMPTY_MAP);
+      openDatabase(path);
+    } catch (IOException e) {
+      LOG.error("Failed to save Database...", e);
+      throw new DatabaseServiceException("Failed to save Database...", e);
+    }
+
+
   }
 
 
