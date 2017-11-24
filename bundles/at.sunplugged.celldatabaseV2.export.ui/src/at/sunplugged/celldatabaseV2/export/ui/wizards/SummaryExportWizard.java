@@ -4,14 +4,16 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.ICoreRunnable;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.IJobFunction;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
+import org.osgi.framework.FrameworkUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.export.api.ExcelExports;
@@ -57,10 +59,10 @@ public class SummaryExportWizard extends Wizard {
       Path filePath = Paths.get(dialog.getFilterPath(), dialog.getFileName());
       final List<CellGroup> reducedCellGroups = pageOne.getReducedDatabase()
           .getCellGroups();
-      Job exportJob = Job.create("Excel Export Job", new ICoreRunnable() {
+      Job exportJob = Job.create("Excel Export Job", new IJobFunction() {
 
         @Override
-        public void run(IProgressMonitor monitor) throws CoreException {
+        public IStatus run(IProgressMonitor monitor) {
           try {
             LOG.debug("Exporting Cell Groups...");
             monitor.beginTask("Export Cell Groups...", 1);
@@ -68,9 +70,12 @@ public class SummaryExportWizard extends Wizard {
             monitor.done();
           } catch (IOException e) {
             LOG.error("Failed to export CellGroups...", e);
+            return new Status(Status.ERROR, FrameworkUtil.getBundle(this.getClass())
+                .getSymbolicName(), "Failed to expot CellGroups...", e);
           } finally {
             LOG.debug("Done exporting Cell Groups.");
           }
+          return Status.OK_STATUS;
         }
 
       });

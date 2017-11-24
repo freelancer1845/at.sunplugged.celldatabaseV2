@@ -3,12 +3,15 @@ package at.sunplugged.celldatabasev2.logging;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.common.FileUtils;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
+import ch.qos.logback.core.util.StatusPrinter;
 
 public class LogbackInitilizer {
 
@@ -20,13 +23,22 @@ public class LogbackInitilizer {
 
     loggerContext.reset();
     File logbackFile = null;
-    logbackFile = FileUtils.locateRootFile("logback.xml");
-
-    if (logbackFile != null && logbackFile.isFile()) {
-      configurator.doConfigure(logbackFile);
-    } else {
-      throw new IllegalStateException("Logback file not found...");
+    try {
+      logbackFile = FileUtils.locateRootFile("logback.xml");
+      if (logbackFile != null && logbackFile.isFile()) {
+        configurator.doConfigure(logbackFile);
+      } else {
+        throw new IllegalStateException("Logback file not found...");
+      }
+    } catch (IOException e) {
+      // try to find fall back logback.xml file
+      configurator.doConfigure(FileLocator.openStream(Activator.getContext()
+          .getBundle(), new Path("resources/logback.xml"), false));
     }
+
+
+
+    StatusPrinter.print(loggerContext);
   }
 
 

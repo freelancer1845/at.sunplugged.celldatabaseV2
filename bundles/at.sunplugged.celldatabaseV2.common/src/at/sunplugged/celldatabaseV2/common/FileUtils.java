@@ -5,24 +5,21 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Platform;
 
 public class FileUtils {
 
   public static File locateRootFile(String path) throws IOException {
     File file = null;
+    Path filePath = null;
     try {
+      File rootPath = new File("");
 
-      if (Platform.getInstallLocation() != null) {
-        Path installPath = Paths.get((Platform.getInstallLocation()
-            .getURL()
-            .toURI()));
-        Path filePath = Paths.get(installPath.toString(), path);
-        if (filePath.toFile()
-            .exists() == true) {
-          file = filePath.toFile();
-        }
+      filePath = Paths.get(rootPath.getAbsolutePath(), path);
+      if (filePath.toFile()
+          .exists()) {
+        file = filePath.toFile();
       }
+
       if (file == null) {
 
 
@@ -33,7 +30,7 @@ public class FileUtils {
             .getParentFile();
 
 
-        Path filePath = Paths.get(basedirectory.getAbsolutePath(),
+        filePath = Paths.get(basedirectory.getAbsolutePath(),
             "features/at.sunplugged.celldatabaseV2.feature/rootfiles", path);
         if (filePath.toFile()
             .exists() == true) {

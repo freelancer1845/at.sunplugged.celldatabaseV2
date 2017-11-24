@@ -70,13 +70,15 @@ public class CellResultSheetXSSFCreator {
     if (value.isEmpty()) {
       return;
     }
+
+    double areaInCmSquare = cellResult.getLightMeasurementDataSet()
+        .getArea() * 10000;
     switch (value) {
       case Keys.NAME:
         workbook.writeValueToCell(cell, cellResult.getName());
         break;
       case Keys.AREA:
-        workbook.writeValueToCell(cell, cellResult.getLightMeasurementDataSet()
-            .getArea() * 10000.0);
+        workbook.writeValueToCell(cell, areaInCmSquare);
         break;
       case Keys.EFF:
         workbook.writeValueToCell(cell, cellResult.getEfficiency());
@@ -88,31 +90,29 @@ public class CellResultSheetXSSFCreator {
         workbook.writeValueToCell(cell, cellResult.getOpenCircuitVoltage());
         break;
       case Keys.ISC:
-        workbook.writeValueToCell(cell, cellResult.getShortCircuitCurrent());
+        workbook.writeValueToCell(cell, cellResult.getShortCircuitCurrent() / areaInCmSquare);
         break;
       case Keys.JSC:
-        workbook.writeValueToCell(cell,
-            cellResult.getShortCircuitCurrent() / cellResult.getLightMeasurementDataSet()
-                .getArea() * 10000.0);
+        workbook.writeValueToCell(cell, cellResult.getShortCircuitCurrent() / areaInCmSquare);
         break;
       case Keys.MP:
-        workbook.writeValueToCell(cell, cellResult.getMaximumPower());
+        workbook.writeValueToCell(cell, cellResult.getMaximumPower() / areaInCmSquare);
         break;
       case Keys.POWER_INPUT:
         workbook.writeValueToCell(cell, cellResult.getLightMeasurementDataSet()
             .getPowerInput());
         break;
       case Keys.RP:
-        workbook.writeValueToCell(cell, cellResult.getParallelResistance());
+        workbook.writeValueToCell(cell, cellResult.getParallelResistance() / areaInCmSquare);
         break;
       case Keys.RP_DARK:
-        workbook.writeValueToCell(cell, cellResult.getDarkParallelResistance());
+        workbook.writeValueToCell(cell, cellResult.getDarkParallelResistance() / areaInCmSquare);
         break;
       case Keys.RS:
-        workbook.writeValueToCell(cell, cellResult.getSeriesResistance());
+        workbook.writeValueToCell(cell, cellResult.getSeriesResistance() / areaInCmSquare);
         break;
       case Keys.RS_DARK:
-        workbook.writeValueToCell(cell, cellResult.getDarkSeriesResistance());
+        workbook.writeValueToCell(cell, cellResult.getDarkSeriesResistance() / areaInCmSquare);
         break;
       case Keys.VOLTAGE_DATA:
         writeVoltageData(cell);

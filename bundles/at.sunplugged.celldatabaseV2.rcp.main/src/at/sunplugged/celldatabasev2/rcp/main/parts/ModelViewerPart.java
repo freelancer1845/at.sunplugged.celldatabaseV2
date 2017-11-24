@@ -295,14 +295,16 @@ public class ModelViewerPart {
 
     @Override
     public void notifyChanged(Notification msg) {
-      if (msg.getFeature()
-          .equals(attribute)) {
-        String label = msg.getNewStringValue();
+      if (msg.getFeature() != null) {
+        if (msg.getFeature()
+            .equals(attribute)) {
+          String label = msg.getNewStringValue();
 
-        if (label == null) {
-          label = "Editor";
+          if (label == null) {
+            label = "Editor";
+          }
+          editorPart.setLabel(label);
         }
-        editorPart.setLabel(label);
       }
     }
   }

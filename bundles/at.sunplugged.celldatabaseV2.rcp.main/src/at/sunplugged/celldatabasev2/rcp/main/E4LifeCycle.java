@@ -9,7 +9,6 @@ import org.eclipse.e4.ui.workbench.lifecycle.ProcessAdditions;
 import org.eclipse.e4.ui.workbench.lifecycle.ProcessRemovals;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.slf4j.Logger;
@@ -34,19 +33,17 @@ public class E4LifeCycle {
   @PostContextCreate
   void postContextCreate(IEclipseContext workbenchContext, Display display) {
     LOG.debug("Entering PostConstruct method.");
-
     at.sunplugged.celldatabaseV2.common.Utils.setDefaultSettings(false);
 
 
-    final Shell shell = new Shell(SWT.TOOL | SWT.NO_TRIM | SWT.APPLICATION_MODAL);
-
+    final Shell shell = new Shell();
+    shell.open();
     StartupWizard startupWizard = new StartupWizard();
-
     WizardDialog dialog = new WizardDialog(shell, startupWizard);
-
     if (dialog.open() != Window.OK) {
       System.exit(-1);
     }
+    shell.dispose();
 
 
     DatabaseService databaseService = workbenchContext.get(DatabaseService.class);
@@ -57,6 +54,8 @@ public class E4LifeCycle {
       LOG.error("Faild to load database intially...", e);
       return;
     }
+
+
     LOG.debug("Leaving PostConstruct method.");
   }
 

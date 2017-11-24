@@ -68,6 +68,7 @@
   <handlers xmi:id="_GeseMMFrEee9YMg6vBL86g" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.8" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.PlotLocalHandler" command="_FKwKEMFrEee9YMg6vBL86g"/>
   <handlers xmi:id="_8fVMcMu6Eee5gMuqTz2Tog" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.9" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ImportDatabaseHandler" command="_6_d8MMu6Eee5gMuqTz2Tog"/>
   <handlers xmi:id="_MSFhQMvAEee5gMuqTz2Tog" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.10" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.SaveAsHandler" command="_KoDoYMvAEee5gMuqTz2Tog"/>
+  <handlers xmi:id="_UMpX8NA9EeeiSMGMLg4lZg" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.11" contributionURI="bundleclass://org.eclipse.e4.ui.progress/org.eclipse.e4.ui.progress.ClearAllHandler" command="_Q7ODcNA9EeeiSMGMLg4lZg"/>
   <bindingTables xmi:id="_H2iCcLRHEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.bindingtable.0" bindingContext="_c3AF2cjYEeSyMNYR5xypkQ">
     <bindings xmi:id="_I8838LRHEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.keybinding.0" keySequence="M1+S" command="_I0eM0LQEEee9C5ECqbuxVA">
       <tags>type:user</tags>
@@ -99,6 +100,7 @@
   <commands xmi:id="_FKwKEMFrEee9YMg6vBL86g" elementId="at.sunplugged.celldatabasev2.rcp.main.command.plotlocal" commandName="Plot Local"/>
   <commands xmi:id="_6_d8MMu6Eee5gMuqTz2Tog" elementId="at.sunplugged.celldatabasev2.rcp.main.command.importdatabase" commandName="Import Database"/>
   <commands xmi:id="_KoDoYMvAEee5gMuqTz2Tog" elementId="at.sunplugged.celldatabasev2.rcp.main.command.saveas" commandName="Save as..."/>
+  <commands xmi:id="_Q7ODcNA9EeeiSMGMLg4lZg" elementId="at.sunplugged.celldatabasev2.rcp.main.command.clearprogressview" commandName="Clear Progress View"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

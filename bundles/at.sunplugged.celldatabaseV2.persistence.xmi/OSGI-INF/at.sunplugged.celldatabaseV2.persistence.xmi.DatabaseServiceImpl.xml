@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="at.sunplugged.celldatabaseV2.persistence.xmi.DatabaseServiceImpl">
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" deactivate="deactivate" name="at.sunplugged.celldatabaseV2.persistence.xmi.DatabaseServiceImpl">
    <service>
       <provide interface="at.sunplugged.celldatabaseV2.persistence.api.DatabaseService"/>
    </service>

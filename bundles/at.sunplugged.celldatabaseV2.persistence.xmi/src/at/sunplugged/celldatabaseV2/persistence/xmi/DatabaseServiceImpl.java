@@ -16,6 +16,7 @@ import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.persistence.api.DatabaseService;
@@ -38,6 +39,11 @@ public class DatabaseServiceImpl implements DatabaseService {
 
   public DatabaseServiceImpl() {
     editingDomain = new AdapterFactoryEditingDomain(getAdapterFactory(), new BasicCommandStack());
+  }
+
+  @Deactivate
+  protected void deactivate() {
+    unloadDatabase();
   }
 
   @Override

@@ -1,5 +1,6 @@
 package at.sunplugged.celldatabasev2.rcp.main.wizards;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
@@ -11,9 +12,14 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import at.sunplugged.celldatabaseV2.common.FileUtils;
 import at.sunplugged.celldatabaseV2.common.PythonSettings;
 
 public class PythonPrefPage extends WizardPage {
+
+  private static final Logger LOG = LoggerFactory.getLogger(PythonPrefPage.class);
 
   private static final String TITLE = "Python Settings";
 
@@ -44,21 +50,40 @@ public class PythonPrefPage extends WizardPage {
 
     pythonPath = new FileFieldEditor("Python Path", "Choose python anaconda3 path.", false,
         StringButtonFieldEditor.VALIDATE_ON_FOCUS_LOST, composite);
-    pythonPath.getTextControl(composite).addModifyListener(new FieldNotEmptyListener());
-
+    pythonPath.getTextControl(composite)
+        .addModifyListener(new FieldNotEmptyListener());
 
     labviewImportPath = new FileFieldEditor("Labview Import Path", "Labview Import Script path",
         false, StringButtonFieldEditor.VALIDATE_ON_FOCUS_LOST, composite);
-    labviewImportPath.getTextControl(composite).addModifyListener(new FieldNotEmptyListener());
+    labviewImportPath.getTextControl(composite)
+        .addModifyListener(new FieldNotEmptyListener());
+
 
     plotScriptPath = new FileFieldEditor("PlotScript Path", "PlotScript path", false,
         StringButtonFieldEditor.VALIDATE_ON_FOCUS_LOST, composite);
-    plotScriptPath.getTextControl(composite).addModifyListener(new FieldNotEmptyListener());
+    plotScriptPath.getTextControl(composite)
+        .addModifyListener(new FieldNotEmptyListener());
 
     pythonPath.setStringValue(prefsPython.get(PythonSettings.PYTHON_PATH, ""));
-    labviewImportPath
-        .setStringValue(prefsPython.get(PythonSettings.LABVIEW_IMPORT_SCRIPT_PATH, ""));
-    plotScriptPath.setStringValue(prefsPython.get(PythonSettings.PLOT_SCRIPT_PATH, ""));
+    pythonPath.setStringValue("");
+    try {
+
+      labviewImportPath.setStringValue(prefsPython.get(PythonSettings.LABVIEW_IMPORT_SCRIPT_PATH,
+          FileUtils.locateRootFile("python/main.py")
+              .getAbsolutePath()));
+    } catch (IOException e) {
+      LOG.debug("Failed to find standard main.py", e);
+      labviewImportPath.setStringValue("");
+    }
+
+    try {
+      plotScriptPath.setStringValue(prefsPython.get(PythonSettings.PLOT_SCRIPT_PATH,
+          FileUtils.locateRootFile("python/plotScript.py")
+              .getAbsolutePath()));
+    } catch (IOException e) {
+      LOG.debug("Failed to find standard plotScript.py", e);
+      plotScriptPath.setStringValue("");
+    }
 
 
     setControl(composite);
@@ -91,11 +116,14 @@ public class PythonPrefPage extends WizardPage {
   }
 
   private boolean allFieldsSet() {
-    if (pythonPath.getStringValue().isEmpty() == true) {
+    if (pythonPath.getStringValue()
+        .isEmpty() == true) {
       return false;
-    } else if (labviewImportPath.getStringValue().isEmpty() == true) {
+    } else if (labviewImportPath.getStringValue()
+        .isEmpty() == true) {
       return false;
-    } else if (plotScriptPath.getStringValue().isEmpty() == true) {
+    } else if (plotScriptPath.getStringValue()
+        .isEmpty() == true) {
       return false;
     }
     return true;

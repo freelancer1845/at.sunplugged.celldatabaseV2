@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.inject.Named;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.ICoreRunnable;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.IJobFunction;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -16,6 +17,7 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
+import org.osgi.framework.FrameworkUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.export.api.ExcelExports;
@@ -66,10 +68,11 @@ public class ExportExcelGroup {
     dialog.setFilterExtensions(new String[] {"*.xlsx"});
     dialog.setFilterNames(new String[] {"Microsoft Open XML Format"});
     if (dialog.open() != null) {
-      Job exportJob = Job.create("Cell Results export Job", new ICoreRunnable() {
+
+      Job exportJob = Job.create("Cell Results export Job", new IJobFunction() {
 
         @Override
-        public void run(IProgressMonitor monitor) throws CoreException {
+        public IStatus run(IProgressMonitor monitor) {
           try {
             monitor.beginTask("Exporting...", 1);
             ExcelExports.exportCellResults(Paths.get(dialog.getFilterPath(), dialog.getFileName())
@@ -78,10 +81,12 @@ public class ExportExcelGroup {
 
           } catch (Exception e) {
             LOG.error("Failed to export...", e);
-            return;
+            return new Status(Status.ERROR, FrameworkUtil.getBundle(this.getClass())
+                .getSymbolicName(), "Failed to export..", e);
           } finally {
             monitor.done();
           }
+          return Status.OK_STATUS;
         }
       });
       exportJob.setPriority(Job.LONG);

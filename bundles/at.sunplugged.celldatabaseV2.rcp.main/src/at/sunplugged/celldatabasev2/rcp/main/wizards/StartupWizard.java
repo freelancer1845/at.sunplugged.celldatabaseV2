@@ -45,14 +45,14 @@ public class StartupWizard extends Wizard {
     databasePage = new DatabasePage(prefsLocations);
     addPage(databasePage);
 
-
   }
-
 
   @Override
   public boolean performFinish() {
     if (pythonPrefPage != null) {
-      pythonPrefPage.getProvideSettings().entrySet().stream()
+      pythonPrefPage.getProvideSettings()
+          .entrySet()
+          .stream()
           .forEach(entry -> prefsPython.put(entry.getKey(), entry.getValue()));
     }
 
