@@ -68,18 +68,16 @@ public class PythonPrefPage extends WizardPage {
     pythonPath.setStringValue("");
     try {
 
-      labviewImportPath.setStringValue(prefsPython.get(PythonSettings.LABVIEW_IMPORT_SCRIPT_PATH,
-          FileUtils.locateRootFile("python/main.py")
-              .getAbsolutePath()));
+      labviewImportPath.setStringValue(FileUtils.locateRootFile("python/main.py")
+          .getAbsolutePath());
     } catch (IOException e) {
       LOG.debug("Failed to find standard main.py", e);
       labviewImportPath.setStringValue("");
     }
 
     try {
-      plotScriptPath.setStringValue(prefsPython.get(PythonSettings.PLOT_SCRIPT_PATH,
-          FileUtils.locateRootFile("python/plotScript.py")
-              .getAbsolutePath()));
+      plotScriptPath.setStringValue(FileUtils.locateRootFile("python/plotScript.py")
+          .getAbsolutePath());
     } catch (IOException e) {
       LOG.debug("Failed to find standard plotScript.py", e);
       plotScriptPath.setStringValue("");

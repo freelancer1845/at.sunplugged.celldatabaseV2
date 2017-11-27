@@ -2,7 +2,7 @@
 <feature
       id="at.sunplugged.celldatabaseV2.feature"
       label="Feature"
-      version="1.0.0.qualifier">
+      version="1.0.7.qualifier">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]
@@ -208,6 +208,13 @@
 
    <plugin
          id="at.sunplugged.celldatabaseV2.logging"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.codec"
          download-size="0"
          install-size="0"
          version="0.0.0"
