@@ -53,6 +53,9 @@
       <children xsi:type="menu:Menu" xmi:id="_dryogLPZEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.menu.settings" label="Settings">
         <children xsi:type="menu:DirectMenuItem" xmi:id="_jEUzcLPZEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.directmenuitem.pythonsettings" label="Python Settings" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.PythonSettingsHandler"/>
       </children>
+      <children xsi:type="menu:Menu" xmi:id="_8bo5gNKwEeekgPldonb1gg" elementId="at.sunplugged.celldatabasev2.rcp.main.menu.info" label="Info">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_9XdokNKwEeekgPldonb1gg" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.checkforupdates" label="Check for updates.." command="_P5iHgNKvEeekgPldonb1gg"/>
+      </children>
     </mainMenu>
     <trimBars xmi:id="_xbgowLNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.trimbar.0"/>
     <trimBars xmi:id="_x20EsLNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.trimbar.1" side="Bottom"/>
@@ -69,6 +72,7 @@
   <handlers xmi:id="_8fVMcMu6Eee5gMuqTz2Tog" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.9" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ImportDatabaseHandler" command="_6_d8MMu6Eee5gMuqTz2Tog"/>
   <handlers xmi:id="_MSFhQMvAEee5gMuqTz2Tog" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.10" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.SaveAsHandler" command="_KoDoYMvAEee5gMuqTz2Tog"/>
   <handlers xmi:id="_UMpX8NA9EeeiSMGMLg4lZg" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.11" contributionURI="bundleclass://org.eclipse.e4.ui.progress/org.eclipse.e4.ui.progress.ClearAllHandler" command="_Q7ODcNA9EeeiSMGMLg4lZg"/>
+  <handlers xmi:id="_RuuHgNKvEeekgPldonb1gg" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.12" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.CheckForUpdatesHandler" command="_P5iHgNKvEeekgPldonb1gg"/>
   <bindingTables xmi:id="_H2iCcLRHEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.bindingtable.0" bindingContext="_c3AF2cjYEeSyMNYR5xypkQ">
     <bindings xmi:id="_I8838LRHEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.keybinding.0" keySequence="M1+S" command="_I0eM0LQEEee9C5ECqbuxVA">
       <tags>type:user</tags>
@@ -101,6 +105,7 @@
   <commands xmi:id="_6_d8MMu6Eee5gMuqTz2Tog" elementId="at.sunplugged.celldatabasev2.rcp.main.command.importdatabase" commandName="Import Database"/>
   <commands xmi:id="_KoDoYMvAEee5gMuqTz2Tog" elementId="at.sunplugged.celldatabasev2.rcp.main.command.saveas" commandName="Save as..."/>
   <commands xmi:id="_Q7ODcNA9EeeiSMGMLg4lZg" elementId="at.sunplugged.celldatabasev2.rcp.main.command.clearprogressview" commandName="Clear Progress View"/>
+  <commands xmi:id="_P5iHgNKvEeekgPldonb1gg" elementId="at.sunplugged.celldatabasev2.rcp.main.command.checkforupdates" commandName="Check for updates"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
