@@ -4,11 +4,11 @@
 	<parent>
 		<groupId>at.sunplugged.celldatabaseV2</groupId>
 		<artifactId>at.sunplugged.celldatabaseV2.releng</artifactId>
-		<version>1.0.7-SNAPSHOT</version>
+		<version>1.0.8-SNAPSHOT</version>
 	</parent>
 	<groupId>at.sunplugged.celldatabaseV2</groupId>
 	<artifactId>at.sunplugged.celldatabaseV2.target</artifactId>
-	<version>1.0.7-SNAPSHOT</version>
+	<version>1.0.8-SNAPSHOT</version>
 	<packaging>eclipse-target-definition</packaging>
 
 </project>

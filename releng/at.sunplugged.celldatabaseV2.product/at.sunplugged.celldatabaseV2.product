@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="at.sunplugged.celldatabaseV2" uid="RCP Product" id="at.sunplugged.celldatabaseV2.rcp.main.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.7.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="at.sunplugged.celldatabaseV2" uid="RCP Product" id="at.sunplugged.celldatabaseV2.rcp.main.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.8.qualifier" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
@@ -24,8 +24,8 @@
    </plugins>
 
    <features>
-      <feature id="at.sunplugged.celldatabaseV2.feature" version="1.0.7.qualifier" installMode="root"/>
-      <feature id="at.sunplugged.celldatbaseV2.target.feature" version="1.0.0.qualifier"/>
+      <feature id="at.sunplugged.celldatabaseV2.feature" version="1.0.8.qualifier" installMode="root"/>
+      <feature id="at.sunplugged.celldatabaseV2.target.feature" version="1.0.0.qualifier"/>
    </features>
 
    <configurations>
@@ -36,5 +36,9 @@
       <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
    </configurations>
+
+   <repositories>
+      <repository location="file:///C:/Users/jasch/SunpluggedJob/at.sunplugged.celldatabaseV2/at.sunplugged.celldatabaseV2/releng/at.sunplugged.celldatabaseV2.update/target/repository" enabled="true" />
+   </repositories>
 
 </product>

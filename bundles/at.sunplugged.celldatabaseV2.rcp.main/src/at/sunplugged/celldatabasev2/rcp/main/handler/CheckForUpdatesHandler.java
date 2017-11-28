@@ -12,7 +12,6 @@ import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.equinox.p2.core.IProvisioningAgent;
-import org.eclipse.equinox.p2.engine.ProvisioningContext;
 import org.eclipse.equinox.p2.operations.ProvisioningJob;
 import org.eclipse.equinox.p2.operations.ProvisioningSession;
 import org.eclipse.equinox.p2.operations.UpdateOperation;
@@ -27,7 +26,7 @@ public class CheckForUpdatesHandler {
 
 
   private static final String REPOSITORY_LOC =
-      "C:/Users/jasch/SunpluggedJob/at.sunplugged.celldatabaseV2/at.sunplugged.celldatabaseV2/releng/at.sunplugged.celldatabaseV2.update/target/repository";
+      "file:///C:/Users/jasch/SunpluggedJob/at.sunplugged.celldatabaseV2/at.sunplugged.celldatabaseV2/releng/at.sunplugged.celldatabaseV2.update/target/repository";
 
 
   @Execute

@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>at.sunplugged.celldatabaseV2</groupId>
     <artifactId>at.sunplugged.celldatabaseV2.releng</artifactId>
-    <version>1.0.7-SNAPSHOT</version>
+    <version>1.0.8-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
         <groupId>at.sunplugged.celldatabaseV2</groupId>
         <artifactId>at.sunplugged.celldatabaseV2.root</artifactId>
-        <version>1.0.7-SNAPSHOT</version>
+        <version>1.0.8-SNAPSHOT</version>
     </parent>
 
     <modules>
