@@ -6,8 +6,7 @@ Bundle-Version: 1.0.7.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: lib/jcommon-1.0.23.jar,
  lib/jfreechart-1.0.19-swt.jar,
- lib/jfreechart-1.0.19.jar,
- .
+ lib/jfreechart-1.0.19.jar
 Export-Package: org.jfree.chart,
  org.jfree.chart.axis,
  org.jfree.chart.plot,
