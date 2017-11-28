@@ -24,25 +24,8 @@
    </plugins>
 
    <features>
-      <feature id="at.sunplugged.celldatabaseV2.feature" version="1.0.7.qualifier"/>
-      <feature id="org.eclipse.e4.rcp" version="1.6.1.v20170928-1359"/>
-      <feature id="org.eclipse.emf.ecp.viewmodel.feature" version="1.14.0.20170911-0944"/>
-      <feature id="org.eclipse.emf.ecore" version="2.13.0.v20170609-0707"/>
-      <feature id="org.eclipse.emf.common" version="2.13.0.v20170609-0707"/>
-      <feature id="org.eclipse.emf.edit" version="2.12.0.v20170609-0928"/>
-      <feature id="org.eclipse.emf.edit.ui" version="2.13.0.v20170609-0928"/>
-      <feature id="org.eclipse.emf.databinding" version="1.4.0.v20170609-0928"/>
-      <feature id="org.eclipse.emf.databinding.edit" version="1.4.0.v20170609-0928"/>
-      <feature id="org.eclipse.emf.ecp.emfforms.runtime.feature" version="1.14.0.20170911-0944"/>
-      <feature id="org.eclipse.emf.ecore.edit" version="2.9.0.v20170609-0928"/>
-      <feature id="org.eclipse.emf.common.ui" version="2.12.0.v20170609-0928"/>
-      <feature id="org.eclipse.rcp" version="4.7.1.v20171009-0410"/>
-      <feature id="org.eclipse.ecf.filetransfer.feature" version="3.13.8.v20170715-2257"/>
-      <feature id="org.eclipse.ecf.core.feature" version="1.4.0.v20170516-2248"/>
-      <feature id="org.eclipse.equinox.core.feature" version="1.4.1.v20170928-1321"/>
-      <feature id="org.eclipse.equinox.p2.core.feature" version="1.4.1.v20170928-1405"/>
-      <feature id="org.eclipse.platform" version="4.7.1.v20171009-0410"/>
-      <feature id="org.eclipse.e4.ui.progress.feature" version="0.1.0.v20150731-0425"/>
+      <feature id="at.sunplugged.celldatabaseV2.feature" version="1.0.7.qualifier" installMode="root"/>
+      <feature id="at.sunplugged.celldatbaseV2.target.feature" version="1.0.0.qualifier"/>
    </features>
 
    <configurations>

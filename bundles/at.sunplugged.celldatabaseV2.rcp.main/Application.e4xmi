@@ -54,7 +54,7 @@
         <children xsi:type="menu:DirectMenuItem" xmi:id="_jEUzcLPZEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.directmenuitem.pythonsettings" label="Python Settings" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.PythonSettingsHandler"/>
       </children>
       <children xsi:type="menu:Menu" xmi:id="_8bo5gNKwEeekgPldonb1gg" elementId="at.sunplugged.celldatabasev2.rcp.main.menu.info" label="Info">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_9XdokNKwEeekgPldonb1gg" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.checkforupdates" label="Check for updates.." command="_P5iHgNKvEeekgPldonb1gg"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_9XdokNKwEeekgPldonb1gg" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.checkforupdates" label="Check for updates" command="_P5iHgNKvEeekgPldonb1gg"/>
       </children>
     </mainMenu>
     <trimBars xmi:id="_xbgowLNHEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.trimbar.0"/>

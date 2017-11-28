@@ -14,5 +14,6 @@
 
     <modules>
         <module>at.sunplugged.celldatabaseV2.feature</module>
+        <module>at.sunplugged.celldatabaseV2.target.feature</module>
     </modules>
 </project>
