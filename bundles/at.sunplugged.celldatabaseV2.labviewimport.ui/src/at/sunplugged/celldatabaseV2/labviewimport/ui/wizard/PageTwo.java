@@ -155,7 +155,6 @@ public class PageTwo extends WizardPage {
     });
     treeViewer.getControl().setEnabled(false);
     setControl(container);
-    setPageComplete(true);
 
   }
 
