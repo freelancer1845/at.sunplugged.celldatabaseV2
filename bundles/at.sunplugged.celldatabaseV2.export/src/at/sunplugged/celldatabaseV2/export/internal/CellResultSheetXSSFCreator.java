@@ -71,8 +71,7 @@ public class CellResultSheetXSSFCreator {
       return;
     }
 
-    double areaInCmSquare = cellResult.getLightMeasurementDataSet()
-        .getArea() * 10000;
+    double areaInCmSquare = cellResult.getLightMeasurementDataSet().getArea() * 10000;
     switch (value) {
       case Keys.NAME:
         workbook.writeValueToCell(cell, cellResult.getName());
@@ -99,8 +98,7 @@ public class CellResultSheetXSSFCreator {
         workbook.writeValueToCell(cell, cellResult.getMaximumPower() / areaInCmSquare);
         break;
       case Keys.POWER_INPUT:
-        workbook.writeValueToCell(cell, cellResult.getLightMeasurementDataSet()
-            .getPowerInput());
+        workbook.writeValueToCell(cell, cellResult.getLightMeasurementDataSet().getPowerInput());
         break;
       case Keys.RP:
         workbook.writeValueToCell(cell, cellResult.getParallelResistance() / areaInCmSquare);
@@ -123,18 +121,48 @@ public class CellResultSheetXSSFCreator {
       case Keys.UI_PLOT:
         createUiPlot(cell);
         break;
+      case Keys.UI_PLOT_DARK:
+        createUiPlotDark(cell);
+        break;
       default:
         break;
     }
   }
 
+  private void createUiPlotDark(Cell cell) throws IOException {
+    if (cellResult.getDarkMeasuremenetDataSet() != null) {
+      String darkImageName = "tempImage" + new Random().nextInt() + ".jpg";
+      File darkImageFile = Activator.getContext().getDataFile(darkImageName);
+      JFreeChart darkChart = PlotHelper.createJFreeChart(cellResult.getDarkMeasuremenetDataSet());
+      try {
+        ChartUtilities.saveChartAsJPEG(darkImageFile, 1.0f, darkChart, 600, 400);
+      } catch (IOException e) {
+        LOG.error("Failed to save Chart as file...", e);
+        throw e;
+      }
+      BufferedInputStream in = new BufferedInputStream(new FileInputStream(darkImageFile));
+      byte[] bytes = IOUtils.toByteArray(in);
+      int imageIndex = workbook.addPicture(bytes, Workbook.PICTURE_TYPE_JPEG);
+      in.close();
+      CreationHelper helper = workbook.getCreationHelper();
+      Drawing drawing = sheet.createDrawingPatriarch();
+      ClientAnchor anchor = helper.createClientAnchor();
+      anchor.setCol1(cell.getColumnIndex());
+      anchor.setCol2(cell.getColumnIndex() + 2);
+      anchor.setRow1(cell.getRowIndex());
+      anchor.setRow2(cell.getRowIndex() + 2);
+      anchor.setAnchorType(3);
+      Picture pic = drawing.createPicture(anchor, imageIndex);
+      pic.resize();
+    }
+  }
+
   private void createUiPlot(Cell cell) throws IOException {
     String imageName = "tempImage" + new Random().nextInt() + ".jpg";
-    File imageFile = Activator.getContext()
-        .getDataFile(imageName);
-    JFreeChart chart = PlotHelper.createJFreeChart(cellResult);
+    File imageFile = Activator.getContext().getDataFile(imageName);
+    JFreeChart lightChart = PlotHelper.createJFreeChart(cellResult.getLightMeasurementDataSet());
     try {
-      ChartUtilities.saveChartAsJPEG(imageFile, 1.0f, chart, 600, 400);
+      ChartUtilities.saveChartAsJPEG(imageFile, 1.0f, lightChart, 600, 400);
     } catch (IOException e) {
       LOG.error("Failed to save Chart as file...", e);
       throw e;
@@ -155,6 +183,8 @@ public class CellResultSheetXSSFCreator {
     Picture pic = drawing.createPicture(anchor, imageIndex);
     pic.resize();
 
+    imageFile.delete();
+
   }
 
 
@@ -163,8 +193,7 @@ public class CellResultSheetXSSFCreator {
     int startRow = cell.getRowIndex();
     int col = cell.getColumnIndex();
     int rowIndex = startRow;
-    for (UIDataPoint dataPoint : cellResult.getLightMeasurementDataSet()
-        .getData()) {
+    for (UIDataPoint dataPoint : cellResult.getLightMeasurementDataSet().getData()) {
       XSSFCell cCell = getOrCreateCell(rowIndex, col);
       workbook.writeValueToCell(cCell, dataPoint.getVoltage());
       rowIndex++;
@@ -187,8 +216,7 @@ public class CellResultSheetXSSFCreator {
     int col = cell.getColumnIndex();
     int rowIndex = startRow;
 
-    for (UIDataPoint dataPoint : cellResult.getLightMeasurementDataSet()
-        .getData()) {
+    for (UIDataPoint dataPoint : cellResult.getLightMeasurementDataSet().getData()) {
       XSSFCell cCell = getOrCreateCell(rowIndex, col);
       workbook.writeValueToCell(cCell, dataPoint.getCurrent());
       rowIndex++;

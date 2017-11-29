@@ -36,14 +36,14 @@ public class PlotHelper {
   private final static Logger LOG = LoggerFactory.getLogger(PlotHelper.class);
 
 
-  public static JFreeChart createJFreeChart(CellResult cellResult) {
-    ChartPlotter chartPlotter = new CellResultJFreeChartPlotter(Arrays.asList(cellResult));
+  public static JFreeChart createJFreeChart(CellMeasurementDataSet dataSet) {
+    ChartPlotter chartPlotter = new CellResultJFreeChartPlotter(Arrays.asList(dataSet));
 
     return chartPlotter.getChart();
   }
 
-  public static JFreeChart createJFreeChart(List<CellResult> cellResults) {
-    ChartPlotter chartPlotter = new CellResultJFreeChartPlotter(cellResults);
+  public static JFreeChart createJFreeChart(List<CellMeasurementDataSet> dataSets) {
+    ChartPlotter chartPlotter = new CellResultJFreeChartPlotter(dataSets);
 
     return chartPlotter.getChart();
   }

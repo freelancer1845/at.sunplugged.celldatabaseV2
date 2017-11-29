@@ -38,7 +38,7 @@
    </configurations>
 
    <repositories>
-      <repository location="file:///C:/Users/jasch/SunpluggedJob/at.sunplugged.celldatabaseV2/at.sunplugged.celldatabaseV2/releng/at.sunplugged.celldatabaseV2.update/target/repository" enabled="true" />
+      <repository location="file:///updates/repository" enabled="true" />
    </repositories>
 
 </product>

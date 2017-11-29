@@ -14,7 +14,7 @@ import org.jfree.experimental.chart.swt.ChartComposite;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.plotting.PlotHelper;
-import datamodel.CellResult;
+import datamodel.CellMeasurementDataSet;
 
 public class ChartDescriptor {
   private static final Logger LOG = LoggerFactory.getLogger(ChartDescriptor.class);
@@ -34,15 +34,16 @@ public class ChartDescriptor {
 
     Object data = part.getTransientData().get("data");
     if (data instanceof List<?>) {
-      if (((List<?>) data).get(0) instanceof CellResult) {
+      if (((List<?>) data).get(0) instanceof CellMeasurementDataSet) {
         @SuppressWarnings("unchecked")
-        JFreeChart chart = PlotHelper.createJFreeChart((List<CellResult>) data);
+        JFreeChart chart = PlotHelper.createJFreeChart((List<CellMeasurementDataSet>) data);
         chartComposite.setChart(chart);
       } else {
-        LOG.error("Expected List of CellResults...");
+        LOG.error("Expected List of CellMeasurementDataSets...");
       }
+
     } else {
-      LOG.error("Exepceted List of CellResults...");
+      LOG.error("Exepceted List of CellMeasurementDataSets...");
     }
 
   }

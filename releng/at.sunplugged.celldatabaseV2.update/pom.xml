@@ -1,12 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>at.sunplugged.celldatabaseV2</groupId>
-        <artifactId>at.sunplugged.celldatabaseV2.releng</artifactId>
-        <version>1.0.8-SNAPSHOT</version>
-    </parent>
-    <artifactId>at.sunplugged.celldatabaseV2.update</artifactId>
-    <version>1.0.8-SNAPSHOT</version>
-    <packaging>eclipse-repository</packaging>
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>at.sunplugged.celldatabaseV2</groupId>
+		<artifactId>at.sunplugged.celldatabaseV2.releng</artifactId>
+		<version>1.0.8-SNAPSHOT</version>
+	</parent>
+	<artifactId>at.sunplugged.celldatabaseV2.update</artifactId>
+	<version>1.0.8-SNAPSHOT</version>
+	<packaging>eclipse-repository</packaging>
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>co.axiomzen.maven.wagons</groupId>
+				<artifactId>maven-s3-wagon</artifactId>
+				<version>1.2.6</version>
+			</extension>
+		</extensions>
+
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>wagon-maven-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<id>upload-repo</id>
+						<phase>install</phase>
+						<goals>
+							<goal>upload</goal>
+						</goals>
+						<configuration>
+							<fromDir>${project.build.directory}/repository</fromDir>
+							<includes>**</includes>
+							<url>file:///c:/Users/jasch/SunpluggedJob/CellDatabaseV2</url>
+							<toDir>repository</toDir>
+						</configuration>
+
+					</execution>
+
+					<execution>
+						<id>upload-s3</id>
+						<phase>install</phase>
+						<goals>
+							<goal>upload</goal>
+						</goals>
+						<configuration>
+							<serverId>s3.celldatabase</serverId>
+							<fromDir>${project.build.directory}/repository</fromDir>
+							<includes>**</includes>
+							<url>s3://sunpluggedatcelldatabase/repository</url>
+						</configuration>
+					</execution>
+
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>

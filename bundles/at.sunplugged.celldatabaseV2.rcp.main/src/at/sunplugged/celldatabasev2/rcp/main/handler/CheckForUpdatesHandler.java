@@ -26,7 +26,7 @@ public class CheckForUpdatesHandler {
 
 
   private static final String REPOSITORY_LOC =
-      "file:///C:/Users/jasch/SunpluggedJob/at.sunplugged.celldatabaseV2/at.sunplugged.celldatabaseV2/releng/at.sunplugged.celldatabaseV2.update/target/repository";
+      "file:///updates/repository";
 
 
   @Execute

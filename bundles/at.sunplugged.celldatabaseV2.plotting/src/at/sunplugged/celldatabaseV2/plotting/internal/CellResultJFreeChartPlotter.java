@@ -12,15 +12,16 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.util.ShapeUtilities;
+import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;
 import datamodel.UIDataPoint;
 
 public class CellResultJFreeChartPlotter implements ChartPlotter {
 
-  private List<CellResult> cellResults;
+  private List<CellMeasurementDataSet> measurementDataSets;
 
-  public CellResultJFreeChartPlotter(List<CellResult> cellResults) {
-    this.cellResults = cellResults;
+  public CellResultJFreeChartPlotter(List<CellMeasurementDataSet> cellResults) {
+    this.measurementDataSets = cellResults;
   }
 
   @Override
@@ -59,10 +60,18 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
   private XYSeriesCollection getSeriesCollection() {
     XYSeriesCollection seriesCollection = new XYSeriesCollection();
 
-    for (CellResult cellResult : cellResults) {
-      XYSeries series = new XYSeries(cellResult.getName(), false);
+    for (CellMeasurementDataSet dataSet : measurementDataSets) {
+      String name = dataSet.getName();
+      if (name.isEmpty()) {
+        if (dataSet.eContainer() != null) {
+          if (dataSet.eContainer() instanceof CellResult) {
+            name = ((CellResult) dataSet.eContainer()).getName();
+          }
+        }
+      }
+      XYSeries series = new XYSeries(name, false);
 
-      List<UIDataPoint> data = cellResult.getLightMeasurementDataSet().getData();
+      List<UIDataPoint> data = dataSet.getData();
 
       for (UIDataPoint point : data) {
         series.add(point.getVoltage(), point.getCurrent());
