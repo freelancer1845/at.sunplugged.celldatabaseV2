@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/at.sunplugged.celldatabaseV2.feature_1.0.8.qualifier.jar" id="at.sunplugged.celldatabaseV2.feature" version="1.0.8.qualifier">
+   <feature url="features/at.sunplugged.celldatabaseV2.feature_1.0.10.qualifier.jar" id="at.sunplugged.celldatabaseV2.feature" version="1.0.10.qualifier">
       <category name="MainUpdate"/>
    </feature>
    <category-def name="MainUpdate" label="Contains the full program"/>

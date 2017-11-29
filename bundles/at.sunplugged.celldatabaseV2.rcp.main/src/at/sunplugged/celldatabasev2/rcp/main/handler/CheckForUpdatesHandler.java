@@ -1,6 +1,7 @@
 
 package at.sunplugged.celldatabasev2.rcp.main.handler;
 
+import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -16,6 +17,7 @@ import org.eclipse.equinox.p2.operations.ProvisioningJob;
 import org.eclipse.equinox.p2.operations.ProvisioningSession;
 import org.eclipse.equinox.p2.operations.UpdateOperation;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,12 +27,17 @@ public class CheckForUpdatesHandler {
 
 
 
-  private static final String REPOSITORY_LOC =
-      "file:///updates/repository";
-
+  private String repositoryLocation;
 
   @Execute
   public void execute(final IProvisioningAgent agent, final Shell shell, final UISynchronize sync) {
+    repositoryLocation =
+        "file:///" + new File("").getAbsolutePath().replaceAll("\\\\", "/") + "/updates/repository";
+
+    DirectoryDialog repositoyLocation = new DirectoryDialog(shell);
+    if (repositoyLocation.open() != null) {
+      repositoryLocation = "file:///" + repositoyLocation.getFilterPath().replaceAll("\\\\", "/");
+    }
     Job j = new Job("Update Job") {
       @Override
       protected IStatus run(final IProgressMonitor monitor) {
@@ -48,12 +55,12 @@ public class CheckForUpdatesHandler {
     final ProvisioningSession session = new ProvisioningSession(agent);
     final UpdateOperation operation = new UpdateOperation(session);
     configureUpdate(operation);
+    LOG.debug("Code added Repository Location: " + repositoryLocation);
 
     // check for updates, this causes I/O
     final IStatus status = operation.resolveModal(monitor);
 
-    LOG.debug("Resolution Result Message: " + operation.getResolutionResult()
-        .getMessage());
+    LOG.debug("Resolution Result Message: " + operation.getResolutionResult().getMessage());
     LOG.debug("Resolutin Details: " + operation.getResolutionDetails());
 
     // failed to find updates (inform user and exit)
@@ -84,8 +91,7 @@ public class CheckForUpdatesHandler {
     provisioningJob.addJobChangeListener(new JobChangeAdapter() {
       @Override
       public void done(IJobChangeEvent event) {
-        if (event.getResult()
-            .isOK()) {
+        if (event.getResult().isOK()) {
           sync.syncExec(new Runnable() {
 
             @Override
@@ -117,17 +123,14 @@ public class CheckForUpdatesHandler {
     // create uri and check for validity
     URI uri = null;
     try {
-      uri = new URI(REPOSITORY_LOC);
+      uri = new URI(repositoryLocation);
     } catch (final URISyntaxException e) {
       LOG.error("Repository location is not valid.", e);
       return null;
     }
-
     // set location of artifact and metadata repo
-    operation.getProvisioningContext()
-        .setArtifactRepositories(new URI[] {uri});
-    operation.getProvisioningContext()
-        .setMetadataRepositories(new URI[] {uri});
+    operation.getProvisioningContext().setArtifactRepositories(new URI[] {uri});
+    operation.getProvisioningContext().setMetadataRepositories(new URI[] {uri});
     return operation;
   }
 

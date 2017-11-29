@@ -2,7 +2,7 @@
 <feature
       id="at.sunplugged.celldatabaseV2.feature"
       label="Feature"
-      version="1.0.8.qualifier">
+      version="1.0.10.qualifier">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]

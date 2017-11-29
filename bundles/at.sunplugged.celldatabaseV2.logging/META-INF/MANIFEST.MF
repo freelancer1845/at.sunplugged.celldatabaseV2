@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Logging
 Bundle-SymbolicName: at.sunplugged.celldatabaseV2.logging
-Bundle-Version: 1.0.8.qualifier
+Bundle-Version: 1.0.10.qualifier
 Bundle-Activator: at.sunplugged.celldatabasev2.logging.Activator
 Require-Bundle: org.eclipse.core.runtime,
  ch.qos.logback.classic;bundle-version="1.1.2",
