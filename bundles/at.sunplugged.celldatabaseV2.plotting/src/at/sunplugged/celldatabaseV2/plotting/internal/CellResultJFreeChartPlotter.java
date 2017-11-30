@@ -1,5 +1,6 @@
 package at.sunplugged.celldatabaseV2.plotting.internal;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.util.List;
 import org.jfree.chart.ChartFactory;
@@ -8,6 +9,7 @@ import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.renderer.xy.XYSplineRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RectangleEdge;
@@ -45,13 +47,17 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
     verticalMarker.setPaint(Color.BLACK);
     plot.addDomainMarker(verticalMarker);
     plot.addRangeMarker(verticalMarker);
-
+    plot.setRenderer(new XYSplineRenderer());
     XYItemRenderer r = plot.getRenderer();
     if (r instanceof XYLineAndShapeRenderer) {
       XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
-      renderer.setBaseShapesVisible(true);
-      renderer.setBaseShapesFilled(true);
+      renderer.setBaseShapesVisible(false);
+      renderer.setBaseShapesFilled(false);
       renderer.setSeriesShape(0, ShapeUtilities.createDiagonalCross(1f, 1f));
+      for (int i = 0; i < plot.getSeriesCount(); i++) {
+        renderer.setSeriesStroke(i, new BasicStroke(3.0f));
+      }
+
     }
 
     return chart;
