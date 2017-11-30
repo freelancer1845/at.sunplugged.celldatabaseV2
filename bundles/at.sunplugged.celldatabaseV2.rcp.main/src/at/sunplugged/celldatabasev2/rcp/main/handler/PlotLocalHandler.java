@@ -68,15 +68,18 @@ public class PlotLocalHandler {
       return true;
     } else if (object instanceof Object[]) {
       Object[] objects = (Object[]) object;
-      if (objects[0] instanceof CellResult) {
-        return true;
-      } else if (object instanceof CellGroup) {
-        return true;
-      } else if (object instanceof CellMeasurementDataSet) {
-        return true;
-      } else {
-        return false;
+      boolean allObjectsSupported = true;
+      for (Object subObject : objects) {
+        if (subObject instanceof CellResult) {
+        } else if (subObject instanceof CellGroup) {
+        } else if (subObject instanceof CellMeasurementDataSet) {
+        } else {
+          allObjectsSupported = false;
+          break;
+        }
       }
+      return allObjectsSupported;
+
     } else {
       return false;
     }

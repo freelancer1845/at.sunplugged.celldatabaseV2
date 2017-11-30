@@ -55,7 +55,6 @@ public class E4LifeCycle {
       return;
     }
 
-
     LOG.debug("Leaving PostConstruct method.");
   }
 

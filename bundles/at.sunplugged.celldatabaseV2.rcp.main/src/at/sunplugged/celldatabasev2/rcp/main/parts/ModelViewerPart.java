@@ -139,9 +139,11 @@ public class ModelViewerPart {
           }
         }).create();
 
+
     treeViewer.setLabelProvider(
         new DecoratingLabelProvider((ILabelProvider) treeViewer.getLabelProvider(),
             new DiagnosticDecorator(editingDomain, treeViewer)));
+
 
     treeViewer.setAutoExpandLevel(0);
     treeViewer.collapseAll();
