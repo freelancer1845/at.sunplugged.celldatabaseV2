@@ -32,14 +32,16 @@ public class CheckForUpdatesHandler {
   @Execute
   public void execute(final IProvisioningAgent agent, final Shell shell, final UISynchronize sync) {
     repositoryLocation =
-        "file:///" + new File("").getAbsolutePath().replaceAll("\\\\", "/") + "/updates/repository";
+        "file:///" + new File("").getAbsolutePath().replaceAll("\\\\", "/").replaceAll(" ", "%20")
+            + "/updates/repository";
 
 
     if (MessageDialog.openQuestion(shell, "Update Location",
         "Look in default location? (updates/repository)") == false) {
       DirectoryDialog repositoyLocation = new DirectoryDialog(shell);
       if (repositoyLocation.open() != null) {
-        repositoryLocation = "file:///" + repositoyLocation.getFilterPath().replaceAll("\\\\", "/");
+        repositoryLocation = "file:///"
+            + repositoyLocation.getFilterPath().replaceAll("\\\\", "/").replaceAll(" ", "%20");
       }
     }
 
