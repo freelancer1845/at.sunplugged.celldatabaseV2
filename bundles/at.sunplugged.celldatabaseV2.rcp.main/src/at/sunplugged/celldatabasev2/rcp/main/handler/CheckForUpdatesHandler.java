@@ -34,10 +34,15 @@ public class CheckForUpdatesHandler {
     repositoryLocation =
         "file:///" + new File("").getAbsolutePath().replaceAll("\\\\", "/") + "/updates/repository";
 
-    DirectoryDialog repositoyLocation = new DirectoryDialog(shell);
-    if (repositoyLocation.open() != null) {
-      repositoryLocation = "file:///" + repositoyLocation.getFilterPath().replaceAll("\\\\", "/");
+
+    if (MessageDialog.openQuestion(shell, "Update Location",
+        "Look in default location? (updates/repository)") == false) {
+      DirectoryDialog repositoyLocation = new DirectoryDialog(shell);
+      if (repositoyLocation.open() != null) {
+        repositoryLocation = "file:///" + repositoyLocation.getFilterPath().replaceAll("\\\\", "/");
+      }
     }
+
     Job j = new Job("Update Job") {
       @Override
       protected IStatus run(final IProgressMonitor monitor) {

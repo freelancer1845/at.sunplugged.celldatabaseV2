@@ -16,7 +16,6 @@ import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Deactivate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.persistence.api.DatabaseService;
@@ -41,10 +40,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     editingDomain = new AdapterFactoryEditingDomain(getAdapterFactory(), new BasicCommandStack());
   }
 
-  @Deactivate
-  protected void deactivate() {
-    unloadDatabase();
-  }
+
 
   @Override
   public void openDatabase(String path) throws DatabaseServiceException {
@@ -70,10 +66,8 @@ public class DatabaseServiceImpl implements DatabaseService {
   }
 
   private Database loadXmiDatabase() {
-    if (resource.getContents()
-        .isEmpty() == false) {
-      return (Database) resource.getContents()
-          .get(0);
+    if (resource.getContents().isEmpty() == false) {
+      return (Database) resource.getContents().get(0);
     } else {
       return null;
     }
@@ -83,10 +77,8 @@ public class DatabaseServiceImpl implements DatabaseService {
 
     Database database = DatamodelFactory.eINSTANCE.createDatabase();
 
-    resource.getContents()
-        .add(database);
-    database = (Database) resource.getContents()
-        .get(0);
+    resource.getContents().add(database);
+    database = (Database) resource.getContents().get(0);
     return database;
   }
 
@@ -99,8 +91,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     if (file.exists() == false) {
       try {
         LOG.debug("Database file didnt exist.... creating new one: " + file.getAbsolutePath());
-        if (file.getParentFile()
-            .mkdirs() == false) {
+        if (file.getParentFile().mkdirs() == false) {
           throw new IOException("Failed to create direcotries...");
         }
         file.createNewFile();
@@ -136,8 +127,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 
   private Resource loadXmiResource(String path) {
     Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-    Factory xmiFactory = (Factory) reg.getExtensionToFactoryMap()
-        .get("xmi");
+    Factory xmiFactory = (Factory) reg.getExtensionToFactoryMap().get("xmi");
 
     Resource resource = xmiFactory.createResource(URI.createFileURI(path));
     return resource;
@@ -168,13 +158,11 @@ public class DatabaseServiceImpl implements DatabaseService {
       LOG.error("Failed to load Database to import... \"" + path + "\"", e);
       throw new DatabaseServiceException("Failed to load Database...", e);
     }
-    Database databaseToImport = (Database) resource.getContents()
-        .get(0);
+    Database databaseToImport = (Database) resource.getContents().get(0);
     Command cmd =
         AddCommand.create(editingDomain, getDatabase(), null, databaseToImport.getCellGroups());
 
-    editingDomain.getCommandStack()
-        .execute(cmd);
+    editingDomain.getCommandStack().execute(cmd);
     resource.unload();
   }
 
@@ -184,8 +172,7 @@ public class DatabaseServiceImpl implements DatabaseService {
       LOG.debug("Saving database to (new) file");
       File file = new File(path);
       if (file.exists() == false) {
-        file.getParentFile()
-            .mkdirs();
+        file.getParentFile().mkdirs();
         file.createNewFile();
       }
 
