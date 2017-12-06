@@ -1,11 +1,9 @@
 package at.sunplugged.celldatabaseV2.labviewimport.ui.wizard;
 
 import java.io.File;
-import java.text.Collator;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 import org.eclipse.core.runtime.ICoreRunnable;
 import org.eclipse.core.runtime.jobs.Job;
@@ -41,6 +39,7 @@ import datamodel.CellGroup;
 import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;
 import datamodel.DatamodelFactory;
+import datamodel.util.DatamodelUtils;
 
 public class PageTwo extends WizardPage {
 
@@ -199,9 +198,10 @@ public class PageTwo extends WizardPage {
           LOG.error("Subjob interupted: " + subJob.getName());
         }
       });
+
       List<CellResult> sortedResults =
-          results.stream().sorted((res1, res2) -> Collator.getInstance(Locale.GERMANY)
-              .compare(res1.getName(), res2.getName())).collect(Collectors.toList());
+          results.stream().sorted(DatamodelUtils.Comparetors.comapreCellResultsNatural())
+              .collect(Collectors.toList());
       tempGroup.getCellResults().addAll(sortedResults);
       Display.getDefault().asyncExec(() -> treeViewer.getControl().setEnabled(true));
     });

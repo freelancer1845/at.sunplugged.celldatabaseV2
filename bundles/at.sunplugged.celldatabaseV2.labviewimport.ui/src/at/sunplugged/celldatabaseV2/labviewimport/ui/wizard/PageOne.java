@@ -1,7 +1,9 @@
 package at.sunplugged.celldatabaseV2.labviewimport.ui.wizard;
 
+import java.io.File;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -33,8 +35,10 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import at.sunplugged.celldatabaseV2.common.GeneralSettings;
 import at.sunplugged.celldatabaseV2.common.PrefNodes;
 import at.sunplugged.celldatabaseV2.common.RegexPatterns;
+import datamodel.util.DatamodelUtils;
 
 public class PageOne extends WizardPage {
 
@@ -106,6 +110,13 @@ public class PageOne extends WizardPage {
       @Override
       public void widgetSelected(SelectionEvent e) {
         FileDialog dialog = new FileDialog(buttonsGroup.getShell(), SWT.MULTI);
+
+        if (ConfigurationScope.INSTANCE.getNode(PrefNodes.GENERAL)
+            .getBoolean(GeneralSettings.USE_LABVIEW_IMPORT_PATH, false) == true) {
+          dialog.setFilterPath(ConfigurationScope.INSTANCE.getNode(PrefNodes.GENERAL)
+              .get(GeneralSettings.LABVIEW_IMPORT_PATH, ""));
+        }
+
         dialog.setFilterExtensions(new String[] {"*.txt", "*.*"});
         dialog.setFilterNames(new String[] {"Text Files", "All"});
         if (dialog.open() != null) {
@@ -127,8 +138,17 @@ public class PageOne extends WizardPage {
                 new LabviewDataFile(group, absolutPathLight, filteredGroups.get(group).get(1),
                     absolutPathDark, filteredGroups.get(group).get(0));
             dataFiles.add(dataFile);
-          });
+            dataFiles.sort(new Comparator<LabviewDataFile>() {
+              private Comparator<String> helper =
+                  DatamodelUtils.Comparetors.compareCellResultNamesNatural();
 
+              @Override
+              public int compare(LabviewDataFile o1, LabviewDataFile o2) {
+                new File(o1.getAbsolutPathLight()).getName();
+                return helper.compare(o1.getName(), o2.getName());
+              }
+            });
+          });
           viewer.refresh();
         }
       }

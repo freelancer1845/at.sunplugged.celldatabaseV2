@@ -7,6 +7,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: at.sunplugged.celldatabaseV2.common,
  at.sunplugged.celldatabaseV2.labviewimport,
  datamodel,
+ datamodel.util,
  org.eclipse.jface.dialogs,
  org.eclipse.jface.viewers,
  org.eclipse.jface.wizard,

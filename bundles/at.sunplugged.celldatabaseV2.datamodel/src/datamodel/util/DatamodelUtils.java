@@ -1,6 +1,9 @@
 package datamodel.util;
 
+import java.text.Collator;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,6 +34,44 @@ public class DatamodelUtils {
           }
         }));
     return grouped;
+  }
+
+  public static class Comparetors {
+    public static Comparator<CellResult> comapreCellResultsNatural() {
+      return new CellResultComparetor();
+    }
+
+    public static Comparator<String> compareCellResultNamesNatural() {
+      return new CellResultNameComparetor();
+    }
+
+    private static class CellResultNameComparetor implements Comparator<String> {
+
+      @Override
+      public int compare(String o1, String o2) {
+        String endingNumber0String = o1.replaceFirst(".+?(?=[0-9]+$)", "").replaceAll("_", "");
+        String endingNumber1String = o2.replaceFirst(".+?(?=[0-9]+$)", "").replaceAll("_", "");
+        if (endingNumber0String.isEmpty() == false && endingNumber1String.isEmpty() == false) {
+          return Integer.valueOf(endingNumber0String)
+              .compareTo(Integer.valueOf(endingNumber1String));
+        } else {
+          return Collator.getInstance(Locale.GERMANY).compare(o1, o2);
+        }
+      }
+
+    }
+
+    private static class CellResultComparetor implements Comparator<CellResult> {
+      private CellResultNameComparetor comparetor = new CellResultNameComparetor();
+
+      @Override
+      public int compare(CellResult o1, CellResult o2) {
+        String name0 = o1.getName();
+        String name1 = o2.getName();
+
+        return comparetor.compare(name0, name1);
+      }
+    }
   }
 
 
