@@ -373,7 +373,7 @@ public class PageOne extends WizardPage {
       @Override
       protected Object getValue(Object element) {
         if (((LabviewDataFile) element).getArea() != null) {
-          return String.valueOf(((LabviewDataFile) element).getArea() * 100000);
+          return String.valueOf(((LabviewDataFile) element).getArea() * 10000);
         } else {
           return "NaN";
         }
@@ -383,7 +383,7 @@ public class PageOne extends WizardPage {
       @Override
       protected void setValue(Object element, Object value) {
         try {
-          ((LabviewDataFile) element).setArea(Double.valueOf(value.toString()) / 100000);
+          ((LabviewDataFile) element).setArea(Double.valueOf(value.toString()) / 10000);
           viewer.update(element, null);
         } catch (NumberFormatException e) {
           ((LabviewDataFile) element).setArea(null);
