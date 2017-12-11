@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Vector;
 import org.apache.poi.ss.usermodel.Cell;
@@ -86,7 +87,8 @@ public class CellResultSheetXSSFCreator {
     if (cellResult.getDarkMeasuremenetDataSet() != null) {
       String darkImageName = "tempImage" + new Random().nextInt() + ".jpg";
       File darkImageFile = Activator.getContext().getDataFile(darkImageName);
-      JFreeChart darkChart = PlotHelper.createJFreeChart(cellResult.getDarkMeasuremenetDataSet());
+      JFreeChart darkChart = PlotHelper.createJFreeChart(cellResult.getDarkMeasuremenetDataSet(),
+          Collections.EMPTY_MAP);
       try {
         ChartUtilities.saveChartAsJPEG(darkImageFile, 1.0f, darkChart, 600, 400);
       } catch (IOException e) {
@@ -113,7 +115,8 @@ public class CellResultSheetXSSFCreator {
   private void createUiPlot(Cell cell) throws IOException {
     String imageName = "tempImage" + new Random().nextInt() + ".jpg";
     File imageFile = Activator.getContext().getDataFile(imageName);
-    JFreeChart lightChart = PlotHelper.createJFreeChart(cellResult.getLightMeasurementDataSet());
+    JFreeChart lightChart =
+        PlotHelper.createJFreeChart(cellResult.getLightMeasurementDataSet(), Collections.EMPTY_MAP);
     try {
       ChartUtilities.saveChartAsJPEG(imageFile, 1.0f, lightChart, 600, 400);
     } catch (IOException e) {

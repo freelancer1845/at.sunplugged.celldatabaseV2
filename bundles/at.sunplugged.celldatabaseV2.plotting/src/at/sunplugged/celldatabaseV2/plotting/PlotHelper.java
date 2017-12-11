@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.ExecuteException;
@@ -35,17 +36,23 @@ public class PlotHelper {
 
   private final static Logger LOG = LoggerFactory.getLogger(PlotHelper.class);
 
+  public static final String POWER_CURVE = "powerCurve";
 
-  public static JFreeChart createJFreeChart(CellMeasurementDataSet dataSet) {
+  public static final String MP_POINT = "mpPoint";
+
+
+  public static JFreeChart createJFreeChart(CellMeasurementDataSet dataSet,
+      Map<String, String> options) {
     ChartPlotter chartPlotter = new CellResultJFreeChartPlotter(Arrays.asList(dataSet));
 
-    return chartPlotter.getChart();
+    return chartPlotter.getChart(options);
   }
 
-  public static JFreeChart createJFreeChart(List<CellMeasurementDataSet> dataSets) {
+  public static JFreeChart createJFreeChart(List<CellMeasurementDataSet> dataSets,
+      Map<String, String> options) {
     ChartPlotter chartPlotter = new CellResultJFreeChartPlotter(dataSets);
 
-    return chartPlotter.getChart();
+    return chartPlotter.getChart(options);
   }
 
 
