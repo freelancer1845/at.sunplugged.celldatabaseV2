@@ -102,6 +102,50 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
           }
         }
         break;
+      case PlotHelper.RS_LINE:
+        for (CellMeasurementDataSet dataSet : measurementDataSets) {
+          CellResult cellResult = (CellResult) dataSet.eContainer();
+          if (cellResult != null) {
+            String name = getDataSetName(dataSet) + " Rs Line";
+            XYSeries rsSeries = new XYSeries(name, false);
+
+            double rs = cellResult.getSeriesResistance();
+            double[] x = new double[2000];
+            double start = dataSet.getData().get(0).getVoltage();
+            double end = dataSet.getData().get(dataSet.getData().size() - 1).getVoltage();
+            double h = (end - start) / 2000;
+            for (int i = 0; i < 2000; i++) {
+              x[i] = start + i * h;
+            }
+            for (double x_i : x) {
+              rsSeries.add(x_i, 1 / rs * x_i - cellResult.getOpenCircuitVoltage() / rs);
+            }
+            ((XYSeriesCollection) chart.getXYPlot().getDataset()).addSeries(rsSeries);
+          }
+        }
+        break;
+      case PlotHelper.RP_LINE:
+        for (CellMeasurementDataSet dataSet : measurementDataSets) {
+          CellResult cellResult = (CellResult) dataSet.eContainer();
+          if (cellResult != null) {
+            String name = getDataSetName(dataSet) + " Rp curve";
+            XYSeries rpSeries = new XYSeries(name, false);
+
+            double rp = cellResult.getParallelResistance();
+            double[] x = new double[2000];
+            double start = dataSet.getData().get(0).getVoltage();
+            double end = dataSet.getData().get(dataSet.getData().size() - 1).getVoltage();
+            double h = (end - start) / 2000;
+            for (int i = 0; i < 2000; i++) {
+              x[i] = start + i * h;
+            }
+            for (double x_i : x) {
+              rpSeries.add(x_i, 1 / rp * x_i + cellResult.getShortCircuitCurrent());
+            }
+            ((XYSeriesCollection) chart.getXYPlot().getDataset()).addSeries(rpSeries);
+          }
+        }
+        break;
       default:
         LOG.error("Unkown option: " + key);
         break;

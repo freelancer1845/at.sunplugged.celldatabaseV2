@@ -40,6 +40,10 @@ public class PlotHelper {
 
   public static final String MP_POINT = "mpPoint";
 
+  public static final String RP_LINE = "rpLine";
+
+  public static final String RS_LINE = "rsLine";
+
 
   public static JFreeChart createJFreeChart(CellMeasurementDataSet dataSet,
       Map<String, String> options) {

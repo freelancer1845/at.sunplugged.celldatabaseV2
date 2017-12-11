@@ -89,6 +89,41 @@ public class ChartDescriptor {
       }
     });
 
+    Label lblRsSeries = new Label(controlGroup, SWT.NONE);
+    lblRsSeries.setText("Draw RS Series");
+    lblRsSeries.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
+
+    Button cbRsSeries = new Button(controlGroup, SWT.CHECK);
+    cbRsSeries.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+    cbRsSeries.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+        if (cbRsSeries.getSelection() == false) {
+          options.remove(PlotHelper.RS_LINE);
+        } else {
+          options.put(PlotHelper.RS_LINE, "true");
+        }
+        drawPlot();
+      }
+    });
+
+    Label lblRpSeries = new Label(controlGroup, SWT.NONE);
+    lblRpSeries.setText("Draw Rp Series");
+    lblRpSeries.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
+
+    Button cbRpSeries = new Button(controlGroup, SWT.CHECK);
+    cbRpSeries.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+    cbRpSeries.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+        if (cbRpSeries.getSelection() == false) {
+          options.remove(PlotHelper.RP_LINE);
+        } else {
+          options.put(PlotHelper.RP_LINE, "true");
+        }
+        drawPlot();
+      }
+    });
 
   }
 
