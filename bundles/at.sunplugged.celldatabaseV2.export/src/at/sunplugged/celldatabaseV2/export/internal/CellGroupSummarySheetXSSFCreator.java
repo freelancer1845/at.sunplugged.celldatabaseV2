@@ -57,40 +57,17 @@ public class CellGroupSummarySheetXSSFCreator {
     if (keys.size() == 0) {
       return;
     }
-    if (keys.get(0)
-        .equals(Keys.NAME)) {
+    if (keys.get(0).equals(Keys.NAME)) {
       writeStringAttributeToCellColumn(cell, result -> result.getName());
-    } else if (keys.get(0)
-        .equals(Keys.GROUP_NAME)) {
+    } else if (keys.get(0).equals(Keys.GROUP_NAME)) {
       cell.setCellValue(cellGroup.getName());
     } else {
-      writeDoubleAttributetoCellColumn(cell, getInterface(keys));
+      writeDoubleAttributetoCellColumn(cell, Utils.getChainedInterface(keys));
     }
 
   }
 
 
-
-  private ToDoubleFunction<CellResult> getInterface(Vector<String> keys) {
-    if (keys.size() == 1) {
-      return getMapperSingleKey(keys.get(0));
-    } else if (keys.size() == 2) {
-      ToDoubleFunction<CellResult> singleKey = getMapperSingleKey(keys.get(0));
-      switch (keys.get(1)) {
-        case Keys.DIVIDE_BY_AREA:
-          return result -> singleKey.applyAsDouble(result) / result.getLightMeasurementDataSet()
-              .getArea() / 10000;
-        default:
-          throw new IllegalArgumentException("Unexpected second Key: " + keys.get(1));
-      }
-    } else {
-      throw new IllegalArgumentException("More than two Keys supplied... Only three allowed");
-    }
-  }
-
-  private ToDoubleFunction<CellResult> getMapperSingleKey(String key) {
-    return Utils.getValueGetter(key);
-  }
 
   private void writeStringAttributeToCellColumn(Cell cell, Function<CellResult, String> function) {
     int columnIndex = cell.getColumnIndex();

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Random;
+import java.util.Vector;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -34,15 +35,9 @@ public class CellResultSheetXSSFCreator {
 
   private final CellResult cellResult;
 
-  private String tableName;
-
-
   private CustomXSSFWorkbook workbook;
 
-
   private XSSFSheet sheet;
-
-
 
   public CellResultSheetXSSFCreator(CellResult cellResult) {
     this.cellResult = cellResult;
@@ -66,66 +61,24 @@ public class CellResultSheetXSSFCreator {
 
 
   private void handleCellCellResult(Cell cell) throws IOException {
-    String value = cell.getStringCellValue();
-    if (value.isEmpty()) {
+
+    Vector<String> keys = Utils.decodeKey(cell.getStringCellValue());
+
+    if (keys.size() == 0) {
       return;
     }
-
-    double areaInCmSquare = cellResult.getLightMeasurementDataSet().getArea() * 10000;
-    switch (value) {
-      case Keys.NAME:
-        workbook.writeValueToCell(cell, cellResult.getName());
-        break;
-      case Keys.AREA:
-        workbook.writeValueToCell(cell, areaInCmSquare);
-        break;
-      case Keys.EFF:
-        workbook.writeValueToCell(cell, cellResult.getEfficiency());
-        break;
-      case Keys.FF:
-        workbook.writeValueToCell(cell, cellResult.getFillFactor());
-        break;
-      case Keys.VOC:
-        workbook.writeValueToCell(cell, cellResult.getOpenCircuitVoltage());
-        break;
-      case Keys.ISC:
-        workbook.writeValueToCell(cell, cellResult.getShortCircuitCurrent() / areaInCmSquare);
-        break;
-      case Keys.JSC:
-        workbook.writeValueToCell(cell, cellResult.getShortCircuitCurrent() / areaInCmSquare);
-        break;
-      case Keys.MP:
-        workbook.writeValueToCell(cell, cellResult.getMaximumPower() / areaInCmSquare);
-        break;
-      case Keys.POWER_INPUT:
-        workbook.writeValueToCell(cell, cellResult.getLightMeasurementDataSet().getPowerInput());
-        break;
-      case Keys.RP:
-        workbook.writeValueToCell(cell, cellResult.getParallelResistance() / areaInCmSquare);
-        break;
-      case Keys.RP_DARK:
-        workbook.writeValueToCell(cell, cellResult.getDarkParallelResistance() / areaInCmSquare);
-        break;
-      case Keys.RS:
-        workbook.writeValueToCell(cell, cellResult.getSeriesResistance() / areaInCmSquare);
-        break;
-      case Keys.RS_DARK:
-        workbook.writeValueToCell(cell, cellResult.getDarkSeriesResistance() / areaInCmSquare);
-        break;
-      case Keys.VOLTAGE_DATA:
-        writeVoltageData(cell);
-        break;
-      case Keys.CURRENT_DATA:
-        writeCurrentData(cell);
-        break;
-      case Keys.UI_PLOT:
-        createUiPlot(cell);
-        break;
-      case Keys.UI_PLOT_DARK:
-        createUiPlotDark(cell);
-        break;
-      default:
-        break;
+    if (keys.get(0).equals(Keys.NAME)) {
+      workbook.writeValueToCell(cell, cellResult.getName());
+    } else if (keys.get(0).equals(Keys.VOLTAGE_DATA)) {
+      writeVoltageData(cell);
+    } else if (keys.get(0).equals(Keys.CURRENT_DATA)) {
+      writeCurrentData(cell);
+    } else if (keys.get(0).equals(Keys.UI_PLOT)) {
+      createUiPlot(cell);
+    } else if (keys.get(0).equals(Keys.UI_PLOT_DARK)) {
+      createUiPlotDark(cell);
+    } else {
+      workbook.writeValueToCell(cell, Utils.getChainedInterface(keys).applyAsDouble(cellResult));
     }
   }
 
@@ -247,68 +200,5 @@ public class CellResultSheetXSSFCreator {
 
   }
 
-
-  //
-  // private void handleChart(Chart chart) {
-  //
-  //
-  // // DataSet dataSet = chart.getChartData();
-  // // System.out.println(dataSet);
-  // List<CellRangeAddress> list = new ArrayList<>();
-  // list.add(voltageCellRangeAddress);
-  // list.add(currentCellRangeAddress);
-  // CellRangeAddressList test = new CellRangeAddressList(list);
-  // CellRangeAddressList manual =
-  // CellRangeAddressList.valueOf(tableName + ".A8:" + tableName + ".B164");
-  // System.out.println(manual.toString());
-  //
-  //
-  //
-  // List<UIDataPoint> dataPoints = cellResult.getLightMeasurementDataSet().getData();
-  // String[] labels = new String[dataPoints.size()];
-  // String[] legends = new String[] {"Current"};
-  // double[][] data = new double[1][dataPoints.size()];
-  // for (int i = 0; i < dataPoints.size(); i++) {
-  // labels[i] = String.valueOf(dataPoints.get(i).getVoltage());
-  // data[0][i] = dataPoints.get(i).getCurrent();
-  // }
-  //
-  // // DataSet newDataSet = new DataSet(manual, document, false, true, true);
-  // DataSet newDataSet = new DataSet(labels, legends, data);
-  //
-  // System.out.println(newDataSet.getLocalTableFirstColumn()[0]);
-  // System.out.println(newDataSet.getLocalTableFirstRow()[0]);
-  // System.out.println(newDataSet);
-  // chart.setChartData(newDataSet);
-  //
-  // }
-  //
-  //
-  // private void createUIPlot(Cell cell) {
-  // List<CellRangeAddress> list = new ArrayList<>();
-  // list.add(voltageCellRangeAddress);
-  // list.add(currentCellRangeAddress);
-  // Rectangle rect = new Rectangle();
-  // rect.x = 1;
-  // rect.y = 2;
-  // rect.width = 10000;
-  // rect.height = 5000;
-  //
-  // List<UIDataPoint> dataPoints = cellResult.getLightMeasurementDataSet().getData();
-  // String[] labels = new String[dataPoints.size()];
-  // String[] legends = new String[] {"Current"};
-  // double[][] data = new double[2][dataPoints.size()];
-  // for (int i = 0; i < dataPoints.size(); i++) {
-  // labels[i] = String.valueOf(dataPoints.get(i).getVoltage());
-  // data[0][i] = dataPoints.get(i).getVoltage();
-  // data[1][i] = dataPoints.get(i).getCurrent();
-  // }
-  // System.out.println(voltageCellRangeAddress.toString());
-  // Chart chart = document.createChart("U-I Data", document, new CellRangeAddressList(list), true,
-  // false, true, rect, cell);
-  // // Chart chart = document.createChart("U-I Data Plot", labels, legends, data, rect);
-  // chart.setUseLegend(true);
-  // chart.setChartType(ChartType.SCATTER);
-  // }
 
 }
