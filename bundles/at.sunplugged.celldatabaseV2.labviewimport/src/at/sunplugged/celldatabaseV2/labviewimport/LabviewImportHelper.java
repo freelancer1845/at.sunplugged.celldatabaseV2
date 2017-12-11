@@ -14,14 +14,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Executor;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.ExecuteException;
 import org.apache.commons.exec.ExecuteWatchdog;
-import org.apache.commons.exec.Executor;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.osgi.service.prefs.Preferences;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -38,6 +37,10 @@ public class LabviewImportHelper {
 
   public static CellResult readAndCalculateFile(String name, File darkDataFile, File lightDataFile,
       double area, double powerInput) {
+
+    LOG.debug(String.format("Calculating File: Name: %s LightData: %s Area: %d PowerInput: %d",
+        name, lightDataFile.getAbsolutePath(), area, powerInput));
+
     Preferences preferences = ConfigurationScope.INSTANCE.getNode(PrefNodes.PYTHON);
 
     String pythonLocation =
