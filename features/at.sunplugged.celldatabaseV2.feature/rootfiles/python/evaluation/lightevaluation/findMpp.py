@@ -5,6 +5,7 @@ Created on 21.07.2017
 '''
 
 import numpy as np
+import matplotlib.pyplot as plt
 import scipy.optimize
 from scipy.interpolate import interp1d
 
@@ -25,5 +26,17 @@ def findMpp(data):
     
     iF = interp1d(uniqueData[:,0],uniqueData[:,1] * uniqueData[:,0], 'cubic')
     x = scipy.optimize.fmin(lambda x: iF(x) * -1, 0, disp=False)
+    
     uIInterp = interp1d(uniqueData[:,0], uniqueData[:,1], 'cubic')
+    uIPolyFit = np.poly1d(np.polyfit(uniqueData[:,0], uniqueData[:,1], 5))
+    polyfit = np.poly1d(np.polyfit(uniqueData[:,0], uniqueData[:,1] * uniqueData[:,0], 5))
+    x = scipy.optimize.fmin(lambda x: polyfit(x) * -1, 0, disp=False)
+    plt.plot(data[:,0], data[:,1], label='real Data')
+    plt.plot(data[:,0], uIPolyFit(data[:,0]), label = 'UI Poly Fit')
+    plt.plot(data[:,0], data[:,0] * data[:,1], label='real power values')
+    plt.plot(data[:,0], iF(data[:,0]), label = 'interpolated power values')
+    plt.plot(data[:,0], polyfit(data[:,0]), label= "polyinterpolated power values")
+    plt.legend()
+    plt.show()
+    
     return np.array([x[0], uIInterp(x[0]),  iF(x)[0]])

@@ -39,7 +39,7 @@ public class LabviewImportHelper {
   public static CellResult readAndCalculateFile(String name, File darkDataFile, File lightDataFile,
       double area, double powerInput) {
 
-    LOG.debug(String.format("Calculating File: Name: %s LightData: %s Area: %d PowerInput: %d",
+    LOG.debug(String.format("Calculating File: Name: %s LightData: %s Area: %f PowerInput: %f",
         name, lightDataFile.getAbsolutePath(), area, powerInput));
 
     Preferences preferences = ConfigurationScope.INSTANCE.getNode(PrefNodes.PYTHON);
