@@ -114,10 +114,10 @@ public class LabviewImportHelper {
       result.setMaximumPowerCurrent(p.getMaximumPowerI());
       result.setMaximumPowerVoltage(p.getMaximumPowerV());
       result.setDataEvaluated(new Date());
-      result.setParallelResistance(p.getRp());
-      result.setDarkParallelResistance(p.getRpDark());
-      result.setSeriesResistance(p.getRs());
-      result.setDarkSeriesResistance(p.getRsDark());
+      result.setParallelResistance(Math.abs(p.getRp()));
+      result.setDarkParallelResistance(Math.abs(p.getRpDark()));
+      result.setSeriesResistance(Math.abs(p.getRs()));
+      result.setDarkSeriesResistance(Math.abs(p.getRsDark()));
       lightDataSet.setName(name + " (Light)");
       lightDataSet.setPowerInput(p.getPowerInput());
       lightDataSet.setArea(p.getArea());

@@ -49,7 +49,7 @@ class PlotHelper():
         
         for cellData in self.plotObjects:
             data = cellData.data;
-            plt.plot(data[:,0], data[:,1], label=cellData.Id)
+            plt.plot(data[:,0], -1 * data[:,1], label=cellData.Id)
         
         plt.ylim(ymin, ymax)
         plt.grid()

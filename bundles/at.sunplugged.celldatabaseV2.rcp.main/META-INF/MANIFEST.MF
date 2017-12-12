@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Main
 Bundle-SymbolicName: at.sunplugged.celldatabaseV2.rcp.main;singleton:=true
-Bundle-Version: 1.0.10.qualifier
+Bundle-Version: 1.0.11.qualifier
 Bundle-Activator: at.sunplugged.celldatabasev2.rcp.main.Activator
 Require-Bundle: javax.inject;bundle-version="0.0.0",
   org.eclipse.core.runtime;bundle-version="0.0.0",

@@ -92,7 +92,7 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
         for (CellMeasurementDataSet dataSet : measurementDataSets) {
           CellResult cellResult = (CellResult) dataSet.eContainer();
           if (cellResult != null) {
-            Marker target = new ValueMarker(cellResult.getMaximumPowerCurrent());
+            Marker target = new ValueMarker(-cellResult.getMaximumPowerCurrent());
             target.setPaint(Color.yellow);
             chart.getXYPlot().addRangeMarker(target);
             Marker domainTarget = new ValueMarker(cellResult.getMaximumPowerVoltage());
@@ -140,7 +140,7 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
               x[i] = start + i * h;
             }
             for (double x_i : x) {
-              rpSeries.add(x_i, 1 / rp * x_i + cellResult.getShortCircuitCurrent());
+              rpSeries.add(x_i, 1 / rp * x_i - cellResult.getShortCircuitCurrent());
             }
             ((XYSeriesCollection) chart.getXYPlot().getDataset()).addSeries(rpSeries);
           }
@@ -162,7 +162,7 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
       List<UIDataPoint> data = dataSet.getData();
 
       for (UIDataPoint point : data) {
-        series.add(point.getVoltage(), point.getCurrent());
+        series.add(point.getVoltage(), -1 * point.getCurrent());
       }
       seriesCollection.addSeries(series);
     }

@@ -1,6 +1,7 @@
 package at.sunplugged.celldatabasev2.rcp.main;
 
 import java.io.IOException;
+import org.eclipse.core.internal.jobs.JobManager;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.workbench.lifecycle.PostContextCreate;
@@ -60,7 +61,9 @@ public class E4LifeCycle {
 
 
   @PreSave
-  void preSave(IEclipseContext workbenchContext) {}
+  void preSave(IEclipseContext workbenchContext) {
+    JobManager.shutdown();
+  }
 
   @ProcessAdditions
   void processAdditions(IEclipseContext workbenchContext) throws IOException {}
