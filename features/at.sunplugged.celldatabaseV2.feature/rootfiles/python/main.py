@@ -20,6 +20,7 @@ def uiMethod(lightData, darkData, area, powerInput):
     lightUIFit = np.poly1d(np.polyfit(lightData[:,0], lightData[:,1], 5))
     powerUIFit = np.poly1d(np.polyfit(lightData[:,0], lightData[:,1] * lightData[:,0], 5))
     darkUIFit = np.poly1d(np.polyfit(darkData[:,0], darkData[:,1], 5))
+    
     dataResult = {}
     dataResult['Voc'] = scipy.optimize.brenth(lightUIFit, lightData[0,0], lightData[-1,0])
     print('Voc calculated', np.min(lightData[:,0]))
@@ -33,7 +34,7 @@ def uiMethod(lightData, darkData, area, powerInput):
     mpp = mppV * mppI
     dataResult['MaximumPowerV'] = mppV
     dataResult['MaximumPowerI'] = mppI
-    dataResult['RsDark'] = 1/np.polyder(darkUIFit)(scipy.optimize.brenth(darkUIFit, darkData[0,0] , darkData[-5,0]))
+    dataResult['RsDark'] = 1/np.polyder(darkUIFit)(darkData[-1,0] - darkData[-1,0] * 0.1)
     dataResult['RpDark'] = 1/np.polyder(darkUIFit)(0)
     dataResult['FF'] = abs(mpp / dataResult['Voc'] / dataResult['Isc'] * 100)
     dataResult['Eff'] = abs((mpp / area) / powerInput)  
