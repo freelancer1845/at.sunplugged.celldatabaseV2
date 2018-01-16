@@ -19,6 +19,7 @@ import at.sunplugged.celldatabaseV2.common.PrefNodes;
 import at.sunplugged.celldatabaseV2.persistence.api.DatabaseService;
 import at.sunplugged.celldatabaseV2.persistence.api.DatabaseServiceException;
 import at.sunplugged.celldatabasev2.rcp.main.wizards.StartupWizard;
+import javafx.application.Platform;
 
 /**
  * This is a stub implementation containing e4 LifeCycle annotated methods.<br />
@@ -34,6 +35,8 @@ public class E4LifeCycle {
   @PostContextCreate
   void postContextCreate(IEclipseContext workbenchContext, Display display) {
     LOG.debug("Entering PostConstruct method.");
+
+    Platform.setImplicitExit(false);
     at.sunplugged.celldatabaseV2.common.Utils.setDefaultSettings(false);
 
 
