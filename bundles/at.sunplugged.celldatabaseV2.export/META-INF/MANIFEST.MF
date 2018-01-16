@@ -14,6 +14,7 @@ Require-Bundle: org.eclipse.emf.ecore,
 Import-Package: at.sunplugged.celldatabaseV2.common,
  at.sunplugged.celldatabaseV2.plotting,
  datamodel,
+ datamodel.util,
  org.jfree.chart,
  org.slf4j;version="1.7.10"
 Export-Package: at.sunplugged.celldatabaseV2.export.api

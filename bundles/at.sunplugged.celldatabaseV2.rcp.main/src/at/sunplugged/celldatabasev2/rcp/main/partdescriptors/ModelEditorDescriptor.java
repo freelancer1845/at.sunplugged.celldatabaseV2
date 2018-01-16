@@ -23,39 +23,43 @@ public class ModelEditorDescriptor {
     fillLayout.marginHeight = 10;
     fillLayout.marginWidth = 10;
     marginComposite.setLayout(fillLayout);
-    ScrolledComposite composite =
-        new ScrolledComposite(marginComposite, SWT.V_SCROLL | SWT.H_SCROLL);
-    // Composite composite = new Composite(parent, SWT.BORDER);
 
-    composite.setExpandHorizontal(true);
-    composite.setExpandVertical(true);
-    composite.setMinSize(250, 250);
-    FillLayout fillLayout2 = new FillLayout();
-    fillLayout2.marginHeight = 10;
-    fillLayout2.marginWidth = 10;
-    composite.setLayout(fillLayout2);
+    if (part.getTransientData().get("data") instanceof CellGroup) {
+      // GroupTableViewer table =
+      // new GroupTableViewer(composite, (CellGroup) part.getTransientData().get("data"));
+      GroupTableViewerFX table =
+          new GroupTableViewerFX(marginComposite, (CellGroup) part.getTransientData().get("data"));
+      return;
+    } else {
+      ScrolledComposite composite =
+          new ScrolledComposite(marginComposite, SWT.V_SCROLL | SWT.H_SCROLL);
+      // Composite composite = new Composite(parent, SWT.BORDER);
 
-    composite.addListener(SWT.Resize, event -> {
-      int width = composite.getClientArea().width;
-      composite.setMinSize(parent.computeSize(width, SWT.DEFAULT));
-    });
+      composite.setExpandHorizontal(true);
+      composite.setExpandVertical(true);
+      composite.setMinSize(250, 250);
+      FillLayout fillLayout2 = new FillLayout();
+      fillLayout2.marginHeight = 10;
+      fillLayout2.marginWidth = 10;
+      composite.setLayout(fillLayout2);
 
-    try {
-      ECPSWTView view = ECPSWTViewRenderer.INSTANCE.render(composite,
-          (EObject) part.getTransientData().get("data"));
-      composite.setContent(view.getSWTControl());
+      composite.addListener(SWT.Resize, event -> {
+        int width = composite.getClientArea().width;
+        composite.setMinSize(parent.computeSize(width, SWT.DEFAULT));
+      });
 
-      if (part.getTransientData().get("data") instanceof CellGroup) {
-        // GroupTableViewer table =
-        // new GroupTableViewer(composite, (CellGroup) part.getTransientData().get("data"));
-        GroupTableViewerFX table =
-            new GroupTableViewerFX(composite, (CellGroup) part.getTransientData().get("data"));
-        composite.setContent(table.getControl());
+      try {
+        ECPSWTView view = ECPSWTViewRenderer.INSTANCE.render(composite,
+            (EObject) part.getTransientData().get("data"));
+        composite.setContent(view.getSWTControl());
+
+
+
+      } catch (ECPRendererException e) {
+        e.printStackTrace();
       }
-
-    } catch (ECPRendererException e) {
-      e.printStackTrace();
     }
+
   }
 
 }

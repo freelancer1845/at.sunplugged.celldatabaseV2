@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import datamodel.CellGroup;
 import datamodel.CellResult;
+import datamodel.util.SummaryFunctions;
 
 public class CellGroupSummarySheetXSSFCreator {
 

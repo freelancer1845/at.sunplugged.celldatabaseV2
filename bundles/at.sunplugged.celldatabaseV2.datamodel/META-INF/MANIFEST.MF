@@ -13,4 +13,6 @@ Export-Package: datamodel,
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport
 Bundle-ActivationPolicy: lazy
-Import-Package: at.sunplugged.celldatabaseV2.common
+Import-Package: at.sunplugged.celldatabaseV2.common,
+ org.apache.commons.math3.stat.descriptive;version="3.5.0",
+ org.apache.commons.math3.stat.descriptive.moment;version="3.5.0"

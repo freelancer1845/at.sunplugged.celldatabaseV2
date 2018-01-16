@@ -1,4 +1,4 @@
-package at.sunplugged.celldatabaseV2.export.internal;
+package datamodel.util;
 
 import java.util.function.ToDoubleFunction;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
