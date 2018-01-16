@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import at.sunplugged.celldatabaseV2.common.GeneralSettings;
 import at.sunplugged.celldatabaseV2.common.PrefNodes;
 import at.sunplugged.celldatabaseV2.common.RegexPatterns;
+import at.sunplugged.celldatabaseV2.common.VariableInputDialog;
 import datamodel.util.DatamodelUtils;
 
 public class PageOne extends WizardPage {
@@ -149,6 +150,13 @@ public class PageOne extends WizardPage {
               }
             });
           });
+          if (filteredGroups.isEmpty() == false) {
+            InputDialog iDialog = new InputDialog(getShell(), "Area and PowerInput",
+                "Set area in [cm^2] and PowerInput in [W/m^2]", "", null) {
+
+
+            };
+          }
           viewer.refresh();
         }
       }
@@ -307,6 +315,29 @@ public class PageOne extends WizardPage {
 
       }
     });
+
+    Button setAllCombindend = new Button(buttonsGroup, SWT.PUSH);
+    setAllCombindend.setText("Set Area and PowerInput All");
+    setAllCombindend.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, true));
+    setAllCombindend.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+        VariableInputDialog dialog = new VariableInputDialog(getShell(), "Parameters...",
+            "Input parameters for recorded data.",
+            new String[] {"Area[cm^2]", "Power Input[W/m^2]"},
+            new IInputValidator[] {
+                new VariableInputDialog.DoubleInputValidator(0, Double.MAX_VALUE),
+                new VariableInputDialog.DoubleInputValidator(0, Double.MAX_VALUE)});
+        if (dialog.open() == Window.OK) {
+          dataFiles.forEach(file -> {
+            file.setArea(Double.valueOf(dialog.getValues()[0]) / 10000);
+            file.setPowerInput(Double.valueOf(dialog.getValues()[1]));
+          });
+          viewer.refresh();
+        }
+      }
+    });
+
 
     Label seperator2 = new Label(buttonsGroup, SWT.SEPARATOR | SWT.HORIZONTAL);
     seperator2.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, true));

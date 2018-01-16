@@ -11,6 +11,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
+import at.sunplugged.celldatabasev2.rcp.data.GroupTableViewerFX;
+import datamodel.CellGroup;
 
 public class ModelEditorDescriptor {
 
@@ -42,6 +44,15 @@ public class ModelEditorDescriptor {
       ECPSWTView view = ECPSWTViewRenderer.INSTANCE.render(composite,
           (EObject) part.getTransientData().get("data"));
       composite.setContent(view.getSWTControl());
+
+      if (part.getTransientData().get("data") instanceof CellGroup) {
+        // GroupTableViewer table =
+        // new GroupTableViewer(composite, (CellGroup) part.getTransientData().get("data"));
+        GroupTableViewerFX table =
+            new GroupTableViewerFX(composite, (CellGroup) part.getTransientData().get("data"));
+        composite.setContent(table.getControl());
+      }
+
     } catch (ECPRendererException e) {
       e.printStackTrace();
     }

@@ -34,7 +34,7 @@ def uiMethod(lightData, darkData, area, powerInput):
     mpp = mppV * mppI
     dataResult['MaximumPowerV'] = mppV
     dataResult['MaximumPowerI'] = mppI
-    dataResult['RsDark'] = 1/np.polyder(darkUIFit)(darkData[-1,0] - darkData[-1,0] * 0.1)
+    dataResult['RsDark'] = 1/np.polyder(darkUIFit)(0.9 * darkData[-1,0])
     dataResult['RpDark'] = 1/np.polyder(darkUIFit)(0)
     dataResult['FF'] = abs(mpp / dataResult['Voc'] / dataResult['Isc'] * 100)
     dataResult['Eff'] = abs((mpp / area) / powerInput)  

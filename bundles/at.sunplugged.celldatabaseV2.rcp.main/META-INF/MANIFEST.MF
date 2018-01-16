@@ -54,3 +54,6 @@ Import-Package: at.sunplugged.celldatabaseV2.common,
   org.slf4j;version="1.7.10",
   org.slf4j.spi;version="1.7.10"
 Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: lib/jfxswt.jar,
+ .,
+ lib/jfxrt.jar

@@ -88,6 +88,10 @@
          id="org.eclipse.e4.ui.progress.feature"
          version="0.0.0"/>
 
+   <includes
+         id="org.eclipse.emf.ecp.view.custom.feature"
+         version="0.0.0"/>
+
    <plugin
          id="ch.qos.logback.classic"
          download-size="0"
