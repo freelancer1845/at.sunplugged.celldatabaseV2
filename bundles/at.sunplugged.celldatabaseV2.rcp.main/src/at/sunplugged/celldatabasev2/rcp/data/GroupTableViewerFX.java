@@ -68,7 +68,7 @@ public class GroupTableViewerFX {
     TableColumn pmmpCol = createDoubleColumn("Pmpp[W/cm^2]", 4,
         result -> result.getMaximumPower() / result.getLightMeasurementDataSet().getArea() / 10000);
     TableColumn effCol = createDoubleColumn("Efficiency[%]", 3, result -> result.getEfficiency());
-    TableColumn ffCol = createDoubleColumn("FillFactory[%]", 3, result -> result.getFillFactor());
+    TableColumn ffCol = createDoubleColumn("FillFactor[%]", 3, result -> result.getFillFactor());
 
 
     table.getColumns().addAll(nameCol, vocCol, jscCol, rsCol, rsDarkCol, rpCol, rpDarkCol, pmmpCol,
