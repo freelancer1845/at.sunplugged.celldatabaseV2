@@ -18,7 +18,7 @@ public class EquinoxLogListener {
 
   @Reference(cardinality = ReferenceCardinality.OPTIONAL, policy = ReferencePolicy.DYNAMIC,
       bind = "bindReaderService")
-  private volatile ExtendedLogReaderService readerService;
+  protected ExtendedLogReaderService readerService;
 
 
   protected void bindReaderService(ExtendedLogReaderService readerService) {
