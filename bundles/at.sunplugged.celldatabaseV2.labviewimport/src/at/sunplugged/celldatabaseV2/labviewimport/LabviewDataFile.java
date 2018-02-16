@@ -1,4 +1,4 @@
-package at.sunplugged.celldatabaseV2.labviewimport.ui.wizard;
+package at.sunplugged.celldatabaseV2.labviewimport;
 
 public final class LabviewDataFile {
 

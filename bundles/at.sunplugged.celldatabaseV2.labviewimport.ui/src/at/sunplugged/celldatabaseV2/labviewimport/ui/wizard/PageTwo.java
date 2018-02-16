@@ -1,8 +1,7 @@
 package at.sunplugged.celldatabaseV2.labviewimport.ui.wizard;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.eclipse.core.runtime.ICoreRunnable;
@@ -19,6 +18,7 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emfforms.spi.swt.treemasterdetail.TreeViewerSWTFactory;
 import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import at.sunplugged.celldatabaseV2.labviewimport.LabviewDataFile;
 import at.sunplugged.celldatabaseV2.labviewimport.LabviewImportHelper;
 import datamodel.CellGroup;
 import datamodel.CellMeasurementDataSet;
@@ -169,41 +170,25 @@ public class PageTwo extends WizardPage {
 
     Job job = Job.create("Calculating results..", (ICoreRunnable) monitor -> {
       List<CellResult> results = new ArrayList<>();
-      List<Job> subJobs = new LinkedList<>();
-      for (LabviewDataFile dataFile : dataFiles) {
-        Job subJob = Job.create("Subjob... " + dataFile.getName(), (ICoreRunnable) monitorSub -> {
-          try {
-            CellResult result = LabviewImportHelper.readAndCalculateFile(dataFile.getName(),
-                new File(dataFile.getAbsolutPathDark()), new File(dataFile.getAbsolutPathLight()),
-                dataFile.getArea(), dataFile.getPowerInput());
-            if (result != null) {
-              results.add(result);
-            } else {
-              LOG.error("Failed to calculate for: " + dataFile.getName());
-            }
 
-          } catch (Exception e) {
-            LOG.error("Failed to calculate for: " + dataFile.getName(), e);
-          }
+      try {
+        results = LabviewImportHelper.readAndCalculateFiles(dataFiles);
+      } catch (IOException e) {
+        LOG.error("Failed to calculate labview files.", e);
+        Display.getDefault().asyncExec(() -> {
+          MessageDialog.openError(getShell(), "Error",
+              "Failed to calculate labview data.\n" + e.getMessage());
         });
-        subJob.setPriority(Job.LONG);
-        subJob.schedule();
-        subJobs.add(subJob);
 
+        return;
       }
-      subJobs.forEach(subJob -> {
-        try {
-          subJob.join();
-        } catch (InterruptedException e) {
-          LOG.error("Subjob interupted: " + subJob.getName());
-        }
-      });
 
       List<CellResult> sortedResults =
           results.stream().sorted(DatamodelUtils.Comparetors.comapreCellResultsNatural())
               .collect(Collectors.toList());
       tempGroup.getCellResults().addAll(sortedResults);
       Display.getDefault().asyncExec(() -> treeViewer.getControl().setEnabled(true));
+
     });
 
     job.setPriority(Job.LONG);

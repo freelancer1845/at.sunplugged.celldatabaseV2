@@ -39,6 +39,7 @@ import at.sunplugged.celldatabaseV2.common.GeneralSettings;
 import at.sunplugged.celldatabaseV2.common.PrefNodes;
 import at.sunplugged.celldatabaseV2.common.RegexPatterns;
 import at.sunplugged.celldatabaseV2.common.VariableInputDialog;
+import at.sunplugged.celldatabaseV2.labviewimport.LabviewDataFile;
 import datamodel.util.DatamodelUtils;
 
 public class PageOne extends WizardPage {
