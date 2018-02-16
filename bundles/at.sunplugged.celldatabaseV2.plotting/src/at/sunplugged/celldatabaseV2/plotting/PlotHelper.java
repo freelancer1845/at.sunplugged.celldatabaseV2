@@ -44,6 +44,11 @@ public class PlotHelper {
 
   public static final String RS_LINE = "rsLine";
 
+  public static final String LIGHT_UI_FIT = "lightUiFit";
+
+
+  public static final String DARK_UI_FIT = "darkUiFit";
+
 
   public static JFreeChart createJFreeChart(CellMeasurementDataSet dataSet,
       Map<String, String> options) {

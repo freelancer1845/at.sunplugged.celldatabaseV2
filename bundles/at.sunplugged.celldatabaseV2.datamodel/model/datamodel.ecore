@@ -36,6 +36,10 @@
         eType="#//CellMeasurementDataSet" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximumPower" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
         changeable="false" volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lightUICoefficients" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="darkUICoefficients" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CellGroup">
     <eOperations name="cellResultsNamesCorrect" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">

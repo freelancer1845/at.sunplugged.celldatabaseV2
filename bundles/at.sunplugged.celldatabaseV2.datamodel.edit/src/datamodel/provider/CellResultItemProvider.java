@@ -67,6 +67,8 @@ public class CellResultItemProvider extends ItemProviderAdapter
       addEfficiencyPropertyDescriptor(object);
       addFillFactorPropertyDescriptor(object);
       addMaximumPowerPropertyDescriptor(object);
+      addLightUICoefficientsPropertyDescriptor(object);
+      addDarkUICoefficientsPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -380,6 +382,50 @@ public class CellResultItemProvider extends ItemProviderAdapter
   }
 
   /**
+   * This adds a property descriptor for the Light UI Coefficients feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addLightUICoefficientsPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_lightUICoefficients_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_lightUICoefficients_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__LIGHT_UI_COEFFICIENTS,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Dark UI Coefficients feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addDarkUICoefficientsPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_darkUICoefficients_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_darkUICoefficients_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__DARK_UI_COEFFICIENTS,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
    * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
    * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -459,6 +505,8 @@ public class CellResultItemProvider extends ItemProviderAdapter
       case DatamodelPackage.CELL_RESULT__EFFICIENCY:
       case DatamodelPackage.CELL_RESULT__FILL_FACTOR:
       case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER:
+      case DatamodelPackage.CELL_RESULT__LIGHT_UI_COEFFICIENTS:
+      case DatamodelPackage.CELL_RESULT__DARK_UI_COEFFICIENTS:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case DatamodelPackage.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET:

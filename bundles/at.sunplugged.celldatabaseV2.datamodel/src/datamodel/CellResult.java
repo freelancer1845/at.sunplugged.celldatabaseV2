@@ -6,6 +6,7 @@ import java.util.Date;
 
 import java.util.Map;
 import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -33,6 +34,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link datamodel.CellResult#getLightMeasurementDataSet <em>Light Measurement Data Set</em>}</li>
  *   <li>{@link datamodel.CellResult#getDarkMeasuremenetDataSet <em>Dark Measuremenet Data Set</em>}</li>
  *   <li>{@link datamodel.CellResult#getMaximumPower <em>Maximum Power</em>}</li>
+ *   <li>{@link datamodel.CellResult#getLightUICoefficients <em>Light UI Coefficients</em>}</li>
+ *   <li>{@link datamodel.CellResult#getDarkUICoefficients <em>Dark UI Coefficients</em>}</li>
  * </ul>
  *
  * @see datamodel.DatamodelPackage#getCellResult()
@@ -445,6 +448,38 @@ public interface CellResult extends EObject {
    * @generated
    */
   double getMaximumPower();
+
+  /**
+   * Returns the value of the '<em><b>Light UI Coefficients</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.Double}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Light UI Coefficients</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Light UI Coefficients</em>' attribute list.
+   * @see datamodel.DatamodelPackage#getCellResult_LightUICoefficients()
+   * @model
+   * @generated
+   */
+  EList<Double> getLightUICoefficients();
+
+  /**
+   * Returns the value of the '<em><b>Dark UI Coefficients</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.Double}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Dark UI Coefficients</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Dark UI Coefficients</em>' attribute list.
+   * @see datamodel.DatamodelPackage#getCellResult_DarkUICoefficients()
+   * @model
+   * @generated
+   */
+  EList<Double> getDarkUICoefficients();
 
   /**
    * <!-- begin-user-doc -->

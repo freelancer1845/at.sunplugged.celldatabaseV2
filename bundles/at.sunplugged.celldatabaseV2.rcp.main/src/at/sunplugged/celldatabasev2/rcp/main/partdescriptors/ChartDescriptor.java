@@ -125,6 +125,41 @@ public class ChartDescriptor {
       }
     });
 
+    Label lbllightUiFitSeries = new Label(controlGroup, SWT.NONE);
+    lbllightUiFitSeries.setText("Draw Light UI Fit Series");
+    lbllightUiFitSeries.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
+
+    Button cblightUiFitSeries = new Button(controlGroup, SWT.CHECK);
+    cblightUiFitSeries.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+    cblightUiFitSeries.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+        if (cblightUiFitSeries.getSelection() == false) {
+          options.remove(PlotHelper.LIGHT_UI_FIT);
+        } else {
+          options.put(PlotHelper.LIGHT_UI_FIT, "true");
+        }
+        drawPlot();
+      }
+    });
+    Label lbldarkUiFitSeries = new Label(controlGroup, SWT.NONE);
+    lbldarkUiFitSeries.setText("Draw dark UI Fit Series");
+    lbldarkUiFitSeries.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
+
+    Button cbdarkUiFitSeries = new Button(controlGroup, SWT.CHECK);
+    cbdarkUiFitSeries.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+    cbdarkUiFitSeries.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+        if (cbdarkUiFitSeries.getSelection() == false) {
+          options.remove(PlotHelper.DARK_UI_FIT);
+        } else {
+          options.put(PlotHelper.DARK_UI_FIT, "true");
+        }
+        drawPlot();
+      }
+    });
+
   }
 
   private void drawPlot() {

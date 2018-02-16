@@ -3,6 +3,7 @@
 package datamodel.impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import datamodel.CellGroup;
 import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;
@@ -48,6 +50,8 @@ import datamodel.util.DatamodelValidator;
  *   <li>{@link datamodel.impl.CellResultImpl#getLightMeasurementDataSet <em>Light Measurement Data Set</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getDarkMeasuremenetDataSet <em>Dark Measuremenet Data Set</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getMaximumPower <em>Maximum Power</em>}</li>
+ *   <li>{@link datamodel.impl.CellResultImpl#getLightUICoefficients <em>Light UI Coefficients</em>}</li>
+ *   <li>{@link datamodel.impl.CellResultImpl#getDarkUICoefficients <em>Dark UI Coefficients</em>}</li>
  * </ul>
  *
  * @generated
@@ -324,6 +328,26 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
    * @ordered
    */
   protected static final double MAXIMUM_POWER_EDEFAULT = 0.0;
+
+  /**
+   * The cached value of the '{@link #getLightUICoefficients() <em>Light UI Coefficients</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getLightUICoefficients()
+   * @generated
+   * @ordered
+   */
+  protected EList<Double> lightUICoefficients;
+
+  /**
+   * The cached value of the '{@link #getDarkUICoefficients() <em>Dark UI Coefficients</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDarkUICoefficients()
+   * @generated
+   * @ordered
+   */
+  protected EList<Double> darkUICoefficients;
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -681,6 +705,30 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Double> getLightUICoefficients() {
+    if (lightUICoefficients == null) {
+      lightUICoefficients = new EDataTypeUniqueEList<Double>(Double.class, this, DatamodelPackage.CELL_RESULT__LIGHT_UI_COEFFICIENTS);
+    }
+    return lightUICoefficients;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Double> getDarkUICoefficients() {
+    if (darkUICoefficients == null) {
+      darkUICoefficients = new EDataTypeUniqueEList<Double>(Double.class, this, DatamodelPackage.CELL_RESULT__DARK_UI_COEFFICIENTS);
+    }
+    return darkUICoefficients;
+  }
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * 
    * @generated NOT
@@ -773,6 +821,10 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
         return getDarkMeasuremenetDataSet();
       case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER:
         return getMaximumPower();
+      case DatamodelPackage.CELL_RESULT__LIGHT_UI_COEFFICIENTS:
+        return getLightUICoefficients();
+      case DatamodelPackage.CELL_RESULT__DARK_UI_COEFFICIENTS:
+        return getDarkUICoefficients();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -781,6 +833,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue) {
     switch (featureID) {
@@ -828,6 +881,14 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
         return;
       case DatamodelPackage.CELL_RESULT__DARK_MEASUREMENET_DATA_SET:
         setDarkMeasuremenetDataSet((CellMeasurementDataSet)newValue);
+        return;
+      case DatamodelPackage.CELL_RESULT__LIGHT_UI_COEFFICIENTS:
+        getLightUICoefficients().clear();
+        getLightUICoefficients().addAll((Collection<? extends Double>)newValue);
+        return;
+      case DatamodelPackage.CELL_RESULT__DARK_UI_COEFFICIENTS:
+        getDarkUICoefficients().clear();
+        getDarkUICoefficients().addAll((Collection<? extends Double>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -885,6 +946,12 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
       case DatamodelPackage.CELL_RESULT__DARK_MEASUREMENET_DATA_SET:
         setDarkMeasuremenetDataSet((CellMeasurementDataSet)null);
         return;
+      case DatamodelPackage.CELL_RESULT__LIGHT_UI_COEFFICIENTS:
+        getLightUICoefficients().clear();
+        return;
+      case DatamodelPackage.CELL_RESULT__DARK_UI_COEFFICIENTS:
+        getDarkUICoefficients().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -928,6 +995,10 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
         return darkMeasuremenetDataSet != null;
       case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER:
         return getMaximumPower() != MAXIMUM_POWER_EDEFAULT;
+      case DatamodelPackage.CELL_RESULT__LIGHT_UI_COEFFICIENTS:
+        return lightUICoefficients != null && !lightUICoefficients.isEmpty();
+      case DatamodelPackage.CELL_RESULT__DARK_UI_COEFFICIENTS:
+        return darkUICoefficients != null && !darkUICoefficients.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -980,6 +1051,10 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
     result.append(efficiency);
     result.append(", fillFactor: ");
     result.append(fillFactor);
+    result.append(", lightUICoefficients: ");
+    result.append(lightUICoefficients);
+    result.append(", darkUICoefficients: ");
+    result.append(darkUICoefficients);
     result.append(')');
     return result.toString();
   }

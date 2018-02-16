@@ -17,7 +17,6 @@ def uiMethod(lightData, darkData, area, powerInput):
     '''
         Evaluates Parameters using a 5-grade Polynomial fitting the UI Data
     '''
-    print(area, powerInput)
     lightUIFit = np.poly1d(np.polyfit(lightData[:,0], lightData[:,1], 5))
     powerUIFit = np.poly1d(np.polyfit(lightData[:,0], lightData[:,1] * lightData[:,0], 5))
     darkUIFit = np.poly1d(np.polyfit(darkData[:,0], darkData[:,1], 5))
@@ -29,7 +28,6 @@ def uiMethod(lightData, darkData, area, powerInput):
     dataResult['powerUIFitCoefficients'] = powerUIFit.coeffs.tolist();
         
     dataResult['Voc'] = scipy.optimize.brenth(lightUIFit, lightData[0,0], lightData[-1,0])
-    print('Voc calculated', np.min(lightData[:,0]))
     dataResult['Isc'] = lightUIFit(0)
     dataResult['Area'] = area
     dataResult['PowerInput'] = powerInput
@@ -44,7 +42,6 @@ def uiMethod(lightData, darkData, area, powerInput):
     dataResult['RpDark'] = 1/np.polyder(darkUIFit)(0)
     dataResult['FF'] = abs(mpp / dataResult['Voc'] / dataResult['Isc'] * 100)
     dataResult['Eff'] = abs((mpp / area) / powerInput)  
-    print(dataResult)
     return dataResult
     
 

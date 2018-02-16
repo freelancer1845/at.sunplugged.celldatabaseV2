@@ -165,19 +165,54 @@ public class PageTwo extends WizardPage {
     }
   }
 
+  private boolean confirmHeper;
+
   public void calculateResults() {
     tempGroup.getCellResults().clear();
 
     Job job = Job.create("Calculating results..", (ICoreRunnable) monitor -> {
       List<CellResult> results = new ArrayList<>();
 
+      List<LabviewDataFile> filteredFiles = dataFiles.stream().filter(file -> {
+        if (file.getArea() == null) {
+          Display.getDefault().syncExec(() -> {
+            MessageDialog.openError(getShell(), "Error", "No area provided for " + file.getName());
+          });
+          return false;
+        }
+        if (file.getPowerInput() == null) {
+          Display.getDefault().syncExec(() -> {
+            MessageDialog.openError(getShell(), "Error",
+                "No powerInput provided for " + file.getName());
+          });
+          return false;
+        }
+        return true;
+      }).collect(Collectors.toList());
+
+      if (filteredFiles.size() < dataFiles.size()) {
+        confirmHeper = false;
+        Display.getDefault().syncExec(() -> {
+          confirmHeper = MessageDialog.openQuestion(getShell(), "Continue?",
+              "Some labview files where filtered. Continue?");
+        });
+
+        if (confirmHeper == false) {
+          Display.getDefault().asyncExec(() -> {
+            getWizard().getContainer().showPage(getPreviousPage());
+          });
+          return;
+        }
+      }
+
       try {
-        results = LabviewImportHelper.readAndCalculateFiles(dataFiles);
+        results = LabviewImportHelper.readAndCalculateFiles(filteredFiles);
       } catch (IOException e) {
         LOG.error("Failed to calculate labview files.", e);
         Display.getDefault().asyncExec(() -> {
           MessageDialog.openError(getShell(), "Error",
               "Failed to calculate labview data.\n" + e.getMessage());
+          getWizard().getContainer().showPage(getPreviousPage());
         });
 
         return;

@@ -12,10 +12,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.ExecuteException;
@@ -150,9 +150,10 @@ public class LabviewImportHelper {
         result.setLightMeasurementDataSet(lightDataSet);
         result.setDarkMeasuremenetDataSet(darkDataSet);
 
-        System.out.println(Arrays.toString(p.getLightUIFitCoefficients().toArray()));
-        System.out.println(Arrays.toString(p.getDarkUIFitCoefficients().toArray()));
-        System.out.println(Arrays.toString(p.getPowerUIFitCoefficients().toArray()));
+        result.getLightUICoefficients().addAll(p.getLightUIFitCoefficients().stream().sequential()
+            .map(value -> value * -1).collect(Collectors.toList()));
+        result.getDarkUICoefficients().addAll(p.getDarkUIFitCoefficients().stream().sequential()
+            .map(value -> value * -1).collect(Collectors.toList()));
         results.add(result);
       }
 
@@ -267,19 +268,6 @@ public class LabviewImportHelper {
 
   }
 
-  private final static class DataJsonClass {
-    private List<List<Double>> darkData = new ArrayList<>();
-    private List<List<Double>> lightData = new ArrayList<>();
-
-    public List<List<Double>> getDarkData() {
-      return darkData;
-    }
-
-    public List<List<Double>> getLightData() {
-      return lightData;
-    }
-
-  }
 
   private LabviewImportHelper() {}
 

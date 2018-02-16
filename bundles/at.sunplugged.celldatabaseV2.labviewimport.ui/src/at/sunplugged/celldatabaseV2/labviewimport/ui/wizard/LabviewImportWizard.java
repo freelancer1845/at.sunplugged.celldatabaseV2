@@ -34,6 +34,7 @@ public class LabviewImportWizard extends Wizard {
   @Override
   public IWizardPage getNextPage(IWizardPage page) {
     if (page == pageTwo) {
+
       pageTwo.calculateResults();
     }
     return super.getNextPage(page);

@@ -249,13 +249,31 @@ public interface DatamodelPackage extends EPackage {
   int CELL_RESULT__MAXIMUM_POWER = 15;
 
   /**
+   * The feature id for the '<em><b>Light UI Coefficients</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CELL_RESULT__LIGHT_UI_COEFFICIENTS = 16;
+
+  /**
+   * The feature id for the '<em><b>Dark UI Coefficients</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CELL_RESULT__DARK_UI_COEFFICIENTS = 17;
+
+  /**
    * The number of structural features of the '<em>Cell Result</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CELL_RESULT_FEATURE_COUNT = 16;
+  int CELL_RESULT_FEATURE_COUNT = 18;
 
   /**
    * The operation id for the '<em>Validate Name</em>' operation.
@@ -676,6 +694,28 @@ public interface DatamodelPackage extends EPackage {
   EAttribute getCellResult_MaximumPower();
 
   /**
+   * Returns the meta object for the attribute list '{@link datamodel.CellResult#getLightUICoefficients <em>Light UI Coefficients</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Light UI Coefficients</em>'.
+   * @see datamodel.CellResult#getLightUICoefficients()
+   * @see #getCellResult()
+   * @generated
+   */
+  EAttribute getCellResult_LightUICoefficients();
+
+  /**
+   * Returns the meta object for the attribute list '{@link datamodel.CellResult#getDarkUICoefficients <em>Dark UI Coefficients</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Dark UI Coefficients</em>'.
+   * @see datamodel.CellResult#getDarkUICoefficients()
+   * @see #getCellResult()
+   * @generated
+   */
+  EAttribute getCellResult_DarkUICoefficients();
+
+  /**
    * Returns the meta object for the '{@link datamodel.CellResult#validateName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Validate Name</em>}' operation.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1024,6 +1064,22 @@ public interface DatamodelPackage extends EPackage {
      * @generated
      */
     EAttribute CELL_RESULT__MAXIMUM_POWER = eINSTANCE.getCellResult_MaximumPower();
+
+    /**
+     * The meta object literal for the '<em><b>Light UI Coefficients</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CELL_RESULT__LIGHT_UI_COEFFICIENTS = eINSTANCE.getCellResult_LightUICoefficients();
+
+    /**
+     * The meta object literal for the '<em><b>Dark UI Coefficients</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CELL_RESULT__DARK_UI_COEFFICIENTS = eINSTANCE.getCellResult_DarkUICoefficients();
 
     /**
      * The meta object literal for the '<em><b>Validate Name</b></em>' operation.

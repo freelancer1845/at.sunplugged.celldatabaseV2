@@ -4,6 +4,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
+import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.Marker;
@@ -29,13 +31,13 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
 
   private List<CellMeasurementDataSet> measurementDataSets;
 
+
   public CellResultJFreeChartPlotter(List<CellMeasurementDataSet> cellResults) {
     this.measurementDataSets = cellResults;
   }
 
   @Override
   public JFreeChart getChart(Map<String, String> options) {
-
     XYSeriesCollection seriesCollection = getSeriesCollection();
 
     JFreeChart chart =
@@ -131,7 +133,9 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
             String name = getDataSetName(dataSet) + " Rp curve";
             XYSeries rpSeries = new XYSeries(name, false);
 
+
             double rp = cellResult.getParallelResistance();
+
             double[] x = new double[2000];
             double start = dataSet.getData().get(0).getVoltage();
             double end = dataSet.getData().get(dataSet.getData().size() - 1).getVoltage();
@@ -146,6 +150,66 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
           }
         }
         break;
+      case PlotHelper.LIGHT_UI_FIT:
+        for (CellMeasurementDataSet dataSet : measurementDataSets) {
+          CellResult cellResult = (CellResult) dataSet.eContainer();
+          if (cellResult != null) {
+            String name = getDataSetName(dataSet) + "Light UI Fit";
+            XYSeries uiseries = new XYSeries(name, false);
+
+            if (cellResult.getLightUICoefficients().isEmpty() == false) {
+              List<Double> coef;
+              coef = cellResult.getLightUICoefficients();
+
+
+
+              PolynomialFunction fun = new PolynomialFunction(IntStream.range(0, coef.size())
+                  .mapToDouble(idx -> coef.get(coef.size() - idx - 1)).toArray());
+              double[] x = new double[2000];
+              double start = dataSet.getData().get(0).getVoltage();
+              double end = dataSet.getData().get(dataSet.getData().size() - 1).getVoltage();
+              double h = (end - start) / 2000;
+              for (int i = 0; i < 2000; i++) {
+                x[i] = start + i * h;
+              }
+              for (double x_i : x) {
+                uiseries.add(x_i, fun.value(x_i));
+              }
+              ((XYSeriesCollection) chart.getXYPlot().getDataset()).addSeries(uiseries);
+            }
+          }
+        }
+        break;
+      case PlotHelper.DARK_UI_FIT:
+        for (CellMeasurementDataSet dataSet : measurementDataSets) {
+          CellResult cellResult = (CellResult) dataSet.eContainer();
+          if (cellResult != null) {
+            String name = getDataSetName(dataSet) + "Dark UI Fit";
+            XYSeries uiseries = new XYSeries(name, false);
+
+            if (cellResult.getDarkUICoefficients().isEmpty() == false) {
+              List<Double> coef = cellResult.getDarkUICoefficients();
+
+
+
+              PolynomialFunction fun = new PolynomialFunction(IntStream.range(0, coef.size())
+                  .mapToDouble(idx -> coef.get(coef.size() - idx - 1)).toArray());
+              double[] x = new double[2000];
+              double start = dataSet.getData().get(0).getVoltage();
+              double end = dataSet.getData().get(dataSet.getData().size() - 1).getVoltage();
+              double h = (end - start) / 2000;
+              for (int i = 0; i < 2000; i++) {
+                x[i] = start + i * h;
+              }
+              for (double x_i : x) {
+                uiseries.add(x_i, fun.value(x_i));
+              }
+              ((XYSeriesCollection) chart.getXYPlot().getDataset()).addSeries(uiseries);
+            }
+          }
+        }
+        break;
+
       default:
         LOG.error("Unkown option: " + key);
         break;
