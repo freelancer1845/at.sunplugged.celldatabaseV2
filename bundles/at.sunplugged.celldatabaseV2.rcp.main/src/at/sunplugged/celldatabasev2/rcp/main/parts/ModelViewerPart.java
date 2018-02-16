@@ -230,6 +230,7 @@ public class ModelViewerPart {
 
       editorPart = createdEditors.get(uri);
       if (editorPart != null) {
+        editorPart.getTransientData().put("data", selectedElement);
         partService.showPart(editorPart, PartState.ACTIVATE);
         return;
       }
