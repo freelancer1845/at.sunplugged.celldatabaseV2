@@ -16,12 +16,15 @@ Import-Package: at.sunplugged.celldatabaseV2.common,
  org.jfree.chart.renderer.xy,
  org.jfree.chart.title,
  org.jfree.data.xy,
+ org.jfree.experimental.chart.swt,
  org.jfree.ui,
  org.jfree.util,
  org.slf4j
 Require-Bundle: org.eclipse.equinox.preferences,
  org.eclipse.osgi,
- org.eclipse.emf.ecore
+ org.eclipse.emf.ecore,
+ org.eclipse.swt,
+ org.eclipse.jface;bundle-version="3.13.1"
 Export-Package: at.sunplugged.celldatabaseV2.plotting
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: at.sunplugged.celldatabaseV2.plotting.osgi.Activator

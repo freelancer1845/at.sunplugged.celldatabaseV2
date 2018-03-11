@@ -5,10 +5,15 @@ Bundle-SymbolicName: at.sunplugged.celldatabaseV2.labviewimport;singleton:=true
 Bundle-Version: 1.0.11.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: at.sunplugged.celldatabaseV2.common,
+ at.sunplugged.celldatabaseV2.plotting,
  com.google.gson;version="2.7.0",
  com.google.gson.reflect;version="2.7.0",
  datamodel,
  org.apache.commons.exec;version="1.1.0",
+ org.apache.commons.math3.analysis;version="3.5.0",
+ org.apache.commons.math3.analysis.polynomials;version="3.5.0",
+ org.apache.commons.math3.analysis.solvers;version="3.5.0",
+ org.apache.commons.math3.fitting;version="3.5.0",
  org.slf4j;version="1.7.10"
 Require-Bundle: org.eclipse.equinox.registry,
  org.eclipse.equinox.preferences,

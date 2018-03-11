@@ -16,7 +16,12 @@ import org.apache.commons.exec.ExecuteResultHandler;
 import org.apache.commons.exec.Executor;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.jfree.chart.JFreeChart;
+import org.jfree.experimental.chart.swt.ChartComposite;
 import org.osgi.service.prefs.Preferences;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,16 +43,17 @@ public class PlotHelper {
 
   public static final String POWER_CURVE = "powerCurve";
 
+  public static final String POWER_CURVE_FIT = "powerCurveFit";
+
   public static final String MP_POINT = "mpPoint";
 
   public static final String RP_LINE = "rpLine";
 
   public static final String RS_LINE = "rsLine";
 
-  public static final String LIGHT_UI_FIT = "lightUiFit";
+  public static final String VOC_RS_FIT = "vocRsFit";
 
-
-  public static final String DARK_UI_FIT = "darkUiFit";
+  public static final String ISC_RP_FIT = "iscRpFit";
 
 
   public static JFreeChart createJFreeChart(CellMeasurementDataSet dataSet,
@@ -55,6 +61,30 @@ public class PlotHelper {
     ChartPlotter chartPlotter = new CellResultJFreeChartPlotter(Arrays.asList(dataSet));
 
     return chartPlotter.getChart(options);
+  }
+
+  public static double[] openSelectRangeChart(CellMeasurementDataSet dataSet, String range) {
+    List<Double> points = new ArrayList<>();
+
+    Display.getDefault().syncExec(() -> {
+      SelectRangeFromChartDialog dialog = new SelectRangeFromChartDialog(
+          Display.getDefault().getActiveShell(), dataSet, new String[] {range});
+      dialog.open();
+      points.add(dialog.getPoints()[0][0]);
+      points.add(dialog.getPoints()[0][1]);
+    });
+    System.out.println(points.toString());
+    return points.stream().mapToDouble(p -> p).toArray();
+  }
+
+  public static ChartComposite plotChartToComposite(Composite composite, JFreeChart chart) {
+    ChartComposite chartComposite = new ChartComposite(composite, SWT.NONE);
+    chartComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+    chartComposite.moveAbove(null);
+    composite.layout();
+    chartComposite.setChart(chart);
+
+    return chartComposite;
   }
 
   public static JFreeChart createJFreeChart(List<CellMeasurementDataSet> dataSets,

@@ -249,22 +249,31 @@ public interface DatamodelPackage extends EPackage {
   int CELL_RESULT__MAXIMUM_POWER = 15;
 
   /**
-   * The feature id for the '<em><b>Light UI Coefficients</b></em>' attribute list.
+   * The feature id for the '<em><b>Rs Voc Fit Coefficients</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CELL_RESULT__LIGHT_UI_COEFFICIENTS = 16;
+  int CELL_RESULT__RS_VOC_FIT_COEFFICIENTS = 16;
 
   /**
-   * The feature id for the '<em><b>Dark UI Coefficients</b></em>' attribute list.
+   * The feature id for the '<em><b>Rp Isc Fit Coefficients</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CELL_RESULT__DARK_UI_COEFFICIENTS = 17;
+  int CELL_RESULT__RP_ISC_FIT_COEFFICIENTS = 17;
+
+  /**
+   * The feature id for the '<em><b>Mpp Fit Coefficients</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CELL_RESULT__MPP_FIT_COEFFICIENTS = 18;
 
   /**
    * The number of structural features of the '<em>Cell Result</em>' class.
@@ -273,7 +282,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT_FEATURE_COUNT = 18;
+  int CELL_RESULT_FEATURE_COUNT = 19;
 
   /**
    * The operation id for the '<em>Validate Name</em>' operation.
@@ -694,26 +703,37 @@ public interface DatamodelPackage extends EPackage {
   EAttribute getCellResult_MaximumPower();
 
   /**
-   * Returns the meta object for the attribute list '{@link datamodel.CellResult#getLightUICoefficients <em>Light UI Coefficients</em>}'.
+   * Returns the meta object for the attribute list '{@link datamodel.CellResult#getRsVocFitCoefficients <em>Rs Voc Fit Coefficients</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Light UI Coefficients</em>'.
-   * @see datamodel.CellResult#getLightUICoefficients()
+   * @return the meta object for the attribute list '<em>Rs Voc Fit Coefficients</em>'.
+   * @see datamodel.CellResult#getRsVocFitCoefficients()
    * @see #getCellResult()
    * @generated
    */
-  EAttribute getCellResult_LightUICoefficients();
+  EAttribute getCellResult_RsVocFitCoefficients();
 
   /**
-   * Returns the meta object for the attribute list '{@link datamodel.CellResult#getDarkUICoefficients <em>Dark UI Coefficients</em>}'.
+   * Returns the meta object for the attribute list '{@link datamodel.CellResult#getRpIscFitCoefficients <em>Rp Isc Fit Coefficients</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Dark UI Coefficients</em>'.
-   * @see datamodel.CellResult#getDarkUICoefficients()
+   * @return the meta object for the attribute list '<em>Rp Isc Fit Coefficients</em>'.
+   * @see datamodel.CellResult#getRpIscFitCoefficients()
    * @see #getCellResult()
    * @generated
    */
-  EAttribute getCellResult_DarkUICoefficients();
+  EAttribute getCellResult_RpIscFitCoefficients();
+
+  /**
+   * Returns the meta object for the attribute list '{@link datamodel.CellResult#getMppFitCoefficients <em>Mpp Fit Coefficients</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Mpp Fit Coefficients</em>'.
+   * @see datamodel.CellResult#getMppFitCoefficients()
+   * @see #getCellResult()
+   * @generated
+   */
+  EAttribute getCellResult_MppFitCoefficients();
 
   /**
    * Returns the meta object for the '{@link datamodel.CellResult#validateName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Validate Name</em>}' operation.
@@ -1066,20 +1086,28 @@ public interface DatamodelPackage extends EPackage {
     EAttribute CELL_RESULT__MAXIMUM_POWER = eINSTANCE.getCellResult_MaximumPower();
 
     /**
-     * The meta object literal for the '<em><b>Light UI Coefficients</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Rs Voc Fit Coefficients</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CELL_RESULT__LIGHT_UI_COEFFICIENTS = eINSTANCE.getCellResult_LightUICoefficients();
+    EAttribute CELL_RESULT__RS_VOC_FIT_COEFFICIENTS = eINSTANCE.getCellResult_RsVocFitCoefficients();
 
     /**
-     * The meta object literal for the '<em><b>Dark UI Coefficients</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Rp Isc Fit Coefficients</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CELL_RESULT__DARK_UI_COEFFICIENTS = eINSTANCE.getCellResult_DarkUICoefficients();
+    EAttribute CELL_RESULT__RP_ISC_FIT_COEFFICIENTS = eINSTANCE.getCellResult_RpIscFitCoefficients();
+
+    /**
+     * The meta object literal for the '<em><b>Mpp Fit Coefficients</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CELL_RESULT__MPP_FIT_COEFFICIENTS = eINSTANCE.getCellResult_MppFitCoefficients();
 
     /**
      * The meta object literal for the '<em><b>Validate Name</b></em>' operation.

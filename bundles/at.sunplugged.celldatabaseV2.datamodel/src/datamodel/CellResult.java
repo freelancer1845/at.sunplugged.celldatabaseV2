@@ -34,8 +34,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link datamodel.CellResult#getLightMeasurementDataSet <em>Light Measurement Data Set</em>}</li>
  *   <li>{@link datamodel.CellResult#getDarkMeasuremenetDataSet <em>Dark Measuremenet Data Set</em>}</li>
  *   <li>{@link datamodel.CellResult#getMaximumPower <em>Maximum Power</em>}</li>
- *   <li>{@link datamodel.CellResult#getLightUICoefficients <em>Light UI Coefficients</em>}</li>
- *   <li>{@link datamodel.CellResult#getDarkUICoefficients <em>Dark UI Coefficients</em>}</li>
+ *   <li>{@link datamodel.CellResult#getRsVocFitCoefficients <em>Rs Voc Fit Coefficients</em>}</li>
+ *   <li>{@link datamodel.CellResult#getRpIscFitCoefficients <em>Rp Isc Fit Coefficients</em>}</li>
+ *   <li>{@link datamodel.CellResult#getMppFitCoefficients <em>Mpp Fit Coefficients</em>}</li>
  * </ul>
  *
  * @see datamodel.DatamodelPackage#getCellResult()
@@ -450,36 +451,52 @@ public interface CellResult extends EObject {
   double getMaximumPower();
 
   /**
-   * Returns the value of the '<em><b>Light UI Coefficients</b></em>' attribute list.
+   * Returns the value of the '<em><b>Rs Voc Fit Coefficients</b></em>' attribute list.
    * The list contents are of type {@link java.lang.Double}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Light UI Coefficients</em>' attribute list isn't clear,
+   * If the meaning of the '<em>Rs Voc Fit Coefficients</em>' attribute list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Light UI Coefficients</em>' attribute list.
-   * @see datamodel.DatamodelPackage#getCellResult_LightUICoefficients()
+   * @return the value of the '<em>Rs Voc Fit Coefficients</em>' attribute list.
+   * @see datamodel.DatamodelPackage#getCellResult_RsVocFitCoefficients()
    * @model
    * @generated
    */
-  EList<Double> getLightUICoefficients();
+  EList<Double> getRsVocFitCoefficients();
 
   /**
-   * Returns the value of the '<em><b>Dark UI Coefficients</b></em>' attribute list.
+   * Returns the value of the '<em><b>Rp Isc Fit Coefficients</b></em>' attribute list.
    * The list contents are of type {@link java.lang.Double}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Dark UI Coefficients</em>' attribute list isn't clear,
+   * If the meaning of the '<em>Rp Isc Fit Coefficients</em>' attribute list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Dark UI Coefficients</em>' attribute list.
-   * @see datamodel.DatamodelPackage#getCellResult_DarkUICoefficients()
+   * @return the value of the '<em>Rp Isc Fit Coefficients</em>' attribute list.
+   * @see datamodel.DatamodelPackage#getCellResult_RpIscFitCoefficients()
    * @model
    * @generated
    */
-  EList<Double> getDarkUICoefficients();
+  EList<Double> getRpIscFitCoefficients();
+
+  /**
+   * Returns the value of the '<em><b>Mpp Fit Coefficients</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.Double}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Mpp Fit Coefficients</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Mpp Fit Coefficients</em>' attribute list.
+   * @see datamodel.DatamodelPackage#getCellResult_MppFitCoefficients()
+   * @model
+   * @generated
+   */
+  EList<Double> getMppFitCoefficients();
 
   /**
    * <!-- begin-user-doc -->

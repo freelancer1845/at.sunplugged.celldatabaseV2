@@ -2,6 +2,7 @@ package at.sunplugged.celldatabaseV2.labviewimport.ui.wizard;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.eclipse.core.runtime.ICoreRunnable;
@@ -34,8 +35,10 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import at.sunplugged.celldatabaseV2.labviewimport.LabviewCalculationException;
+import at.sunplugged.celldatabaseV2.labviewimport.LabviewCalculator;
 import at.sunplugged.celldatabaseV2.labviewimport.LabviewDataFile;
-import at.sunplugged.celldatabaseV2.labviewimport.LabviewImportHelper;
+import at.sunplugged.celldatabaseV2.plotting.PlotDialog;
 import datamodel.CellGroup;
 import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;
@@ -171,7 +174,7 @@ public class PageTwo extends WizardPage {
     tempGroup.getCellResults().clear();
 
     Job job = Job.create("Calculating results..", (ICoreRunnable) monitor -> {
-      List<CellResult> results = new ArrayList<>();
+      final List<CellResult> results = new ArrayList<>();
 
       List<LabviewDataFile> filteredFiles = dataFiles.stream().filter(file -> {
         if (file.getArea() == null) {
@@ -205,18 +208,103 @@ public class PageTwo extends WizardPage {
         }
       }
 
-      try {
-        results = LabviewImportHelper.readAndCalculateFiles(filteredFiles);
-      } catch (IOException e) {
-        LOG.error("Failed to calculate labview files.", e);
-        Display.getDefault().asyncExec(() -> {
-          MessageDialog.openError(getShell(), "Error",
-              "Failed to calculate labview data.\n" + e.getMessage());
-          getWizard().getContainer().showPage(getPreviousPage());
-        });
+      // try {
+      filteredFiles.stream().forEach(file -> {
+        try {
+          results.add(LabviewCalculator.calculateSingle(file));
+        } catch (IOException e) {
+          LOG.error("Failed to calculate labview files.", e);
+          Display.getDefault().asyncExec(() -> {
+            MessageDialog.openError(getShell(), "Error",
+                "Failed to calculate labview data.\n" + e.getMessage());
+            if (MessageDialog.openQuestion(getShell(), "Plot Data?",
+                "Do you want to plot the data?")) {
+              try {
+                CellMeasurementDataSet dataSet =
+                    DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
+                dataSet.getData().addAll(LabviewCalculator.getData(file.getAbsolutPathLight()));
+                dataSet.setName(file.getNameLight());
+                CellMeasurementDataSet dataSetDark =
+                    DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
+                dataSetDark.setName(file.getNameDark());
+                dataSetDark.getData().addAll(LabviewCalculator.getData(file.getAbsolutPathDark()));
 
-        return;
-      }
+                new PlotDialog(getShell(), Arrays.asList(dataSet, dataSetDark)).open();
+              } catch (IOException e1) {
+                MessageDialog.openError(getShell(), "Error",
+                    "Failed to read data file. " + e1.getMessage());
+              }
+            }
+            getWizard().getContainer().showPage(getPreviousPage());
+          });
+
+          return;
+        } catch (LabviewCalculationException e) {
+          LOG.error("Failed to calculate labview files.", e);
+          Display.getDefault().asyncExec(() -> {
+            MessageDialog.openError(getShell(), "Error",
+                "Failed to calculate labview data.\n" + e.getMessage());
+            if (MessageDialog.openQuestion(getShell(), "Plot Data?",
+                "Do you want to plot the data?")) {
+              try {
+                CellMeasurementDataSet dataSet =
+                    DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
+                dataSet.getData().addAll(LabviewCalculator.getData(file.getAbsolutPathLight()));
+                dataSet.setName(file.getNameLight());
+                CellMeasurementDataSet dataSetDark =
+                    DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
+                dataSetDark.setName(file.getNameDark());
+                dataSetDark.getData().addAll(LabviewCalculator.getData(file.getAbsolutPathDark()));
+
+                new PlotDialog(getShell(), Arrays.asList(dataSet, dataSetDark)).open();
+              } catch (IOException e1) {
+                MessageDialog.openError(getShell(), "Error",
+                    "Failed to read data file. " + e1.getMessage());
+              }
+
+            }
+            getWizard().getContainer().showPage(getPreviousPage());
+          });
+        } catch (Exception e) {
+          LOG.error("Unexpected exception while processing labview files.", e);
+          Display.getDefault().asyncExec(() -> {
+            MessageDialog.openError(getShell(), "Error",
+                "Failed to calculate labview data.\n" + e.getMessage());
+            if (MessageDialog.openQuestion(getShell(), "Plot Data?",
+                "Do you want to plot the data?")) {
+              try {
+                CellMeasurementDataSet dataSet =
+                    DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
+                dataSet.getData().addAll(LabviewCalculator.getData(file.getAbsolutPathLight()));
+                dataSet.setName(file.getNameLight());
+                CellMeasurementDataSet dataSetDark =
+                    DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
+                dataSetDark.setName(file.getNameDark());
+                dataSetDark.getData().addAll(LabviewCalculator.getData(file.getAbsolutPathDark()));
+
+                new PlotDialog(getShell(), Arrays.asList(dataSet, dataSetDark)).open();
+              } catch (IOException e1) {
+                MessageDialog.openError(getShell(), "Error",
+                    "Failed to read data file. " + e1.getMessage());
+              }
+
+            }
+            getWizard().getContainer().showPage(getPreviousPage());
+          });
+        }
+      });
+
+      // results = LabviewImportHelper.readAndCalculateFiles(filteredFiles);
+      // } catch (IOException e) {
+      // LOG.error("Failed to calculate labview files.", e);
+      // Display.getDefault().asyncExec(() -> {
+      // MessageDialog.openError(getShell(), "Error",
+      // "Failed to calculate labview data.\n" + e.getMessage());
+      // getWizard().getContainer().showPage(getPreviousPage());
+      // });
+      //
+      // return;
+      // }
 
       List<CellResult> sortedResults =
           results.stream().sorted(DatamodelUtils.Comparetors.comapreCellResultsNatural())

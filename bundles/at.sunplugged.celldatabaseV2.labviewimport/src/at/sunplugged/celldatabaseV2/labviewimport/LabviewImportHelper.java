@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.ExecuteException;
@@ -150,10 +149,10 @@ public class LabviewImportHelper {
         result.setLightMeasurementDataSet(lightDataSet);
         result.setDarkMeasuremenetDataSet(darkDataSet);
 
-        result.getLightUICoefficients().addAll(p.getLightUIFitCoefficients().stream().sequential()
-            .map(value -> value * -1).collect(Collectors.toList()));
-        result.getDarkUICoefficients().addAll(p.getDarkUIFitCoefficients().stream().sequential()
-            .map(value -> value * -1).collect(Collectors.toList()));
+        // result.getLightUICoefficients().addAll(p.getLightUIFitCoefficients().stream().sequential()
+        // .map(value -> value * -1).collect(Collectors.toList()));
+        // result.getDarkUICoefficients().addAll(p.getDarkUIFitCoefficients().stream().sequential()
+        // .map(value -> value * -1).collect(Collectors.toList()));
         results.add(result);
       }
 

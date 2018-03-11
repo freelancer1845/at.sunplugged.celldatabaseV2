@@ -67,8 +67,9 @@ public class CellResultItemProvider extends ItemProviderAdapter
       addEfficiencyPropertyDescriptor(object);
       addFillFactorPropertyDescriptor(object);
       addMaximumPowerPropertyDescriptor(object);
-      addLightUICoefficientsPropertyDescriptor(object);
-      addDarkUICoefficientsPropertyDescriptor(object);
+      addRsVocFitCoefficientsPropertyDescriptor(object);
+      addRpIscFitCoefficientsPropertyDescriptor(object);
+      addMppFitCoefficientsPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -382,19 +383,19 @@ public class CellResultItemProvider extends ItemProviderAdapter
   }
 
   /**
-   * This adds a property descriptor for the Light UI Coefficients feature.
+   * This adds a property descriptor for the Rs Voc Fit Coefficients feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addLightUICoefficientsPropertyDescriptor(Object object) {
+  protected void addRsVocFitCoefficientsPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_CellResult_lightUICoefficients_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_lightUICoefficients_feature", "_UI_CellResult_type"),
-         DatamodelPackage.Literals.CELL_RESULT__LIGHT_UI_COEFFICIENTS,
+         getString("_UI_CellResult_rsVocFitCoefficients_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_rsVocFitCoefficients_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__RS_VOC_FIT_COEFFICIENTS,
          true,
          false,
          false,
@@ -404,19 +405,41 @@ public class CellResultItemProvider extends ItemProviderAdapter
   }
 
   /**
-   * This adds a property descriptor for the Dark UI Coefficients feature.
+   * This adds a property descriptor for the Rp Isc Fit Coefficients feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addDarkUICoefficientsPropertyDescriptor(Object object) {
+  protected void addRpIscFitCoefficientsPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_CellResult_darkUICoefficients_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_darkUICoefficients_feature", "_UI_CellResult_type"),
-         DatamodelPackage.Literals.CELL_RESULT__DARK_UI_COEFFICIENTS,
+         getString("_UI_CellResult_rpIscFitCoefficients_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_rpIscFitCoefficients_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__RP_ISC_FIT_COEFFICIENTS,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Mpp Fit Coefficients feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addMppFitCoefficientsPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_mppFitCoefficients_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_mppFitCoefficients_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__MPP_FIT_COEFFICIENTS,
          true,
          false,
          false,
@@ -505,8 +528,9 @@ public class CellResultItemProvider extends ItemProviderAdapter
       case DatamodelPackage.CELL_RESULT__EFFICIENCY:
       case DatamodelPackage.CELL_RESULT__FILL_FACTOR:
       case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER:
-      case DatamodelPackage.CELL_RESULT__LIGHT_UI_COEFFICIENTS:
-      case DatamodelPackage.CELL_RESULT__DARK_UI_COEFFICIENTS:
+      case DatamodelPackage.CELL_RESULT__RS_VOC_FIT_COEFFICIENTS:
+      case DatamodelPackage.CELL_RESULT__RP_ISC_FIT_COEFFICIENTS:
+      case DatamodelPackage.CELL_RESULT__MPP_FIT_COEFFICIENTS:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case DatamodelPackage.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET:

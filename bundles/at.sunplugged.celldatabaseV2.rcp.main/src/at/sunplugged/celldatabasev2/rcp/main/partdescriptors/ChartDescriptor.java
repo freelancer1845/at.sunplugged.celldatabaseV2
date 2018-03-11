@@ -89,6 +89,24 @@ public class ChartDescriptor {
       }
     });
 
+    Label lblPowerCurveFitSeries = new Label(controlGroup, SWT.NONE);
+    lblPowerCurveFitSeries.setText("Draw PowerCurve Fit Series");
+    lblPowerCurveFitSeries.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
+
+    Button cbPowerCurveFitSeries = new Button(controlGroup, SWT.CHECK);
+    cbPowerCurveFitSeries.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+    cbPowerCurveFitSeries.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+        if (cbPowerCurveFitSeries.getSelection() == false) {
+          options.remove(PlotHelper.POWER_CURVE_FIT);
+        } else {
+          options.put(PlotHelper.POWER_CURVE_FIT, "true");
+        }
+        drawPlot();
+      }
+    });
+
     Label lblRsSeries = new Label(controlGroup, SWT.NONE);
     lblRsSeries.setText("Draw RS Series");
     lblRsSeries.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
@@ -126,7 +144,7 @@ public class ChartDescriptor {
     });
 
     Label lbllightUiFitSeries = new Label(controlGroup, SWT.NONE);
-    lbllightUiFitSeries.setText("Draw Light UI Fit Series");
+    lbllightUiFitSeries.setText("Draw Voc/Rs Fit Series");
     lbllightUiFitSeries.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
 
     Button cblightUiFitSeries = new Button(controlGroup, SWT.CHECK);
@@ -135,15 +153,15 @@ public class ChartDescriptor {
       @Override
       public void widgetSelected(SelectionEvent e) {
         if (cblightUiFitSeries.getSelection() == false) {
-          options.remove(PlotHelper.LIGHT_UI_FIT);
+          options.remove(PlotHelper.VOC_RS_FIT);
         } else {
-          options.put(PlotHelper.LIGHT_UI_FIT, "true");
+          options.put(PlotHelper.VOC_RS_FIT, "true");
         }
         drawPlot();
       }
     });
     Label lbldarkUiFitSeries = new Label(controlGroup, SWT.NONE);
-    lbldarkUiFitSeries.setText("Draw dark UI Fit Series");
+    lbldarkUiFitSeries.setText("Draw Isc/Rp Fit Series");
     lbldarkUiFitSeries.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
 
     Button cbdarkUiFitSeries = new Button(controlGroup, SWT.CHECK);
@@ -152,9 +170,9 @@ public class ChartDescriptor {
       @Override
       public void widgetSelected(SelectionEvent e) {
         if (cbdarkUiFitSeries.getSelection() == false) {
-          options.remove(PlotHelper.DARK_UI_FIT);
+          options.remove(PlotHelper.ISC_RP_FIT);
         } else {
-          options.put(PlotHelper.DARK_UI_FIT, "true");
+          options.put(PlotHelper.ISC_RP_FIT, "true");
         }
         drawPlot();
       }

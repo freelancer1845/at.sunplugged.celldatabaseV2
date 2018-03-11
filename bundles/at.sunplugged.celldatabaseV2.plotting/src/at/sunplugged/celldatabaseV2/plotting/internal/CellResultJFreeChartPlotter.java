@@ -42,7 +42,6 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
 
     JFreeChart chart =
         ChartFactory.createXYLineChart("UI-Plot", "Voltage[V]", "Current[A]", seriesCollection);
-
     chart.setBackgroundPaint(Color.WHITE);
     chart.getLegend().setPosition(RectangleEdge.RIGHT);
 
@@ -88,6 +87,36 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
             powerSeries.add(point.getVoltage(), point.getVoltage() * point.getCurrent());
           }
           ((XYSeriesCollection) chart.getXYPlot().getDataset()).addSeries(powerSeries);
+        }
+        break;
+      case PlotHelper.POWER_CURVE_FIT:
+        for (CellMeasurementDataSet dataSet : measurementDataSets) {
+          CellResult cellResult = (CellResult) dataSet.eContainer();
+          if (cellResult != null) {
+            String name = getDataSetName(dataSet) + "PowerCurve Fit";
+            XYSeries uiseries = new XYSeries(name, false);
+
+            if (cellResult.getMppFitCoefficients().isEmpty() == false) {
+              List<Double> coef;
+              coef = cellResult.getMppFitCoefficients();
+
+
+
+              PolynomialFunction fun = new PolynomialFunction(
+                  IntStream.range(0, coef.size()).mapToDouble(idx -> coef.get(idx)).toArray());
+              double[] x = new double[2000];
+              double start = dataSet.getData().get(0).getVoltage();
+              double end = dataSet.getData().get(dataSet.getData().size() - 1).getVoltage();
+              double h = (end - start) / 2000;
+              for (int i = 0; i < 2000; i++) {
+                x[i] = start + i * h;
+              }
+              for (double x_i : x) {
+                uiseries.add(x_i, fun.value(x_i));
+              }
+              ((XYSeriesCollection) chart.getXYPlot().getDataset()).addSeries(uiseries);
+            }
+          }
         }
         break;
       case PlotHelper.MP_POINT:
@@ -150,21 +179,21 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
           }
         }
         break;
-      case PlotHelper.LIGHT_UI_FIT:
+      case PlotHelper.VOC_RS_FIT:
         for (CellMeasurementDataSet dataSet : measurementDataSets) {
           CellResult cellResult = (CellResult) dataSet.eContainer();
           if (cellResult != null) {
-            String name = getDataSetName(dataSet) + "Light UI Fit";
+            String name = getDataSetName(dataSet) + "Voc/Rs Fit";
             XYSeries uiseries = new XYSeries(name, false);
 
-            if (cellResult.getLightUICoefficients().isEmpty() == false) {
+            if (cellResult.getRsVocFitCoefficients().isEmpty() == false) {
               List<Double> coef;
-              coef = cellResult.getLightUICoefficients();
+              coef = cellResult.getRsVocFitCoefficients();
 
 
 
-              PolynomialFunction fun = new PolynomialFunction(IntStream.range(0, coef.size())
-                  .mapToDouble(idx -> coef.get(coef.size() - idx - 1)).toArray());
+              PolynomialFunction fun = new PolynomialFunction(
+                  IntStream.range(0, coef.size()).mapToDouble(idx -> coef.get(idx)).toArray());
               double[] x = new double[2000];
               double start = dataSet.getData().get(0).getVoltage();
               double end = dataSet.getData().get(dataSet.getData().size() - 1).getVoltage();
@@ -180,20 +209,20 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
           }
         }
         break;
-      case PlotHelper.DARK_UI_FIT:
+      case PlotHelper.ISC_RP_FIT:
         for (CellMeasurementDataSet dataSet : measurementDataSets) {
           CellResult cellResult = (CellResult) dataSet.eContainer();
           if (cellResult != null) {
-            String name = getDataSetName(dataSet) + "Dark UI Fit";
+            String name = getDataSetName(dataSet) + "Isc/Rp Fit";
             XYSeries uiseries = new XYSeries(name, false);
 
-            if (cellResult.getDarkUICoefficients().isEmpty() == false) {
-              List<Double> coef = cellResult.getDarkUICoefficients();
+            if (cellResult.getRpIscFitCoefficients().isEmpty() == false) {
+              List<Double> coef = cellResult.getRpIscFitCoefficients();
 
 
 
-              PolynomialFunction fun = new PolynomialFunction(IntStream.range(0, coef.size())
-                  .mapToDouble(idx -> coef.get(coef.size() - idx - 1)).toArray());
+              PolynomialFunction fun = new PolynomialFunction(
+                  IntStream.range(0, coef.size()).mapToDouble(idx -> coef.get(idx)).toArray());
               double[] x = new double[2000];
               double start = dataSet.getData().get(0).getVoltage();
               double end = dataSet.getData().get(dataSet.getData().size() - 1).getVoltage();
@@ -226,7 +255,7 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
       List<UIDataPoint> data = dataSet.getData();
 
       for (UIDataPoint point : data) {
-        series.add(point.getVoltage(), -1 * point.getCurrent());
+        series.add(point.getVoltage(), point.getCurrent());
       }
       seriesCollection.addSeries(series);
     }

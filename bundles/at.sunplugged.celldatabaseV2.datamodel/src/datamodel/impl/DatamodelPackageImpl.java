@@ -278,7 +278,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_LightUICoefficients() {
+  public EAttribute getCellResult_RsVocFitCoefficients() {
     return (EAttribute)cellResultEClass.getEStructuralFeatures().get(16);
   }
 
@@ -287,8 +287,17 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_DarkUICoefficients() {
+  public EAttribute getCellResult_RpIscFitCoefficients() {
     return (EAttribute)cellResultEClass.getEStructuralFeatures().get(17);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getCellResult_MppFitCoefficients() {
+    return (EAttribute)cellResultEClass.getEStructuralFeatures().get(18);
   }
 
   /**
@@ -465,8 +474,9 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
     createEReference(cellResultEClass, CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET);
     createEReference(cellResultEClass, CELL_RESULT__DARK_MEASUREMENET_DATA_SET);
     createEAttribute(cellResultEClass, CELL_RESULT__MAXIMUM_POWER);
-    createEAttribute(cellResultEClass, CELL_RESULT__LIGHT_UI_COEFFICIENTS);
-    createEAttribute(cellResultEClass, CELL_RESULT__DARK_UI_COEFFICIENTS);
+    createEAttribute(cellResultEClass, CELL_RESULT__RS_VOC_FIT_COEFFICIENTS);
+    createEAttribute(cellResultEClass, CELL_RESULT__RP_ISC_FIT_COEFFICIENTS);
+    createEAttribute(cellResultEClass, CELL_RESULT__MPP_FIT_COEFFICIENTS);
     createEOperation(cellResultEClass, CELL_RESULT___VALIDATE_NAME__DIAGNOSTICCHAIN_MAP);
 
     cellGroupEClass = createEClass(CELL_GROUP);
@@ -536,8 +546,9 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
     initEReference(getCellResult_LightMeasurementDataSet(), this.getCellMeasurementDataSet(), null, "lightMeasurementDataSet", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCellResult_DarkMeasuremenetDataSet(), this.getCellMeasurementDataSet(), null, "darkMeasuremenetDataSet", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCellResult_MaximumPower(), ecorePackage.getEDouble(), "maximumPower", null, 0, 1, CellResult.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-    initEAttribute(getCellResult_LightUICoefficients(), ecorePackage.getEDouble(), "lightUICoefficients", null, 0, -1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getCellResult_DarkUICoefficients(), ecorePackage.getEDouble(), "darkUICoefficients", null, 0, -1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCellResult_RsVocFitCoefficients(), ecorePackage.getEDouble(), "rsVocFitCoefficients", null, 0, -1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCellResult_RpIscFitCoefficients(), ecorePackage.getEDouble(), "rpIscFitCoefficients", null, 0, -1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCellResult_MppFitCoefficients(), ecorePackage.getEDouble(), "mppFitCoefficients", null, 0, -1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     EOperation op = initEOperation(getCellResult__ValidateName__DiagnosticChain_Map(), ecorePackage.getEBoolean(), "validateName", 0, 1, IS_UNIQUE, IS_ORDERED);
     addEParameter(op, ecorePackage.getEDiagnosticChain(), "chain", 0, 1, IS_UNIQUE, IS_ORDERED);

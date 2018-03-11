@@ -34,33 +34,45 @@ import datamodel.util.DatamodelValidator;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link datamodel.impl.CellResultImpl#getName <em>Name</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getDataEvaluated <em>Data Evaluated</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getOpenCircuitVoltage <em>Open Circuit Voltage</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getShortCircuitCurrent <em>Short Circuit Current</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getParallelResistance <em>Parallel Resistance</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getDarkParallelResistance <em>Dark Parallel Resistance</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getSeriesResistance <em>Series Resistance</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getDarkSeriesResistance <em>Dark Series Resistance</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getMaximumPowerVoltage <em>Maximum Power Voltage</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getMaximumPowerCurrent <em>Maximum Power Current</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getEfficiency <em>Efficiency</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getFillFactor <em>Fill Factor</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getLightMeasurementDataSet <em>Light Measurement Data Set</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getDarkMeasuremenetDataSet <em>Dark Measuremenet Data Set</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getMaximumPower <em>Maximum Power</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getLightUICoefficients <em>Light UI Coefficients</em>}</li>
- *   <li>{@link datamodel.impl.CellResultImpl#getDarkUICoefficients <em>Dark UI Coefficients</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getName <em>Name</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getDescription <em>Description</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getDataEvaluated <em>Data Evaluated</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getOpenCircuitVoltage <em>Open Circuit
+ * Voltage</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getShortCircuitCurrent <em>Short Circuit
+ * Current</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getParallelResistance <em>Parallel Resistance</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getDarkParallelResistance <em>Dark Parallel
+ * Resistance</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getSeriesResistance <em>Series Resistance</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getDarkSeriesResistance <em>Dark Series
+ * Resistance</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getMaximumPowerVoltage <em>Maximum Power
+ * Voltage</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getMaximumPowerCurrent <em>Maximum Power
+ * Current</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getEfficiency <em>Efficiency</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getFillFactor <em>Fill Factor</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getLightMeasurementDataSet <em>Light Measurement Data
+ * Set</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getDarkMeasuremenetDataSet <em>Dark Measuremenet Data
+ * Set</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getMaximumPower <em>Maximum Power</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getRsVocFitCoefficients <em>Rs Voc Fit
+ * Coefficients</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getRpIscFitCoefficients <em>Rp Isc Fit
+ * Coefficients</em>}</li>
+ * <li>{@link datamodel.impl.CellResultImpl#getMppFitCoefficients <em>Mpp Fit
+ * Coefficients</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class CellResultImpl extends MinimalEObjectImpl.Container implements CellResult {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * 
    * @see #getName()
    * @generated
    * @ordered
@@ -68,9 +80,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected static final String NAME_EDEFAULT = "default...";
 
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * 
    * @see #getName()
    * @generated
    * @ordered
@@ -118,8 +130,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected Date dataEvaluated = DATA_EVALUATED_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getOpenCircuitVoltage() <em>Open Circuit Voltage</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getOpenCircuitVoltage() <em>Open Circuit Voltage</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getOpenCircuitVoltage()
    * @generated
    * @ordered
@@ -127,8 +140,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected static final double OPEN_CIRCUIT_VOLTAGE_EDEFAULT = 0.0;
 
   /**
-   * The cached value of the '{@link #getOpenCircuitVoltage() <em>Open Circuit Voltage</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getOpenCircuitVoltage() <em>Open Circuit Voltage</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getOpenCircuitVoltage()
    * @generated
    * @ordered
@@ -136,8 +150,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected double openCircuitVoltage = OPEN_CIRCUIT_VOLTAGE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getShortCircuitCurrent() <em>Short Circuit Current</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getShortCircuitCurrent() <em>Short Circuit Current</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getShortCircuitCurrent()
    * @generated
    * @ordered
@@ -145,8 +160,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected static final double SHORT_CIRCUIT_CURRENT_EDEFAULT = 0.0;
 
   /**
-   * The cached value of the '{@link #getShortCircuitCurrent() <em>Short Circuit Current</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getShortCircuitCurrent() <em>Short Circuit Current</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getShortCircuitCurrent()
    * @generated
    * @ordered
@@ -154,8 +170,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected double shortCircuitCurrent = SHORT_CIRCUIT_CURRENT_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getParallelResistance() <em>Parallel Resistance</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getParallelResistance() <em>Parallel Resistance</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getParallelResistance()
    * @generated
    * @ordered
@@ -163,8 +180,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected static final double PARALLEL_RESISTANCE_EDEFAULT = 0.0;
 
   /**
-   * The cached value of the '{@link #getParallelResistance() <em>Parallel Resistance</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getParallelResistance() <em>Parallel Resistance</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getParallelResistance()
    * @generated
    * @ordered
@@ -172,8 +190,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected double parallelResistance = PARALLEL_RESISTANCE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getDarkParallelResistance() <em>Dark Parallel Resistance</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getDarkParallelResistance() <em>Dark Parallel
+   * Resistance</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getDarkParallelResistance()
    * @generated
    * @ordered
@@ -181,8 +200,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected static final double DARK_PARALLEL_RESISTANCE_EDEFAULT = 0.0;
 
   /**
-   * The cached value of the '{@link #getDarkParallelResistance() <em>Dark Parallel Resistance</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getDarkParallelResistance() <em>Dark Parallel
+   * Resistance</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getDarkParallelResistance()
    * @generated
    * @ordered
@@ -192,6 +212,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   /**
    * The default value of the '{@link #getSeriesResistance() <em>Series Resistance</em>}' attribute.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getSeriesResistance()
    * @generated
    * @ordered
@@ -201,6 +222,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   /**
    * The cached value of the '{@link #getSeriesResistance() <em>Series Resistance</em>}' attribute.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getSeriesResistance()
    * @generated
    * @ordered
@@ -208,8 +230,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected double seriesResistance = SERIES_RESISTANCE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getDarkSeriesResistance() <em>Dark Series Resistance</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getDarkSeriesResistance() <em>Dark Series Resistance</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getDarkSeriesResistance()
    * @generated
    * @ordered
@@ -217,8 +240,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected static final double DARK_SERIES_RESISTANCE_EDEFAULT = 0.0;
 
   /**
-   * The cached value of the '{@link #getDarkSeriesResistance() <em>Dark Series Resistance</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getDarkSeriesResistance() <em>Dark Series Resistance</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getDarkSeriesResistance()
    * @generated
    * @ordered
@@ -226,8 +250,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected double darkSeriesResistance = DARK_SERIES_RESISTANCE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getMaximumPowerVoltage() <em>Maximum Power Voltage</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getMaximumPowerVoltage() <em>Maximum Power Voltage</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getMaximumPowerVoltage()
    * @generated
    * @ordered
@@ -235,8 +260,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected static final double MAXIMUM_POWER_VOLTAGE_EDEFAULT = 0.0;
 
   /**
-   * The cached value of the '{@link #getMaximumPowerVoltage() <em>Maximum Power Voltage</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getMaximumPowerVoltage() <em>Maximum Power Voltage</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getMaximumPowerVoltage()
    * @generated
    * @ordered
@@ -244,8 +270,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected double maximumPowerVoltage = MAXIMUM_POWER_VOLTAGE_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getMaximumPowerCurrent() <em>Maximum Power Current</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getMaximumPowerCurrent() <em>Maximum Power Current</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getMaximumPowerCurrent()
    * @generated
    * @ordered
@@ -253,8 +280,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected static final double MAXIMUM_POWER_CURRENT_EDEFAULT = 0.0;
 
   /**
-   * The cached value of the '{@link #getMaximumPowerCurrent() <em>Maximum Power Current</em>}' attribute.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getMaximumPowerCurrent() <em>Maximum Power Current</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getMaximumPowerCurrent()
    * @generated
    * @ordered
@@ -302,8 +330,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected double fillFactor = FILL_FACTOR_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getLightMeasurementDataSet() <em>Light Measurement Data Set</em>}' containment reference.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getLightMeasurementDataSet() <em>Light Measurement Data
+   * Set</em>}' containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getLightMeasurementDataSet()
    * @generated
    * @ordered
@@ -311,8 +340,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected CellMeasurementDataSet lightMeasurementDataSet;
 
   /**
-   * The cached value of the '{@link #getDarkMeasuremenetDataSet() <em>Dark Measuremenet Data Set</em>}' containment reference.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getDarkMeasuremenetDataSet() <em>Dark Measuremenet Data
+   * Set</em>}' containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getDarkMeasuremenetDataSet()
    * @generated
    * @ordered
@@ -330,27 +360,38 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   protected static final double MAXIMUM_POWER_EDEFAULT = 0.0;
 
   /**
-   * The cached value of the '{@link #getLightUICoefficients() <em>Light UI Coefficients</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getLightUICoefficients()
+   * The cached value of the '{@link #getRsVocFitCoefficients() <em>Rs Voc Fit Coefficients</em>}'
+   * attribute list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @see #getRsVocFitCoefficients()
    * @generated
    * @ordered
    */
-  protected EList<Double> lightUICoefficients;
+  protected EList<Double> rsVocFitCoefficients;
 
   /**
-   * The cached value of the '{@link #getDarkUICoefficients() <em>Dark UI Coefficients</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDarkUICoefficients()
+   * The cached value of the '{@link #getRpIscFitCoefficients() <em>Rp Isc Fit Coefficients</em>}'
+   * attribute list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @see #getRpIscFitCoefficients()
    * @generated
    * @ordered
    */
-  protected EList<Double> darkUICoefficients;
+  protected EList<Double> rpIscFitCoefficients;
+
+  /**
+   * The cached value of the '{@link #getMppFitCoefficients() <em>Mpp Fit Coefficients</em>}'
+   * attribute list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @see #getMppFitCoefficients()
+   * @generated
+   * @ordered
+   */
+  protected EList<Double> mppFitCoefficients;
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   protected CellResultImpl() {
@@ -359,6 +400,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
@@ -368,6 +410,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public String getName() {
@@ -376,17 +419,20 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setName(String newName) {
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__NAME,
+          oldName, name));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public String getDescription() {
@@ -395,17 +441,20 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setDescription(String newDescription) {
     String oldDescription = description;
     description = newDescription;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__DESCRIPTION, oldDescription, description));
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_RESULT__DESCRIPTION, oldDescription, description));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public Date getDataEvaluated() {
@@ -414,17 +463,20 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setDataEvaluated(Date newDataEvaluated) {
     Date oldDataEvaluated = dataEvaluated;
     dataEvaluated = newDataEvaluated;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__DATA_EVALUATED, oldDataEvaluated, dataEvaluated));
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_RESULT__DATA_EVALUATED, oldDataEvaluated, dataEvaluated));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public double getOpenCircuitVoltage() {
@@ -433,17 +485,21 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setOpenCircuitVoltage(double newOpenCircuitVoltage) {
     double oldOpenCircuitVoltage = openCircuitVoltage;
     openCircuitVoltage = newOpenCircuitVoltage;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE, oldOpenCircuitVoltage, openCircuitVoltage));
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE, oldOpenCircuitVoltage,
+          openCircuitVoltage));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public double getShortCircuitCurrent() {
@@ -452,17 +508,21 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setShortCircuitCurrent(double newShortCircuitCurrent) {
     double oldShortCircuitCurrent = shortCircuitCurrent;
     shortCircuitCurrent = newShortCircuitCurrent;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__SHORT_CIRCUIT_CURRENT, oldShortCircuitCurrent, shortCircuitCurrent));
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_RESULT__SHORT_CIRCUIT_CURRENT, oldShortCircuitCurrent,
+          shortCircuitCurrent));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public double getParallelResistance() {
@@ -471,17 +531,21 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setParallelResistance(double newParallelResistance) {
     double oldParallelResistance = parallelResistance;
     parallelResistance = newParallelResistance;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__PARALLEL_RESISTANCE, oldParallelResistance, parallelResistance));
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_RESULT__PARALLEL_RESISTANCE, oldParallelResistance,
+          parallelResistance));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public double getDarkParallelResistance() {
@@ -490,17 +554,21 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setDarkParallelResistance(double newDarkParallelResistance) {
     double oldDarkParallelResistance = darkParallelResistance;
     darkParallelResistance = newDarkParallelResistance;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__DARK_PARALLEL_RESISTANCE, oldDarkParallelResistance, darkParallelResistance));
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_RESULT__DARK_PARALLEL_RESISTANCE, oldDarkParallelResistance,
+          darkParallelResistance));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public double getSeriesResistance() {
@@ -509,17 +577,20 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setSeriesResistance(double newSeriesResistance) {
     double oldSeriesResistance = seriesResistance;
     seriesResistance = newSeriesResistance;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__SERIES_RESISTANCE, oldSeriesResistance, seriesResistance));
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_RESULT__SERIES_RESISTANCE, oldSeriesResistance, seriesResistance));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public double getDarkSeriesResistance() {
@@ -528,17 +599,21 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setDarkSeriesResistance(double newDarkSeriesResistance) {
     double oldDarkSeriesResistance = darkSeriesResistance;
     darkSeriesResistance = newDarkSeriesResistance;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__DARK_SERIES_RESISTANCE, oldDarkSeriesResistance, darkSeriesResistance));
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_RESULT__DARK_SERIES_RESISTANCE, oldDarkSeriesResistance,
+          darkSeriesResistance));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public double getMaximumPowerVoltage() {
@@ -547,17 +622,21 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setMaximumPowerVoltage(double newMaximumPowerVoltage) {
     double oldMaximumPowerVoltage = maximumPowerVoltage;
     maximumPowerVoltage = newMaximumPowerVoltage;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__MAXIMUM_POWER_VOLTAGE, oldMaximumPowerVoltage, maximumPowerVoltage));
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_RESULT__MAXIMUM_POWER_VOLTAGE, oldMaximumPowerVoltage,
+          maximumPowerVoltage));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public double getMaximumPowerCurrent() {
@@ -566,17 +645,21 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setMaximumPowerCurrent(double newMaximumPowerCurrent) {
     double oldMaximumPowerCurrent = maximumPowerCurrent;
     maximumPowerCurrent = newMaximumPowerCurrent;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__MAXIMUM_POWER_CURRENT, oldMaximumPowerCurrent, maximumPowerCurrent));
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_RESULT__MAXIMUM_POWER_CURRENT, oldMaximumPowerCurrent,
+          maximumPowerCurrent));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public double getEfficiency() {
@@ -585,17 +668,20 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setEfficiency(double newEfficiency) {
     double oldEfficiency = efficiency;
     efficiency = newEfficiency;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__EFFICIENCY, oldEfficiency, efficiency));
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_RESULT__EFFICIENCY, oldEfficiency, efficiency));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public double getFillFactor() {
@@ -604,17 +690,20 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setFillFactor(double newFillFactor) {
     double oldFillFactor = fillFactor;
     fillFactor = newFillFactor;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__FILL_FACTOR, oldFillFactor, fillFactor));
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_RESULT__FILL_FACTOR, oldFillFactor, fillFactor));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public CellMeasurementDataSet getLightMeasurementDataSet() {
@@ -623,6 +712,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public NotificationChain basicSetLightMeasurementDataSet(
@@ -630,32 +720,45 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
     CellMeasurementDataSet oldLightMeasurementDataSet = lightMeasurementDataSet;
     lightMeasurementDataSet = newLightMeasurementDataSet;
     if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET, oldLightMeasurementDataSet, newLightMeasurementDataSet);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET, oldLightMeasurementDataSet,
+          newLightMeasurementDataSet);
+      if (msgs == null)
+        msgs = notification;
+      else
+        msgs.add(notification);
     }
     return msgs;
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setLightMeasurementDataSet(CellMeasurementDataSet newLightMeasurementDataSet) {
     if (newLightMeasurementDataSet != lightMeasurementDataSet) {
       NotificationChain msgs = null;
       if (lightMeasurementDataSet != null)
-        msgs = ((InternalEObject)lightMeasurementDataSet).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET, null, msgs);
+        msgs = ((InternalEObject) lightMeasurementDataSet).eInverseRemove(this,
+            EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET, null,
+            msgs);
       if (newLightMeasurementDataSet != null)
-        msgs = ((InternalEObject)newLightMeasurementDataSet).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET, null, msgs);
+        msgs = ((InternalEObject) newLightMeasurementDataSet).eInverseAdd(this,
+            EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET, null,
+            msgs);
       msgs = basicSetLightMeasurementDataSet(newLightMeasurementDataSet, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET, newLightMeasurementDataSet, newLightMeasurementDataSet));
+      if (msgs != null)
+        msgs.dispatch();
+    } else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET, newLightMeasurementDataSet,
+          newLightMeasurementDataSet));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public CellMeasurementDataSet getDarkMeasuremenetDataSet() {
@@ -664,6 +767,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public NotificationChain basicSetDarkMeasuremenetDataSet(
@@ -671,28 +775,40 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
     CellMeasurementDataSet oldDarkMeasuremenetDataSet = darkMeasuremenetDataSet;
     darkMeasuremenetDataSet = newDarkMeasuremenetDataSet;
     if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__DARK_MEASUREMENET_DATA_SET, oldDarkMeasuremenetDataSet, newDarkMeasuremenetDataSet);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_RESULT__DARK_MEASUREMENET_DATA_SET, oldDarkMeasuremenetDataSet,
+          newDarkMeasuremenetDataSet);
+      if (msgs == null)
+        msgs = notification;
+      else
+        msgs.add(notification);
     }
     return msgs;
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setDarkMeasuremenetDataSet(CellMeasurementDataSet newDarkMeasuremenetDataSet) {
     if (newDarkMeasuremenetDataSet != darkMeasuremenetDataSet) {
       NotificationChain msgs = null;
       if (darkMeasuremenetDataSet != null)
-        msgs = ((InternalEObject)darkMeasuremenetDataSet).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__DARK_MEASUREMENET_DATA_SET, null, msgs);
+        msgs = ((InternalEObject) darkMeasuremenetDataSet).eInverseRemove(this,
+            EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__DARK_MEASUREMENET_DATA_SET, null,
+            msgs);
       if (newDarkMeasuremenetDataSet != null)
-        msgs = ((InternalEObject)newDarkMeasuremenetDataSet).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__DARK_MEASUREMENET_DATA_SET, null, msgs);
+        msgs = ((InternalEObject) newDarkMeasuremenetDataSet).eInverseAdd(this,
+            EOPPOSITE_FEATURE_BASE - DatamodelPackage.CELL_RESULT__DARK_MEASUREMENET_DATA_SET, null,
+            msgs);
       msgs = basicSetDarkMeasuremenetDataSet(newDarkMeasuremenetDataSet, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__DARK_MEASUREMENET_DATA_SET, newDarkMeasuremenetDataSet, newDarkMeasuremenetDataSet));
+      if (msgs != null)
+        msgs.dispatch();
+    } else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_RESULT__DARK_MEASUREMENET_DATA_SET, newDarkMeasuremenetDataSet,
+          newDarkMeasuremenetDataSet));
   }
 
   /**
@@ -701,31 +817,46 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
    * @generated NOT
    */
   public double getMaximumPower() {
-    return getMaximumPowerCurrent() * getMaximumPowerVoltage();
+    return Math.abs(getMaximumPowerCurrent() * getMaximumPowerVoltage());
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
-  public EList<Double> getLightUICoefficients() {
-    if (lightUICoefficients == null) {
-      lightUICoefficients = new EDataTypeUniqueEList<Double>(Double.class, this, DatamodelPackage.CELL_RESULT__LIGHT_UI_COEFFICIENTS);
+  public EList<Double> getRsVocFitCoefficients() {
+    if (rsVocFitCoefficients == null) {
+      rsVocFitCoefficients = new EDataTypeUniqueEList<Double>(Double.class, this,
+          DatamodelPackage.CELL_RESULT__RS_VOC_FIT_COEFFICIENTS);
     }
-    return lightUICoefficients;
+    return rsVocFitCoefficients;
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
-  public EList<Double> getDarkUICoefficients() {
-    if (darkUICoefficients == null) {
-      darkUICoefficients = new EDataTypeUniqueEList<Double>(Double.class, this, DatamodelPackage.CELL_RESULT__DARK_UI_COEFFICIENTS);
+  public EList<Double> getRpIscFitCoefficients() {
+    if (rpIscFitCoefficients == null) {
+      rpIscFitCoefficients = new EDataTypeUniqueEList<Double>(Double.class, this,
+          DatamodelPackage.CELL_RESULT__RP_ISC_FIT_COEFFICIENTS);
     }
-    return darkUICoefficients;
+    return rpIscFitCoefficients;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @generated
+   */
+  public EList<Double> getMppFitCoefficients() {
+    if (mppFitCoefficients == null) {
+      mppFitCoefficients = new EDataTypeUniqueEList<Double>(Double.class, this,
+          DatamodelPackage.CELL_RESULT__MPP_FIT_COEFFICIENTS);
+    }
+    return mppFitCoefficients;
   }
 
   /**
@@ -768,6 +899,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
@@ -784,6 +916,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
@@ -821,16 +954,19 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
         return getDarkMeasuremenetDataSet();
       case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER:
         return getMaximumPower();
-      case DatamodelPackage.CELL_RESULT__LIGHT_UI_COEFFICIENTS:
-        return getLightUICoefficients();
-      case DatamodelPackage.CELL_RESULT__DARK_UI_COEFFICIENTS:
-        return getDarkUICoefficients();
+      case DatamodelPackage.CELL_RESULT__RS_VOC_FIT_COEFFICIENTS:
+        return getRsVocFitCoefficients();
+      case DatamodelPackage.CELL_RESULT__RP_ISC_FIT_COEFFICIENTS:
+        return getRpIscFitCoefficients();
+      case DatamodelPackage.CELL_RESULT__MPP_FIT_COEFFICIENTS:
+        return getMppFitCoefficients();
     }
     return super.eGet(featureID, resolve, coreType);
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @SuppressWarnings("unchecked")
@@ -838,57 +974,61 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   public void eSet(int featureID, Object newValue) {
     switch (featureID) {
       case DatamodelPackage.CELL_RESULT__NAME:
-        setName((String)newValue);
+        setName((String) newValue);
         return;
       case DatamodelPackage.CELL_RESULT__DESCRIPTION:
-        setDescription((String)newValue);
+        setDescription((String) newValue);
         return;
       case DatamodelPackage.CELL_RESULT__DATA_EVALUATED:
-        setDataEvaluated((Date)newValue);
+        setDataEvaluated((Date) newValue);
         return;
       case DatamodelPackage.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE:
-        setOpenCircuitVoltage((Double)newValue);
+        setOpenCircuitVoltage((Double) newValue);
         return;
       case DatamodelPackage.CELL_RESULT__SHORT_CIRCUIT_CURRENT:
-        setShortCircuitCurrent((Double)newValue);
+        setShortCircuitCurrent((Double) newValue);
         return;
       case DatamodelPackage.CELL_RESULT__PARALLEL_RESISTANCE:
-        setParallelResistance((Double)newValue);
+        setParallelResistance((Double) newValue);
         return;
       case DatamodelPackage.CELL_RESULT__DARK_PARALLEL_RESISTANCE:
-        setDarkParallelResistance((Double)newValue);
+        setDarkParallelResistance((Double) newValue);
         return;
       case DatamodelPackage.CELL_RESULT__SERIES_RESISTANCE:
-        setSeriesResistance((Double)newValue);
+        setSeriesResistance((Double) newValue);
         return;
       case DatamodelPackage.CELL_RESULT__DARK_SERIES_RESISTANCE:
-        setDarkSeriesResistance((Double)newValue);
+        setDarkSeriesResistance((Double) newValue);
         return;
       case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER_VOLTAGE:
-        setMaximumPowerVoltage((Double)newValue);
+        setMaximumPowerVoltage((Double) newValue);
         return;
       case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER_CURRENT:
-        setMaximumPowerCurrent((Double)newValue);
+        setMaximumPowerCurrent((Double) newValue);
         return;
       case DatamodelPackage.CELL_RESULT__EFFICIENCY:
-        setEfficiency((Double)newValue);
+        setEfficiency((Double) newValue);
         return;
       case DatamodelPackage.CELL_RESULT__FILL_FACTOR:
-        setFillFactor((Double)newValue);
+        setFillFactor((Double) newValue);
         return;
       case DatamodelPackage.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET:
-        setLightMeasurementDataSet((CellMeasurementDataSet)newValue);
+        setLightMeasurementDataSet((CellMeasurementDataSet) newValue);
         return;
       case DatamodelPackage.CELL_RESULT__DARK_MEASUREMENET_DATA_SET:
-        setDarkMeasuremenetDataSet((CellMeasurementDataSet)newValue);
+        setDarkMeasuremenetDataSet((CellMeasurementDataSet) newValue);
         return;
-      case DatamodelPackage.CELL_RESULT__LIGHT_UI_COEFFICIENTS:
-        getLightUICoefficients().clear();
-        getLightUICoefficients().addAll((Collection<? extends Double>)newValue);
+      case DatamodelPackage.CELL_RESULT__RS_VOC_FIT_COEFFICIENTS:
+        getRsVocFitCoefficients().clear();
+        getRsVocFitCoefficients().addAll((Collection<? extends Double>) newValue);
         return;
-      case DatamodelPackage.CELL_RESULT__DARK_UI_COEFFICIENTS:
-        getDarkUICoefficients().clear();
-        getDarkUICoefficients().addAll((Collection<? extends Double>)newValue);
+      case DatamodelPackage.CELL_RESULT__RP_ISC_FIT_COEFFICIENTS:
+        getRpIscFitCoefficients().clear();
+        getRpIscFitCoefficients().addAll((Collection<? extends Double>) newValue);
+        return;
+      case DatamodelPackage.CELL_RESULT__MPP_FIT_COEFFICIENTS:
+        getMppFitCoefficients().clear();
+        getMppFitCoefficients().addAll((Collection<? extends Double>) newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -896,6 +1036,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
@@ -941,16 +1082,19 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
         setFillFactor(FILL_FACTOR_EDEFAULT);
         return;
       case DatamodelPackage.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET:
-        setLightMeasurementDataSet((CellMeasurementDataSet)null);
+        setLightMeasurementDataSet((CellMeasurementDataSet) null);
         return;
       case DatamodelPackage.CELL_RESULT__DARK_MEASUREMENET_DATA_SET:
-        setDarkMeasuremenetDataSet((CellMeasurementDataSet)null);
+        setDarkMeasuremenetDataSet((CellMeasurementDataSet) null);
         return;
-      case DatamodelPackage.CELL_RESULT__LIGHT_UI_COEFFICIENTS:
-        getLightUICoefficients().clear();
+      case DatamodelPackage.CELL_RESULT__RS_VOC_FIT_COEFFICIENTS:
+        getRsVocFitCoefficients().clear();
         return;
-      case DatamodelPackage.CELL_RESULT__DARK_UI_COEFFICIENTS:
-        getDarkUICoefficients().clear();
+      case DatamodelPackage.CELL_RESULT__RP_ISC_FIT_COEFFICIENTS:
+        getRpIscFitCoefficients().clear();
+        return;
+      case DatamodelPackage.CELL_RESULT__MPP_FIT_COEFFICIENTS:
+        getMppFitCoefficients().clear();
         return;
     }
     super.eUnset(featureID);
@@ -958,6 +1102,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
@@ -966,9 +1111,11 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
       case DatamodelPackage.CELL_RESULT__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case DatamodelPackage.CELL_RESULT__DESCRIPTION:
-        return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+        return DESCRIPTION_EDEFAULT == null ? description != null
+            : !DESCRIPTION_EDEFAULT.equals(description);
       case DatamodelPackage.CELL_RESULT__DATA_EVALUATED:
-        return DATA_EVALUATED_EDEFAULT == null ? dataEvaluated != null : !DATA_EVALUATED_EDEFAULT.equals(dataEvaluated);
+        return DATA_EVALUATED_EDEFAULT == null ? dataEvaluated != null
+            : !DATA_EVALUATED_EDEFAULT.equals(dataEvaluated);
       case DatamodelPackage.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE:
         return openCircuitVoltage != OPEN_CIRCUIT_VOLTAGE_EDEFAULT;
       case DatamodelPackage.CELL_RESULT__SHORT_CIRCUIT_CURRENT:
@@ -995,34 +1142,39 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
         return darkMeasuremenetDataSet != null;
       case DatamodelPackage.CELL_RESULT__MAXIMUM_POWER:
         return getMaximumPower() != MAXIMUM_POWER_EDEFAULT;
-      case DatamodelPackage.CELL_RESULT__LIGHT_UI_COEFFICIENTS:
-        return lightUICoefficients != null && !lightUICoefficients.isEmpty();
-      case DatamodelPackage.CELL_RESULT__DARK_UI_COEFFICIENTS:
-        return darkUICoefficients != null && !darkUICoefficients.isEmpty();
+      case DatamodelPackage.CELL_RESULT__RS_VOC_FIT_COEFFICIENTS:
+        return rsVocFitCoefficients != null && !rsVocFitCoefficients.isEmpty();
+      case DatamodelPackage.CELL_RESULT__RP_ISC_FIT_COEFFICIENTS:
+        return rpIscFitCoefficients != null && !rpIscFitCoefficients.isEmpty();
+      case DatamodelPackage.CELL_RESULT__MPP_FIT_COEFFICIENTS:
+        return mppFitCoefficients != null && !mppFitCoefficients.isEmpty();
     }
     return super.eIsSet(featureID);
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
   public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
     switch (operationID) {
       case DatamodelPackage.CELL_RESULT___VALIDATE_NAME__DIAGNOSTICCHAIN_MAP:
-        return validateName((DiagnosticChain)arguments.get(0), (Map<?, ?>)arguments.get(1));
+        return validateName((DiagnosticChain) arguments.get(0), (Map<?, ?>) arguments.get(1));
     }
     return super.eInvoke(operationID, arguments);
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
   public String toString() {
-    if (eIsProxy()) return super.toString();
+    if (eIsProxy())
+      return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
@@ -1051,10 +1203,12 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
     result.append(efficiency);
     result.append(", fillFactor: ");
     result.append(fillFactor);
-    result.append(", lightUICoefficients: ");
-    result.append(lightUICoefficients);
-    result.append(", darkUICoefficients: ");
-    result.append(darkUICoefficients);
+    result.append(", rsVocFitCoefficients: ");
+    result.append(rsVocFitCoefficients);
+    result.append(", rpIscFitCoefficients: ");
+    result.append(rpIscFitCoefficients);
+    result.append(", mppFitCoefficients: ");
+    result.append(mppFitCoefficients);
     result.append(')');
     return result.toString();
   }
