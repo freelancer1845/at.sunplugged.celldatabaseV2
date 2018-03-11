@@ -15,6 +15,7 @@ Export-Package: org.jfree.chart,
  org.jfree.chart.title,
  org.jfree.data.xy,
  org.jfree.experimental.chart.swt,
+ org.jfree.experimental.swt,
  org.jfree.ui,
  org.jfree.util
 Require-Bundle: org.eclipse.swt;bundle-version="3.106.1"

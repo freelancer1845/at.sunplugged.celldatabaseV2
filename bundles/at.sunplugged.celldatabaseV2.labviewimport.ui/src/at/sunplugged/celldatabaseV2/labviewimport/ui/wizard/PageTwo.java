@@ -235,7 +235,7 @@ public class PageTwo extends WizardPage {
                     "Failed to read data file. " + e1.getMessage());
               }
             }
-            getWizard().getContainer().showPage(getPreviousPage());
+            // getWizard().getContainer().showPage(getPreviousPage());
           });
 
           return;
@@ -263,7 +263,7 @@ public class PageTwo extends WizardPage {
               }
 
             }
-            getWizard().getContainer().showPage(getPreviousPage());
+            // getWizard().getContainer().showPage(getPreviousPage());
           });
         } catch (Exception e) {
           LOG.error("Unexpected exception while processing labview files.", e);
@@ -289,7 +289,7 @@ public class PageTwo extends WizardPage {
               }
 
             }
-            getWizard().getContainer().showPage(getPreviousPage());
+            // getWizard().getContainer().showPage(getPreviousPage());
           });
         }
       });

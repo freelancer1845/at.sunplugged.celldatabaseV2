@@ -12,6 +12,7 @@ import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.analysis.solvers.LaguerreSolver;
 import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoints;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.plotting.PlotHelper;
@@ -246,9 +247,9 @@ public class LabviewCalculator {
       double[] range = showRangeDialog(dataPoints, "Isc Range");
 
       startRange = IntStream.range(0, dataPoints.size())
-          .filter(idx -> dataPoints.get(idx).getVoltage() > range[0]).findFirst().orElse(-1);
+          .filter(idx -> dataPoints.get(idx).getVoltage() >= range[0]).findFirst().orElse(-1);
       endRange = IntStream.range(0, dataPoints.size())
-          .filter(idx -> dataPoints.get(idx).getVoltage() > range[1]).findFirst().orElse(-1) - 1;
+          .filter(idx -> dataPoints.get(idx).getVoltage() > range[1]).findFirst().orElse(-1);
       if (startRange == -1 || endRange == -1 || startRange >= endRange) {
         throw new LabviewCalculationException(
             "Failed to find good start and end ranges for Isc calculation.");
@@ -347,7 +348,7 @@ public class LabviewCalculator {
   private static double[] showRangeDialog(List<UIDataPoint> data, String range) {
     CellMeasurementDataSet dataSet = DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
     dataSet.setName("Data");
-    dataSet.getData().addAll(data);
+    dataSet.getData().addAll(EcoreUtil.copyAll(data));
     return PlotHelper.openSelectRangeChart(dataSet, range);
   }
 
