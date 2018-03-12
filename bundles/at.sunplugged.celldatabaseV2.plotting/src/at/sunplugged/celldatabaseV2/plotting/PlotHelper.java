@@ -55,6 +55,8 @@ public class PlotHelper {
 
   public static final String ISC_RP_FIT = "iscRpFit";
 
+  public static final String DATA_POINTS = "drawDataPoints";
+
 
   public static JFreeChart createJFreeChart(CellMeasurementDataSet dataSet,
       Map<String, String> options) {

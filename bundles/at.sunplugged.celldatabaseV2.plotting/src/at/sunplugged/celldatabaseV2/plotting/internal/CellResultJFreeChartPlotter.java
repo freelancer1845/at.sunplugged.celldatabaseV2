@@ -64,9 +64,14 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
     XYItemRenderer r = plot.getRenderer();
     if (r instanceof XYLineAndShapeRenderer) {
       XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
-      renderer.setBaseShapesVisible(false);
-      renderer.setBaseShapesFilled(false);
-      renderer.setSeriesShape(0, ShapeUtilities.createDiagonalCross(1f, 1f));
+      if (options.containsKey(PlotHelper.DATA_POINTS)) {
+        renderer.setBaseShapesVisible(true);
+        renderer.setBaseShapesFilled(false);
+      } else {
+        renderer.setBaseShapesVisible(false);
+        renderer.setBaseShapesFilled(false);
+      }
+      renderer.setSeriesShape(0, ShapeUtilities.createDiagonalCross(2.2f, 2.2f));
       for (int i = 0; i < plot.getSeriesCount(); i++) {
         renderer.setSeriesStroke(i, new BasicStroke(3.0f));
       }

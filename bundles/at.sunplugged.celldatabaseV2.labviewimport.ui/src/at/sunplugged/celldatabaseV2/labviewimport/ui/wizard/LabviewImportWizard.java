@@ -3,7 +3,6 @@ package at.sunplugged.celldatabaseV2.labviewimport.ui.wizard;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import at.sunplugged.celldatabaseV2.labviewimport.LabviewDataFile;
 import datamodel.CellResult;
@@ -31,19 +30,17 @@ public class LabviewImportWizard extends Wizard {
     addPage(pageTwo);
   }
 
-  @Override
-  public IWizardPage getNextPage(IWizardPage page) {
-    if (page == pageTwo) {
-
-      pageTwo.calculateResults();
-    }
-    return super.getNextPage(page);
-  }
 
   @Override
   public String getWindowTitle() {
     return "Import Labview Data";
   }
+
+  @Override
+  public boolean canFinish() {
+    return pageTwo.isCalculationDone();
+  }
+
 
   @Override
   public boolean performFinish() {

@@ -26,10 +26,11 @@ import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -41,7 +42,6 @@ import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.labviewimport.LabviewCalculationException;
 import at.sunplugged.celldatabaseV2.labviewimport.LabviewCalculator;
 import at.sunplugged.celldatabaseV2.labviewimport.LabviewDataFile;
-import at.sunplugged.celldatabaseV2.labviewimport.ui.dialogs.CalculatorErrorDialog;
 import at.sunplugged.celldatabaseV2.plotting.PlotDialog;
 import datamodel.CellGroup;
 import datamodel.CellMeasurementDataSet;
@@ -64,6 +64,12 @@ public class PageTwo extends WizardPage {
 
   private TreeViewer treeViewer;
 
+  private boolean calculationDone = false;
+
+  private CLabel cancleLabel;
+
+  private Composite container;
+
   protected PageTwo(List<LabviewDataFile> dataFiles) {
     super(TITLE);
     this.dataFiles = dataFiles;
@@ -75,18 +81,22 @@ public class PageTwo extends WizardPage {
     editingDomain.createResource("tempResource").getContents().add(tempGroup);
   }
 
+
   @Override
   public void createControl(Composite parent) {
-    Composite container = new Composite(parent, SWT.NONE);
+    container = new Composite(parent, SWT.NONE);
     GridLayout layout = new GridLayout();
     layout.numColumns = 2;
     layout.makeColumnsEqualWidth = false;
 
-    container.setLayout(layout);
-
+    container.setLayout(new StackLayout());
     tempGroup.setName("LabviewImportGroup");
     treeViewer = TreeViewerSWTFactory.fillDefaults(container, tempGroup).create();
 
+    cancleLabel = new CLabel(container, SWT.NONE);
+    cancleLabel.setText("Evaluation Cancled.");
+    cancleLabel.setImage(Display.getDefault().getSystemImage(SWT.ICON_ERROR));
+    cancleLabel.pack();
     treeViewer.addDoubleClickListener(new IDoubleClickListener() {
 
       @Override
@@ -160,7 +170,8 @@ public class PageTwo extends WizardPage {
         }.open();
       }
     });
-    treeViewer.getControl().setEnabled(false);
+    treeViewer.getControl().setEnabled(true);
+    treeViewer.getTree().pack();
     setControl(container);
 
   }
@@ -169,12 +180,16 @@ public class PageTwo extends WizardPage {
   public void setVisible(boolean visible) {
     super.setVisible(visible);
     if (visible == true) {
+      calculateResults();
     }
   }
 
   private boolean confirmHeper;
 
-  public void calculateResults() {
+  private boolean cancleEvaluation = false;
+
+  private void calculateResults() {
+    cancleEvaluation = false;
     tempGroup.getCellResults().clear();
 
     Job job = Job.create("Calculating results..", (ICoreRunnable) monitor -> {
@@ -213,7 +228,7 @@ public class PageTwo extends WizardPage {
       }
 
       Map<LabviewCalculator, IOException> calculators = new HashMap<>();
-      filteredFiles.stream().forEach(file -> {
+      filteredFiles.stream().anyMatch(file -> {
         LabviewCalculator calculator = new LabviewCalculator();
         try {
           calculators.put(calculator, null);
@@ -223,111 +238,83 @@ public class PageTwo extends WizardPage {
           LOG.error("Failed to calculate labview files.", e);
           Display.getDefault().syncExec(() -> {
             MessageDialog.openError(getShell(), "Error",
-                "Failed to calculate labview data.\n" + e.getMessage());
-            if (MessageDialog.openQuestion(getShell(), "Plot Data?",
-                "Do you want to plot the data?")) {
-              try {
-                CellMeasurementDataSet dataSet =
-                    DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
-                dataSet.getData().addAll(LabviewCalculator.getData(file.getAbsolutPathLight()));
-                dataSet.setName(file.getNameLight());
-                CellMeasurementDataSet dataSetDark =
-                    DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
-                dataSetDark.setName(file.getNameDark());
-                dataSetDark.getData().addAll(LabviewCalculator.getData(file.getAbsolutPathDark()));
-
-                new PlotDialog(getShell(), Arrays.asList(dataSet, dataSetDark)).open();
-              } catch (IOException e1) {
-                MessageDialog.openError(getShell(), "Error",
-                    "Failed to read data file. " + e1.getMessage());
-              }
-            }
-            // getWizard().getContainer().showPage(getPreviousPage());
+                "Failed to load labview data for file: " + file.getName() + ".\n" + e.getMessage());
           });
-
-          return;
         } catch (LabviewCalculationException e) {
           LOG.error("Failed to calculate labview files.", e);
           Display.getDefault().syncExec(() -> {
             MessageDialog.openError(getShell(), "Error",
                 "Failed to calculate labview data.\n" + e.getMessage());
-            if (MessageDialog.openQuestion(getShell(), "Plot Data?",
-                "Do you want to plot the data?")) {
-              try {
-                CellMeasurementDataSet dataSet =
-                    DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
-                dataSet.getData().addAll(LabviewCalculator.getData(file.getAbsolutPathLight()));
-                dataSet.setName(file.getNameLight());
-                CellMeasurementDataSet dataSetDark =
-                    DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
-                dataSetDark.setName(file.getNameDark());
-                dataSetDark.getData().addAll(LabviewCalculator.getData(file.getAbsolutPathDark()));
 
-                new PlotDialog(getShell(), Arrays.asList(dataSet, dataSetDark)).open();
-              } catch (IOException e1) {
-                MessageDialog.openError(getShell(), "Error",
-                    "Failed to read data file. " + e1.getMessage());
+
+            while (true) {
+              int answer = MessageDialog.open(MessageDialog.QUESTION, getShell(),
+                  "Automatic Calculation failed.",
+                  "Automatic calculation failed.\nChoose what to do.", SWT.NONE,
+                  new String[] {"See Data", "Select Fit Ranges", "Exclude", "Cancle Evaluation"});
+
+              if (answer == 0) {
+                new PlotDialog(getShell(),
+                    Arrays.asList(calculator.getResult().getLightMeasurementDataSet(),
+                        calculator.getResult().getDarkMeasuremenetDataSet())).open();
+              } else if (answer == 1) {
+                try {
+                  calculator.reEvaluate(calculator.getResult(), true);
+                  results.add(calculator.getResult());
+                } catch (LabviewCalculationException e1) {
+                  MessageDialog.openError(getShell(), "Error",
+                      "Calculation failed again.\n" + e1.getMessage());
+                }
+              } else if (answer == 2) {
+                // effectivley do nothing
+                break;
+              } else if (answer == 3) {
+                cancleEvaluation = true;
+                break;
+              } else {
+                break;
               }
-
             }
-            // getWizard().getContainer().showPage(getPreviousPage());
+
           });
         } catch (Exception e) {
           LOG.error("Unexpected exception while processing labview files.", e);
           Display.getDefault().syncExec(() -> {
             MessageDialog.openError(getShell(), "Error",
-                "Failed to calculate labview data.\n" + e.getMessage());
-            if (MessageDialog.openQuestion(getShell(), "Plot Data?",
-                "Do you want to plot the data?")) {
-              try {
-                CellMeasurementDataSet dataSet =
-                    DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
-                dataSet.getData().addAll(LabviewCalculator.getData(file.getAbsolutPathLight()));
-                dataSet.setName(file.getNameLight());
-                CellMeasurementDataSet dataSetDark =
-                    DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
-                dataSetDark.setName(file.getNameDark());
-                dataSetDark.getData().addAll(LabviewCalculator.getData(file.getAbsolutPathDark()));
-
-                new PlotDialog(getShell(), Arrays.asList(dataSet, dataSetDark)).open();
-              } catch (IOException e1) {
-                MessageDialog.openError(getShell(), "Error",
-                    "Failed to read data file. " + e1.getMessage());
-              }
-
-            }
+                "Unexpected exception processing data.\n" + e.getMessage());
           });
         }
+        return cancleEvaluation;
       });
 
-      boolean needsErrorDialog = false;
-      if (calculators.keySet().stream().anyMatch(key -> calculators.get(key) != null)) {
-        needsErrorDialog = true;
-      } else if (calculators.keySet().stream()
-          .anyMatch(cal -> cal.getCalculationErrors().size() > 0)) {
-        needsErrorDialog = true;
-      }
-      if (needsErrorDialog == true) {
-        Map<LabviewCalculator, IOException> calculatorsWithError = new HashMap<>();
-        calculators.keySet().stream()
-            .filter(key -> calculators.get(key) != null || key.getCalculationErrors().size() > 0)
-            .forEach(cal -> calculatorsWithError.put(cal, calculators.get(cal)));
-
-        CalculatorErrorDialog dialog = new CalculatorErrorDialog(getShell(), calculatorsWithError);
-        Display.getDefault().syncExec(() -> {
-          if (dialog.open() == Window.OK) {
-            calculatorsWithError.keySet().forEach(cal -> {
-              if (calculatorsWithError.get(cal) != null) {
-                return;
-              }
-              if (cal.getCalculationErrors().size() == 0) {
-                results.add(cal.getResult());
-              }
-            });
-          }
-        });
-
-      }
+      // boolean needsErrorDialog = false;
+      // if (calculators.keySet().stream().anyMatch(key -> calculators.get(key) != null)) {
+      // needsErrorDialog = true;
+      // } else if (calculators.keySet().stream()
+      // .anyMatch(cal -> cal.getCalculationErrors().size() > 0)) {
+      // needsErrorDialog = true;
+      // }
+      // if (needsErrorDialog == true) {
+      // Map<LabviewCalculator, IOException> calculatorsWithError = new HashMap<>();
+      // calculators.keySet().stream()
+      // .filter(key -> calculators.get(key) != null || key.getCalculationErrors().size() > 0)
+      // .forEach(cal -> calculatorsWithError.put(cal, calculators.get(cal)));
+      //
+      // CalculatorErrorDialog dialog = new CalculatorErrorDialog(getShell(), calculatorsWithError);
+      // Display.getDefault().syncExec(() -> {
+      // if (dialog.open() == Window.OK) {
+      // calculatorsWithError.keySet().forEach(cal -> {
+      // if (calculatorsWithError.get(cal) != null) {
+      // return;
+      // }
+      // if (cal.getCalculationErrors().size() == 0) {
+      // results.add(cal.getResult());
+      // }
+      // });
+      // }
+      // });
+      //
+      // }
 
 
 
@@ -335,13 +322,35 @@ public class PageTwo extends WizardPage {
           results.stream().sorted(DatamodelUtils.Comparetors.comapreCellResultsNatural())
               .collect(Collectors.toList());
       tempGroup.getCellResults().addAll(sortedResults);
-      Display.getDefault().asyncExec(() -> treeViewer.getControl().setEnabled(true));
+      calculationDone = !cancleEvaluation;
+      Display.getDefault().asyncExec(() -> {
+        if (cancleEvaluation == true) {
+
+          ((StackLayout) container.getLayout()).topControl = cancleLabel;
+
+          // treeViewer.getControl().setVisible(false);
+          // cancleLabel.setVisible(true);
+          // container.layout();
+        } else {
+          ((StackLayout) container.getLayout()).topControl = treeViewer.getTree();
+          // cancleLabel.setVisible(false);
+          // treeViewer.getControl().setVisible(true);
+          // treeViewer.getControl().setEnabled(true);
+          // container.layout();
+        }
+        container.layout();
+        getWizard().getContainer().updateButtons();
+      });
 
     });
 
     job.setPriority(Job.LONG);
     job.schedule();
 
+  }
+
+  public boolean isCalculationDone() {
+    return calculationDone;
   }
 
   public EList<CellResult> getCellResults() {

@@ -3,7 +3,8 @@ package at.sunplugged.celldatabaseV2.plotting;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
-import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.IntStream;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -63,7 +64,11 @@ public class SelectRangeFromChartDialog extends TitleAreaDialog {
     Composite composite = new Composite(parent, SWT.NONE);
     composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
     composite.setLayout(new GridLayout(1, false));
-    JFreeChart chart = PlotHelper.createJFreeChart(dataSet, Collections.EMPTY_MAP);
+
+    Map<String, String> options = new HashMap<>();
+    options.put(PlotHelper.DATA_POINTS, "true");
+
+    JFreeChart chart = PlotHelper.createJFreeChart(dataSet, options);
 
     chartComposite = PlotHelper.plotChartToComposite(composite, chart);
     chartComposite.setDomainZoomable(false);
