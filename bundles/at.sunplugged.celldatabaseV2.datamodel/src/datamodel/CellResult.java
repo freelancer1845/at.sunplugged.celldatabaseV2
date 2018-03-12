@@ -37,6 +37,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link datamodel.CellResult#getRsVocFitCoefficients <em>Rs Voc Fit Coefficients</em>}</li>
  *   <li>{@link datamodel.CellResult#getRpIscFitCoefficients <em>Rp Isc Fit Coefficients</em>}</li>
  *   <li>{@link datamodel.CellResult#getMppFitCoefficients <em>Mpp Fit Coefficients</em>}</li>
+ *   <li>{@link datamodel.CellResult#getDarkRpFitCoefficients <em>Dark Rp Fit Coefficients</em>}</li>
+ *   <li>{@link datamodel.CellResult#getDarkRsFitCoefficients <em>Dark Rs Fit Coefficients</em>}</li>
  * </ul>
  *
  * @see datamodel.DatamodelPackage#getCellResult()
@@ -497,6 +499,38 @@ public interface CellResult extends EObject {
    * @generated
    */
   EList<Double> getMppFitCoefficients();
+
+  /**
+   * Returns the value of the '<em><b>Dark Rp Fit Coefficients</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.Double}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Dark Rp Fit Coefficients</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Dark Rp Fit Coefficients</em>' attribute list.
+   * @see datamodel.DatamodelPackage#getCellResult_DarkRpFitCoefficients()
+   * @model
+   * @generated
+   */
+  EList<Double> getDarkRpFitCoefficients();
+
+  /**
+   * Returns the value of the '<em><b>Dark Rs Fit Coefficients</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.Double}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Dark Rs Fit Coefficients</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Dark Rs Fit Coefficients</em>' attribute list.
+   * @see datamodel.DatamodelPackage#getCellResult_DarkRsFitCoefficients()
+   * @model
+   * @generated
+   */
+  EList<Double> getDarkRsFitCoefficients();
 
   /**
    * <!-- begin-user-doc -->

@@ -34,6 +34,10 @@ public class LabviewCalculator {
 
   private static final int ISC_FIT_DEGREE = 1;
 
+  private static final int DARK_RP_FIT_DEGREE = 1;
+
+  private static final int DARK_RS_FIT_DEGREE = 1;
+
   private static final int MPP_FIT_DEGREE = 3;
 
   private LabviewDataFile dataFile;
@@ -81,6 +85,7 @@ public class LabviewCalculator {
     double[] vocAndRs = findVocAndRs();
     result.setOpenCircuitVoltage(vocAndRs[0]);
     result.setSeriesResistance(vocAndRs[1]);
+    result.getRsVocFitCoefficients().clear();
     IntStream.range(2, vocAndRs.length)
         .forEach(idx -> result.getRsVocFitCoefficients().add(vocAndRs[idx]));
 
@@ -88,15 +93,29 @@ public class LabviewCalculator {
     double[] iscAndRp = findIscAndRp();
     result.setShortCircuitCurrent(iscAndRp[0]);
     result.setParallelResistance(iscAndRp[1]);
+    result.getRpIscFitCoefficients().clear();
     IntStream.range(2, iscAndRp.length)
         .forEach(idx -> result.getRpIscFitCoefficients().add(iscAndRp[idx]));
 
     double[] maxPow = findMaxPow();
     result.setMaximumPowerVoltage(maxPow[0]);
     result.setMaximumPowerCurrent(maxPow[1]);
+    result.getMppFitCoefficients().clear();
     IntStream.range(2, maxPow.length)
         .forEach(idx -> result.getMppFitCoefficients().add(maxPow[idx]));
 
+
+    double[] darkRp = findDarkRp();
+    result.setDarkParallelResistance(darkRp[0]);
+    result.getDarkRpFitCoefficients().clear();
+    IntStream.range(1, darkRp.length)
+        .forEach(idx -> result.getDarkRpFitCoefficients().add(darkRp[idx]));
+
+    double[] darkRs = findDarkRs();
+    result.setDarkSeriesResistance(darkRs[0]);
+    result.getDarkRsFitCoefficients().clear();
+    IntStream.range(1, darkRs.length)
+        .forEach(idx -> result.getDarkRsFitCoefficients().add(darkRs[idx]));
 
     result.setFillFactor(result.getMaximumPower() / result.getOpenCircuitVoltage()
         / result.getShortCircuitCurrent() * 100);
@@ -106,6 +125,95 @@ public class LabviewCalculator {
 
   }
 
+
+  private double[] findDarkRs() throws LabviewCalculationException {
+    List<UIDataPoint> data = result.getDarkMeasuremenetDataSet().getData();
+    int startRange;
+    int endRange;
+
+    double maxCurrent = data.stream().mapToDouble(point -> point.getCurrent()).max().getAsDouble();
+
+    if (askForUserInput == true) {
+      double[] range = showRangeDialog(data, "Dark Rs Fit Range");
+
+      startRange = IntStream.range(0, data.size())
+          .filter(idx -> data.get(idx).getVoltage() > range[0]).findFirst().orElse(-1);
+      endRange = IntStream.range(0, data.size())
+          .filter(idx -> data.get(idx).getVoltage() > range[1]).findFirst().orElse(-1) - 1;
+    } else {
+      startRange = IntStream.range(0, data.size())
+          .filter(idx -> data.get(idx).getCurrent() > maxCurrent * 0.9).findFirst().orElse(0) - 1;
+
+      endRange = data.size();
+
+      if (startRange == -1 || endRange == -1 || startRange >= endRange) {
+        throwCalculationException(
+            "Failed to find good start and end ranges for Dark Rs calculation.");
+      }
+    }
+
+
+    log.debug(String.format("Using %d - %d as range for finding Dark Rs.", startRange, endRange));
+
+    final WeightedObservedPoints points = new WeightedObservedPoints();
+
+    IntStream.range(startRange, endRange)
+        .forEach(idx -> points.add(data.get(idx).getVoltage(), data.get(idx).getCurrent()));
+
+    PolynomialCurveFitter fitter = PolynomialCurveFitter.create(DARK_RS_FIT_DEGREE);
+    double[] coeff = fitter.fit(points.toList());
+    PolynomialFunction poly = new PolynomialFunction(coeff);
+    double rs = 1.0 / poly.derivative().value(0);
+
+    double[] result = new double[1 + coeff.length];
+    result[0] = rs;
+    IntStream.range(0, coeff.length).forEach(idx -> result[idx + 1] = coeff[idx]);
+
+    return result;
+  }
+
+  private double[] findDarkRp() throws LabviewCalculationException {
+    List<UIDataPoint> data = result.getDarkMeasuremenetDataSet().getData();
+    int startRange;
+    int endRange;
+    if (askForUserInput == true) {
+      double[] range = showRangeDialog(data, "Dark Rp Fit Range");
+
+      startRange = IntStream.range(0, data.size())
+          .filter(idx -> data.get(idx).getVoltage() > range[0]).findFirst().orElse(-1);
+      endRange = IntStream.range(0, data.size())
+          .filter(idx -> data.get(idx).getVoltage() > range[1]).findFirst().orElse(-1) - 1;
+    } else {
+      startRange = 0;
+
+      endRange = IntStream.range(0, data.size()).filter(idx -> data.get(idx).getVoltage() > 0)
+          .findFirst().orElse(-1);
+
+      if (startRange == -1 || endRange == -1 || startRange >= endRange) {
+        throwCalculationException(
+            "Failed to find good start and end ranges for Dark Rp calculation.");
+      }
+    }
+
+
+    log.debug(String.format("Using %d - %d as range for finding Dark Rp.", startRange, endRange));
+
+    final WeightedObservedPoints points = new WeightedObservedPoints();
+
+    IntStream.range(startRange, endRange)
+        .forEach(idx -> points.add(data.get(idx).getVoltage(), data.get(idx).getCurrent()));
+
+    PolynomialCurveFitter fitter = PolynomialCurveFitter.create(DARK_RP_FIT_DEGREE);
+    double[] coeff = fitter.fit(points.toList());
+    PolynomialFunction poly = new PolynomialFunction(coeff);
+    double rp = 1.0 / poly.derivative().value(0);
+
+    double[] result = new double[1 + coeff.length];
+    result[0] = rp;
+    IntStream.range(0, coeff.length).forEach(idx -> result[idx + 1] = coeff[idx]);
+
+    return result;
+  }
 
 
   private double[] findMaxPow() throws LabviewCalculationException {
@@ -172,7 +280,7 @@ public class LabviewCalculator {
     LaguerreSolver solver = new LaguerreSolver();
     double mppVoltage = solver.solve(1000, poly.polynomialDerivative(), powerData[startRange][0],
         powerData[endRange][0]);
-    double mppCurrent = poly.value(mppVoltage);
+    double mppCurrent = poly.value(mppVoltage) / mppVoltage;
 
     double[] result = new double[2 + coeff.length];
     result[0] = mppVoltage;

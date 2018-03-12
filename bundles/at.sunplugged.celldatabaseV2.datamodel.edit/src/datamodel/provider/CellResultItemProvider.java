@@ -70,6 +70,8 @@ public class CellResultItemProvider extends ItemProviderAdapter
       addRsVocFitCoefficientsPropertyDescriptor(object);
       addRpIscFitCoefficientsPropertyDescriptor(object);
       addMppFitCoefficientsPropertyDescriptor(object);
+      addDarkRpFitCoefficientsPropertyDescriptor(object);
+      addDarkRsFitCoefficientsPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -449,6 +451,50 @@ public class CellResultItemProvider extends ItemProviderAdapter
   }
 
   /**
+   * This adds a property descriptor for the Dark Rp Fit Coefficients feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addDarkRpFitCoefficientsPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_darkRpFitCoefficients_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_darkRpFitCoefficients_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__DARK_RP_FIT_COEFFICIENTS,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Dark Rs Fit Coefficients feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addDarkRsFitCoefficientsPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellResult_darkRsFitCoefficients_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellResult_darkRsFitCoefficients_feature", "_UI_CellResult_type"),
+         DatamodelPackage.Literals.CELL_RESULT__DARK_RS_FIT_COEFFICIENTS,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
    * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
    * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -531,6 +577,8 @@ public class CellResultItemProvider extends ItemProviderAdapter
       case DatamodelPackage.CELL_RESULT__RS_VOC_FIT_COEFFICIENTS:
       case DatamodelPackage.CELL_RESULT__RP_ISC_FIT_COEFFICIENTS:
       case DatamodelPackage.CELL_RESULT__MPP_FIT_COEFFICIENTS:
+      case DatamodelPackage.CELL_RESULT__DARK_RP_FIT_COEFFICIENTS:
+      case DatamodelPackage.CELL_RESULT__DARK_RS_FIT_COEFFICIENTS:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case DatamodelPackage.CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET:

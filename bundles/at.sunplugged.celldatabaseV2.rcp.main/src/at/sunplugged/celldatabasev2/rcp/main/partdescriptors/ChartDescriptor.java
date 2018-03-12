@@ -62,7 +62,9 @@ public class ChartDescriptor {
     controlGroup.setText("Options");
 
     controlGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-    controlGroup.setLayout(new GridLayout(2, false));
+    controlGroup.setLayout(new GridLayout(4, false));
+
+
 
     Label lblPowerCurve = new Label(controlGroup, SWT.NONE);
     lblPowerCurve.setText("Draw PowerCurve");
@@ -190,6 +192,32 @@ public class ChartDescriptor {
       }
     });
 
+    addOption(controlGroup, "Draw Dark Rp Fit", PlotHelper.DARK_RP_FIT);
+    addOption(controlGroup, "Draw Dark Rs Fit", PlotHelper.DARK_RS_FIT);
+
+  }
+
+
+
+  private void addOption(Group controlGroup, String name, String option) {
+    Label lblPowerCurve = new Label(controlGroup, SWT.NONE);
+    lblPowerCurve.setText(name);
+
+    lblPowerCurve.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
+
+    Button cbPowerCurve = new Button(controlGroup, SWT.CHECK);
+    cbPowerCurve.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+    cbPowerCurve.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+        if (cbPowerCurve.getSelection() == false) {
+          options.remove(option);
+        } else {
+          options.put(option, "true");
+        }
+        drawPlot();
+      }
+    });
   }
 
 

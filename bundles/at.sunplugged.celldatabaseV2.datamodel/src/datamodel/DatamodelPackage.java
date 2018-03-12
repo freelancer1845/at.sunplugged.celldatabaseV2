@@ -276,13 +276,31 @@ public interface DatamodelPackage extends EPackage {
   int CELL_RESULT__MPP_FIT_COEFFICIENTS = 18;
 
   /**
+   * The feature id for the '<em><b>Dark Rp Fit Coefficients</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CELL_RESULT__DARK_RP_FIT_COEFFICIENTS = 19;
+
+  /**
+   * The feature id for the '<em><b>Dark Rs Fit Coefficients</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CELL_RESULT__DARK_RS_FIT_COEFFICIENTS = 20;
+
+  /**
    * The number of structural features of the '<em>Cell Result</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CELL_RESULT_FEATURE_COUNT = 19;
+  int CELL_RESULT_FEATURE_COUNT = 21;
 
   /**
    * The operation id for the '<em>Validate Name</em>' operation.
@@ -736,6 +754,28 @@ public interface DatamodelPackage extends EPackage {
   EAttribute getCellResult_MppFitCoefficients();
 
   /**
+   * Returns the meta object for the attribute list '{@link datamodel.CellResult#getDarkRpFitCoefficients <em>Dark Rp Fit Coefficients</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Dark Rp Fit Coefficients</em>'.
+   * @see datamodel.CellResult#getDarkRpFitCoefficients()
+   * @see #getCellResult()
+   * @generated
+   */
+  EAttribute getCellResult_DarkRpFitCoefficients();
+
+  /**
+   * Returns the meta object for the attribute list '{@link datamodel.CellResult#getDarkRsFitCoefficients <em>Dark Rs Fit Coefficients</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Dark Rs Fit Coefficients</em>'.
+   * @see datamodel.CellResult#getDarkRsFitCoefficients()
+   * @see #getCellResult()
+   * @generated
+   */
+  EAttribute getCellResult_DarkRsFitCoefficients();
+
+  /**
    * Returns the meta object for the '{@link datamodel.CellResult#validateName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Validate Name</em>}' operation.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1108,6 +1148,22 @@ public interface DatamodelPackage extends EPackage {
      * @generated
      */
     EAttribute CELL_RESULT__MPP_FIT_COEFFICIENTS = eINSTANCE.getCellResult_MppFitCoefficients();
+
+    /**
+     * The meta object literal for the '<em><b>Dark Rp Fit Coefficients</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CELL_RESULT__DARK_RP_FIT_COEFFICIENTS = eINSTANCE.getCellResult_DarkRpFitCoefficients();
+
+    /**
+     * The meta object literal for the '<em><b>Dark Rs Fit Coefficients</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CELL_RESULT__DARK_RS_FIT_COEFFICIENTS = eINSTANCE.getCellResult_DarkRsFitCoefficients();
 
     /**
      * The meta object literal for the '<em><b>Validate Name</b></em>' operation.

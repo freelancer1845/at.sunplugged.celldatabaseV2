@@ -3,6 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Main
 Bundle-SymbolicName: at.sunplugged.celldatabaseV2.rcp.main;singleton:=true
 Bundle-Version: 1.0.11.qualifier
+Bundle-ClassPath: lib/jfxswt.jar,
+  .,
+  lib/jfxrt.jar
 Bundle-Activator: at.sunplugged.celldatabasev2.rcp.main.Activator
 Require-Bundle: javax.inject;bundle-version="0.0.0",
   org.eclipse.core.runtime;bundle-version="0.0.0",
@@ -29,10 +32,10 @@ Require-Bundle: javax.inject;bundle-version="0.0.0",
   org.eclipse.equinox.p2.engine,
   org.eclipse.e4.core.services;bundle-version="2.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Service-Component: OSGI-INF/at.sunplugged.celldatabasev2.rcp.main.ContextFunctions.EditingDomainContextFunction.xml,OSGI-INF/DatabaseContextFunction.xml,OSGI-INF/at.sunplugged.celldatabasev2.rcp.main.ContextFunctions.CommandStackContextFunction.xml
 Import-Package: at.sunplugged.celldatabaseV2.common,
  at.sunplugged.celldatabaseV2.export.api,
  at.sunplugged.celldatabaseV2.export.ui.wizards,
+ at.sunplugged.celldatabaseV2.labviewimport,
  at.sunplugged.celldatabaseV2.labviewimport.ui.wizard,
  at.sunplugged.celldatabaseV2.persistence.api,
  at.sunplugged.celldatabaseV2.plotting,
@@ -54,7 +57,5 @@ Import-Package: at.sunplugged.celldatabaseV2.common,
  org.osgi.service.component.annotations;version="1.3.0",
  org.slf4j;version="1.7.10",
  org.slf4j.spi;version="1.7.10"
+Service-Component: OSGI-INF/at.sunplugged.celldatabasev2.rcp.main.ContextFunctions.EditingDomainContextFunction.xml,OSGI-INF/DatabaseContextFunction.xml,OSGI-INF/at.sunplugged.celldatabasev2.rcp.main.ContextFunctions.CommandStackContextFunction.xml
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: lib/jfxswt.jar,
- .,
- lib/jfxrt.jar

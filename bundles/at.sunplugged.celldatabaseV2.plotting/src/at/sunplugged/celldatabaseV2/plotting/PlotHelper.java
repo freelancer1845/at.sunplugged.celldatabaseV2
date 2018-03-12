@@ -55,6 +55,10 @@ public class PlotHelper {
 
   public static final String ISC_RP_FIT = "iscRpFit";
 
+  public static final String DARK_RP_FIT = "darkRpFit";
+
+  public static final String DARK_RS_FIT = "darkRsFit";
+
   public static final String DATA_POINTS = "drawDataPoints";
 
 
