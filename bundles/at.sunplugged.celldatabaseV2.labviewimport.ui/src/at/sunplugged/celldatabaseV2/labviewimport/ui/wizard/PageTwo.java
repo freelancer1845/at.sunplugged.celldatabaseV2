@@ -3,7 +3,9 @@ package at.sunplugged.celldatabaseV2.labviewimport.ui.wizard;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.eclipse.core.runtime.ICoreRunnable;
 import org.eclipse.core.runtime.jobs.Job;
@@ -24,6 +26,7 @@ import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -38,6 +41,7 @@ import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.labviewimport.LabviewCalculationException;
 import at.sunplugged.celldatabaseV2.labviewimport.LabviewCalculator;
 import at.sunplugged.celldatabaseV2.labviewimport.LabviewDataFile;
+import at.sunplugged.celldatabaseV2.labviewimport.ui.dialogs.CalculatorErrorDialog;
 import at.sunplugged.celldatabaseV2.plotting.PlotDialog;
 import datamodel.CellGroup;
 import datamodel.CellMeasurementDataSet;
@@ -208,13 +212,16 @@ public class PageTwo extends WizardPage {
         }
       }
 
-      // try {
+      Map<LabviewCalculator, IOException> calculators = new HashMap<>();
       filteredFiles.stream().forEach(file -> {
+        LabviewCalculator calculator = new LabviewCalculator();
         try {
-          results.add(LabviewCalculator.calculateSingle(file));
+          calculators.put(calculator, null);
+          results.add(calculator.evaluate(file, false));
         } catch (IOException e) {
+          calculators.put(calculator, e);
           LOG.error("Failed to calculate labview files.", e);
-          Display.getDefault().asyncExec(() -> {
+          Display.getDefault().syncExec(() -> {
             MessageDialog.openError(getShell(), "Error",
                 "Failed to calculate labview data.\n" + e.getMessage());
             if (MessageDialog.openQuestion(getShell(), "Plot Data?",
@@ -241,7 +248,7 @@ public class PageTwo extends WizardPage {
           return;
         } catch (LabviewCalculationException e) {
           LOG.error("Failed to calculate labview files.", e);
-          Display.getDefault().asyncExec(() -> {
+          Display.getDefault().syncExec(() -> {
             MessageDialog.openError(getShell(), "Error",
                 "Failed to calculate labview data.\n" + e.getMessage());
             if (MessageDialog.openQuestion(getShell(), "Plot Data?",
@@ -267,7 +274,7 @@ public class PageTwo extends WizardPage {
           });
         } catch (Exception e) {
           LOG.error("Unexpected exception while processing labview files.", e);
-          Display.getDefault().asyncExec(() -> {
+          Display.getDefault().syncExec(() -> {
             MessageDialog.openError(getShell(), "Error",
                 "Failed to calculate labview data.\n" + e.getMessage());
             if (MessageDialog.openQuestion(getShell(), "Plot Data?",
@@ -289,22 +296,40 @@ public class PageTwo extends WizardPage {
               }
 
             }
-            // getWizard().getContainer().showPage(getPreviousPage());
           });
         }
       });
 
-      // results = LabviewImportHelper.readAndCalculateFiles(filteredFiles);
-      // } catch (IOException e) {
-      // LOG.error("Failed to calculate labview files.", e);
-      // Display.getDefault().asyncExec(() -> {
-      // MessageDialog.openError(getShell(), "Error",
-      // "Failed to calculate labview data.\n" + e.getMessage());
-      // getWizard().getContainer().showPage(getPreviousPage());
-      // });
-      //
-      // return;
-      // }
+      boolean needsErrorDialog = false;
+      if (calculators.keySet().stream().anyMatch(key -> calculators.get(key) != null)) {
+        needsErrorDialog = true;
+      } else if (calculators.keySet().stream()
+          .anyMatch(cal -> cal.getCalculationErrors().size() > 0)) {
+        needsErrorDialog = true;
+      }
+      if (needsErrorDialog == true) {
+        Map<LabviewCalculator, IOException> calculatorsWithError = new HashMap<>();
+        calculators.keySet().stream()
+            .filter(key -> calculators.get(key) != null || key.getCalculationErrors().size() > 0)
+            .forEach(cal -> calculatorsWithError.put(cal, calculators.get(cal)));
+
+        CalculatorErrorDialog dialog = new CalculatorErrorDialog(getShell(), calculatorsWithError);
+        Display.getDefault().syncExec(() -> {
+          if (dialog.open() == Window.OK) {
+            calculatorsWithError.keySet().forEach(cal -> {
+              if (calculatorsWithError.get(cal) != null) {
+                return;
+              }
+              if (cal.getCalculationErrors().size() == 0) {
+                results.add(cal.getResult());
+              }
+            });
+          }
+        });
+
+      }
+
+
 
       List<CellResult> sortedResults =
           results.stream().sorted(DatamodelUtils.Comparetors.comapreCellResultsNatural())

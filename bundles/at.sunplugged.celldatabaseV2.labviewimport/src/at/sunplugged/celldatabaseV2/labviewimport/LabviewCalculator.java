@@ -5,7 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.DoubleSummaryStatistics;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
@@ -35,21 +36,39 @@ public class LabviewCalculator {
 
   private static final int MPP_FIT_DEGREE = 3;
 
+  private LabviewDataFile dataFile;
 
+  private CellResult result;
 
-  public static CellResult calculateSingle(LabviewDataFile dataFile)
+  private boolean askForUserInput = false;
+
+  private List<LabviewCalculationException> calculationErrors = new ArrayList<>();
+
+  public CellResult evaluate(LabviewDataFile dataFile, boolean askForUserInput)
       throws IOException, LabviewCalculationException {
+    this.dataFile = dataFile;
+    this.askForUserInput = askForUserInput;
 
-    CellResult result = createInitial(dataFile);
+    result = createInitial();
 
-    evaluateData(result);
+    evaluateData();
+
+    return result;
+  }
+
+  public CellResult reEvaluate(CellResult result, boolean askForUserInput)
+      throws LabviewCalculationException {
+    this.askForUserInput = askForUserInput;
+    this.result = result;
+
+    evaluateData();
 
     return result;
   }
 
 
 
-  private static void evaluateData(CellResult result) throws LabviewCalculationException {
+  private void evaluateData() throws LabviewCalculationException {
     result.setDarkParallelResistance(-1);
     result.setDarkSeriesResistance(-1);
     result.setEfficiency(-1);
@@ -59,20 +78,20 @@ public class LabviewCalculator {
     result.setParallelResistance(-1);
     result.setShortCircuitCurrent(-1);
 
-    double[] vocAndRs = findVocAndRs(result.getLightMeasurementDataSet().getData());
+    double[] vocAndRs = findVocAndRs();
     result.setOpenCircuitVoltage(vocAndRs[0]);
     result.setSeriesResistance(vocAndRs[1]);
     IntStream.range(2, vocAndRs.length)
         .forEach(idx -> result.getRsVocFitCoefficients().add(vocAndRs[idx]));
 
 
-    double[] iscAndRp = findIscAndRp(result.getLightMeasurementDataSet().getData());
+    double[] iscAndRp = findIscAndRp();
     result.setShortCircuitCurrent(iscAndRp[0]);
     result.setParallelResistance(iscAndRp[1]);
     IntStream.range(2, iscAndRp.length)
         .forEach(idx -> result.getRpIscFitCoefficients().add(iscAndRp[idx]));
 
-    double[] maxPow = findMaxPow(result.getLightMeasurementDataSet().getData());
+    double[] maxPow = findMaxPow();
     result.setMaximumPowerVoltage(maxPow[0]);
     result.setMaximumPowerCurrent(maxPow[1]);
     IntStream.range(2, maxPow.length)
@@ -89,7 +108,9 @@ public class LabviewCalculator {
 
 
 
-  private static double[] findMaxPow(List<UIDataPoint> data) throws LabviewCalculationException {
+  private double[] findMaxPow() throws LabviewCalculationException {
+    List<UIDataPoint> data = result.getLightMeasurementDataSet().getData();
+
     double[][] powerData = new double[data.size()][2];
 
     IntStream.range(0, data.size()).forEach(idx -> {
@@ -98,22 +119,44 @@ public class LabviewCalculator {
     });
 
 
-    int startRange = IntStream.range(0, powerData.length).filter(idx -> powerData[idx][1] < 0)
-        .findFirst().orElse(-1);
-    if (startRange == -1) {
-      throw new LabviewCalculationException("Failed to set StartRange while finding Mpp");
-    }
-    int endRange = IntStream.range(0, powerData.length).filter(idx -> {
-      if (idx < startRange) {
-        return false;
-      } else {
-        return powerData[idx][1] > 0;
+    int startRange;
+    int endRange;
+
+    if (askForUserInput == true) {
+      List<UIDataPoint> powerDataList = new ArrayList<>();
+      Arrays.stream(powerData).forEach(p -> {
+        UIDataPoint dataPoint = DatamodelFactory.eINSTANCE.createUIDataPoint();
+        dataPoint.setVoltage(p[0]);
+        dataPoint.setCurrent(p[1]);
+        powerDataList.add(dataPoint);
+      });
+
+      double[] range = showRangeDialog(powerDataList, "Mpp Fit Range");
+
+      startRange = IntStream.range(0, powerDataList.size())
+          .filter(idx -> powerDataList.get(idx).getVoltage() > range[0]).findFirst().orElse(-1);
+      endRange = IntStream.range(0, powerDataList.size())
+          .filter(idx -> powerDataList.get(idx).getVoltage() > range[1]).findFirst().orElse(-1) - 1;
+    } else {
+
+      startRange = IntStream.range(0, powerData.length).filter(idx -> powerData[idx][1] < 0)
+          .findFirst().orElse(-1);
+      if (startRange == -1) {
+        throwCalculationException("Failed to set StartRange while finding Mpp");
+      }
+      endRange = IntStream.range(0, powerData.length).filter(idx -> {
+        if (idx < startRange) {
+          return false;
+        } else {
+          return powerData[idx][1] > 0;
+        }
+
+      }).findFirst().orElse(-1);
+
+      if (endRange == -1) {
+        throwCalculationException("Failed to set EndRange while finding Mpp");
       }
 
-    }).findFirst().orElse(-1);
-
-    if (endRange == -1) {
-      throw new LabviewCalculationException("Failed to set EndRange while finding Mpp");
     }
 
     log.debug(String.format("Using %d - %d as range for finding Mpp. ( %f - %f V)", startRange,
@@ -140,50 +183,51 @@ public class LabviewCalculator {
   }
 
 
-  private static double[] findVocAndRs(List<UIDataPoint> dataPoints)
-      throws LabviewCalculationException {
+  private double[] findVocAndRs() throws LabviewCalculationException {
 
-    DoubleSummaryStatistics stats =
-        dataPoints.stream().mapToDouble(p -> p.getCurrent()).summaryStatistics();
+    List<UIDataPoint> dataPoints = result.getLightMeasurementDataSet().getData();
+    int startRange;
+    int endRange;
 
-    int idxOfFirstPositiveCurrent = IntStream.range(0, dataPoints.size())
-        .filter(idx -> dataPoints.get(idx).getCurrent() > 0).findFirst().orElse(-1);
-
-    double estVoc = dataPoints.get(idxOfFirstPositiveCurrent).getVoltage();
-
-    if (idxOfFirstPositiveCurrent == -1) {
-      throw new LabviewCalculationException(
-          "Faild to find sign change in current while looking for Voc!");
-    }
-
-    int startRange = IntStream.range(0, dataPoints.size())
-        .filter(idx -> dataPoints.get(idx).getVoltage() > estVoc * 0.7).findFirst().orElse(-1);
-    while (dataPoints.get(startRange).getVoltage() > 0) {
-      startRange--;
-      if (startRange < 1) {
-        break;
-      }
-    }
-
-    int endRange = IntStream.range(0, dataPoints.size())
-        .filter(idx -> dataPoints.get(idx).getVoltage() > estVoc * 1.2).findFirst().orElse(-1);
-
-    if (endRange == -1) {
-      endRange = dataPoints.size() - 1;
-    }
-
-    if (startRange == -1 || endRange == -1 || startRange >= endRange) {
-      double[] range = showRangeDialog(dataPoints, "Voc Range");
+    if (askForUserInput == true) {
+      double[] range = showRangeDialog(dataPoints, "Voc Fit Range");
 
       startRange = IntStream.range(0, dataPoints.size())
           .filter(idx -> dataPoints.get(idx).getVoltage() > range[0]).findFirst().orElse(-1);
       endRange = IntStream.range(0, dataPoints.size())
           .filter(idx -> dataPoints.get(idx).getVoltage() > range[1]).findFirst().orElse(-1) - 1;
+    } else {
+      int idxOfFirstPositiveCurrent = IntStream.range(0, dataPoints.size())
+          .filter(idx -> dataPoints.get(idx).getCurrent() > 0).findFirst().orElse(-1);
+
+      double estVoc = dataPoints.get(idxOfFirstPositiveCurrent).getVoltage();
+
+      if (idxOfFirstPositiveCurrent == -1) {
+        throwCalculationException("Faild to find sign change in current while looking for Voc!");
+      }
+
+      startRange = IntStream.range(0, dataPoints.size())
+          .filter(idx -> dataPoints.get(idx).getVoltage() > estVoc * 0.7).findFirst().orElse(-1);
+      while (dataPoints.get(startRange).getVoltage() > 0) {
+        startRange--;
+        if (startRange < 1) {
+          break;
+        }
+      }
+
+      endRange = IntStream.range(0, dataPoints.size())
+          .filter(idx -> dataPoints.get(idx).getVoltage() > estVoc * 1.2).findFirst().orElse(-1);
+
+      if (endRange == -1) {
+        endRange = dataPoints.size() - 1;
+      }
+
       if (startRange == -1 || endRange == -1 || startRange >= endRange) {
-        throw new LabviewCalculationException(
-            "Failed to find good start and end ranges for Voc calculation.");
+        throwCalculationException("Failed to find good start and end ranges for Voc calculation.");
       }
     }
+
+
 
     log.debug(String.format("Using Range %d - %d for finding Voc.", startRange, endRange));
 
@@ -209,52 +253,50 @@ public class LabviewCalculator {
   }
 
 
-  private static double[] findIscAndRp(List<UIDataPoint> dataPoints)
-      throws LabviewCalculationException {
+  private double[] findIscAndRp() throws LabviewCalculationException {
 
-    int idxOfFirstPositiveVoltage = IntStream.range(0, dataPoints.size())
-        .filter(idx -> dataPoints.get(idx).getVoltage() > 0).findFirst().orElse(-1);
-    int idxOfFirstPositiveCurrent = IntStream.range(0, dataPoints.size())
-        .filter(idx -> dataPoints.get(idx).getCurrent() > 0).findFirst().orElse(-1);
+    List<UIDataPoint> dataPoints = result.getLightMeasurementDataSet().getData();
 
-    if (idxOfFirstPositiveVoltage == -1) {
-      throw new LabviewCalculationException("Failed to find first Positive Voltage.");
-    }
+    int startRange;
+    int endRange;
 
-
-
-    double estVoc = dataPoints.get(idxOfFirstPositiveCurrent).getVoltage();
-
-    int startRange = IntStream.range(0, dataPoints.size())
-        .filter(idx -> dataPoints.get(idx).getVoltage() > -estVoc).findFirst().orElse(-1);
-
-
-
-    int tenthOfVocIdx = IntStream.range(0, idxOfFirstPositiveCurrent)
-        .filter(idx -> dataPoints.get(idx)
-            .getVoltage() > dataPoints.get(idxOfFirstPositiveCurrent).getVoltage() * 0.1)
-        .findFirst().orElse(-1);
-    int endRange = tenthOfVocIdx;
-    // if (endRange == -1) {
-    // throw new LabviewCalculationException("Failed to identifiy EndRange while looking for Isc");
-    // }
-    //
-    // if (startRange >= endRange) {
-    // throw new LabviewCalculationException("StartRange >= EndRange while looking for Isc");
-    // }
-
-    if (startRange == -1 || endRange == -1 || startRange >= endRange) {
-      double[] range = showRangeDialog(dataPoints, "Isc Range");
+    if (askForUserInput == true) {
+      double[] range = showRangeDialog(dataPoints, "Isc Fit Range");
 
       startRange = IntStream.range(0, dataPoints.size())
           .filter(idx -> dataPoints.get(idx).getVoltage() >= range[0]).findFirst().orElse(-1);
       endRange = IntStream.range(0, dataPoints.size())
           .filter(idx -> dataPoints.get(idx).getVoltage() > range[1]).findFirst().orElse(-1);
+    } else {
+      int idxOfFirstPositiveVoltage = IntStream.range(0, dataPoints.size())
+          .filter(idx -> dataPoints.get(idx).getVoltage() > 0).findFirst().orElse(-1);
+      int idxOfFirstPositiveCurrent = IntStream.range(0, dataPoints.size())
+          .filter(idx -> dataPoints.get(idx).getCurrent() > 0).findFirst().orElse(-1);
+
+      if (idxOfFirstPositiveVoltage == -1) {
+        throwCalculationException("Failed to find first Positive Voltage.");
+      }
+
+
+
+      double estVoc = dataPoints.get(idxOfFirstPositiveCurrent).getVoltage();
+
+      startRange = IntStream.range(0, dataPoints.size())
+          .filter(idx -> dataPoints.get(idx).getVoltage() > -estVoc).findFirst().orElse(-1);
+
+
+
+      int tenthOfVocIdx = IntStream.range(0, idxOfFirstPositiveCurrent)
+          .filter(idx -> dataPoints.get(idx)
+              .getVoltage() > dataPoints.get(idxOfFirstPositiveCurrent).getVoltage() * 0.1)
+          .findFirst().orElse(-1);
+      endRange = tenthOfVocIdx;
       if (startRange == -1 || endRange == -1 || startRange >= endRange) {
-        throw new LabviewCalculationException(
-            "Failed to find good start and end ranges for Isc calculation.");
+        throwCalculationException("Failed to find good start and end ranges for Isc calculation.");
       }
     }
+
+
 
     log.debug(String.format("Using Range %d - %d for finding Isc.", startRange, endRange));
 
@@ -279,7 +321,7 @@ public class LabviewCalculator {
 
 
 
-  private static CellResult createInitial(LabviewDataFile dataFile) throws IOException {
+  private CellResult createInitial() throws IOException {
 
     CellResult cellResult = DatamodelFactory.eINSTANCE.createCellResult();
     CellMeasurementDataSet lightSet = DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
@@ -341,19 +383,40 @@ public class LabviewCalculator {
     }
 
     data.sort((p1, p2) -> Double.compare(p1.getVoltage(), p2.getVoltage()));
+    IntStream.range(1, data.size()).forEach(idx -> {
+      if (data.get(idx - 1).getVoltage() == data.get(idx).getVoltage()) {
+        data.get(idx).setVoltage(data.get(idx).getVoltage() + 1e-6);
+      }
+
+    });
 
     return data;
   }
 
-  private static double[] showRangeDialog(List<UIDataPoint> data, String range) {
+  private double[] showRangeDialog(List<UIDataPoint> data, String range) {
     CellMeasurementDataSet dataSet = DatamodelFactory.eINSTANCE.createCellMeasurementDataSet();
-    dataSet.setName("Data");
+    dataSet.setName(result.getName());
     dataSet.getData().addAll(EcoreUtil.copyAll(data));
     return PlotHelper.openSelectRangeChart(dataSet, range);
   }
 
-  private LabviewCalculator() {
-
+  private void throwCalculationException(String message) throws LabviewCalculationException {
+    LabviewCalculationException e = new LabviewCalculationException(message);
+    this.calculationErrors.add(e);
+    throw e;
   }
+
+  public List<LabviewCalculationException> getCalculationErrors() {
+    return Collections.unmodifiableList(calculationErrors);
+  }
+
+  public CellResult getResult() {
+    return result;
+  }
+
+  public LabviewDataFile getDataFile() {
+    return dataFile;
+  }
+
 
 }
