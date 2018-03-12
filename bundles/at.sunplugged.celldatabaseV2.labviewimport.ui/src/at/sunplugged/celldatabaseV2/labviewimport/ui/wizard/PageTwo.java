@@ -287,35 +287,6 @@ public class PageTwo extends WizardPage {
         return cancleEvaluation;
       });
 
-      // boolean needsErrorDialog = false;
-      // if (calculators.keySet().stream().anyMatch(key -> calculators.get(key) != null)) {
-      // needsErrorDialog = true;
-      // } else if (calculators.keySet().stream()
-      // .anyMatch(cal -> cal.getCalculationErrors().size() > 0)) {
-      // needsErrorDialog = true;
-      // }
-      // if (needsErrorDialog == true) {
-      // Map<LabviewCalculator, IOException> calculatorsWithError = new HashMap<>();
-      // calculators.keySet().stream()
-      // .filter(key -> calculators.get(key) != null || key.getCalculationErrors().size() > 0)
-      // .forEach(cal -> calculatorsWithError.put(cal, calculators.get(cal)));
-      //
-      // CalculatorErrorDialog dialog = new CalculatorErrorDialog(getShell(), calculatorsWithError);
-      // Display.getDefault().syncExec(() -> {
-      // if (dialog.open() == Window.OK) {
-      // calculatorsWithError.keySet().forEach(cal -> {
-      // if (calculatorsWithError.get(cal) != null) {
-      // return;
-      // }
-      // if (cal.getCalculationErrors().size() == 0) {
-      // results.add(cal.getResult());
-      // }
-      // });
-      // }
-      // });
-      //
-      // }
-
 
 
       List<CellResult> sortedResults =
@@ -325,18 +296,9 @@ public class PageTwo extends WizardPage {
       calculationDone = !cancleEvaluation;
       Display.getDefault().asyncExec(() -> {
         if (cancleEvaluation == true) {
-
           ((StackLayout) container.getLayout()).topControl = cancleLabel;
-
-          // treeViewer.getControl().setVisible(false);
-          // cancleLabel.setVisible(true);
-          // container.layout();
         } else {
           ((StackLayout) container.getLayout()).topControl = treeViewer.getTree();
-          // cancleLabel.setVisible(false);
-          // treeViewer.getControl().setVisible(true);
-          // treeViewer.getControl().setEnabled(true);
-          // container.layout();
         }
         container.layout();
         getWizard().getContainer().updateButtons();
