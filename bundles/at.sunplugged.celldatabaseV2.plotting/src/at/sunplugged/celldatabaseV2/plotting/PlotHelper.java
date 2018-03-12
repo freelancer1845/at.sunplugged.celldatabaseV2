@@ -78,11 +78,10 @@ public class PlotHelper {
   }
 
   public static ChartComposite plotChartToComposite(Composite composite, JFreeChart chart) {
-    ChartComposite chartComposite = new ChartComposite(composite, SWT.NONE);
+    ChartComposite chartComposite = new ChartComposite(composite, SWT.NONE, chart, true);
     chartComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
     chartComposite.moveAbove(null);
     composite.layout();
-    chartComposite.setChart(chart);
 
     return chartComposite;
   }

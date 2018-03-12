@@ -1,5 +1,7 @@
 package at.sunplugged.celldatabaseV2.plotting;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 import java.util.Collections;
 import java.util.stream.IntStream;
@@ -62,10 +64,17 @@ public class SelectRangeFromChartDialog extends TitleAreaDialog {
     composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
     composite.setLayout(new GridLayout(1, false));
     JFreeChart chart = PlotHelper.createJFreeChart(dataSet, Collections.EMPTY_MAP);
+
     chartComposite = PlotHelper.plotChartToComposite(composite, chart);
+    chartComposite.setDomainZoomable(false);
+    chartComposite.setRangeZoomable(false);
     chartComposite.addChartMouseListener(new ChartMouseListener() {
 
       private boolean start = true;
+
+      private ValueMarker movingMarkerVerti = null;
+
+      private ValueMarker movingMarkerHori = null;
 
       private ValueMarker startMarker = null;
 
@@ -73,7 +82,18 @@ public class SelectRangeFromChartDialog extends TitleAreaDialog {
 
       @Override
       public void chartMouseMoved(ChartMouseEvent arg0) {
-
+        JFreeChart chart = arg0.getChart();
+        double[] xy = getXYFromMouseEvent(arg0);
+        if (movingMarkerVerti != null) {
+          chart.getXYPlot().removeDomainMarker(movingMarkerVerti);
+        }
+        movingMarkerVerti = new ValueMarker(xy[0]);
+        chart.getXYPlot().addDomainMarker(movingMarkerVerti);
+        if (movingMarkerHori != null) {
+          chart.getXYPlot().removeRangeMarker(movingMarkerHori);
+        }
+        movingMarkerHori = new ValueMarker(xy[1]);
+        chart.getXYPlot().addRangeMarker(movingMarkerHori);
       }
 
       @Override
@@ -84,7 +104,7 @@ public class SelectRangeFromChartDialog extends TitleAreaDialog {
           if (startMarker != null) {
             chart.getXYPlot().removeDomainMarker(startMarker);
           }
-          startMarker = new ValueMarker(x);
+          startMarker = new ValueMarker(x, Color.GREEN, new BasicStroke(2.0f));
           chart.getXYPlot().addDomainMarker(startMarker);
           points[currentRange][0] = x;
           start = false;
@@ -93,7 +113,7 @@ public class SelectRangeFromChartDialog extends TitleAreaDialog {
           if (stopMarker != null) {
             chart.getXYPlot().removeDomainMarker(stopMarker);
           }
-          stopMarker = new ValueMarker(x);
+          stopMarker = new ValueMarker(x, Color.GREEN, new BasicStroke(2.0f));
           chart.getXYPlot().addDomainMarker(stopMarker);
           points[currentRange][1] = x;
           start = true;

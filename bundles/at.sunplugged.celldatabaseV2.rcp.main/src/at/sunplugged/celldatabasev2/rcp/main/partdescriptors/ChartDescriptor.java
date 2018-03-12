@@ -8,6 +8,8 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -40,6 +42,16 @@ public class ChartDescriptor {
   public void postConstruct(Composite parent) {
     composite = new Composite(parent, SWT.NONE);
     composite.setLayout(new GridLayout(1, false));
+
+    composite.addControlListener(new ControlAdapter() {
+
+      @Override
+      public void controlResized(ControlEvent e) {
+        drawPlot();
+        super.controlResized(e);
+      }
+    });
+
 
     chartComposite = new ChartComposite(composite, SWT.NONE);
     chartComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
@@ -180,20 +192,25 @@ public class ChartDescriptor {
 
   }
 
+
+
   private void drawPlot() {
     Object data = part.getTransientData().get("data");
     if (data instanceof List<?>) {
       if (((List<?>) data).get(0) instanceof CellMeasurementDataSet) {
 
-        chartComposite.dispose();
-        chartComposite = new ChartComposite(composite, SWT.NONE);
-        chartComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        chartComposite.moveAbove(null);
-        composite.layout();
         @SuppressWarnings("unchecked")
         JFreeChart chart =
             PlotHelper.createJFreeChart((List<CellMeasurementDataSet>) data, options);
-        chartComposite.setChart(chart);
+
+        chartComposite.dispose();
+        chartComposite = new ChartComposite(composite, SWT.NONE, chart, true);
+        chartComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        chartComposite.moveAbove(null);
+        composite.layout();
+
+
+
       } else {
         LOG.error("Expected List of CellMeasurementDataSets...");
       }
