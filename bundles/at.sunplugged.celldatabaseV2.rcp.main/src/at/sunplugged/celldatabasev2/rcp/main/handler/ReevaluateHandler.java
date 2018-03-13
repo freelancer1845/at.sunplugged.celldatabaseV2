@@ -41,10 +41,6 @@ public class ReevaluateHandler {
     } else if (answer == 2) {
       return;
     }
-    // MessageDialog.open(MessageDialog.QUESTION_WITH_CANCEL, shell, "Reevalute",
-    // "Automatic Calculation?", SWT.NONE);
-    // if (!MessageDialog.openConfirm(shell, "Reevaluate", "Are you sure?")) {
-    // }
 
     Set<CellResult> resultsToReEvaluate = new HashSet<>();
 
