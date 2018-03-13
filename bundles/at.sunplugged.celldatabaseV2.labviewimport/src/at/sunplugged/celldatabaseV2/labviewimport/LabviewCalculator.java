@@ -65,9 +65,7 @@ public class LabviewCalculator {
       throws LabviewCalculationException {
     this.askForUserInput = askForUserInput;
     this.result = result;
-
     evaluateData();
-
     return result;
   }
 

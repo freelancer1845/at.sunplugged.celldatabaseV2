@@ -39,6 +39,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import at.sunplugged.celldatabaseV2.common.ui.dialog.ExtendedDialogs;
 import at.sunplugged.celldatabaseV2.labviewimport.LabviewCalculationException;
 import at.sunplugged.celldatabaseV2.labviewimport.LabviewCalculator;
 import at.sunplugged.celldatabaseV2.labviewimport.LabviewDataFile;
@@ -243,15 +244,10 @@ public class PageTwo extends WizardPage {
         } catch (LabviewCalculationException e) {
           LOG.error("Failed to calculate labview files.", e);
           Display.getDefault().syncExec(() -> {
-            MessageDialog.openError(getShell(), "Error",
-                "Failed to calculate labview data.\n" + e.getMessage());
-
 
             while (true) {
-              int answer = MessageDialog.open(MessageDialog.QUESTION, getShell(),
-                  "Automatic Calculation failed.",
-                  "Automatic calculation failed.\nChoose what to do.", SWT.NONE,
-                  new String[] {"See Data", "Select Fit Ranges", "Exclude", "Cancle Evaluation"});
+              int answer = ExtendedDialogs.openLabviewCalculatorErrorDialog(getShell(),
+                  file.getName(), e.getMessage());
 
               if (answer == 0) {
                 new PlotDialog(getShell(),
