@@ -2,6 +2,7 @@ package at.sunplugged.celldatabaseV2.plotting.internal;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -9,10 +10,10 @@ import java.util.stream.IntStream;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.renderer.xy.XYSplineRenderer;
 import org.jfree.data.xy.XYSeries;
@@ -45,15 +46,25 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
         ChartFactory.createXYLineChart("UI-Plot", "Voltage[V]", "Current[A]", seriesCollection);
     chart.setBackgroundPaint(Color.WHITE);
     chart.getLegend().setPosition(RectangleEdge.RIGHT);
-
     XYPlot plot = (XYPlot) chart.getPlot();
     plot.setBackgroundPaint(Color.white);
     plot.setDomainGridlinePaint(Color.BLACK);
     plot.setRangeGridlinePaint(Color.BLACK);
     plot.setRangeMinorGridlinePaint(Color.LIGHT_GRAY);
 
+    if (options.containsKey(PlotHelper.POWER_CURVE)
+        || options.containsKey(PlotHelper.POWER_CURVE_FIT)) {
+      NumberAxis powerAxis = new NumberAxis("Power");
+      powerAxis.setAutoRangeIncludesZero(true);
+      XYSeriesCollection powerCollection = new XYSeriesCollection();
+      plot.setRangeAxis(1, powerAxis);
+      plot.setDataset(1, powerCollection);
+      plot.mapDatasetToRangeAxis(1, 1);
+    }
+
     ValueMarker verticalMarker = new ValueMarker(0.0);
     verticalMarker.setPaint(Color.BLACK);
+    verticalMarker.setStroke(new BasicStroke(2.0f));
     plot.addDomainMarker(verticalMarker);
     plot.addRangeMarker(verticalMarker);
 
@@ -61,23 +72,32 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
       handleOptionKey(chart, key, options.get(key));
     }
 
-    plot.setRenderer(new XYSplineRenderer());
-    XYItemRenderer r = plot.getRenderer();
+    plot.setRenderer(0, new XYSplineRenderer());
+    plot.setRenderer(1, new XYSplineRenderer());
+    XYLineAndShapeRenderer r = (XYLineAndShapeRenderer) plot.getRenderer(0);
+    XYLineAndShapeRenderer r2 = (XYLineAndShapeRenderer) plot.getRenderer(1);
     if (r instanceof XYLineAndShapeRenderer) {
-      XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
       if (options.containsKey(PlotHelper.DATA_POINTS)) {
-        renderer.setBaseShapesVisible(true);
-        renderer.setBaseShapesFilled(false);
+        r.setBaseShapesVisible(true);
+        r2.setBaseShapesVisible(true);
       } else {
-        renderer.setBaseShapesVisible(false);
-        renderer.setBaseShapesFilled(false);
+        r.setBaseShapesVisible(false);
+        r2.setBaseShapesVisible(false);
       }
-      renderer.setSeriesShape(0, ShapeUtilities.createDiagonalCross(2.2f, 2.2f));
+      r.setSeriesShape(0, ShapeUtilities.createDiagonalCross(2.2f, 2.2f));
       for (int i = 0; i < plot.getSeriesCount(); i++) {
-        renderer.setSeriesStroke(i, new BasicStroke(3.0f));
+        r.setSeriesStroke(i, new BasicStroke(3.0f));
+        r2.setSeriesStroke(i, new BasicStroke(3.0f));
+
       }
 
+
+
     }
+
+    chart.getLegend().setPosition(RectangleEdge.BOTTOM);
+    Font labelFont = new Font("Arial", Font.PLAIN, 9);
+    chart.getLegend().setItemFont(labelFont);
 
     return chart;
   }
@@ -90,16 +110,17 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
           XYSeries powerSeries = new XYSeries(name, false);
           List<UIDataPoint> data = dataSet.getData();
           for (UIDataPoint point : data) {
-            powerSeries.add(point.getVoltage(), point.getVoltage() * point.getCurrent());
+            powerSeries.add(point.getVoltage(), point.getVoltage() * point.getCurrent() * -1);
           }
-          ((XYSeriesCollection) chart.getXYPlot().getDataset()).addSeries(powerSeries);
+          // ((XYSeriesCollection) chart.getXYPlot().getDataset()).addSeries(powerSeries);
+          ((XYSeriesCollection) chart.getXYPlot().getDataset(1)).addSeries(powerSeries);
         }
         break;
       case PlotHelper.POWER_CURVE_FIT:
         for (CellMeasurementDataSet dataSet : measurementDataSets) {
           CellResult cellResult = (CellResult) dataSet.eContainer();
           if (cellResult != null) {
-            String name = getDataSetName(dataSet) + "PowerCurve Fit";
+            String name = getDataSetName(dataSet) + " PowerCurve Fit";
             XYSeries uiseries = new XYSeries(name, false);
 
             if (cellResult.getMppFitCoefficients().isEmpty() == false) {
@@ -118,9 +139,9 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
                 x[i] = start + i * h;
               }
               for (double x_i : x) {
-                uiseries.add(x_i, fun.value(x_i));
+                uiseries.add(x_i, fun.value(x_i) * -1);
               }
-              ((XYSeriesCollection) chart.getXYPlot().getDataset()).addSeries(uiseries);
+              ((XYSeriesCollection) chart.getXYPlot().getDataset(1)).addSeries(uiseries);
             }
           }
         }
@@ -189,7 +210,7 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
         for (CellMeasurementDataSet dataSet : measurementDataSets) {
           CellResult cellResult = (CellResult) dataSet.eContainer();
           if (cellResult != null) {
-            String name = getDataSetName(dataSet) + "Voc/Rs Fit";
+            String name = getDataSetName(dataSet) + " Voc/Rs Fit";
             XYSeries uiseries = new XYSeries(name, false);
 
             if (cellResult.getRsVocFitCoefficients().isEmpty() == false) {
@@ -219,7 +240,7 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
         for (CellMeasurementDataSet dataSet : measurementDataSets) {
           CellResult cellResult = (CellResult) dataSet.eContainer();
           if (cellResult != null) {
-            String name = getDataSetName(dataSet) + "Isc/Rp Fit";
+            String name = getDataSetName(dataSet) + " Isc/Rp Fit";
             XYSeries uiseries = new XYSeries(name, false);
 
             if (cellResult.getRpIscFitCoefficients().isEmpty() == false) {
@@ -245,10 +266,10 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
         }
         break;
       case PlotHelper.DARK_RP_FIT:
-        addLinearSeries(chart, "Dark RP Fit", cellResult -> cellResult.getDarkRpFitCoefficients());
+        addLinearSeries(chart, " Dark RP Fit", cellResult -> cellResult.getDarkRpFitCoefficients());
         break;
       case PlotHelper.DARK_RS_FIT:
-        addLinearSeries(chart, "Dark RS Fit", cellResult -> cellResult.getDarkRsFitCoefficients());
+        addLinearSeries(chart, " Dark RS Fit", cellResult -> cellResult.getDarkRsFitCoefficients());
         break;
 
       default:

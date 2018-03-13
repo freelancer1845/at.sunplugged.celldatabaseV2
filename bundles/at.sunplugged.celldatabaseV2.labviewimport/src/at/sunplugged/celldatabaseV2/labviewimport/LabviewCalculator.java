@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.analysis.solvers.LaguerreSolver;
+import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoints;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -73,57 +74,62 @@ public class LabviewCalculator {
 
 
   private void evaluateData() throws LabviewCalculationException {
-    result.setDarkParallelResistance(-1);
-    result.setDarkSeriesResistance(-1);
-    result.setEfficiency(-1);
-    result.setFillFactor(-1);
-    result.setMaximumPowerCurrent(-1);
-    result.setMaximumPowerVoltage(-1);
-    result.setParallelResistance(-1);
-    result.setShortCircuitCurrent(-1);
+    try {
 
-    double[] vocAndRs = findVocAndRs();
-    result.setOpenCircuitVoltage(vocAndRs[0]);
-    result.setSeriesResistance(vocAndRs[1]);
-    result.getRsVocFitCoefficients().clear();
-    IntStream.range(2, vocAndRs.length)
-        .forEach(idx -> result.getRsVocFitCoefficients().add(vocAndRs[idx]));
+      result.setDarkParallelResistance(-1);
+      result.setDarkSeriesResistance(-1);
+      result.setEfficiency(-1);
+      result.setFillFactor(-1);
+      result.setMaximumPowerCurrent(-1);
+      result.setMaximumPowerVoltage(-1);
+      result.setParallelResistance(-1);
+      result.setShortCircuitCurrent(-1);
 
-
-    double[] iscAndRp = findIscAndRp();
-    result.setShortCircuitCurrent(iscAndRp[0]);
-    result.setParallelResistance(iscAndRp[1]);
-    result.getRpIscFitCoefficients().clear();
-    IntStream.range(2, iscAndRp.length)
-        .forEach(idx -> result.getRpIscFitCoefficients().add(iscAndRp[idx]));
-
-    double[] maxPow = findMaxPow();
-    result.setMaximumPowerVoltage(maxPow[0]);
-    result.setMaximumPowerCurrent(maxPow[1]);
-    result.getMppFitCoefficients().clear();
-    IntStream.range(2, maxPow.length)
-        .forEach(idx -> result.getMppFitCoefficients().add(maxPow[idx]));
+      double[] vocAndRs = findVocAndRs();
+      result.setOpenCircuitVoltage(vocAndRs[0]);
+      result.setSeriesResistance(vocAndRs[1]);
+      result.getRsVocFitCoefficients().clear();
+      IntStream.range(2, vocAndRs.length)
+          .forEach(idx -> result.getRsVocFitCoefficients().add(vocAndRs[idx]));
 
 
-    double[] darkRp = findDarkRp();
-    result.setDarkParallelResistance(darkRp[0]);
-    result.getDarkRpFitCoefficients().clear();
-    IntStream.range(1, darkRp.length)
-        .forEach(idx -> result.getDarkRpFitCoefficients().add(darkRp[idx]));
+      double[] iscAndRp = findIscAndRp();
+      result.setShortCircuitCurrent(iscAndRp[0]);
+      result.setParallelResistance(iscAndRp[1]);
+      result.getRpIscFitCoefficients().clear();
+      IntStream.range(2, iscAndRp.length)
+          .forEach(idx -> result.getRpIscFitCoefficients().add(iscAndRp[idx]));
 
-    double[] darkRs = findDarkRs();
-    result.setDarkSeriesResistance(darkRs[0]);
-    result.getDarkRsFitCoefficients().clear();
-    IntStream.range(1, darkRs.length)
-        .forEach(idx -> result.getDarkRsFitCoefficients().add(darkRs[idx]));
+      double[] maxPow = findMaxPow();
+      result.setMaximumPowerVoltage(maxPow[0]);
+      result.setMaximumPowerCurrent(maxPow[1]);
+      result.getMppFitCoefficients().clear();
+      IntStream.range(2, maxPow.length)
+          .forEach(idx -> result.getMppFitCoefficients().add(maxPow[idx]));
 
-    result.setFillFactor(result.getMaximumPower() / result.getOpenCircuitVoltage()
-        / result.getShortCircuitCurrent() * 100);
-    result.setEfficiency(
-        result.getMaximumPower() / result.getLightMeasurementDataSet().getPowerInput()
-            / result.getLightMeasurementDataSet().getArea() * 100);
 
+      double[] darkRp = findDarkRp();
+      result.setDarkParallelResistance(darkRp[0]);
+      result.getDarkRpFitCoefficients().clear();
+      IntStream.range(1, darkRp.length)
+          .forEach(idx -> result.getDarkRpFitCoefficients().add(darkRp[idx]));
+
+      double[] darkRs = findDarkRs();
+      result.setDarkSeriesResistance(darkRs[0]);
+      result.getDarkRsFitCoefficients().clear();
+      IntStream.range(1, darkRs.length)
+          .forEach(idx -> result.getDarkRsFitCoefficients().add(darkRs[idx]));
+
+      result.setFillFactor(result.getMaximumPower() / result.getOpenCircuitVoltage()
+          / result.getShortCircuitCurrent() * 100);
+      result.setEfficiency(
+          result.getMaximumPower() / result.getLightMeasurementDataSet().getPowerInput()
+              / result.getLightMeasurementDataSet().getArea() * 100);
+    } catch (MathIllegalArgumentException a) {
+      throwCalculationException("Math Calculations failed. " + a.getMessage(), a);
+    }
   }
+
 
 
   private double[] findDarkRs() throws LabviewCalculationException {
@@ -261,11 +267,13 @@ public class LabviewCalculator {
 
       }).findFirst().orElse(-1);
 
-      if (endRange == -1) {
+      if (endRange == -1 || startRange == endRange) {
         throwCalculationException("Failed to set EndRange while finding Mpp");
       }
 
     }
+
+
 
     log.debug(String.format("Using %d - %d as range for finding Mpp. ( %f - %f V)", startRange,
         endRange, powerData[startRange][0], powerData[endRange][0]));
@@ -276,6 +284,8 @@ public class LabviewCalculator {
     PolynomialCurveFitter fitter = PolynomialCurveFitter.create(MPP_FIT_DEGREE);
     double[] coeff = fitter.fit(points.toList());
     PolynomialFunction poly = new PolynomialFunction(coeff);
+
+
 
     LaguerreSolver solver = new LaguerreSolver();
     double mppVoltage = solver.solve(1000, poly.polynomialDerivative(), powerData[startRange][0],
@@ -347,6 +357,8 @@ public class LabviewCalculator {
     PolynomialCurveFitter fitter = PolynomialCurveFitter.create(VOC_FIT_DEGREE);
     double[] coeff = fitter.fit(points.toList());
     PolynomialFunction poly = new PolynomialFunction(coeff);
+
+
     LaguerreSolver solver = new LaguerreSolver();
     double voc = solver.solve(10000, poly, dataPoints.get(startRange).getVoltage(),
         dataPoints.get(endRange).getVoltage());
@@ -510,6 +522,13 @@ public class LabviewCalculator {
 
   private void throwCalculationException(String message) throws LabviewCalculationException {
     LabviewCalculationException e = new LabviewCalculationException(message);
+    this.calculationErrors.add(e);
+    throw e;
+  }
+
+  private void throwCalculationException(String message, Throwable a)
+      throws LabviewCalculationException {
+    LabviewCalculationException e = new LabviewCalculationException(message, a);
     this.calculationErrors.add(e);
     throw e;
   }
