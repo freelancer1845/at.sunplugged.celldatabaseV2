@@ -40,7 +40,9 @@ public class ExportExcelGroupSummaries {
   private List<CellGroup> getGroupsFromSelection(Object selection) {
     List<CellGroup> groups = new ArrayList<>();
     if (!(selection instanceof Object[])) {
-      groups.add((CellGroup) selection);
+      if (selection instanceof CellGroup) {
+        groups.add((CellGroup) selection);
+      }
     } else if (selection instanceof Object[]) {
       Object[] items = (Object[]) selection;
 
