@@ -144,6 +144,8 @@ public class PageOne extends WizardPage {
             if (Arrays.stream(provider.getChildren(parent))
                 .allMatch(child -> treeViewer.getChecked(child))) {
               treeViewer.setGrayed(parent, false);
+            } else {
+              treeViewer.setGrayChecked(parent, true);
             }
           } else {
             if (Arrays.stream(provider.getChildren(parent))
