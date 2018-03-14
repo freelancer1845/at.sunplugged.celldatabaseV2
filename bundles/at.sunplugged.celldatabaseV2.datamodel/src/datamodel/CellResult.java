@@ -3,42 +3,44 @@
 package datamodel;
 
 import java.util.Date;
-
 import java.util.Map;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Cell Result</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Cell Result</b></em>'. <!--
+ * end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link datamodel.CellResult#getName <em>Name</em>}</li>
- *   <li>{@link datamodel.CellResult#getDescription <em>Description</em>}</li>
- *   <li>{@link datamodel.CellResult#getDataEvaluated <em>Data Evaluated</em>}</li>
- *   <li>{@link datamodel.CellResult#getOpenCircuitVoltage <em>Open Circuit Voltage</em>}</li>
- *   <li>{@link datamodel.CellResult#getShortCircuitCurrent <em>Short Circuit Current</em>}</li>
- *   <li>{@link datamodel.CellResult#getParallelResistance <em>Parallel Resistance</em>}</li>
- *   <li>{@link datamodel.CellResult#getDarkParallelResistance <em>Dark Parallel Resistance</em>}</li>
- *   <li>{@link datamodel.CellResult#getSeriesResistance <em>Series Resistance</em>}</li>
- *   <li>{@link datamodel.CellResult#getDarkSeriesResistance <em>Dark Series Resistance</em>}</li>
- *   <li>{@link datamodel.CellResult#getMaximumPowerVoltage <em>Maximum Power Voltage</em>}</li>
- *   <li>{@link datamodel.CellResult#getMaximumPowerCurrent <em>Maximum Power Current</em>}</li>
- *   <li>{@link datamodel.CellResult#getEfficiency <em>Efficiency</em>}</li>
- *   <li>{@link datamodel.CellResult#getFillFactor <em>Fill Factor</em>}</li>
- *   <li>{@link datamodel.CellResult#getLightMeasurementDataSet <em>Light Measurement Data Set</em>}</li>
- *   <li>{@link datamodel.CellResult#getDarkMeasuremenetDataSet <em>Dark Measuremenet Data Set</em>}</li>
- *   <li>{@link datamodel.CellResult#getMaximumPower <em>Maximum Power</em>}</li>
- *   <li>{@link datamodel.CellResult#getRsVocFitCoefficients <em>Rs Voc Fit Coefficients</em>}</li>
- *   <li>{@link datamodel.CellResult#getRpIscFitCoefficients <em>Rp Isc Fit Coefficients</em>}</li>
- *   <li>{@link datamodel.CellResult#getMppFitCoefficients <em>Mpp Fit Coefficients</em>}</li>
- *   <li>{@link datamodel.CellResult#getDarkRpFitCoefficients <em>Dark Rp Fit Coefficients</em>}</li>
- *   <li>{@link datamodel.CellResult#getDarkRsFitCoefficients <em>Dark Rs Fit Coefficients</em>}</li>
+ * <li>{@link datamodel.CellResult#getName <em>Name</em>}</li>
+ * <li>{@link datamodel.CellResult#getDescription <em>Description</em>}</li>
+ * <li>{@link datamodel.CellResult#getDataEvaluated <em>Data Evaluated</em>}</li>
+ * <li>{@link datamodel.CellResult#getOpenCircuitVoltage <em>Open Circuit Voltage</em>}</li>
+ * <li>{@link datamodel.CellResult#getNumberOfCells <em>Number Of Cells</em>}</li>
+ * <li>{@link datamodel.CellResult#getShortCircuitCurrent <em>Short Circuit Current</em>}</li>
+ * <li>{@link datamodel.CellResult#getParallelResistance <em>Parallel Resistance</em>}</li>
+ * <li>{@link datamodel.CellResult#getDarkParallelResistance <em>Dark Parallel Resistance</em>}</li>
+ * <li>{@link datamodel.CellResult#getSeriesResistance <em>Series Resistance</em>}</li>
+ * <li>{@link datamodel.CellResult#getDarkSeriesResistance <em>Dark Series Resistance</em>}</li>
+ * <li>{@link datamodel.CellResult#getMaximumPowerVoltage <em>Maximum Power Voltage</em>}</li>
+ * <li>{@link datamodel.CellResult#getMaximumPowerCurrent <em>Maximum Power Current</em>}</li>
+ * <li>{@link datamodel.CellResult#getEfficiency <em>Efficiency</em>}</li>
+ * <li>{@link datamodel.CellResult#getFillFactor <em>Fill Factor</em>}</li>
+ * <li>{@link datamodel.CellResult#getLightMeasurementDataSet <em>Light Measurement Data
+ * Set</em>}</li>
+ * <li>{@link datamodel.CellResult#getDarkMeasuremenetDataSet <em>Dark Measuremenet Data
+ * Set</em>}</li>
+ * <li>{@link datamodel.CellResult#getMaximumPower <em>Maximum Power</em>}</li>
+ * <li>{@link datamodel.CellResult#getRsVocFitCoefficients <em>Rs Voc Fit Coefficients</em>}</li>
+ * <li>{@link datamodel.CellResult#getRpIscFitCoefficients <em>Rp Isc Fit Coefficients</em>}</li>
+ * <li>{@link datamodel.CellResult#getMppFitCoefficients <em>Mpp Fit Coefficients</em>}</li>
+ * <li>{@link datamodel.CellResult#getDarkRpFitCoefficients <em>Dark Rp Fit Coefficients</em>}</li>
+ * <li>{@link datamodel.CellResult#getDarkRsFitCoefficients <em>Dark Rs Fit Coefficients</em>}</li>
+ * <li>{@link datamodel.CellResult#getVocPerCell <em>Voc Per Cell</em>}</li>
  * </ul>
  *
  * @see datamodel.DatamodelPackage#getCellResult()
@@ -47,14 +49,14 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface CellResult extends EObject {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
-   * The default value is <code>"default..."</code>.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Name</b></em>' attribute. The default value is
+   * <code>"default..."</code>. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Name</em>' attribute isn't clear, there really should be more of a
+   * description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
    * @see datamodel.DatamodelPackage#getCellResult_Name()
@@ -64,9 +66,9 @@ public interface CellResult extends EObject {
   String getName();
 
   /**
-   * Sets the value of the '{@link datamodel.CellResult#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Sets the value of the '{@link datamodel.CellResult#getName <em>Name</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @param value the new value of the '<em>Name</em>' attribute.
    * @see #getName()
    * @generated
@@ -74,13 +76,13 @@ public interface CellResult extends EObject {
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Description</b></em>' attribute.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Description</b></em>' attribute. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Description</em>' attribute isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Description</em>' attribute isn't clear, there really should be more
+   * of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Description</em>' attribute.
    * @see #setDescription(String)
    * @see datamodel.DatamodelPackage#getCellResult_Description()
@@ -90,9 +92,9 @@ public interface CellResult extends EObject {
   String getDescription();
 
   /**
-   * Sets the value of the '{@link datamodel.CellResult#getDescription <em>Description</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Sets the value of the '{@link datamodel.CellResult#getDescription <em>Description</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @param value the new value of the '<em>Description</em>' attribute.
    * @see #getDescription()
    * @generated
@@ -100,13 +102,13 @@ public interface CellResult extends EObject {
   void setDescription(String value);
 
   /**
-   * Returns the value of the '<em><b>Data Evaluated</b></em>' attribute.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Data Evaluated</b></em>' attribute. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Data Evaluated</em>' attribute isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Data Evaluated</em>' attribute isn't clear, there really should be
+   * more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Data Evaluated</em>' attribute.
    * @see #setDataEvaluated(Date)
    * @see datamodel.DatamodelPackage#getCellResult_DataEvaluated()
@@ -116,9 +118,9 @@ public interface CellResult extends EObject {
   Date getDataEvaluated();
 
   /**
-   * Sets the value of the '{@link datamodel.CellResult#getDataEvaluated <em>Data Evaluated</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Sets the value of the '{@link datamodel.CellResult#getDataEvaluated <em>Data Evaluated</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @param value the new value of the '<em>Data Evaluated</em>' attribute.
    * @see #getDataEvaluated()
    * @generated
@@ -126,13 +128,14 @@ public interface CellResult extends EObject {
   void setDataEvaluated(Date value);
 
   /**
-   * Returns the value of the '<em><b>Open Circuit Voltage</b></em>' attribute.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Open Circuit Voltage</b></em>' attribute. <!-- begin-user-doc
+   * -->
    * <p>
-   * If the meaning of the '<em>Open Circuit Voltage</em>' attribute isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Open Circuit Voltage</em>' attribute isn't clear, there really
+   * should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Open Circuit Voltage</em>' attribute.
    * @see #setOpenCircuitVoltage(double)
    * @see datamodel.DatamodelPackage#getCellResult_OpenCircuitVoltage()
@@ -142,9 +145,9 @@ public interface CellResult extends EObject {
   double getOpenCircuitVoltage();
 
   /**
-   * Sets the value of the '{@link datamodel.CellResult#getOpenCircuitVoltage <em>Open Circuit Voltage</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Sets the value of the '{@link datamodel.CellResult#getOpenCircuitVoltage <em>Open Circuit
+   * Voltage</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @param value the new value of the '<em>Open Circuit Voltage</em>' attribute.
    * @see #getOpenCircuitVoltage()
    * @generated
@@ -152,13 +155,41 @@ public interface CellResult extends EObject {
   void setOpenCircuitVoltage(double value);
 
   /**
-   * Returns the value of the '<em><b>Short Circuit Current</b></em>' attribute.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Number Of Cells</b></em>' attribute. The default value is
+   * <code>"1"</code>. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Short Circuit Current</em>' attribute isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Number Of Cells</em>' attribute isn't clear, there really should be
+   * more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
+   * @return the value of the '<em>Number Of Cells</em>' attribute.
+   * @see #setNumberOfCells(int)
+   * @see datamodel.DatamodelPackage#getCellResult_NumberOfCells()
+   * @model default="1" derived="true"
+   * @generated
+   */
+  int getNumberOfCells();
+
+  /**
+   * Sets the value of the '{@link datamodel.CellResult#getNumberOfCells <em>Number Of Cells</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @param value the new value of the '<em>Number Of Cells</em>' attribute.
+   * @see #getNumberOfCells()
+   * @generated
+   */
+  void setNumberOfCells(int value);
+
+  /**
+   * Returns the value of the '<em><b>Short Circuit Current</b></em>' attribute. <!-- begin-user-doc
+   * -->
+   * <p>
+   * If the meaning of the '<em>Short Circuit Current</em>' attribute isn't clear, there really
+   * should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Short Circuit Current</em>' attribute.
    * @see #setShortCircuitCurrent(double)
    * @see datamodel.DatamodelPackage#getCellResult_ShortCircuitCurrent()
@@ -168,9 +199,9 @@ public interface CellResult extends EObject {
   double getShortCircuitCurrent();
 
   /**
-   * Sets the value of the '{@link datamodel.CellResult#getShortCircuitCurrent <em>Short Circuit Current</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Sets the value of the '{@link datamodel.CellResult#getShortCircuitCurrent <em>Short Circuit
+   * Current</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @param value the new value of the '<em>Short Circuit Current</em>' attribute.
    * @see #getShortCircuitCurrent()
    * @generated
@@ -178,13 +209,14 @@ public interface CellResult extends EObject {
   void setShortCircuitCurrent(double value);
 
   /**
-   * Returns the value of the '<em><b>Parallel Resistance</b></em>' attribute.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Parallel Resistance</b></em>' attribute. <!-- begin-user-doc
+   * -->
    * <p>
-   * If the meaning of the '<em>Parallel Resistance</em>' attribute isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Parallel Resistance</em>' attribute isn't clear, there really should
+   * be more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Parallel Resistance</em>' attribute.
    * @see #setParallelResistance(double)
    * @see datamodel.DatamodelPackage#getCellResult_ParallelResistance()
@@ -194,9 +226,9 @@ public interface CellResult extends EObject {
   double getParallelResistance();
 
   /**
-   * Sets the value of the '{@link datamodel.CellResult#getParallelResistance <em>Parallel Resistance</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Sets the value of the '{@link datamodel.CellResult#getParallelResistance <em>Parallel
+   * Resistance</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @param value the new value of the '<em>Parallel Resistance</em>' attribute.
    * @see #getParallelResistance()
    * @generated
@@ -204,13 +236,14 @@ public interface CellResult extends EObject {
   void setParallelResistance(double value);
 
   /**
-   * Returns the value of the '<em><b>Dark Parallel Resistance</b></em>' attribute.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Dark Parallel Resistance</b></em>' attribute. <!--
+   * begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Dark Parallel Resistance</em>' attribute isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Dark Parallel Resistance</em>' attribute isn't clear, there really
+   * should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Dark Parallel Resistance</em>' attribute.
    * @see #setDarkParallelResistance(double)
    * @see datamodel.DatamodelPackage#getCellResult_DarkParallelResistance()
@@ -220,9 +253,9 @@ public interface CellResult extends EObject {
   double getDarkParallelResistance();
 
   /**
-   * Sets the value of the '{@link datamodel.CellResult#getDarkParallelResistance <em>Dark Parallel Resistance</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Sets the value of the '{@link datamodel.CellResult#getDarkParallelResistance <em>Dark Parallel
+   * Resistance</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @param value the new value of the '<em>Dark Parallel Resistance</em>' attribute.
    * @see #getDarkParallelResistance()
    * @generated
@@ -230,13 +263,13 @@ public interface CellResult extends EObject {
   void setDarkParallelResistance(double value);
 
   /**
-   * Returns the value of the '<em><b>Series Resistance</b></em>' attribute.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Series Resistance</b></em>' attribute. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Series Resistance</em>' attribute isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Series Resistance</em>' attribute isn't clear, there really should
+   * be more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Series Resistance</em>' attribute.
    * @see #setSeriesResistance(double)
    * @see datamodel.DatamodelPackage#getCellResult_SeriesResistance()
@@ -246,9 +279,9 @@ public interface CellResult extends EObject {
   double getSeriesResistance();
 
   /**
-   * Sets the value of the '{@link datamodel.CellResult#getSeriesResistance <em>Series Resistance</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Sets the value of the '{@link datamodel.CellResult#getSeriesResistance <em>Series
+   * Resistance</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @param value the new value of the '<em>Series Resistance</em>' attribute.
    * @see #getSeriesResistance()
    * @generated
@@ -256,13 +289,14 @@ public interface CellResult extends EObject {
   void setSeriesResistance(double value);
 
   /**
-   * Returns the value of the '<em><b>Dark Series Resistance</b></em>' attribute.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Dark Series Resistance</b></em>' attribute. <!--
+   * begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Dark Series Resistance</em>' attribute isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Dark Series Resistance</em>' attribute isn't clear, there really
+   * should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Dark Series Resistance</em>' attribute.
    * @see #setDarkSeriesResistance(double)
    * @see datamodel.DatamodelPackage#getCellResult_DarkSeriesResistance()
@@ -272,9 +306,9 @@ public interface CellResult extends EObject {
   double getDarkSeriesResistance();
 
   /**
-   * Sets the value of the '{@link datamodel.CellResult#getDarkSeriesResistance <em>Dark Series Resistance</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Sets the value of the '{@link datamodel.CellResult#getDarkSeriesResistance <em>Dark Series
+   * Resistance</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @param value the new value of the '<em>Dark Series Resistance</em>' attribute.
    * @see #getDarkSeriesResistance()
    * @generated
@@ -282,13 +316,14 @@ public interface CellResult extends EObject {
   void setDarkSeriesResistance(double value);
 
   /**
-   * Returns the value of the '<em><b>Maximum Power Voltage</b></em>' attribute.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Maximum Power Voltage</b></em>' attribute. <!-- begin-user-doc
+   * -->
    * <p>
-   * If the meaning of the '<em>Maximum Power Voltage</em>' attribute isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Maximum Power Voltage</em>' attribute isn't clear, there really
+   * should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Maximum Power Voltage</em>' attribute.
    * @see #setMaximumPowerVoltage(double)
    * @see datamodel.DatamodelPackage#getCellResult_MaximumPowerVoltage()
@@ -298,9 +333,9 @@ public interface CellResult extends EObject {
   double getMaximumPowerVoltage();
 
   /**
-   * Sets the value of the '{@link datamodel.CellResult#getMaximumPowerVoltage <em>Maximum Power Voltage</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Sets the value of the '{@link datamodel.CellResult#getMaximumPowerVoltage <em>Maximum Power
+   * Voltage</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @param value the new value of the '<em>Maximum Power Voltage</em>' attribute.
    * @see #getMaximumPowerVoltage()
    * @generated
@@ -308,13 +343,14 @@ public interface CellResult extends EObject {
   void setMaximumPowerVoltage(double value);
 
   /**
-   * Returns the value of the '<em><b>Maximum Power Current</b></em>' attribute.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Maximum Power Current</b></em>' attribute. <!-- begin-user-doc
+   * -->
    * <p>
-   * If the meaning of the '<em>Maximum Power Current</em>' attribute isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Maximum Power Current</em>' attribute isn't clear, there really
+   * should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Maximum Power Current</em>' attribute.
    * @see #setMaximumPowerCurrent(double)
    * @see datamodel.DatamodelPackage#getCellResult_MaximumPowerCurrent()
@@ -324,9 +360,9 @@ public interface CellResult extends EObject {
   double getMaximumPowerCurrent();
 
   /**
-   * Sets the value of the '{@link datamodel.CellResult#getMaximumPowerCurrent <em>Maximum Power Current</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Sets the value of the '{@link datamodel.CellResult#getMaximumPowerCurrent <em>Maximum Power
+   * Current</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @param value the new value of the '<em>Maximum Power Current</em>' attribute.
    * @see #getMaximumPowerCurrent()
    * @generated
@@ -334,13 +370,13 @@ public interface CellResult extends EObject {
   void setMaximumPowerCurrent(double value);
 
   /**
-   * Returns the value of the '<em><b>Efficiency</b></em>' attribute.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Efficiency</b></em>' attribute. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Efficiency</em>' attribute isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Efficiency</em>' attribute isn't clear, there really should be more
+   * of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Efficiency</em>' attribute.
    * @see #setEfficiency(double)
    * @see datamodel.DatamodelPackage#getCellResult_Efficiency()
@@ -350,9 +386,9 @@ public interface CellResult extends EObject {
   double getEfficiency();
 
   /**
-   * Sets the value of the '{@link datamodel.CellResult#getEfficiency <em>Efficiency</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Sets the value of the '{@link datamodel.CellResult#getEfficiency <em>Efficiency</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @param value the new value of the '<em>Efficiency</em>' attribute.
    * @see #getEfficiency()
    * @generated
@@ -360,13 +396,13 @@ public interface CellResult extends EObject {
   void setEfficiency(double value);
 
   /**
-   * Returns the value of the '<em><b>Fill Factor</b></em>' attribute.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Fill Factor</b></em>' attribute. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Fill Factor</em>' attribute isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Fill Factor</em>' attribute isn't clear, there really should be more
+   * of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Fill Factor</em>' attribute.
    * @see #setFillFactor(double)
    * @see datamodel.DatamodelPackage#getCellResult_FillFactor()
@@ -376,9 +412,9 @@ public interface CellResult extends EObject {
   double getFillFactor();
 
   /**
-   * Sets the value of the '{@link datamodel.CellResult#getFillFactor <em>Fill Factor</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Sets the value of the '{@link datamodel.CellResult#getFillFactor <em>Fill Factor</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @param value the new value of the '<em>Fill Factor</em>' attribute.
    * @see #getFillFactor()
    * @generated
@@ -393,6 +429,7 @@ public interface CellResult extends EObject {
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Light Measurement Data Set</em>' containment reference.
    * @see #setLightMeasurementDataSet(CellMeasurementDataSet)
    * @see datamodel.DatamodelPackage#getCellResult_LightMeasurementDataSet()
@@ -402,9 +439,10 @@ public interface CellResult extends EObject {
   CellMeasurementDataSet getLightMeasurementDataSet();
 
   /**
-   * Sets the value of the '{@link datamodel.CellResult#getLightMeasurementDataSet <em>Light Measurement Data Set</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Sets the value of the '{@link datamodel.CellResult#getLightMeasurementDataSet <em>Light
+   * Measurement Data Set</em>}' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
+   * 
    * @param value the new value of the '<em>Light Measurement Data Set</em>' containment reference.
    * @see #getLightMeasurementDataSet()
    * @generated
@@ -419,6 +457,7 @@ public interface CellResult extends EObject {
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Dark Measuremenet Data Set</em>' containment reference.
    * @see #setDarkMeasuremenetDataSet(CellMeasurementDataSet)
    * @see datamodel.DatamodelPackage#getCellResult_DarkMeasuremenetDataSet()
@@ -428,9 +467,10 @@ public interface CellResult extends EObject {
   CellMeasurementDataSet getDarkMeasuremenetDataSet();
 
   /**
-   * Sets the value of the '{@link datamodel.CellResult#getDarkMeasuremenetDataSet <em>Dark Measuremenet Data Set</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Sets the value of the '{@link datamodel.CellResult#getDarkMeasuremenetDataSet <em>Dark
+   * Measuremenet Data Set</em>}' containment reference. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
+   * 
    * @param value the new value of the '<em>Dark Measuremenet Data Set</em>' containment reference.
    * @see #getDarkMeasuremenetDataSet()
    * @generated
@@ -438,13 +478,13 @@ public interface CellResult extends EObject {
   void setDarkMeasuremenetDataSet(CellMeasurementDataSet value);
 
   /**
-   * Returns the value of the '<em><b>Maximum Power</b></em>' attribute.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Maximum Power</b></em>' attribute. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Maximum Power</em>' attribute isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Maximum Power</em>' attribute isn't clear, there really should be
+   * more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Maximum Power</em>' attribute.
    * @see datamodel.DatamodelPackage#getCellResult_MaximumPower()
    * @model transient="true" changeable="false" volatile="true" derived="true"
@@ -453,14 +493,14 @@ public interface CellResult extends EObject {
   double getMaximumPower();
 
   /**
-   * Returns the value of the '<em><b>Rs Voc Fit Coefficients</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.Double}.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Rs Voc Fit Coefficients</b></em>' attribute list. The list
+   * contents are of type {@link java.lang.Double}. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Rs Voc Fit Coefficients</em>' attribute list isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Rs Voc Fit Coefficients</em>' attribute list isn't clear, there
+   * really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Rs Voc Fit Coefficients</em>' attribute list.
    * @see datamodel.DatamodelPackage#getCellResult_RsVocFitCoefficients()
    * @model
@@ -469,14 +509,14 @@ public interface CellResult extends EObject {
   EList<Double> getRsVocFitCoefficients();
 
   /**
-   * Returns the value of the '<em><b>Rp Isc Fit Coefficients</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.Double}.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Rp Isc Fit Coefficients</b></em>' attribute list. The list
+   * contents are of type {@link java.lang.Double}. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Rp Isc Fit Coefficients</em>' attribute list isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Rp Isc Fit Coefficients</em>' attribute list isn't clear, there
+   * really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Rp Isc Fit Coefficients</em>' attribute list.
    * @see datamodel.DatamodelPackage#getCellResult_RpIscFitCoefficients()
    * @model
@@ -485,14 +525,14 @@ public interface CellResult extends EObject {
   EList<Double> getRpIscFitCoefficients();
 
   /**
-   * Returns the value of the '<em><b>Mpp Fit Coefficients</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.Double}.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Mpp Fit Coefficients</b></em>' attribute list. The list
+   * contents are of type {@link java.lang.Double}. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Mpp Fit Coefficients</em>' attribute list isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Mpp Fit Coefficients</em>' attribute list isn't clear, there really
+   * should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Mpp Fit Coefficients</em>' attribute list.
    * @see datamodel.DatamodelPackage#getCellResult_MppFitCoefficients()
    * @model
@@ -501,14 +541,14 @@ public interface CellResult extends EObject {
   EList<Double> getMppFitCoefficients();
 
   /**
-   * Returns the value of the '<em><b>Dark Rp Fit Coefficients</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.Double}.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Dark Rp Fit Coefficients</b></em>' attribute list. The list
+   * contents are of type {@link java.lang.Double}. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Dark Rp Fit Coefficients</em>' attribute list isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Dark Rp Fit Coefficients</em>' attribute list isn't clear, there
+   * really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Dark Rp Fit Coefficients</em>' attribute list.
    * @see datamodel.DatamodelPackage#getCellResult_DarkRpFitCoefficients()
    * @model
@@ -517,14 +557,14 @@ public interface CellResult extends EObject {
   EList<Double> getDarkRpFitCoefficients();
 
   /**
-   * Returns the value of the '<em><b>Dark Rs Fit Coefficients</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.Double}.
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Dark Rs Fit Coefficients</b></em>' attribute list. The list
+   * contents are of type {@link java.lang.Double}. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Dark Rs Fit Coefficients</em>' attribute list isn't clear,
-   * there really should be more of a description here...
+   * If the meaning of the '<em>Dark Rs Fit Coefficients</em>' attribute list isn't clear, there
+   * really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
+   * 
    * @return the value of the '<em>Dark Rs Fit Coefficients</em>' attribute list.
    * @see datamodel.DatamodelPackage#getCellResult_DarkRsFitCoefficients()
    * @model
@@ -533,8 +573,23 @@ public interface CellResult extends EObject {
   EList<Double> getDarkRsFitCoefficients();
 
   /**
-   * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Voc Per Cell</b></em>' attribute. <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Voc Per Cell</em>' attribute isn't clear, there really should be
+   * more of a description here...
+   * </p>
    * <!-- end-user-doc -->
+   * 
+   * @return the value of the '<em>Voc Per Cell</em>' attribute.
+   * @see datamodel.DatamodelPackage#getCellResult_VocPerCell()
+   * @model transient="true" changeable="false" volatile="true"
+   * @generated
+   */
+  double getVocPerCell();
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @model
    * @generated
    */

@@ -56,6 +56,12 @@ public class GroupTableViewerFX {
         ((CellDataFeatures<CellResult, String>) result).getValue().getName()));
 
     TableColumn vocCol = createDoubleColumn("Voc[V]", 2, result -> result.getOpenCircuitVoltage());
+
+    boolean needsVocPerCellColumn =
+        group.getCellResults().stream().anyMatch(result -> result.getNumberOfCells() > 1);
+    TableColumn vocPerCelCol =
+        createDoubleColumn("Voc/Cell[V]", 2, result -> result.getVocPerCell());
+
     TableColumn jscCol =
         createDoubleColumn("Jsc[A/cm^2]", 2, result -> result.getShortCircuitCurrent()
             / result.getLightMeasurementDataSet().getArea() / 10000);
@@ -70,15 +76,22 @@ public class GroupTableViewerFX {
     TableColumn effCol = createDoubleColumn("Efficiency[%]", 3, result -> result.getEfficiency());
     TableColumn ffCol = createDoubleColumn("FillFactor[%]", 3, result -> result.getFillFactor());
 
+    if (needsVocPerCellColumn == true) {
+      table.getColumns().addAll(nameCol, vocCol, vocPerCelCol, jscCol, rsCol, rsDarkCol, rpCol,
+          rpDarkCol, pmmpCol, effCol, ffCol);
+    } else {
+      table.getColumns().addAll(nameCol, vocCol, jscCol, rsCol, rsDarkCol, rpCol, rpDarkCol,
+          pmmpCol, effCol, ffCol);
+    }
 
-    table.getColumns().addAll(nameCol, vocCol, jscCol, rsCol, rsDarkCol, rpCol, rpDarkCol, pmmpCol,
-        effCol, ffCol);
 
     List<CellResult> results = new ArrayList<>(group.getCellResults());
     CellResult meanDummy = DatamodelFactory.eINSTANCE.createCellResult();
     meanDummy.setName("Mean");
     meanDummy.setOpenCircuitVoltage(
         SummaryFunctions.getAverage(group, result -> result.getOpenCircuitVoltage()));
+    meanDummy.setNumberOfCells(
+        (int) Math.round(SummaryFunctions.getAverage(group, result -> result.getNumberOfCells())));
     meanDummy.setShortCircuitCurrent(
         SummaryFunctions.getAverage(group, result -> result.getShortCircuitCurrent()
             / result.getLightMeasurementDataSet().getArea() / 10000));
@@ -102,6 +115,8 @@ public class GroupTableViewerFX {
     stdDummy.setName("Std");
     stdDummy.setOpenCircuitVoltage(
         SummaryFunctions.getStd(group, result -> result.getOpenCircuitVoltage()));
+    stdDummy.setNumberOfCells(
+        (int) Math.round(SummaryFunctions.getStd(group, result -> result.getNumberOfCells())));
     stdDummy.setShortCircuitCurrent(
         SummaryFunctions.getStd(group, result -> result.getShortCircuitCurrent()
             / result.getLightMeasurementDataSet().getArea() / 10000));
@@ -125,6 +140,8 @@ public class GroupTableViewerFX {
     maxDummy.setName("Max");
     maxDummy.setOpenCircuitVoltage(
         SummaryFunctions.getMax(group, result -> result.getOpenCircuitVoltage()));
+    maxDummy.setNumberOfCells(
+        (int) Math.round(SummaryFunctions.getMax(group, result -> result.getNumberOfCells())));
     maxDummy.setShortCircuitCurrent(
         SummaryFunctions.getMax(group, result -> result.getShortCircuitCurrent()
             / result.getLightMeasurementDataSet().getArea() / 10000));

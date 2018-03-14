@@ -1,22 +1,17 @@
 package at.sunplugged.celldatabaseV2.export.ui.wizards;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EventObject;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.eclipse.emf.common.command.BasicCommandStack;
-import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.common.command.CommandStackListener;
+import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.edit.command.AddCommand;
-import org.eclipse.emf.edit.command.DeleteCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.emfforms.spi.swt.treemasterdetail.MenuProvider;
-import org.eclipse.emfforms.spi.swt.treemasterdetail.TreeViewerBuilder;
-import org.eclipse.emfforms.spi.swt.treemasterdetail.TreeViewerSWTFactory;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -29,13 +24,14 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import datamodel.CellGroup;
 import datamodel.CellResult;
-import datamodel.Database;
 import datamodel.DatamodelFactory;
+import datamodel.provider.DatamodelItemProviderAdapterFactory;
 
 public class PageOne extends WizardPage {
 
@@ -43,38 +39,36 @@ public class PageOne extends WizardPage {
 
   private static final String PAGE_DESCRIPTION = "Page Description";
 
-  private final Database database;
+  private final List<CellGroup> groups;
 
   private EditingDomain editingDomain;
 
   private CheckboxTreeViewer treeViewer;
 
-  protected PageOne(Database database) {
+  protected PageOne(List<CellGroup> groups) {
     super(PAGE_NAME);
     setTitle(PAGE_NAME);
     setDescription(PAGE_DESCRIPTION);
 
-    this.database = database;
+    this.groups = groups;
     editingDomain = new AdapterFactoryEditingDomain(
         new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE),
         new BasicCommandStack());
-    database.getCellGroups().removeIf(group -> group.getCellResults().isEmpty() == true);
-    editingDomain.createResource("tempResource").getContents().add(this.database);
+    groups.removeIf(group -> group.getCellResults().isEmpty() == true);
   }
 
-  public Database getReducedDatabase() {
-    List<EObject> toRemove = new ArrayList<>();
-    EcoreUtil.getAllContents(database, true).forEachRemaining(object -> {
-      if (object instanceof CellGroup || object instanceof CellResult) {
-        if (treeViewer.getChecked(object) == false) {
-          toRemove.add((EObject) object);
-        }
+  public List<CellGroup> getReducedDatabase() {
+    return groups.stream().filter(group -> {
+      group.getCellResults().removeIf(result -> treeViewer.getChecked(result) == false);
+
+      if (treeViewer.getChecked(group) == false) {
+        return false;
+      } else if (group.getCellResults().size() == 0) {
+        return false;
+      } else {
+        return true;
       }
-    });
-
-    EcoreUtil.removeAll(toRemove);
-
-    return database;
+    }).collect(Collectors.toList());
   }
 
   @Override
@@ -87,60 +81,53 @@ public class PageOne extends WizardPage {
 
     container.setLayout(layout);
 
-    treeViewer = (CheckboxTreeViewer) TreeViewerSWTFactory.fillDefaults(container, database)
-        .customizeTree(new TreeViewerBuilder() {
 
-          @Override
-          public TreeViewer createTree(Composite parent) {
-            TreeViewer treeViewer = new CheckboxTreeViewer(parent);
-            treeViewer.setAutoExpandLevel(2);
-            return treeViewer;
-          }
-        }).customizeContentProvider(new ITreeContentProvider() {
-          @Override
-          public boolean hasChildren(Object element) {
-            if (element instanceof Database) {
-              return ((Database) element).getCellGroups().isEmpty() == false;
-            } else if (element instanceof CellGroup) {
-              return ((CellGroup) element).getCellResults().isEmpty() == false;
-            } else if (element instanceof CellResult) {
-              return false;
-            }
-            return false;
-          }
+    treeViewer = new CheckboxTreeViewer(container);
+    treeViewer.setAutoExpandLevel(2);
+    treeViewer.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-          @Override
-          public Object getParent(Object element) {
-            if (element instanceof Database) {
-              return null;
-            } else if (element instanceof CellGroup) {
-              return database;
-            } else if (element instanceof CellResult) {
-              return database.getCellGroups().stream()
-                  .filter(cellGroup -> cellGroup.getCellResults().contains(element)).findAny()
-                  .orElse(null);
-            }
-            return false;
-          }
 
-          @Override
-          public Object[] getElements(Object inputElement) {
+    treeViewer.setContentProvider(new ITreeContentProvider() {
+      @Override
+      public boolean hasChildren(Object element) {
+        if (element instanceof CellResult) {
+          return false;
+        } else {
+          return true;
+        }
+      }
 
-            return ((Database) inputElement).getCellGroups().toArray();
-          }
+      @Override
+      public Object getParent(Object element) {
+        if (element instanceof CellResult) {
+          return ((CellResult) element).eContainer();
+        }
+        {
+          return null;
+        }
+      }
 
-          @Override
-          public Object[] getChildren(Object parentElement) {
-            if (parentElement instanceof Database) {
-              return ((Database) parentElement).getCellGroups().toArray();
-            } else if (parentElement instanceof CellGroup) {
-              return ((CellGroup) parentElement).getCellResults().toArray();
-            }
-            return null;
-          };
-        }).customizeMenu(createMenu()).create();
+      @SuppressWarnings("unchecked")
+      @Override
+      public Object[] getElements(Object inputElement) {
 
-    database.getCellGroups().forEach(group -> treeViewer.setSubtreeChecked(group, true));
+        return ((List<CellGroup>) inputElement).toArray();
+      }
+
+      @Override
+      public Object[] getChildren(Object parentElement) {
+        if (parentElement instanceof CellGroup) {
+          return ((CellGroup) parentElement).getCellResults().toArray();
+        }
+        return null;
+      }
+    });
+
+    treeViewer.getTree().setMenu(createMenu().getMenu(treeViewer, editingDomain));
+
+
+
+    groups.forEach(group -> treeViewer.setSubtreeChecked(group, true));
     treeViewer.addCheckStateListener(new ICheckStateListener() {
 
       @Override
@@ -203,15 +190,20 @@ public class PageOne extends WizardPage {
       }
 
     });
+    AdapterFactory adapterFactory = new DatamodelItemProviderAdapterFactory();
+    AdapterFactoryLabelProvider labelProvider = new AdapterFactoryLabelProvider(adapterFactory);
+    treeViewer.setLabelProvider(labelProvider);
 
 
-    editingDomain.getCommandStack().addCommandStackListener(new CommandStackListener() {
+    // editingDomain.getCommandStack().addCommandStackListener(new CommandStackListener() {
+    //
+    // @Override
+    // public void commandStackChanged(EventObject event) {
+    // treeViewer.refresh();
+    // }
+    // });
 
-      @Override
-      public void commandStackChanged(EventObject event) {
-        treeViewer.refresh();
-      }
-    });
+    treeViewer.setInput(groups);
 
     setControl(container);
     setPageComplete(treeViewer.getCheckedElements().length != 0);
@@ -233,9 +225,8 @@ public class PageOne extends WizardPage {
             Action addCellGroup = new Action() {
               @Override
               public void run() {
-                Command cmd = AddCommand.create(editingDomain, database, null,
-                    DatamodelFactory.eINSTANCE.createCellGroup());
-                editingDomain.getCommandStack().execute(cmd);
+                groups.add(DatamodelFactory.eINSTANCE.createCellGroup());
+                treeViewer.refresh();
               }
 
               @Override
@@ -251,9 +242,9 @@ public class PageOne extends WizardPage {
 
               Action deleteCellGroup = new Action() {
                 public void run() {
-                  Command cmd = DeleteCommand.create(editingDomain, selectedElement);
-                  editingDomain.getCommandStack().execute(cmd);
 
+                  groups.remove(selectedElement);
+                  treeViewer.refresh();
                 }
 
                 public String getText() {
@@ -266,12 +257,8 @@ public class PageOne extends WizardPage {
               Action cloneCellResult = new Action() {
                 public void run() {
                   CellResult copy = (CellResult) EcoreUtil.copy((EObject) selectedElement);
-                  Command cmd = AddCommand.create(editingDomain,
-                      ((ITreeContentProvider) treeViewer.getContentProvider())
-                          .getParent(selectedElement),
-                      null, copy);
-                  editingDomain.getCommandStack().execute(cmd);
-
+                  ((CellGroup) copy.eContainer()).getCellResults().add(copy);
+                  treeViewer.refresh();
                 }
 
                 public String getText() {
@@ -280,8 +267,9 @@ public class PageOne extends WizardPage {
               };
               Action deleteCellResult = new Action() {
                 public void run() {
-                  Command cmd = DeleteCommand.create(editingDomain, selectedElement);
-                  editingDomain.getCommandStack().execute(cmd);
+                  CellResult result = (CellResult) selectedElement;
+                  ((CellGroup) result.eContainer()).getCellResults().remove(result);
+                  treeViewer.refresh();
                 }
 
                 public String getText() {

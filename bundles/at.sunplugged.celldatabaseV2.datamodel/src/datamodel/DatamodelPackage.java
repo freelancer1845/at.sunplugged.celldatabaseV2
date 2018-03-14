@@ -141,13 +141,22 @@ public interface DatamodelPackage extends EPackage {
   int CELL_RESULT__OPEN_CIRCUIT_VOLTAGE = 3;
 
   /**
+   * The feature id for the '<em><b>Number Of Cells</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CELL_RESULT__NUMBER_OF_CELLS = 4;
+
+  /**
    * The feature id for the '<em><b>Short Circuit Current</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CELL_RESULT__SHORT_CIRCUIT_CURRENT = 4;
+  int CELL_RESULT__SHORT_CIRCUIT_CURRENT = 5;
 
   /**
    * The feature id for the '<em><b>Parallel Resistance</b></em>' attribute.
@@ -156,7 +165,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT__PARALLEL_RESISTANCE = 5;
+  int CELL_RESULT__PARALLEL_RESISTANCE = 6;
 
   /**
    * The feature id for the '<em><b>Dark Parallel Resistance</b></em>' attribute.
@@ -165,7 +174,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT__DARK_PARALLEL_RESISTANCE = 6;
+  int CELL_RESULT__DARK_PARALLEL_RESISTANCE = 7;
 
   /**
    * The feature id for the '<em><b>Series Resistance</b></em>' attribute.
@@ -174,7 +183,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT__SERIES_RESISTANCE = 7;
+  int CELL_RESULT__SERIES_RESISTANCE = 8;
 
   /**
    * The feature id for the '<em><b>Dark Series Resistance</b></em>' attribute.
@@ -183,7 +192,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT__DARK_SERIES_RESISTANCE = 8;
+  int CELL_RESULT__DARK_SERIES_RESISTANCE = 9;
 
   /**
    * The feature id for the '<em><b>Maximum Power Voltage</b></em>' attribute.
@@ -192,7 +201,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT__MAXIMUM_POWER_VOLTAGE = 9;
+  int CELL_RESULT__MAXIMUM_POWER_VOLTAGE = 10;
 
   /**
    * The feature id for the '<em><b>Maximum Power Current</b></em>' attribute.
@@ -201,7 +210,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT__MAXIMUM_POWER_CURRENT = 10;
+  int CELL_RESULT__MAXIMUM_POWER_CURRENT = 11;
 
   /**
    * The feature id for the '<em><b>Efficiency</b></em>' attribute.
@@ -210,7 +219,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT__EFFICIENCY = 11;
+  int CELL_RESULT__EFFICIENCY = 12;
 
   /**
    * The feature id for the '<em><b>Fill Factor</b></em>' attribute.
@@ -219,7 +228,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT__FILL_FACTOR = 12;
+  int CELL_RESULT__FILL_FACTOR = 13;
 
   /**
    * The feature id for the '<em><b>Light Measurement Data Set</b></em>' containment reference.
@@ -228,7 +237,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET = 13;
+  int CELL_RESULT__LIGHT_MEASUREMENT_DATA_SET = 14;
 
   /**
    * The feature id for the '<em><b>Dark Measuremenet Data Set</b></em>' containment reference.
@@ -237,7 +246,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT__DARK_MEASUREMENET_DATA_SET = 14;
+  int CELL_RESULT__DARK_MEASUREMENET_DATA_SET = 15;
 
   /**
    * The feature id for the '<em><b>Maximum Power</b></em>' attribute.
@@ -246,7 +255,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT__MAXIMUM_POWER = 15;
+  int CELL_RESULT__MAXIMUM_POWER = 16;
 
   /**
    * The feature id for the '<em><b>Rs Voc Fit Coefficients</b></em>' attribute list.
@@ -255,7 +264,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT__RS_VOC_FIT_COEFFICIENTS = 16;
+  int CELL_RESULT__RS_VOC_FIT_COEFFICIENTS = 17;
 
   /**
    * The feature id for the '<em><b>Rp Isc Fit Coefficients</b></em>' attribute list.
@@ -264,7 +273,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT__RP_ISC_FIT_COEFFICIENTS = 17;
+  int CELL_RESULT__RP_ISC_FIT_COEFFICIENTS = 18;
 
   /**
    * The feature id for the '<em><b>Mpp Fit Coefficients</b></em>' attribute list.
@@ -273,7 +282,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT__MPP_FIT_COEFFICIENTS = 18;
+  int CELL_RESULT__MPP_FIT_COEFFICIENTS = 19;
 
   /**
    * The feature id for the '<em><b>Dark Rp Fit Coefficients</b></em>' attribute list.
@@ -282,7 +291,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT__DARK_RP_FIT_COEFFICIENTS = 19;
+  int CELL_RESULT__DARK_RP_FIT_COEFFICIENTS = 20;
 
   /**
    * The feature id for the '<em><b>Dark Rs Fit Coefficients</b></em>' attribute list.
@@ -291,7 +300,16 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT__DARK_RS_FIT_COEFFICIENTS = 20;
+  int CELL_RESULT__DARK_RS_FIT_COEFFICIENTS = 21;
+
+  /**
+   * The feature id for the '<em><b>Voc Per Cell</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CELL_RESULT__VOC_PER_CELL = 22;
 
   /**
    * The number of structural features of the '<em>Cell Result</em>' class.
@@ -300,7 +318,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_RESULT_FEATURE_COUNT = 21;
+  int CELL_RESULT_FEATURE_COUNT = 23;
 
   /**
    * The operation id for the '<em>Validate Name</em>' operation.
@@ -589,6 +607,17 @@ public interface DatamodelPackage extends EPackage {
   EAttribute getCellResult_OpenCircuitVoltage();
 
   /**
+   * Returns the meta object for the attribute '{@link datamodel.CellResult#getNumberOfCells <em>Number Of Cells</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Number Of Cells</em>'.
+   * @see datamodel.CellResult#getNumberOfCells()
+   * @see #getCellResult()
+   * @generated
+   */
+  EAttribute getCellResult_NumberOfCells();
+
+  /**
    * Returns the meta object for the attribute '{@link datamodel.CellResult#getShortCircuitCurrent <em>Short Circuit Current</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -774,6 +803,17 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    */
   EAttribute getCellResult_DarkRsFitCoefficients();
+
+  /**
+   * Returns the meta object for the attribute '{@link datamodel.CellResult#getVocPerCell <em>Voc Per Cell</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Voc Per Cell</em>'.
+   * @see datamodel.CellResult#getVocPerCell()
+   * @see #getCellResult()
+   * @generated
+   */
+  EAttribute getCellResult_VocPerCell();
 
   /**
    * Returns the meta object for the '{@link datamodel.CellResult#validateName(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Validate Name</em>}' operation.
@@ -1030,6 +1070,14 @@ public interface DatamodelPackage extends EPackage {
     EAttribute CELL_RESULT__OPEN_CIRCUIT_VOLTAGE = eINSTANCE.getCellResult_OpenCircuitVoltage();
 
     /**
+     * The meta object literal for the '<em><b>Number Of Cells</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CELL_RESULT__NUMBER_OF_CELLS = eINSTANCE.getCellResult_NumberOfCells();
+
+    /**
      * The meta object literal for the '<em><b>Short Circuit Current</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1164,6 +1212,14 @@ public interface DatamodelPackage extends EPackage {
      * @generated
      */
     EAttribute CELL_RESULT__DARK_RS_FIT_COEFFICIENTS = eINSTANCE.getCellResult_DarkRsFitCoefficients();
+
+    /**
+     * The meta object literal for the '<em><b>Voc Per Cell</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CELL_RESULT__VOC_PER_CELL = eINSTANCE.getCellResult_VocPerCell();
 
     /**
      * The meta object literal for the '<em><b>Validate Name</b></em>' operation.

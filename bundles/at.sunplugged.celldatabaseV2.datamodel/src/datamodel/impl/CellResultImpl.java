@@ -38,6 +38,7 @@ import datamodel.util.DatamodelValidator;
  *   <li>{@link datamodel.impl.CellResultImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getDataEvaluated <em>Data Evaluated</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getOpenCircuitVoltage <em>Open Circuit Voltage</em>}</li>
+ *   <li>{@link datamodel.impl.CellResultImpl#getNumberOfCells <em>Number Of Cells</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getShortCircuitCurrent <em>Short Circuit Current</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getParallelResistance <em>Parallel Resistance</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getDarkParallelResistance <em>Dark Parallel Resistance</em>}</li>
@@ -55,6 +56,7 @@ import datamodel.util.DatamodelValidator;
  *   <li>{@link datamodel.impl.CellResultImpl#getMppFitCoefficients <em>Mpp Fit Coefficients</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getDarkRpFitCoefficients <em>Dark Rp Fit Coefficients</em>}</li>
  *   <li>{@link datamodel.impl.CellResultImpl#getDarkRsFitCoefficients <em>Dark Rs Fit Coefficients</em>}</li>
+ *   <li>{@link datamodel.impl.CellResultImpl#getVocPerCell <em>Voc Per Cell</em>}</li>
  * </ul>
  *
  * @generated
@@ -137,6 +139,26 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
    * @ordered
    */
   protected double openCircuitVoltage = OPEN_CIRCUIT_VOLTAGE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getNumberOfCells() <em>Number Of Cells</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @see #getNumberOfCells()
+   * @generated
+   * @ordered
+   */
+  protected static final int NUMBER_OF_CELLS_EDEFAULT = 1;
+
+  /**
+   * The cached value of the '{@link #getNumberOfCells() <em>Number Of Cells</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getNumberOfCells()
+   * @generated
+   * @ordered
+   */
+  protected int numberOfCells = NUMBER_OF_CELLS_EDEFAULT;
 
   /**
    * The default value of the '{@link #getShortCircuitCurrent() <em>Short Circuit Current</em>}' attribute.
@@ -361,8 +383,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * The cached value of the '{@link #getDarkRpFitCoefficients() <em>Dark Rp Fit Coefficients</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @see #getDarkRpFitCoefficients()
    * @generated
    * @ordered
@@ -371,13 +392,22 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
 
   /**
    * The cached value of the '{@link #getDarkRsFitCoefficients() <em>Dark Rs Fit Coefficients</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @see #getDarkRsFitCoefficients()
    * @generated
    * @ordered
    */
   protected EList<Double> darkRsFitCoefficients;
+
+  /**
+   * The default value of the '{@link #getVocPerCell() <em>Voc Per Cell</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @see #getVocPerCell()
+   * @generated
+   * @ordered
+   */
+  protected static final double VOC_PER_CELL_EDEFAULT = 0.0;
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -470,6 +500,26 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
     openCircuitVoltage = newOpenCircuitVoltage;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE, oldOpenCircuitVoltage, openCircuitVoltage));
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * @generated
+   */
+  public int getNumberOfCells() {
+    return numberOfCells;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setNumberOfCells(int newNumberOfCells) {
+    int oldNumberOfCells = numberOfCells;
+    numberOfCells = newNumberOfCells;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_RESULT__NUMBER_OF_CELLS, oldNumberOfCells, numberOfCells));
   }
 
   /**
@@ -768,8 +818,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EList<Double> getDarkRpFitCoefficients() {
@@ -780,8 +829,7 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
   public EList<Double> getDarkRsFitCoefficients() {
@@ -789,6 +837,15 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
       darkRsFitCoefficients = new EDataTypeUniqueEList<Double>(Double.class, this, DatamodelPackage.CELL_RESULT__DARK_RS_FIT_COEFFICIENTS);
     }
     return darkRsFitCoefficients;
+  }
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @generated NOT
+   */
+  public double getVocPerCell() {
+    return getOpenCircuitVoltage() / (double) getNumberOfCells();
   }
 
   /**
@@ -860,6 +917,8 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
         return getDataEvaluated();
       case DatamodelPackage.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE:
         return getOpenCircuitVoltage();
+      case DatamodelPackage.CELL_RESULT__NUMBER_OF_CELLS:
+        return getNumberOfCells();
       case DatamodelPackage.CELL_RESULT__SHORT_CIRCUIT_CURRENT:
         return getShortCircuitCurrent();
       case DatamodelPackage.CELL_RESULT__PARALLEL_RESISTANCE:
@@ -894,6 +953,8 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
         return getDarkRpFitCoefficients();
       case DatamodelPackage.CELL_RESULT__DARK_RS_FIT_COEFFICIENTS:
         return getDarkRsFitCoefficients();
+      case DatamodelPackage.CELL_RESULT__VOC_PER_CELL:
+        return getVocPerCell();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -917,6 +978,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
         return;
       case DatamodelPackage.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE:
         setOpenCircuitVoltage((Double)newValue);
+        return;
+      case DatamodelPackage.CELL_RESULT__NUMBER_OF_CELLS:
+        setNumberOfCells((Integer)newValue);
         return;
       case DatamodelPackage.CELL_RESULT__SHORT_CIRCUIT_CURRENT:
         setShortCircuitCurrent((Double)newValue);
@@ -994,6 +1058,9 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
       case DatamodelPackage.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE:
         setOpenCircuitVoltage(OPEN_CIRCUIT_VOLTAGE_EDEFAULT);
         return;
+      case DatamodelPackage.CELL_RESULT__NUMBER_OF_CELLS:
+        setNumberOfCells(NUMBER_OF_CELLS_EDEFAULT);
+        return;
       case DatamodelPackage.CELL_RESULT__SHORT_CIRCUIT_CURRENT:
         setShortCircuitCurrent(SHORT_CIRCUIT_CURRENT_EDEFAULT);
         return;
@@ -1061,6 +1128,8 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
         return DATA_EVALUATED_EDEFAULT == null ? dataEvaluated != null : !DATA_EVALUATED_EDEFAULT.equals(dataEvaluated);
       case DatamodelPackage.CELL_RESULT__OPEN_CIRCUIT_VOLTAGE:
         return openCircuitVoltage != OPEN_CIRCUIT_VOLTAGE_EDEFAULT;
+      case DatamodelPackage.CELL_RESULT__NUMBER_OF_CELLS:
+        return numberOfCells != NUMBER_OF_CELLS_EDEFAULT;
       case DatamodelPackage.CELL_RESULT__SHORT_CIRCUIT_CURRENT:
         return shortCircuitCurrent != SHORT_CIRCUIT_CURRENT_EDEFAULT;
       case DatamodelPackage.CELL_RESULT__PARALLEL_RESISTANCE:
@@ -1095,6 +1164,8 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
         return darkRpFitCoefficients != null && !darkRpFitCoefficients.isEmpty();
       case DatamodelPackage.CELL_RESULT__DARK_RS_FIT_COEFFICIENTS:
         return darkRsFitCoefficients != null && !darkRsFitCoefficients.isEmpty();
+      case DatamodelPackage.CELL_RESULT__VOC_PER_CELL:
+        return getVocPerCell() != VOC_PER_CELL_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -1129,6 +1200,8 @@ public class CellResultImpl extends MinimalEObjectImpl.Container implements Cell
     result.append(dataEvaluated);
     result.append(", openCircuitVoltage: ");
     result.append(openCircuitVoltage);
+    result.append(", numberOfCells: ");
+    result.append(numberOfCells);
     result.append(", shortCircuitCurrent: ");
     result.append(shortCircuitCurrent);
     result.append(", parallelResistance: ");

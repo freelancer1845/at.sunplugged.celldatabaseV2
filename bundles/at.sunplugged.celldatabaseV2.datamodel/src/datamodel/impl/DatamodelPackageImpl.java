@@ -178,10 +178,11 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
   }
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_ShortCircuitCurrent() {
+  public EAttribute getCellResult_NumberOfCells() {
     return (EAttribute)cellResultEClass.getEStructuralFeatures().get(4);
   }
 
@@ -189,7 +190,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_ParallelResistance() {
+  public EAttribute getCellResult_ShortCircuitCurrent() {
     return (EAttribute)cellResultEClass.getEStructuralFeatures().get(5);
   }
 
@@ -197,7 +198,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_DarkParallelResistance() {
+  public EAttribute getCellResult_ParallelResistance() {
     return (EAttribute)cellResultEClass.getEStructuralFeatures().get(6);
   }
 
@@ -205,7 +206,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_SeriesResistance() {
+  public EAttribute getCellResult_DarkParallelResistance() {
     return (EAttribute)cellResultEClass.getEStructuralFeatures().get(7);
   }
 
@@ -213,7 +214,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_DarkSeriesResistance() {
+  public EAttribute getCellResult_SeriesResistance() {
     return (EAttribute)cellResultEClass.getEStructuralFeatures().get(8);
   }
 
@@ -221,7 +222,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_MaximumPowerVoltage() {
+  public EAttribute getCellResult_DarkSeriesResistance() {
     return (EAttribute)cellResultEClass.getEStructuralFeatures().get(9);
   }
 
@@ -229,7 +230,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_MaximumPowerCurrent() {
+  public EAttribute getCellResult_MaximumPowerVoltage() {
     return (EAttribute)cellResultEClass.getEStructuralFeatures().get(10);
   }
 
@@ -237,7 +238,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_Efficiency() {
+  public EAttribute getCellResult_MaximumPowerCurrent() {
     return (EAttribute)cellResultEClass.getEStructuralFeatures().get(11);
   }
 
@@ -245,7 +246,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_FillFactor() {
+  public EAttribute getCellResult_Efficiency() {
     return (EAttribute)cellResultEClass.getEStructuralFeatures().get(12);
   }
 
@@ -253,15 +254,15 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCellResult_LightMeasurementDataSet() {
-    return (EReference)cellResultEClass.getEStructuralFeatures().get(13);
+  public EAttribute getCellResult_FillFactor() {
+    return (EAttribute)cellResultEClass.getEStructuralFeatures().get(13);
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCellResult_DarkMeasuremenetDataSet() {
+  public EReference getCellResult_LightMeasurementDataSet() {
     return (EReference)cellResultEClass.getEStructuralFeatures().get(14);
   }
 
@@ -269,16 +270,15 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_MaximumPower() {
-    return (EAttribute)cellResultEClass.getEStructuralFeatures().get(15);
+  public EReference getCellResult_DarkMeasuremenetDataSet() {
+    return (EReference)cellResultEClass.getEStructuralFeatures().get(15);
   }
 
   /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_RsVocFitCoefficients() {
+  public EAttribute getCellResult_MaximumPower() {
     return (EAttribute)cellResultEClass.getEStructuralFeatures().get(16);
   }
 
@@ -287,7 +287,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_RpIscFitCoefficients() {
+  public EAttribute getCellResult_RsVocFitCoefficients() {
     return (EAttribute)cellResultEClass.getEStructuralFeatures().get(17);
   }
 
@@ -296,7 +296,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_MppFitCoefficients() {
+  public EAttribute getCellResult_RpIscFitCoefficients() {
     return (EAttribute)cellResultEClass.getEStructuralFeatures().get(18);
   }
 
@@ -305,7 +305,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_DarkRpFitCoefficients() {
+  public EAttribute getCellResult_MppFitCoefficients() {
     return (EAttribute)cellResultEClass.getEStructuralFeatures().get(19);
   }
 
@@ -314,8 +314,26 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCellResult_DarkRsFitCoefficients() {
+  public EAttribute getCellResult_DarkRpFitCoefficients() {
     return (EAttribute)cellResultEClass.getEStructuralFeatures().get(20);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getCellResult_DarkRsFitCoefficients() {
+    return (EAttribute)cellResultEClass.getEStructuralFeatures().get(21);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getCellResult_VocPerCell() {
+    return (EAttribute)cellResultEClass.getEStructuralFeatures().get(22);
   }
 
   /**
@@ -480,6 +498,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
     createEAttribute(cellResultEClass, CELL_RESULT__DESCRIPTION);
     createEAttribute(cellResultEClass, CELL_RESULT__DATA_EVALUATED);
     createEAttribute(cellResultEClass, CELL_RESULT__OPEN_CIRCUIT_VOLTAGE);
+    createEAttribute(cellResultEClass, CELL_RESULT__NUMBER_OF_CELLS);
     createEAttribute(cellResultEClass, CELL_RESULT__SHORT_CIRCUIT_CURRENT);
     createEAttribute(cellResultEClass, CELL_RESULT__PARALLEL_RESISTANCE);
     createEAttribute(cellResultEClass, CELL_RESULT__DARK_PARALLEL_RESISTANCE);
@@ -497,6 +516,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
     createEAttribute(cellResultEClass, CELL_RESULT__MPP_FIT_COEFFICIENTS);
     createEAttribute(cellResultEClass, CELL_RESULT__DARK_RP_FIT_COEFFICIENTS);
     createEAttribute(cellResultEClass, CELL_RESULT__DARK_RS_FIT_COEFFICIENTS);
+    createEAttribute(cellResultEClass, CELL_RESULT__VOC_PER_CELL);
     createEOperation(cellResultEClass, CELL_RESULT___VALIDATE_NAME__DIAGNOSTICCHAIN_MAP);
 
     cellGroupEClass = createEClass(CELL_GROUP);
@@ -554,6 +574,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
     initEAttribute(getCellResult_Description(), ecorePackage.getEString(), "description", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCellResult_DataEvaluated(), ecorePackage.getEDate(), "dataEvaluated", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCellResult_OpenCircuitVoltage(), ecorePackage.getEDouble(), "openCircuitVoltage", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCellResult_NumberOfCells(), ecorePackage.getEInt(), "numberOfCells", "1", 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
     initEAttribute(getCellResult_ShortCircuitCurrent(), ecorePackage.getEDouble(), "shortCircuitCurrent", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCellResult_ParallelResistance(), ecorePackage.getEDouble(), "parallelResistance", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCellResult_DarkParallelResistance(), ecorePackage.getEDouble(), "darkParallelResistance", null, 0, 1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -571,6 +592,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
     initEAttribute(getCellResult_MppFitCoefficients(), ecorePackage.getEDouble(), "mppFitCoefficients", null, 0, -1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCellResult_DarkRpFitCoefficients(), ecorePackage.getEDouble(), "darkRpFitCoefficients", null, 0, -1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCellResult_DarkRsFitCoefficients(), ecorePackage.getEDouble(), "darkRsFitCoefficients", null, 0, -1, CellResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCellResult_VocPerCell(), ecorePackage.getEDouble(), "vocPerCell", null, 0, 1, CellResult.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     EOperation op = initEOperation(getCellResult__ValidateName__DiagnosticChain_Map(), ecorePackage.getEBoolean(), "validateName", 0, 1, IS_UNIQUE, IS_ORDERED);
     addEParameter(op, ecorePackage.getEDiagnosticChain(), "chain", 0, 1, IS_UNIQUE, IS_ORDERED);

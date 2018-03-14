@@ -18,6 +18,7 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.renderer.xy.XYSplineRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.Layer;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.util.ShapeUtilities;
 import org.slf4j.Logger;
@@ -53,7 +54,8 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
     plot.setRangeMinorGridlinePaint(Color.LIGHT_GRAY);
 
     if (options.containsKey(PlotHelper.POWER_CURVE)
-        || options.containsKey(PlotHelper.POWER_CURVE_FIT)) {
+        || options.containsKey(PlotHelper.POWER_CURVE_FIT)
+        || options.containsKey(PlotHelper.MP_POINT)) {
       NumberAxis powerAxis = new NumberAxis("Power");
       powerAxis.setAutoRangeIncludesZero(true);
       XYSeriesCollection powerCollection = new XYSeriesCollection();
@@ -151,11 +153,11 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
           CellResult cellResult = (CellResult) dataSet.eContainer();
           if (cellResult != null) {
             Marker target = new ValueMarker(-cellResult.getMaximumPowerCurrent());
-            target.setPaint(Color.yellow);
-            chart.getXYPlot().addRangeMarker(target);
+            target.setPaint(Color.GREEN);
+            chart.getXYPlot().addRangeMarker(1, target, Layer.BACKGROUND);
             Marker domainTarget = new ValueMarker(cellResult.getMaximumPowerVoltage());
-            domainTarget.setPaint(Color.yellow);
-            chart.getXYPlot().addDomainMarker(domainTarget);
+            domainTarget.setPaint(Color.GREEN);
+            chart.getXYPlot().addDomainMarker(1, domainTarget, Layer.FOREGROUND);
 
           }
         }

@@ -11,6 +11,8 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Factory;
+import org.eclipse.emf.ecore.resource.Resource.IOWrappedException;
+import org.eclipse.emf.ecore.xmi.FeatureNotFoundException;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
@@ -85,7 +87,6 @@ public class DatabaseServiceImpl implements DatabaseService {
   private Resource createXmiResource(String path) throws DatabaseServiceException {
     Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
     Map<String, Object> m = reg.getExtensionToFactoryMap();
-
     m.put("xmi", new XMIResourceFactoryImpl());
     File file = new File(path);
     if (file.exists() == false) {
@@ -154,6 +155,15 @@ public class DatabaseServiceImpl implements DatabaseService {
     Resource resource = loadXmiResource(path);
     try {
       resource.load(Collections.EMPTY_MAP);
+
+    } catch (IOWrappedException eF) {
+      if (eF.getCause() instanceof FeatureNotFoundException) {
+        LOG.debug("Feature not found." + eF.getMessage());
+      } else {
+        LOG.error("Failed to load Database to import... \"" + path + "\"", eF);
+        throw new DatabaseServiceException("Failed to load Database...", eF);
+      }
+
     } catch (IOException e) {
       LOG.error("Failed to load Database to import... \"" + path + "\"", e);
       throw new DatabaseServiceException("Failed to load Database...", e);

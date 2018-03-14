@@ -9,7 +9,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobFunction;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.change.util.ChangeRecorder;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
@@ -18,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.export.api.ExcelExports;
 import datamodel.CellGroup;
-import datamodel.Database;
 
 public class SummaryExportWizard extends Wizard {
 
@@ -26,20 +25,19 @@ public class SummaryExportWizard extends Wizard {
 
   private static final String WINDOW_TITLE = "Summary Export Wizard";
 
-  private final Database database;
+  private final List<CellGroup> groups;
 
   protected PageOne pageOne;
 
-  public SummaryExportWizard(Database database) {
+  public SummaryExportWizard(List<CellGroup> groups) {
     super();
-
-    this.database = EcoreUtil.copy(database);
+    this.groups = groups;
     setNeedsProgressMonitor(true);
   }
 
   @Override
   public void addPages() {
-    pageOne = new PageOne(database);
+    pageOne = new PageOne(groups);
 
     addPage(pageOne);
   }
@@ -57,8 +55,8 @@ public class SummaryExportWizard extends Wizard {
 
     if (dialog.open() != null) {
       Path filePath = Paths.get(dialog.getFilterPath(), dialog.getFileName());
-      final List<CellGroup> reducedCellGroups = pageOne.getReducedDatabase()
-          .getCellGroups();
+      ChangeRecorder recorder = new ChangeRecorder(groups);
+      final List<CellGroup> reducedCellGroups = pageOne.getReducedDatabase();
       Job exportJob = Job.create("Excel Export Job", new IJobFunction() {
 
         @Override
@@ -70,10 +68,12 @@ public class SummaryExportWizard extends Wizard {
             monitor.done();
           } catch (IOException e) {
             LOG.error("Failed to export CellGroups...", e);
-            return new Status(Status.ERROR, FrameworkUtil.getBundle(this.getClass())
-                .getSymbolicName(), "Failed to expot CellGroups...", e);
+            return new Status(Status.ERROR,
+                FrameworkUtil.getBundle(this.getClass()).getSymbolicName(),
+                "Failed to expot CellGroups...", e);
           } finally {
             LOG.debug("Done exporting Cell Groups.");
+            recorder.endRecording().applyAndReverse();
           }
           return Status.OK_STATUS;
         }
