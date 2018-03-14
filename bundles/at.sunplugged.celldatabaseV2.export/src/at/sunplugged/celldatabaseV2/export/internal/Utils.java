@@ -28,6 +28,8 @@ public class Utils {
         case Keys.DIVIDE_BY_AREA:
           return result -> singleKey.applyAsDouble(result)
               / result.getLightMeasurementDataSet().getArea() / 10000;
+        case Keys.DIVIDE_BY_CELLS:
+          return result -> singleKey.applyAsDouble(result) / result.getNumberOfCells();
         default:
           throw new IllegalArgumentException("Unexpected second Key: " + keys.get(1));
       }

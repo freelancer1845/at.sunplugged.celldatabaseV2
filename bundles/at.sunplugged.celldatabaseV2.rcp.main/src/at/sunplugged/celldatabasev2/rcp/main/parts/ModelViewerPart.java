@@ -347,7 +347,7 @@ public class ModelViewerPart {
     } else if (object instanceof CellResult) {
       return ((CellResult) object).getName();
     } else if (object instanceof CellMeasurementDataSet) {
-      return ((CellResult) object).getName();
+      return ((CellMeasurementDataSet) object).getName();
     } else {
       return null;
     }

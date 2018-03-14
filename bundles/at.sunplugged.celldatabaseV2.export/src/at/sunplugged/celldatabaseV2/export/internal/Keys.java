@@ -46,6 +46,8 @@ public class Keys {
 
   public static final String DIVIDE_BY_AREA = "#divideByArea";
 
+  public static final String DIVIDE_BY_CELLS = "#divideByCells";
+
   private Keys() {
 
   }

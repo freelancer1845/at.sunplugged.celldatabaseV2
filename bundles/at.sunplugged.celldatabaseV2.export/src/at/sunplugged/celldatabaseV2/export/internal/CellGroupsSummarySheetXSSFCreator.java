@@ -55,35 +55,33 @@ public class CellGroupsSummarySheetXSSFCreator {
         ToDoubleFunction<CellResult> finalValueGetter;
         ToDoubleFunction<CellResult> valueGetter = Utils.getValueGetter(keys.get(0));
         if (keys.contains(Keys.DIVIDE_BY_AREA)) {
-          finalValueGetter =
-              result -> valueGetter.applyAsDouble(result) / result.getLightMeasurementDataSet()
-                  .getArea() / 10000.0;
+          finalValueGetter = result -> valueGetter.applyAsDouble(result)
+              / result.getLightMeasurementDataSet().getArea() / 10000.0;
           keys.removeElement(Keys.DIVIDE_BY_AREA);
-        } else {
+        } else if (keys.contains(Keys.DIVIDE_BY_CELLS)) {
+
+          finalValueGetter =
+              result -> valueGetter.applyAsDouble(result) / result.getNumberOfCells();
+          keys.removeElement(Keys.DIVIDE_BY_CELLS);
+        }
+
+        else {
           finalValueGetter = valueGetter;
         }
         if (keys.size() > 1) {
           switch (keys.get(1)) {
             case Keys.MAX:
-              writeCellColumnDouble(cell, group -> group.getCellResults()
-                  .stream()
-                  .mapToDouble(finalValueGetter)
-                  .max()
-                  .getAsDouble());
+              writeCellColumnDouble(cell, group -> group.getCellResults().stream()
+                  .mapToDouble(finalValueGetter).max().getAsDouble());
               break;
             case Keys.STD:
               writeCellColumnDouble(cell, group -> {
                 StandardDeviation std = new StandardDeviation();
 
-                double mean = group.getCellResults()
-                    .stream()
-                    .mapToDouble(finalValueGetter)
-                    .average()
-                    .getAsDouble();
-                double[] values = group.getCellResults()
-                    .stream()
-                    .mapToDouble(finalValueGetter)
-                    .toArray();
+                double mean = group.getCellResults().stream().mapToDouble(finalValueGetter)
+                    .average().getAsDouble();
+                double[] values =
+                    group.getCellResults().stream().mapToDouble(finalValueGetter).toArray();
                 return std.evaluate(values, mean);
               });
               break;
@@ -91,11 +89,8 @@ public class CellGroupsSummarySheetXSSFCreator {
               throw new IllegalArgumentException("Unexpected second Key: " + keys.get(1));
           }
         } else {
-          writeCellColumnDouble(cell, group -> group.getCellResults()
-              .stream()
-              .mapToDouble(finalValueGetter)
-              .average()
-              .getAsDouble());
+          writeCellColumnDouble(cell, group -> group.getCellResults().stream()
+              .mapToDouble(finalValueGetter).average().getAsDouble());
         }
         break;
 
