@@ -7,6 +7,8 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
@@ -14,6 +16,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -26,20 +29,26 @@ public class VariableInputDialog extends TitleAreaDialog {
 
   private final String[] fieldLabels;
 
+  private final String[] intialValues;
+
   private final IInputValidator[] validators;
 
   private final Boolean[] completeFields;
 
   private String[] values;
 
+  private Text[] inputTexts;
+
 
 
   public VariableInputDialog(Shell parentShell, String title, String message, String[] fieldLables,
-      IInputValidator[] validators) {
+      String[] intialValues, IInputValidator[] validators) {
     super(parentShell);
     this.title = title;
     this.message = message;
     this.fieldLabels = fieldLables;
+    this.intialValues = intialValues;
+    this.inputTexts = new Text[fieldLabels.length];
     if (validators == null) {
       this.validators = new IInputValidator[fieldLables.length];
       for (int i = 0; i < this.validators.length; i++) {
@@ -69,6 +78,8 @@ public class VariableInputDialog extends TitleAreaDialog {
     setTitle(title);
     setMessage(message);
     getButton(IDialogConstants.OK_ID).setEnabled(false);
+
+    Arrays.stream(inputTexts).forEach(text -> text.notifyListeners(SWT.Modify, new Event()));
   }
 
 
@@ -87,7 +98,9 @@ public class VariableInputDialog extends TitleAreaDialog {
       label.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
 
       final Text text = new Text(composite, SWT.SINGLE | SWT.BORDER);
+      text.setText(intialValues[i]);
       text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+
       final int index = i;
       text.addModifyListener(new ModifyListener() {
 
@@ -109,8 +122,22 @@ public class VariableInputDialog extends TitleAreaDialog {
           }
         }
       });
+      text.addFocusListener(new FocusAdapter() {
+        public void focusGained(FocusEvent e) {
+          Display.getDefault().asyncExec(new Runnable() {
+            public void run() {
+              text.setSelection(0, text.getText().length());
+            }
+          });
+        }
+
+        public void focusLost(FocusEvent e) {
+          text.clearSelection();
+        }
+      });
 
 
+      inputTexts[i] = text;
     }
 
     return composite;
@@ -120,6 +147,7 @@ public class VariableInputDialog extends TitleAreaDialog {
     return values;
   }
 
+
   private void updateComplete(int index, boolean value) {
     this.completeFields[index] = value;
     if (Arrays.stream(completeFields).anyMatch(field -> field == false)) {
@@ -127,6 +155,43 @@ public class VariableInputDialog extends TitleAreaDialog {
     } else {
       getButton(IDialogConstants.OK_ID).setEnabled(true);
     }
+  }
+
+  public static class IntegerInputValidator implements IInputValidator {
+
+    private final int min;
+
+    private final int max;
+
+
+    public IntegerInputValidator() {
+      this.min = Integer.MIN_VALUE;
+      this.max = Integer.MAX_VALUE;
+    }
+
+
+    public IntegerInputValidator(int min, int max) {
+      this.min = min;
+      this.max = max;
+    }
+
+    @Override
+    public String isValid(String newText) {
+      try {
+        int value = Integer.valueOf(newText);
+        if (value < min) {
+          return "Input < min(" + min + ")";
+        } else if (value > max) {
+          return "Input > max(" + max + ")";
+        } else {
+          return null;
+        }
+      } catch (NumberFormatException e) {
+        return "Input not formatted correct";
+      }
+    }
+
+
   }
 
   public static class DoubleInputValidator implements IInputValidator {

@@ -41,7 +41,16 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import at.sunplugged.celldatabaseV2.persistence.api.DatabaseService;
@@ -55,6 +64,8 @@ public class ModelViewerPart {
 
   private static final Logger LOG = LoggerFactory.getLogger(ModelViewerPart.class);
 
+  private Text searchText;
+
   @Inject
   private MDirtyable dirtyable;
 
@@ -66,12 +77,32 @@ public class ModelViewerPart {
 
   private Map<URI, MPart> createdEditors = new HashMap<>();
 
+  private TreeViewer treeViewer;
+
   @PostConstruct
   public void postConstruct(Composite parent, Database database, EMenuService menuService,
       ESelectionService selectionService, EPartService partService, EModelService modelService,
       MApplication app, EditingDomain editingDomain) {
 
-    createTreeViewer(parent, database, menuService, selectionService, partService, modelService,
+    Composite wrapper = new Composite(parent, SWT.NONE);
+    wrapper.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+    wrapper.setLayout(new GridLayout(2, true));
+
+    Label lbl = new Label(wrapper, SWT.NONE);
+    lbl.setText("Search:");
+    lbl.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+
+    searchText = new Text(wrapper, SWT.BORDER);
+    searchText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+    searchText.addModifyListener(new ModifyListener() {
+
+      @Override
+      public void modifyText(ModifyEvent e) {
+        treeViewer.refresh();
+      }
+    });
+
+    createTreeViewer(wrapper, database, menuService, selectionService, partService, modelService,
         app, editingDomain);
   }
 
@@ -85,7 +116,7 @@ public class ModelViewerPart {
     AdapterFactoryLabelProvider labelProvider =
         new AdapterFactoryLabelProvider(composedAdapterFactory);
 
-    TreeViewer treeViewer = TreeViewerSWTFactory.fillDefaults(parent, database)
+    treeViewer = TreeViewerSWTFactory.fillDefaults(parent, database)
         .customizeContentProvider(new ITreeContentProvider() {
 
           @Override
@@ -174,7 +205,20 @@ public class ModelViewerPart {
     });
 
     treeViewer.addDoubleClickListener(new DoubleClickListener(partService, modelService, app));
+    treeViewer.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
 
+    treeViewer.addFilter(new ViewerFilter() {
+
+      @Override
+      public boolean select(Viewer viewer, Object parentElement, Object element) {
+        String elementName = getName(element);
+        if (elementName == null) {
+          return true;
+        } else {
+          return elementName.contains(searchText.getText());
+        }
+      }
+    });
   }
 
   @Persist
@@ -294,6 +338,18 @@ public class ModelViewerPart {
           editorPart.setLabel(label);
         }
       }
+    }
+  }
+
+  private String getName(Object object) {
+    if (object instanceof CellGroup) {
+      return ((CellGroup) object).getName();
+    } else if (object instanceof CellResult) {
+      return ((CellResult) object).getName();
+    } else if (object instanceof CellMeasurementDataSet) {
+      return ((CellResult) object).getName();
+    } else {
+      return null;
     }
   }
 }

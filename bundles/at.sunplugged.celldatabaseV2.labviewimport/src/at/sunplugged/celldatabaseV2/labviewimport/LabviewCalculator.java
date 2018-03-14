@@ -458,7 +458,7 @@ public class LabviewCalculator {
     cellResult.setDarkMeasuremenetDataSet(darkSet);
 
     cellResult.setName(dataFile.getName());
-
+    cellResult.setNumberOfCells(dataFile.getNumberOfCells());
 
     return cellResult;
   }

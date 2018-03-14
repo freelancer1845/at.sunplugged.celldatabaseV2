@@ -12,6 +12,8 @@ public final class LabviewDataFile {
 
   private final String name;
 
+  private int numberOfCells = 1;
+
   private Double area;
 
   private Double powerInput;
@@ -60,6 +62,14 @@ public final class LabviewDataFile {
 
   public void setPowerInput(Double powerInput) {
     this.powerInput = powerInput;
+  }
+
+  public int getNumberOfCells() {
+    return numberOfCells;
+  }
+
+  public void setNumberOfCells(int numberOfCells) {
+    this.numberOfCells = numberOfCells;
   }
 
 }

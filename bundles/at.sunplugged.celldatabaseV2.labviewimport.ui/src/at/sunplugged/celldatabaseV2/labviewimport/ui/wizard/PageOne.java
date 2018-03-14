@@ -325,14 +325,17 @@ public class PageOne extends WizardPage {
       public void widgetSelected(SelectionEvent e) {
         VariableInputDialog dialog = new VariableInputDialog(getShell(), "Parameters...",
             "Input parameters for recorded data.",
-            new String[] {"Area[cm^2]", "Power Input[W/m^2]"},
+            new String[] {"Area[cm^2]", "Power Input[W/m^2]", "Number of Cells"},
+            new String[] {"0.0", "890", "1"},
             new IInputValidator[] {
                 new VariableInputDialog.DoubleInputValidator(0, Double.MAX_VALUE),
-                new VariableInputDialog.DoubleInputValidator(0, Double.MAX_VALUE)});
+                new VariableInputDialog.DoubleInputValidator(0, Double.MAX_VALUE),
+                new VariableInputDialog.IntegerInputValidator(1, Integer.MAX_VALUE)});
         if (dialog.open() == Window.OK) {
           dataFiles.forEach(file -> {
             file.setArea(Double.valueOf(dialog.getValues()[0]) / 10000);
             file.setPowerInput(Double.valueOf(dialog.getValues()[1]));
+            file.setNumberOfCells(Integer.valueOf(dialog.getValues()[2]));
           });
           viewer.refresh();
         }
@@ -365,8 +368,8 @@ public class PageOne extends WizardPage {
 
   private void createColumns(TableViewer viewer2) {
 
-    String[] titles = {"Name", "Area [cm^2]", "Power Input[W/m^2]"};
-    int[] bounds = {150, 80, 80};
+    String[] titles = {"Name", "Area [cm^2]", "Power Input[W/m^2]", "# Cells"};
+    int[] bounds = {150, 80, 80, 50};
 
     TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);
     createTableColumn(column, titles[0], bounds[0]);
@@ -467,6 +470,48 @@ public class PageOne extends WizardPage {
           viewer.update(element, null);
         } catch (NumberFormatException e) {
           ((LabviewDataFile) element).setPowerInput(null);
+          viewer.update(element, null);
+        }
+
+      }
+    });
+
+    column = new TableViewerColumn(viewer, SWT.NONE);
+    createTableColumn(column, titles[3], bounds[3]);
+    column.setLabelProvider(new ColumnLabelProvider() {
+      @Override
+      public String getText(Object element) {
+        LabviewDataFile data = (LabviewDataFile) element;
+        return String.format("%d", data.getNumberOfCells());
+      }
+    });
+
+    column.setEditingSupport(new EditingSupport(viewer) {
+
+      @Override
+      protected CellEditor getCellEditor(Object element) {
+        return new TextCellEditor((Composite) viewer.getControl());
+      }
+
+      @Override
+      protected boolean canEdit(Object element) {
+        return true;
+      }
+
+      @Override
+      protected Object getValue(Object element) {
+        return String.valueOf(((LabviewDataFile) element).getNumberOfCells());
+
+      }
+
+      @Override
+      protected void setValue(Object element, Object value) {
+        try {
+          ((LabviewDataFile) element).setNumberOfCells(Integer.valueOf(value.toString()));
+          viewer.update(element, null);
+        } catch (NumberFormatException e) {
+          ((LabviewDataFile) element)
+              .setNumberOfCells(((LabviewDataFile) element).getNumberOfCells());
           viewer.update(element, null);
         }
 
