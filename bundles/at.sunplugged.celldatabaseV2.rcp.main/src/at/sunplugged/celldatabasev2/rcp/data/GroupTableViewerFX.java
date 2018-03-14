@@ -115,8 +115,7 @@ public class GroupTableViewerFX {
     stdDummy.setName("Std");
     stdDummy.setOpenCircuitVoltage(
         SummaryFunctions.getStd(group, result -> result.getOpenCircuitVoltage()));
-    stdDummy.setNumberOfCells(
-        (int) Math.round(SummaryFunctions.getStd(group, result -> result.getNumberOfCells())));
+    stdDummy.setNumberOfCells(meanDummy.getNumberOfCells());
     stdDummy.setShortCircuitCurrent(
         SummaryFunctions.getStd(group, result -> result.getShortCircuitCurrent()
             / result.getLightMeasurementDataSet().getArea() / 10000));
@@ -223,7 +222,7 @@ public class GroupTableViewerFX {
           String ret = "";
           if (getItem() != null) {
             String gi = getItem().toString();
-
+            System.out.println(gi);
             BigDecimal decimal =
                 new BigDecimal(Double.parseDouble(gi), new MathContext(siginifcantDigits));
 
