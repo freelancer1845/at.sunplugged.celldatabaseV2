@@ -215,7 +215,10 @@ public class ModelViewerPart {
         if (elementName == null) {
           return true;
         } else {
-          return elementName.contains(searchText.getText());
+          String lowerCaseElementName = elementName.toLowerCase().trim();
+          String search = searchText.getText().toLowerCase().trim();
+
+          return lowerCaseElementName.contains(search);
         }
       }
     });
