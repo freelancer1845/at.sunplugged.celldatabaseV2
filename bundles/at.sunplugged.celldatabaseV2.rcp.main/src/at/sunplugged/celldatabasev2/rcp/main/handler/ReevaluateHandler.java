@@ -32,6 +32,8 @@ public class ReevaluateHandler {
   @Execute
   public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) Object selection, Shell shell,
       CommandStack stack) {
+
+    cancleEvaluation = false;
     int answer = MessageDialog.open(MessageDialog.QUESTION_WITH_CANCEL, shell, "Reevaluate",
         "Automatic Calculation?", SWT.NONE, new String[] {"Yes", "No", "Cancle"});
     if (answer == 0) {
