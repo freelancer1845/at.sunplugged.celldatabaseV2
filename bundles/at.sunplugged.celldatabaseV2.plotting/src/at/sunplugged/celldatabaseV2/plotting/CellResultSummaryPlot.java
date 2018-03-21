@@ -69,11 +69,15 @@ public class CellResultSummaryPlot extends Composite {
     DoubleSummaryStatistics voltageStats = cellResult.getDarkMeasuremenetDataSet().getData()
         .stream().mapToDouble(UIDataPoint::getVoltage).summaryStatistics();
 
-
+    double rangeLower =
+        currentStats.getMin() - (currentStats.getMax() - currentStats.getMin()) / 10.0;
+    double rangeUpper =
+        currentStats.getMax() + (currentStats.getMax() - currentStats.getMin()) / 10.0;
+    if (rangeLower < rangeUpper) {
+      range.setRange(rangeLower, rangeUpper);
+    }
     domain.setRange(0, voltageStats.getMax() * 1.1);
-    range.setRange(currentStats.getMin() - (currentStats.getMax() - currentStats.getMin()) / 10.0,
-        currentStats.getMax() + (currentStats.getMax() - currentStats.getMin()) / 10.0);
-    System.out.println(range.getRange());
+
     chart.setTitle("Dark Rs");
     return new ChartComposite(this, SWT.NONE, chart, true);
   }
@@ -90,10 +94,17 @@ public class CellResultSummaryPlot extends Composite {
     NumberAxis domain = (NumberAxis) plot.getDomainAxis();
     NumberAxis range = (NumberAxis) plot.getRangeAxis();
 
-    double lowerDomain = cellResult.getDarkMeasuremenetDataSet().getData().stream()
+    double domainHelper = cellResult.getDarkMeasuremenetDataSet().getData().stream()
         .mapToDouble(UIDataPoint::getVoltage).min().getAsDouble();
-    domain.setRange(lowerDomain - Math.abs(lowerDomain) * 0.1, Math.abs(lowerDomain) * 0.1);
-    range.setAutoRangeIncludesZero(false);
+
+    double lowerDomain = domainHelper - Math.abs(domainHelper) * 0.1;
+    double upperDomain = Math.abs(domainHelper) * 0.1;
+    if (lowerDomain <= upperDomain) {
+      domain.setRange(lowerDomain, upperDomain);
+      range.setAutoRangeIncludesZero(false);
+
+    }
+
 
     chart.setTitle("Dark Rp");
     return new ChartComposite(this, SWT.NONE, chart, true);
@@ -118,8 +129,11 @@ public class CellResultSummaryPlot extends Composite {
 
     double lowerDomain = cellResult.getOpenCircuitVoltage() * 0.8;
     double upperDomain = cellResult.getOpenCircuitVoltage() * 1.2;
-    domain.setRange(lowerDomain, upperDomain);
-    range.setAutoRangeIncludesZero(false);
+    if (lowerDomain <= upperDomain) {
+      domain.setRange(lowerDomain, upperDomain);
+      range.setAutoRangeIncludesZero(false);
+    }
+
     chart.setTitle("Rs and Voc");
     return new ChartComposite(this, SWT.NONE, chart, true);
 
@@ -145,8 +159,11 @@ public class CellResultSummaryPlot extends Composite {
     double lowerDomain = cellResult.getLightMeasurementDataSet().getData().stream()
         .mapToDouble(UIDataPoint::getVoltage).min().getAsDouble();
     double upperDomain = -lowerDomain;
-    domain.setRange(lowerDomain, upperDomain);
-    range.setAutoRangeIncludesZero(false);
+    if (lowerDomain <= upperDomain) {
+      domain.setRange(lowerDomain, upperDomain);
+      range.setAutoRangeIncludesZero(false);
+    }
+
 
 
     chart.setTitle("Isc and Rp");

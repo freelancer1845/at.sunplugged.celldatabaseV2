@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
@@ -62,10 +63,18 @@ public class ChartDescriptor {
           container.setExpandHorizontal(true);
           container.setExpandVertical(true);
           container.setMinSize(250, 1000);
+          try {
+            Composite plot = new CellResultSummaryPlot(container, SWT.NONE,
+                (CellResult) ((List<CellMeasurementDataSet>) data).get(0).eContainer());
+            container.setContent(plot);
+          } catch (Exception e) {
+            LOG.error("Failed to plot...", e);
+            CLabel error =
+                LabelHelper.createErrorLabel(container, "Plotting failed: " + e.getMessage());
+            container.setContent(error);
+          }
 
-          Composite plot = new CellResultSummaryPlot(container, SWT.NONE,
-              (CellResult) ((List<CellMeasurementDataSet>) data).get(0).eContainer());
-          container.setContent(plot);
+
         } else {
           addMultiPlot(parent);
         }
@@ -74,8 +83,6 @@ public class ChartDescriptor {
     }
 
 
-
-   
 
   }
 
