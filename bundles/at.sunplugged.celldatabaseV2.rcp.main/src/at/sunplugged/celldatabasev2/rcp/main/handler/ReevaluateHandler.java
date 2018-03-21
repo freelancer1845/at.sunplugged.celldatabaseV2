@@ -86,7 +86,7 @@ public class ReevaluateHandler {
               } else if (answer == 1) {
                 try {
                   calculator.reEvaluate(calculator.getResult(), true);
-
+                  break;
                 } catch (LabviewCalculationException e1) {
                   MessageDialog.openError(shell, "Error",
                       "Calculation failed again.\n" + e1.getMessage());

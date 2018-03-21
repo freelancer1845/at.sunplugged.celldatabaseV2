@@ -257,6 +257,7 @@ public class PageTwo extends WizardPage {
                 try {
                   calculator.reEvaluate(calculator.getResult(), true);
                   results.add(calculator.getResult());
+                  break;
                 } catch (LabviewCalculationException e1) {
                   MessageDialog.openError(getShell(), "Error",
                       "Calculation failed again.\n" + e1.getMessage());
