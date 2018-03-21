@@ -128,11 +128,8 @@ public class SelectRangeFromChartDialog extends TitleAreaDialog {
               .findFirst().getAsInt();
           int endRange = IntStream.range(0, dataSet.getData().size())
               .filter(idx -> dataSet.getData().get(idx).getVoltage() > points[currentRange][1])
-              .findFirst().getAsInt();
+              .findFirst().orElse(dataSet.getData().size() - 1);
 
-          System.out.println("Range: " + points[currentRange][0] + " - " + points[currentRange][1]);
-          dataSet.getData().forEach(point -> System.out
-              .println("V: " + point.getVoltage() + " - I: " + point.getCurrent()));
           if (MessageDialog.openQuestion(getShell(), "Range Correct?",
               "Data Points contained in this Range: " + (endRange - startRange))) {
             currentRange++;

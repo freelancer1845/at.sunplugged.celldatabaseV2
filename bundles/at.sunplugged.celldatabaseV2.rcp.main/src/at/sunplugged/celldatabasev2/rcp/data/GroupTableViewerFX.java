@@ -223,10 +223,16 @@ public class GroupTableViewerFX {
           if (getItem() != null) {
             String gi = getItem().toString();
             System.out.println(gi);
-            BigDecimal decimal =
-                new BigDecimal(Double.parseDouble(gi), new MathContext(siginifcantDigits));
+            try {
+              BigDecimal decimal =
+                  new BigDecimal(Double.parseDouble(gi), new MathContext(siginifcantDigits));
+              ret = decimal.toPlainString();
+            } catch (NumberFormatException e) {
+              ret = "NaN";
+            }
 
-            ret = decimal.toPlainString();
+
+
           } else {
             ret = "0.00";
           }

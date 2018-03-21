@@ -72,60 +72,73 @@ public class LabviewCalculator {
 
 
   private void evaluateData() throws LabviewCalculationException {
+
+    result.setDarkParallelResistance(-1);
+    result.setDarkSeriesResistance(-1);
+    result.setEfficiency(-1);
+    result.setFillFactor(-1);
+    result.setMaximumPowerCurrent(-1);
+    result.setMaximumPowerVoltage(-1);
+    result.setParallelResistance(-1);
+    result.setShortCircuitCurrent(-1);
+
     try {
-
-      result.setDarkParallelResistance(-1);
-      result.setDarkSeriesResistance(-1);
-      result.setEfficiency(-1);
-      result.setFillFactor(-1);
-      result.setMaximumPowerCurrent(-1);
-      result.setMaximumPowerVoltage(-1);
-      result.setParallelResistance(-1);
-      result.setShortCircuitCurrent(-1);
-
       double[] vocAndRs = findVocAndRs();
       result.setOpenCircuitVoltage(vocAndRs[0]);
       result.setSeriesResistance(vocAndRs[1]);
       result.getRsVocFitCoefficients().clear();
       IntStream.range(2, vocAndRs.length)
           .forEach(idx -> result.getRsVocFitCoefficients().add(vocAndRs[idx]));
-
-
+    } catch (MathIllegalArgumentException a) {
+      throwCalculationException("Math Calculations failed for VOC/Rs. " + a.getMessage(), a);
+    }
+    try {
       double[] iscAndRp = findIscAndRp();
       result.setShortCircuitCurrent(iscAndRp[0]);
       result.setParallelResistance(iscAndRp[1]);
       result.getRpIscFitCoefficients().clear();
       IntStream.range(2, iscAndRp.length)
           .forEach(idx -> result.getRpIscFitCoefficients().add(iscAndRp[idx]));
-
+    } catch (MathIllegalArgumentException a) {
+      throwCalculationException("Math Calculations failed for ISC/Rp. " + a.getMessage(), a);
+    }
+    try {
       double[] maxPow = findMaxPow();
       result.setMaximumPowerVoltage(maxPow[0]);
       result.setMaximumPowerCurrent(maxPow[1]);
       result.getMppFitCoefficients().clear();
       IntStream.range(2, maxPow.length)
           .forEach(idx -> result.getMppFitCoefficients().add(maxPow[idx]));
-
-
+    } catch (MathIllegalArgumentException a) {
+      throwCalculationException("Math Calculations failed for Max Pow. " + a.getMessage(), a);
+    }
+    try {
       double[] darkRp = findDarkRp();
       result.setDarkParallelResistance(darkRp[0]);
       result.getDarkRpFitCoefficients().clear();
       IntStream.range(1, darkRp.length)
           .forEach(idx -> result.getDarkRpFitCoefficients().add(darkRp[idx]));
+    } catch (
 
+    MathIllegalArgumentException a) {
+      throwCalculationException("Math Calculations failed for Dark Rp. " + a.getMessage(), a);
+    }
+    try {
       double[] darkRs = findDarkRs();
       result.setDarkSeriesResistance(darkRs[0]);
       result.getDarkRsFitCoefficients().clear();
       IntStream.range(1, darkRs.length)
           .forEach(idx -> result.getDarkRsFitCoefficients().add(darkRs[idx]));
 
-      result.setFillFactor(result.getMaximumPower() / result.getOpenCircuitVoltage()
-          / result.getShortCircuitCurrent() * 100);
-      result.setEfficiency(
-          result.getMaximumPower() / result.getLightMeasurementDataSet().getPowerInput()
-              / result.getLightMeasurementDataSet().getArea() * 100);
     } catch (MathIllegalArgumentException a) {
-      throwCalculationException("Math Calculations failed. " + a.getMessage(), a);
+      throwCalculationException("Math Calculations failed for Dark Rs. " + a.getMessage(), a);
     }
+    result.setFillFactor(result.getMaximumPower() / result.getOpenCircuitVoltage()
+        / result.getShortCircuitCurrent() * 100);
+    result.setEfficiency(
+        result.getMaximumPower() / result.getLightMeasurementDataSet().getPowerInput()
+            / result.getLightMeasurementDataSet().getArea() * 100);
+
   }
 
 
@@ -141,9 +154,9 @@ public class LabviewCalculator {
       double[] range = showRangeDialog(data, "Dark Rs Fit Range");
 
       startRange = IntStream.range(0, data.size())
-          .filter(idx -> data.get(idx).getVoltage() > range[0]).findFirst().orElse(-1);
+          .filter(idx -> data.get(idx).getVoltage() > range[0]).findFirst().orElse(0);
       endRange = IntStream.range(0, data.size())
-          .filter(idx -> data.get(idx).getVoltage() > range[1]).findFirst().orElse(-1) - 1;
+          .filter(idx -> data.get(idx).getVoltage() > range[1]).findFirst().orElse(data.size() - 1);
     } else {
       startRange = IntStream.range(0, data.size())
           .filter(idx -> data.get(idx).getCurrent() > maxCurrent * 0.9).findFirst().orElse(0) - 1;
@@ -184,9 +197,9 @@ public class LabviewCalculator {
       double[] range = showRangeDialog(data, "Dark Rp Fit Range");
 
       startRange = IntStream.range(0, data.size())
-          .filter(idx -> data.get(idx).getVoltage() > range[0]).findFirst().orElse(-1);
+          .filter(idx -> data.get(idx).getVoltage() > range[0]).findFirst().orElse(0);
       endRange = IntStream.range(0, data.size())
-          .filter(idx -> data.get(idx).getVoltage() > range[1]).findFirst().orElse(-1) - 1;
+          .filter(idx -> data.get(idx).getVoltage() > range[1]).findFirst().orElse(data.size() - 1);
     } else {
       startRange = 0;
 
@@ -246,9 +259,10 @@ public class LabviewCalculator {
       double[] range = showRangeDialog(powerDataList, "Mpp Fit Range");
 
       startRange = IntStream.range(0, powerDataList.size())
-          .filter(idx -> powerDataList.get(idx).getVoltage() > range[0]).findFirst().orElse(-1);
+          .filter(idx -> powerDataList.get(idx).getVoltage() > range[0]).findFirst().orElse(0);
       endRange = IntStream.range(0, powerDataList.size())
-          .filter(idx -> powerDataList.get(idx).getVoltage() > range[1]).findFirst().orElse(-1) - 1;
+          .filter(idx -> powerDataList.get(idx).getVoltage() > range[1]).findFirst()
+          .orElse(powerDataList.size() - 1);
     } else {
 
       startRange = IntStream.range(0, powerData.length).filter(idx -> powerData[idx][1] < 0)
@@ -309,9 +323,10 @@ public class LabviewCalculator {
       double[] range = showRangeDialog(dataPoints, "Voc Fit Range");
 
       startRange = IntStream.range(0, dataPoints.size())
-          .filter(idx -> dataPoints.get(idx).getVoltage() > range[0]).findFirst().orElse(-1);
+          .filter(idx -> dataPoints.get(idx).getVoltage() > range[0]).findFirst().orElse(0);
       endRange = IntStream.range(0, dataPoints.size())
-          .filter(idx -> dataPoints.get(idx).getVoltage() > range[1]).findFirst().orElse(-1) - 1;
+          .filter(idx -> dataPoints.get(idx).getVoltage() > range[1]).findFirst()
+          .orElse(dataPoints.size() - 1);
     } else {
       int idxOfFirstPositiveCurrent = IntStream.range(0, dataPoints.size())
           .filter(idx -> dataPoints.get(idx).getCurrent() > 0).findFirst().orElse(-1);
@@ -382,9 +397,10 @@ public class LabviewCalculator {
       double[] range = showRangeDialog(dataPoints, "Isc Fit Range");
 
       startRange = IntStream.range(0, dataPoints.size())
-          .filter(idx -> dataPoints.get(idx).getVoltage() >= range[0]).findFirst().orElse(-1);
+          .filter(idx -> dataPoints.get(idx).getVoltage() >= range[0]).findFirst().orElse(0);
       endRange = IntStream.range(0, dataPoints.size())
-          .filter(idx -> dataPoints.get(idx).getVoltage() > range[1]).findFirst().orElse(-1);
+          .filter(idx -> dataPoints.get(idx).getVoltage() > range[1]).findFirst()
+          .orElse(dataPoints.size() - 1);
     } else {
       int idxOfFirstPositiveVoltage = IntStream.range(0, dataPoints.size())
           .filter(idx -> dataPoints.get(idx).getVoltage() > 0).findFirst().orElse(-1);
