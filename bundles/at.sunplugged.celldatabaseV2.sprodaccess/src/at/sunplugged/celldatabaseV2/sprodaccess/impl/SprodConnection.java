@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,6 +102,16 @@ public class SprodConnection {
           dataPoint.setCurrent(lightData.getDouble(2));
           lightDataList.add(dataPoint);
         }
+        DoubleSummaryStatistics stats =
+            lightDataList.stream().mapToDouble(point -> point.getVoltage()).summaryStatistics();
+        while (true) {
+          if (lightDataList.get(0).getVoltage() > stats.getMin()) {
+            lightDataList.remove(0);
+          } else {
+            break;
+          }
+        }
+
         // Collections.sort(lightDataList, (a, b) -> Double.compare(a.getVoltage(),
         // b.getVoltage()));
 

@@ -5,20 +5,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import org.eclipse.core.databinding.observable.Observables;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;
-import org.eclipse.emfforms.common.Optional;
-import org.eclipse.emfforms.spi.swt.table.AbstractTableViewerComposite;
-import org.eclipse.emfforms.spi.swt.table.ButtonBarBuilder;
-import org.eclipse.emfforms.spi.swt.table.TableViewerCompositeBuilder;
-import org.eclipse.emfforms.spi.swt.table.TableViewerFactory;
-import org.eclipse.emfforms.spi.swt.table.TableViewerSWTBuilder;
-import org.eclipse.jface.layout.GridDataFactory;
-import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.jface.viewers.AbstractTableViewer;
-import org.eclipse.jface.viewers.CellLabelProvider;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.ViewerCell;
+import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -29,9 +20,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,103 +115,50 @@ public class PageOne extends WizardPage {
       }
     });
 
-    TableViewerSWTBuilder builder = TableViewerFactory.fillDefaults(container, SWT.NONE,
-        Observables.staticObservableList(sprodResults));
-
-    builder.customizeButtons(new ButtonBarBuilder() {
-
-      @Override
-      public void fillButtonComposite(Composite composite, AbstractTableViewer viewer) {}
-
-      @Override
-      public Object createNewElement(Button button) {
-        return null;
-      }
-    });
-    builder.customizeCompositeStructure(new TableViewerCompositeBuilder() {
-
-      private Composite viewerComposite;
-
-      @Override
-      public void createCompositeLayout(Composite parent) {
-        GridLayoutFactory.fillDefaults().numColumns(1).applyTo(parent);
-        /* Overall Layout */
-        final Composite composite = new Composite(parent, SWT.NONE);
-        composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        composite.setLayout(new GridLayout(1, false));
+    viewer = new TableViewer(container);
 
 
-        /* Bottom composite */
-        viewerComposite = createViewerComposite(composite);
-      }
+    createColumns(container, viewer);
 
+    viewer.setContentProvider(new ArrayContentProvider());
+    viewer.getTable().setHeaderVisible(true);
+    viewer.getTable().setLinesVisible(true);
 
+    viewer.setInput(sprodResults);
 
-      /**
-       * Called to create the composite for the table viewer.
-       *
-       * @param composite the parent
-       * @return the composite
-       */
-      protected Composite createViewerComposite(final Composite composite) {
-        final Composite viewerComposite = new Composite(composite, SWT.NONE);
-        GridDataFactory.fillDefaults().grab(true, true).align(SWT.FILL, SWT.FILL)
-            .applyTo(viewerComposite);
-        GridLayoutFactory.fillDefaults().numColumns(1).applyTo(viewerComposite);
-        return viewerComposite;
-      }
+    viewer.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-
-      @Override
-      public Optional<Label> getTitleLabel() {
-        return Optional.empty();
-      }
-
-      @Override
-      public Optional<List<Control>> getValidationControls() {
-        return Optional.empty();
-      }
-
-      @Override
-      public Optional<Composite> getButtonComposite() {
-        return Optional.empty();
-      }
-
-      @Override
-      public Composite getViewerComposite() {
-        return viewerComposite;
-      }
-
-    });
-
-    builder.addColumn("Id", "Id of the Sprod as saved in database", new CellLabelProvider() {
-
-      @Override
-      public void update(ViewerCell cell) {
-        CellResult result = (CellResult) cell.getElement();
-        cell.setText(result.getName());
-      }
-    });
-    builder.addColumn("Area", "Area of the Cell in mm^2", new CellLabelProvider() {
-      @Override
-      public void update(ViewerCell cell) {
-        CellResult result = (CellResult) cell.getElement();
-        cell.setText(String.valueOf(result.getLightMeasurementDataSet().getArea()));
-      }
-    });
-    builder.addColumn("Eff", "Efficency of the Cell %", new CellLabelProvider() {
-
-      @Override
-      public void update(ViewerCell cell) {
-        CellResult result = (CellResult) cell.getElement();
-        cell.setText(String.valueOf(result.getEfficiency()));
-      }
-    });
-    AbstractTableViewerComposite abstractViewerComposite = builder.create();
-    abstractViewerComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
-    viewer = (TableViewer) abstractViewerComposite.getTableViewer();
     setControl(container);
     setPageComplete(false);
+  }
+
+
+  private void createColumns(Composite container, TableViewer viewer2) {
+    String[] titles = {"Id"};
+    String[] toolTips = {"Id as saved in Sprod database"};
+    int[] bounds = {100};
+    int i = 0;
+    TableViewerColumn col = createTableViewerColumn(titles[i], toolTips[i], bounds[i], i);
+    col.setLabelProvider(new ColumnLabelProvider() {
+      @Override
+      public String getText(Object element) {
+        return ((CellResult) element).getName();
+      }
+    });
+
+  }
+
+
+  private TableViewerColumn createTableViewerColumn(String title, String tooltip, int bound,
+      int colNumber) {
+    final TableViewerColumn viewerColumn = new TableViewerColumn(viewer, SWT.NONE);
+    final TableColumn column = viewerColumn.getColumn();
+    column.setText(title);
+    column.setToolTipText(tooltip);
+    column.setWidth(bound);
+    column.setResizable(true);
+    column.setMoveable(true);
+    return viewerColumn;
   }
 
 

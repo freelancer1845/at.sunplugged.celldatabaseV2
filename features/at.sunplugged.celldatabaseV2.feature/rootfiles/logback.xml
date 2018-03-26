@@ -25,6 +25,7 @@
 	</appender>
 
 
+
 	<logger name="at.sunplugged.celldatabaseV2.logger" level="INFO"
 		additivity="false">
 		<appender-ref ref="STDOUT" />

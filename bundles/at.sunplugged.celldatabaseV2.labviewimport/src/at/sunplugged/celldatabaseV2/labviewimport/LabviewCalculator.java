@@ -112,27 +112,32 @@ public class LabviewCalculator {
     } catch (MathIllegalArgumentException a) {
       throwCalculationException("Math Calculations failed for Max Pow. " + a.getMessage(), a);
     }
-    try {
-      double[] darkRp = findDarkRp();
-      result.setDarkParallelResistance(darkRp[0]);
-      result.getDarkRpFitCoefficients().clear();
-      IntStream.range(1, darkRp.length)
-          .forEach(idx -> result.getDarkRpFitCoefficients().add(darkRp[idx]));
-    } catch (
+    if (result.getDarkMeasuremenetDataSet() != null) {
+      try {
+        double[] darkRp = findDarkRp();
+        result.setDarkParallelResistance(darkRp[0]);
+        result.getDarkRpFitCoefficients().clear();
+        IntStream.range(1, darkRp.length)
+            .forEach(idx -> result.getDarkRpFitCoefficients().add(darkRp[idx]));
+      } catch (
 
-    MathIllegalArgumentException a) {
-      throwCalculationException("Math Calculations failed for Dark Rp. " + a.getMessage(), a);
-    }
-    try {
-      double[] darkRs = findDarkRs();
-      result.setDarkSeriesResistance(darkRs[0]);
-      result.getDarkRsFitCoefficients().clear();
-      IntStream.range(1, darkRs.length)
-          .forEach(idx -> result.getDarkRsFitCoefficients().add(darkRs[idx]));
+      MathIllegalArgumentException a) {
+        throwCalculationException("Math Calculations failed for Dark Rp. " + a.getMessage(), a);
+      }
+      try {
+        double[] darkRs = findDarkRs();
+        result.setDarkSeriesResistance(darkRs[0]);
+        result.getDarkRsFitCoefficients().clear();
+        IntStream.range(1, darkRs.length)
+            .forEach(idx -> result.getDarkRsFitCoefficients().add(darkRs[idx]));
 
-    } catch (MathIllegalArgumentException a) {
-      throwCalculationException("Math Calculations failed for Dark Rs. " + a.getMessage(), a);
+      } catch (MathIllegalArgumentException a) {
+        throwCalculationException("Math Calculations failed for Dark Rs. " + a.getMessage(), a);
+      }
+    } else {
+      log.warn("No Dark Data Provided.");
     }
+
     result.setFillFactor(result.getMaximumPower() / result.getOpenCircuitVoltage()
         / result.getShortCircuitCurrent() * 100);
     result.setEfficiency(

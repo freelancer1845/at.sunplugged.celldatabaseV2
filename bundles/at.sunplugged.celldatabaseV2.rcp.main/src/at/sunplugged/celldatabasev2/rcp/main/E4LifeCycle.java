@@ -39,7 +39,6 @@ public class E4LifeCycle {
     Platform.setImplicitExit(false);
     at.sunplugged.celldatabaseV2.common.Utils.setDefaultSettings(false);
 
-
     final Shell shell = new Shell();
     shell.open();
     StartupWizard startupWizard = new StartupWizard();
@@ -58,6 +57,7 @@ public class E4LifeCycle {
       LOG.error("Faild to load database intially...", e);
       return;
     }
+
 
     LOG.debug("Leaving PostConstruct method.");
   }

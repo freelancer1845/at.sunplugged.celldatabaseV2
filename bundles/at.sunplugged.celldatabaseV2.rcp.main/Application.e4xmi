@@ -68,7 +68,6 @@
   <handlers xmi:id="_GDaocLNqEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.3" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.RedoHandler" command="_zI9JkLNpEee9C5ECqbuxVA"/>
   <handlers xmi:id="_hDkUsLNtEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.4" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ImportFromLabviewHandler" command="_eJyEILNtEee9C5ECqbuxVA"/>
   <handlers xmi:id="_QRy6ALQEEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.5" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.SaveHandler" command="_I0eM0LQEEee9C5ECqbuxVA"/>
-  <handlers xmi:id="_DYYTkLQwEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.6" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.PlotCellResultsHandler" command="_B8qjgLQwEee9C5ECqbuxVA"/>
   <handlers xmi:id="_wHL_oLRDEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.7" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ImportFromSprodHandler" command="_u5DYkLRDEeevVvMUer7mvw"/>
   <handlers xmi:id="_GeseMMFrEee9YMg6vBL86g" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.8" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.PlotLocalHandler" command="_FKwKEMFrEee9YMg6vBL86g"/>
   <handlers xmi:id="_8fVMcMu6Eee5gMuqTz2Tog" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.9" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ImportDatabaseHandler" command="_6_d8MMu6Eee5gMuqTz2Tog"/>
@@ -103,7 +102,6 @@
   <commands xmi:id="_zI9JkLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.redo" commandName="Redo"/>
   <commands xmi:id="_eJyEILNtEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.importfromlabview" commandName="Import From Labview"/>
   <commands xmi:id="_I0eM0LQEEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.save" commandName="Save"/>
-  <commands xmi:id="_B8qjgLQwEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.command.plotcellresults" commandName="Plot CellResults"/>
   <commands xmi:id="_u5DYkLRDEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.command.importfromsprod" commandName="Import From Sprod"/>
   <commands xmi:id="_FKwKEMFrEee9YMg6vBL86g" elementId="at.sunplugged.celldatabasev2.rcp.main.command.plotlocal" commandName="Plot Local"/>
   <commands xmi:id="_6_d8MMu6Eee5gMuqTz2Tog" elementId="at.sunplugged.celldatabasev2.rcp.main.command.importdatabase" commandName="Import Database"/>

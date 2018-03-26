@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="at.sunplugged.celldatabaseV2.target" sequenceNumber="14">
+<?pde version="3.8"?><target name="at.sunplugged.celldatabaseV2.target" sequenceNumber="17">
 <locations>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.emf.ecp.sdk.feature.feature.group" version="1.14.0.20170911-0944"/>
-<unit id="org.eclipse.emf.sdk.feature.group" version="2.13.0.v20170609-0928"/>
-<unit id="org.eclipse.equinox.sdk.feature.group" version="3.13.1.v20170928-1405"/>
-<unit id="org.eclipse.net4j.sdk.feature.group" version="4.6.0.v20170522-0642"/>
-<unit id="org.eclipse.sdk.feature.group" version="4.7.1.v20171009-0537"/>
-<repository location="http://download.eclipse.org/releases/oxygen/"/>
-</location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="ch.qos.logback.classic" version="1.1.2.v20160208-0839"/>
 <unit id="ch.qos.logback.classic.source" version="1.1.2.v20160208-0839"/>
@@ -47,6 +39,14 @@
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.e4.ui.progress.feature.feature.group" version="0.1.0.v20150731-0425"/>
 <repository location="https://hudson.eclipse.org/platform/job/eclipse4-progress-view/lastSuccessfulBuild/artifact/releng/org.eclipse.e4.ui.progress.update/target/repository/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.emf.ecp.sdk.feature.feature.group" version="1.16.0.20180305-1637"/>
+<unit id="org.eclipse.emf.sdk.feature.group" version="2.13.0.v20170609-0928"/>
+<unit id="org.eclipse.equinox.sdk.feature.group" version="3.13.3.v20180301-1149"/>
+<unit id="org.eclipse.net4j.sdk.feature.group" version="4.6.0.v20170522-0642"/>
+<unit id="org.eclipse.sdk.feature.group" version="4.7.3.v20180301-1154"/>
+<repository location="http://download.eclipse.org/releases/oxygen/"/>
 </location>
 </locations>
 <includeBundles>
@@ -175,8 +175,7 @@
 <plugin id="org.eclipse.core.filesystem"/>
 <plugin id="org.eclipse.core.filesystem.source"/>
 <plugin id="org.eclipse.core.filesystem.win32.x86_64"/>
-<plugin id="org.eclipse.core.jobs" version="3.9.1.v20170714-0547"/>
-<plugin id="org.eclipse.core.jobs.source" version="3.9.1.v20170714-0547"/>
+<plugin id="org.eclipse.core.jobs" version="3.9.3.v20180115-1757"/>
 <plugin id="org.eclipse.core.net"/>
 <plugin id="org.eclipse.core.net.source"/>
 <plugin id="org.eclipse.core.net.win32.x86_64"/>
@@ -581,6 +580,8 @@
 <plugin id="org.eclipse.emfforms.common.source"/>
 <plugin id="org.eclipse.emfforms.common.validation"/>
 <plugin id="org.eclipse.emfforms.common.validation.source"/>
+<plugin id="org.eclipse.emfforms.core.bazaar"/>
+<plugin id="org.eclipse.emfforms.core.bazaar.source"/>
 <plugin id="org.eclipse.emfforms.core.services"/>
 <plugin id="org.eclipse.emfforms.core.services.databinding.featurepath"/>
 <plugin id="org.eclipse.emfforms.core.services.databinding.featurepath.source"/>
@@ -788,10 +789,10 @@
 <plugin id="org.eclipse.help.webapp"/>
 <plugin id="org.eclipse.help.webapp.source"/>
 <plugin id="org.eclipse.jdt"/>
-<plugin id="org.eclipse.jdt.annotation" version="2.1.100.v20170511-1408"/>
 <plugin id="org.eclipse.jdt.annotation" version="1.1.100.v20160418-1457"/>
-<plugin id="org.eclipse.jdt.annotation.source" version="1.1.100.v20160418-1457"/>
+<plugin id="org.eclipse.jdt.annotation" version="2.1.100.v20170511-1408"/>
 <plugin id="org.eclipse.jdt.annotation.source" version="2.1.100.v20170511-1408"/>
+<plugin id="org.eclipse.jdt.annotation.source" version="1.1.100.v20160418-1457"/>
 <plugin id="org.eclipse.jdt.apt.core"/>
 <plugin id="org.eclipse.jdt.apt.core.source"/>
 <plugin id="org.eclipse.jdt.apt.pluggable.core"/>
@@ -840,10 +841,9 @@
 <plugin id="org.eclipse.jetty.servlet.source"/>
 <plugin id="org.eclipse.jetty.util"/>
 <plugin id="org.eclipse.jetty.util.source"/>
-<plugin id="org.eclipse.jface" version="3.13.1.v20170810-0135"/>
+<plugin id="org.eclipse.jface" version="3.13.2.v20171022-1656"/>
 <plugin id="org.eclipse.jface.databinding" version="1.8.100.v20170503-1507"/>
 <plugin id="org.eclipse.jface.databinding.source" version="1.8.100.v20170503-1507"/>
-<plugin id="org.eclipse.jface.source" version="3.13.1.v20170810-0135"/>
 <plugin id="org.eclipse.jface.text"/>
 <plugin id="org.eclipse.jface.text.source"/>
 <plugin id="org.eclipse.jsch.core"/>
@@ -901,12 +901,11 @@
 <plugin id="org.eclipse.ocl.ecore"/>
 <plugin id="org.eclipse.ocl.ecore.source"/>
 <plugin id="org.eclipse.ocl.source"/>
-<plugin id="org.eclipse.osgi" version="3.12.50.v20170928-1321"/>
+<plugin id="org.eclipse.osgi" version="3.12.100.v20180210-1608"/>
 <plugin id="org.eclipse.osgi.compatibility.state"/>
 <plugin id="org.eclipse.osgi.compatibility.state.source"/>
 <plugin id="org.eclipse.osgi.services" version="3.6.0.v20170228-1906"/>
 <plugin id="org.eclipse.osgi.services.source" version="3.6.0.v20170228-1906"/>
-<plugin id="org.eclipse.osgi.source" version="3.12.50.v20170928-1321"/>
 <plugin id="org.eclipse.osgi.util" version="3.4.0.v20170111-1608"/>
 <plugin id="org.eclipse.osgi.util.source" version="3.4.0.v20170111-1608"/>
 <plugin id="org.eclipse.pde"/>
@@ -955,9 +954,8 @@
 <plugin id="org.eclipse.sdk"/>
 <plugin id="org.eclipse.search"/>
 <plugin id="org.eclipse.search.source"/>
-<plugin id="org.eclipse.swt" version="3.106.1.v20170926-0519"/>
-<plugin id="org.eclipse.swt.win32.win32.x86_64" version="3.106.1.v20170926-0519"/>
-<plugin id="org.eclipse.swt.win32.win32.x86_64.source" version="3.106.1.v20170926-0519"/>
+<plugin id="org.eclipse.swt" version="3.106.3.v20180214-0345"/>
+<plugin id="org.eclipse.swt.win32.win32.x86_64" version="3.106.3.v20180214-0345"/>
 <plugin id="org.eclipse.team.core"/>
 <plugin id="org.eclipse.team.core.source"/>
 <plugin id="org.eclipse.team.cvs.core"/>

@@ -11,6 +11,5 @@ Export-Package: at.sunplugged.celldatabaseV2.common,
  at.sunplugged.celldatabaseV2.common.ui.dialog
 Bundle-Activator: at.sunplugged.celldatabaseV2.common.Activator
 Bundle-ActivationPolicy: lazy
-Import-Package: at.sunplugged.celldatabaseV2.common,
- org.eclipse.jface.dialogs,
+Import-Package: org.eclipse.jface.dialogs,
  org.eclipse.jface.resource

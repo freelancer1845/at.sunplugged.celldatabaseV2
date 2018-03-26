@@ -3,9 +3,11 @@ package at.sunplugged.celldatabaseV2.plotting.internal;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.jfree.chart.ChartFactory;
@@ -274,6 +276,8 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
         addLinearSeries(chart, " Dark RS Fit", cellResult -> cellResult.getDarkRsFitCoefficients());
         break;
 
+      case PlotHelper.DATA_POINTS:
+        break;
       default:
         LOG.error("Unkown option: " + key);
         break;
@@ -284,6 +288,12 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
       Function<CellResult, List<Double>> coeffGetter) {
 
     for (CellMeasurementDataSet dataSet : measurementDataSets) {
+      if (dataSet == null) {
+        // skip
+        LOG.warn("Null Set Provided...");
+
+        continue;
+      }
       CellResult cellResult = (CellResult) dataSet.eContainer();
       if (cellResult != null) {
         String nameS = getDataSetName(dataSet) + name;
@@ -315,14 +325,39 @@ public class CellResultJFreeChartPlotter implements ChartPlotter {
     XYSeriesCollection seriesCollection = new XYSeriesCollection();
 
     for (CellMeasurementDataSet dataSet : measurementDataSets) {
+      if (dataSet == null) {
+        // skip
+        LOG.warn("Empty data Set Provided...");
+        continue;
+      }
       String name = getDataSetName(dataSet);
       XYSeries series = new XYSeries(name, false);
 
       List<UIDataPoint> data = dataSet.getData();
 
-      for (UIDataPoint point : data) {
-        series.add(point.getVoltage(), point.getCurrent());
-      }
+      List<UIDataPoint> sortedList =
+          data.stream().sorted((p1, p2) -> Double.compare(p1.getVoltage(), p2.getVoltage()))
+              .collect(Collectors.toList());
+
+      List<UIDataPoint> fullList = new ArrayList<>(sortedList);
+      sortedList = sortedList.stream().collect(ArrayList<UIDataPoint>::new, (list, point) -> {
+        if (list.stream().anyMatch(p2 -> point.getVoltage() == p2.getVoltage()) == false) {
+          list.add(point);
+        }
+      }, (left, right) -> left.addAll(right));
+
+
+      // sortedList = sortedList.stream().collect(() -> new ArrayList<UIDataPoint>(),
+      // (List<UIDataPoint> container, UIDataPoint point) -> container.add(point),
+      // (List<UIDataPoint> container, UIDataPoint point) -> {
+      // });
+      // sortedList = sortedList
+      // .stream().filter(point -> fullList.stream()
+      // .filter(p2 -> point.getVoltage() == p2.getVoltage()).findAny().isPresent() == false)
+      // .collect(Collectors.toList());
+
+
+      sortedList.forEach(point -> series.add(point.getVoltage(), point.getCurrent()));
       seriesCollection.addSeries(series);
     }
 

@@ -22,6 +22,13 @@ public class LabelHelper {
     return label;
   }
 
+  public static Composite createErrorComposite(Composite parent, String message) {
+    Composite error = new Composite(parent, SWT.NONE);
+    error.setLayout(new GridLayout());
+    createErrorLabel(error, message);
+    return error;
+  }
+
 
   private LabelHelper() {
     // TODO Auto-generated constructor stub

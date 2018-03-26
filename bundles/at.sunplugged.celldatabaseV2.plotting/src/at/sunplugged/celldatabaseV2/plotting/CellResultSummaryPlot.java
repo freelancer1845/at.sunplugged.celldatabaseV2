@@ -19,6 +19,7 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.experimental.chart.swt.ChartComposite;
 import org.jfree.ui.Layer;
 import org.jfree.ui.RectangleInsets;
+import at.sunplugged.celldatabaseV2.common.ui.LabelHelper;
 import datamodel.CellResult;
 import datamodel.UIDataPoint;
 
@@ -48,66 +49,79 @@ public class CellResultSummaryPlot extends Composite {
     ChartComposite rsVocChart = createRsVocChart();
     rsVocChart.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 
+
     Composite darkRpChart = createDarkRpChart();
     darkRpChart.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 
-    ChartComposite darkRsChart = createDarkRsChart();
+    Composite darkRsChart = createDarkRsChart();
     darkRsChart.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
   }
 
 
-  private ChartComposite createDarkRsChart() {
-    Map<String, String> options = createOptions(PlotHelper.DARK_RS_FIT);
-    JFreeChart chart =
-        PlotHelper.createJFreeChart(cellResult.getDarkMeasuremenetDataSet(), options);
+  private Composite createDarkRsChart() {
+    if (cellResult.getDarkMeasuremenetDataSet() != null) {
+      Map<String, String> options = createOptions(PlotHelper.DARK_RS_FIT);
+      JFreeChart chart =
+          PlotHelper.createJFreeChart(cellResult.getDarkMeasuremenetDataSet(), options);
 
-    NumberAxis range = (NumberAxis) chart.getXYPlot().getRangeAxis();
-    NumberAxis domain = (NumberAxis) chart.getXYPlot().getDomainAxis();
+      NumberAxis range = (NumberAxis) chart.getXYPlot().getRangeAxis();
+      NumberAxis domain = (NumberAxis) chart.getXYPlot().getDomainAxis();
 
-    DoubleSummaryStatistics currentStats = cellResult.getDarkMeasuremenetDataSet().getData()
-        .stream().mapToDouble(UIDataPoint::getCurrent).summaryStatistics();
-    DoubleSummaryStatistics voltageStats = cellResult.getDarkMeasuremenetDataSet().getData()
-        .stream().mapToDouble(UIDataPoint::getVoltage).summaryStatistics();
+      DoubleSummaryStatistics currentStats = cellResult.getDarkMeasuremenetDataSet().getData()
+          .stream().mapToDouble(UIDataPoint::getCurrent).summaryStatistics();
+      DoubleSummaryStatistics voltageStats = cellResult.getDarkMeasuremenetDataSet().getData()
+          .stream().mapToDouble(UIDataPoint::getVoltage).summaryStatistics();
 
-    double rangeLower =
-        currentStats.getMin() - (currentStats.getMax() - currentStats.getMin()) / 10.0;
-    double rangeUpper =
-        currentStats.getMax() + (currentStats.getMax() - currentStats.getMin()) / 10.0;
-    if (rangeLower < rangeUpper) {
-      range.setRange(rangeLower, rangeUpper);
+      double rangeLower =
+          currentStats.getMin() - (currentStats.getMax() - currentStats.getMin()) / 10.0;
+      double rangeUpper =
+          currentStats.getMax() + (currentStats.getMax() - currentStats.getMin()) / 10.0;
+      if (rangeLower < rangeUpper) {
+        range.setRange(rangeLower, rangeUpper);
+      }
+      domain.setRange(0, voltageStats.getMax() * 1.1);
+
+      chart.setTitle("Dark Rs");
+      return new ChartComposite(this, SWT.NONE, chart, true);
+    } else {
+      return LabelHelper.createErrorComposite(this, "No Dark Data Set Provided");
     }
-    domain.setRange(0, voltageStats.getMax() * 1.1);
 
-    chart.setTitle("Dark Rs");
-    return new ChartComposite(this, SWT.NONE, chart, true);
   }
 
 
   private Composite createDarkRpChart() {
-    Map<String, String> options = createOptions(PlotHelper.DARK_RP_FIT);
-    JFreeChart chart =
-        PlotHelper.createJFreeChart(cellResult.getDarkMeasuremenetDataSet(), options);
 
-    XYPlot plot = chart.getXYPlot();
+    if (cellResult.getDarkMeasuremenetDataSet() != null) {
+      Map<String, String> options = createOptions(PlotHelper.DARK_RP_FIT);
+      JFreeChart chart =
+          PlotHelper.createJFreeChart(cellResult.getDarkMeasuremenetDataSet(), options);
+
+      XYPlot plot = chart.getXYPlot();
 
 
-    NumberAxis domain = (NumberAxis) plot.getDomainAxis();
-    NumberAxis range = (NumberAxis) plot.getRangeAxis();
+      NumberAxis domain = (NumberAxis) plot.getDomainAxis();
+      NumberAxis range = (NumberAxis) plot.getRangeAxis();
 
-    double domainHelper = cellResult.getDarkMeasuremenetDataSet().getData().stream()
-        .mapToDouble(UIDataPoint::getVoltage).min().getAsDouble();
+      double domainHelper = cellResult.getDarkMeasuremenetDataSet().getData().stream()
+          .mapToDouble(UIDataPoint::getVoltage).min().getAsDouble();
 
-    double lowerDomain = domainHelper - Math.abs(domainHelper) * 0.1;
-    double upperDomain = Math.abs(domainHelper) * 0.1;
-    if (lowerDomain <= upperDomain) {
-      domain.setRange(lowerDomain, upperDomain);
-      range.setAutoRangeIncludesZero(false);
+      double lowerDomain = domainHelper - Math.abs(domainHelper) * 0.1;
+      double upperDomain = Math.abs(domainHelper) * 0.1;
+      if (lowerDomain <= upperDomain) {
+        domain.setRange(lowerDomain, upperDomain);
+        range.setAutoRangeIncludesZero(false);
 
+      }
+
+
+      chart.setTitle("Dark Rp");
+      return new ChartComposite(this, SWT.NONE, chart, true);
+    } else {
+      return LabelHelper.createErrorComposite(this, "No Dark Data provided.");
     }
 
 
-    chart.setTitle("Dark Rp");
-    return new ChartComposite(this, SWT.NONE, chart, true);
   }
 
 

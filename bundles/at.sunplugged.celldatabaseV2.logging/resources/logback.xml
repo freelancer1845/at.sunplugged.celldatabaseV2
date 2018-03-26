@@ -23,6 +23,7 @@
 			</Pattern>
 		</encoder>
 	</appender>
+	
 
 
 	<logger name="at.sunplugged.celldatabaseV2.logger" level="INFO"
