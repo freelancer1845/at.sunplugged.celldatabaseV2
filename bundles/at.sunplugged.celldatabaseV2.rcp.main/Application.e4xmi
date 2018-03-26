@@ -13,9 +13,7 @@
             <children xsi:type="menu:HandledMenuItem" xmi:id="_2dp0gLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.undo" label="Undo" command="_yHo2gLNpEee9C5ECqbuxVA"/>
             <children xsi:type="menu:HandledMenuItem" xmi:id="_3v6GkLNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.redo" label="Redo" command="_zI9JkLNpEee9C5ECqbuxVA"/>
             <children xsi:type="menu:HandledMenuItem" xmi:id="_5t7BoLRJEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.save" label="Save" command="_I0eM0LQEEee9C5ECqbuxVA"/>
-            <children xsi:type="menu:HandledMenuItem" xmi:id="_S4s90ChjEeizY7v8Nvohfw" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.invertuidata" label="Invert UI Data" command="_J_wAIChjEeizY7v8Nvohfw">
-              <visibleWhen xsi:type="ui:ImperativeExpression" xmi:id="_jMQr4ChjEeizY7v8Nvohfw" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.imperativeexp.IsCellResultSelected"/>
-            </children>
+            <children xsi:type="menu:HandledMenuItem" xmi:id="_S4s90ChjEeizY7v8Nvohfw" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.invertuidata" label="Invert UI Data" command="_J_wAIChjEeizY7v8Nvohfw"/>
             <children xsi:type="menu:MenuSeparator" xmi:id="_wK0TsLRJEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.menuseparator.4"/>
             <children xsi:type="menu:HandledMenuItem" xmi:id="_25-9sMFrEee9YMg6vBL86g" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.plotlocal" label="Plot" command="_FKwKEMFrEee9YMg6vBL86g"/>
             <children xsi:type="menu:HandledMenuItem" xmi:id="_PIcRECYaEeizY7v8Nvohfw" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.reevaluate" label="Reevaluate" command="_YXDAkCYYEeizY7v8Nvohfw"/>
