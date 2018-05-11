@@ -242,7 +242,9 @@ public class PageTwo extends WizardPage {
                 "Failed to load labview data for file: " + file.getName() + ".\n" + e.getMessage());
           });
         } catch (LabviewCalculationException e) {
-          LOG.error("Failed to calculate labview files.", e);
+          LOG.debug(
+              "Failed to calculate labview files because of calculation error. Opening skip dialog.",
+              e);
           Display.getDefault().syncExec(() -> {
 
             while (true) {

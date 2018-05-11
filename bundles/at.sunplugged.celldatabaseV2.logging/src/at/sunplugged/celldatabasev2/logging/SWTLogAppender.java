@@ -24,7 +24,7 @@ public class SWTLogAppender extends AppenderBase<ILoggingEvent> {
   protected void append(ILoggingEvent eventObject) {
 
     if (eventObject.getLevel().isGreaterOrEqual(level)) {
-      if (checkDisplayAndShell() == false) {
+      if (checkDisplay() == false) {
         return;
       }
 
@@ -34,21 +34,31 @@ public class SWTLogAppender extends AppenderBase<ILoggingEvent> {
   }
 
   private void showMessage(ILoggingEvent eventObject) {
-    MessageDialog.openError(shell, "Error", eventObject.getMessage());
+    if (checkShell()) {
+      MessageDialog.openError(shell, "Error", eventObject.getMessage());
+    }
+
+
   }
 
-  private boolean checkDisplayAndShell() {
+  private boolean checkShell() {
+    Shell shell = display.getActiveShell();
+    if (shell != null) {
+      this.shell = shell;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private boolean checkDisplay() {
     Display display = Display.getDefault();
     if (display == null) {
       return false;
     }
     this.display = display;
 
-    Shell shell = display.getActiveShell();
-    if (shell == null) {
-      return false;
-    }
-    this.shell = shell;
+
 
     return true;
   }
