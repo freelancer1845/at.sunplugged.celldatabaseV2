@@ -6,6 +6,8 @@ public class LocationsGeneral {
 
   public static final String DATABASE_FILE_XMI = "database.file.xmi";
 
+  public static final String RECENT_DATABASES = "database.recent";
+
   private LocationsGeneral() {
 
   }

@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -20,6 +21,7 @@ import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import at.sunplugged.celldatabaseV2.common.settings.SettingsAccessor;
 import at.sunplugged.celldatabaseV2.persistence.api.DatabaseService;
 import at.sunplugged.celldatabaseV2.persistence.api.DatabaseServiceException;
 import datamodel.Database;
@@ -52,7 +54,29 @@ public class DatabaseServiceImpl implements DatabaseService {
     if (database == null) {
       database = createDefaultDatabase();
     }
+    addToRecentDatabases(path);
+
+
+
   }
+
+  private void addToRecentDatabases(String path) {
+    Set<String> recentDatabases = SettingsAccessor.getInstance().getSettings().getRecentDatabases();
+
+    if (recentDatabases.contains(path)) {
+      recentDatabases.remove(path);
+    }
+    SettingsAccessor.getInstance().getSettings().getRecentDatabases().add(path);
+    try {
+      SettingsAccessor.getInstance().flushSettings();
+    } catch (IOException e) {
+      LOG.warn("Flushing settings after adding recent database failed.", e);
+    }
+
+
+  }
+
+
 
   @Override
   public Database getDatabase() {
