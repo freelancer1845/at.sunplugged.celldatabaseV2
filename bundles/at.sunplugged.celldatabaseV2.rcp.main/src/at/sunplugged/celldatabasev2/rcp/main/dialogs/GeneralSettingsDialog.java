@@ -6,13 +6,11 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import at.sunplugged.celldatabaseV2.common.GeneralSettings;
-import at.sunplugged.celldatabaseV2.common.PrefNodes;
 
 public class GeneralSettingsDialog extends AbstractSettingsDialog {
 
   public GeneralSettingsDialog(Shell parentShell) {
-    super(parentShell, "General Settings", "General Settings Dialog", PrefNodes.GENERAL);
+    super(parentShell, "General Settings", "General Settings Dialog");
   }
 
   @Override
@@ -24,9 +22,11 @@ public class GeneralSettingsDialog extends AbstractSettingsDialog {
 
   private void createLabviewImportPathSetting(Composite container) {
     Button checkBox = createLabeledCheckbox(container, "Use predefinied LabviewImport path",
-        GeneralSettings.USE_LABVIEW_IMPORT_PATH);
+        settings -> settings.getLabviewImportDefaultSettings().isUseImportPath(), (settings,
+            newValue) -> settings.getLabviewImportDefaultSettings().setUseImportPath(newValue));
     Text text = createLabeledDirectoryChooser(container, "Predefined LaviewImport path",
-        GeneralSettings.LABVIEW_IMPORT_PATH);
+        settings -> settings.getLabviewImportDefaultSettings().getImportPath(),
+        (settings, newValue) -> settings.getLabviewImportDefaultSettings().setImportPath(newValue));
     text.setEnabled(checkBox.getSelection());
     checkBox.addSelectionListener(new SelectionAdapter() {
 

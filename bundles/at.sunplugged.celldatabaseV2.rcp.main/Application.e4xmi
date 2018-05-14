@@ -53,7 +53,6 @@
       </children>
       <children xsi:type="menu:Menu" xmi:id="_dryogLPZEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.menu.settings" label="Settings">
         <children xsi:type="menu:DirectMenuItem" xmi:id="_exn8ENrREeeBqL6c5O6wUg" elementId="at.sunplugged.celldatabasev2.rcp.main.directmenuitem.generalsettings" label="General Settings" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.GeneralSettingsHandler"/>
-        <children xsi:type="menu:DirectMenuItem" xmi:id="_jEUzcLPZEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.directmenuitem.pythonsettings" label="Python Settings" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.PythonSettingsHandler"/>
       </children>
       <children xsi:type="menu:Menu" xmi:id="_8bo5gNKwEeekgPldonb1gg" elementId="at.sunplugged.celldatabasev2.rcp.main.menu.info" label="Info">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_9XdokNKwEeekgPldonb1gg" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.checkforupdates" label="Check for updates..." enabled="false" command="_P5iHgNKvEeekgPldonb1gg"/>

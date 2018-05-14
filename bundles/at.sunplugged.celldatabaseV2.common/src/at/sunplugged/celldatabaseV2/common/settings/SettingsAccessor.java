@@ -41,12 +41,14 @@ public class SettingsAccessor {
   }
 
   public void flushSettings() throws IOException {
-    GsonBuilder builder = new GsonBuilder();
-    builder.setPrettyPrinting();
-    Gson gson = builder.create();
+    synchronized (settings) {
+      GsonBuilder builder = new GsonBuilder();
+      builder.setPrettyPrinting();
+      Gson gson = builder.create();
 
-    try (FileWriter writer = new FileWriter(new File(SETTING_FILE_NAME))) {
-      gson.toJson(settings, writer);
+      try (FileWriter writer = new FileWriter(new File(SETTING_FILE_NAME))) {
+        gson.toJson(settings, writer);
+      }
     }
   }
 

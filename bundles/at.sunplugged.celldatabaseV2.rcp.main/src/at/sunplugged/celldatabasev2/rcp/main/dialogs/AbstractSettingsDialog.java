@@ -1,8 +1,8 @@
 package at.sunplugged.celldatabasev2.rcp.main.dialogs;
 
 import java.util.LinkedList;
-import org.eclipse.core.runtime.preferences.ConfigurationScope;
-import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -21,9 +21,10 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.osgi.service.prefs.BackingStoreException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import at.sunplugged.celldatabaseV2.common.settings.JSONSettings;
+import at.sunplugged.celldatabaseV2.common.settings.SettingsAccessor;
 
 
 
@@ -35,15 +36,15 @@ public abstract class AbstractSettingsDialog extends TitleAreaDialog {
 
   private GridDataFactory gridDataFactory;
 
-  private IEclipsePreferences preferences;
+  private JSONSettings settings;
 
   private final String title;
 
   private final String message;
 
-  private LinkedList<PrefChangeCommand> changes = new LinkedList<>();
+  private LinkedList<PrefChangeCommand<?>> changes = new LinkedList<>();
 
-  public AbstractSettingsDialog(Shell parentShell, String title, String message, String node) {
+  public AbstractSettingsDialog(Shell parentShell, String title, String message) {
     super(parentShell);
     setBlockOnOpen(true);
     gridDataFactory = GridDataFactory.fillDefaults();
@@ -51,7 +52,7 @@ public abstract class AbstractSettingsDialog extends TitleAreaDialog {
 
     this.title = title;
     this.message = message;
-    this.preferences = ConfigurationScope.INSTANCE.getNode(node);
+    this.settings = SettingsAccessor.getInstance().getSettings();
   }
 
 
@@ -78,7 +79,8 @@ public abstract class AbstractSettingsDialog extends TitleAreaDialog {
 
   protected abstract void createFields(Composite container);
 
-  protected Button createLabeledCheckbox(Composite parent, String labelName, String preference) {
+  protected Button createLabeledCheckbox(Composite parent, String labelName,
+      Function<JSONSettings, Boolean> getter, BiConsumer<JSONSettings, Boolean> setter) {
     Label label = new Label(parent, SWT.NONE);
     label.setText(labelName);
     {
@@ -91,12 +93,13 @@ public abstract class AbstractSettingsDialog extends TitleAreaDialog {
     Button cb = new Button(parent, SWT.CHECK);
     cb.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
 
-    cb.setSelection(preferences.getBoolean(preference, false));
+    cb.setSelection(getter.apply(settings));
+
     cb.addSelectionListener(new SelectionAdapter() {
       @Override
       public void widgetSelected(SelectionEvent e) {
 
-        doPrefChange(preference, cb.getSelection());
+        doPrefChange(setter, cb.getSelection(), !cb.getSelection());
       }
 
     });
@@ -104,7 +107,8 @@ public abstract class AbstractSettingsDialog extends TitleAreaDialog {
     return cb;
   }
 
-  protected Text createLabeledFileChooser(Composite parent, String labelName, String preference) {
+  protected Text createLabeledFileChooser(Composite parent, String labelName,
+      Function<JSONSettings, String> getter, BiConsumer<JSONSettings, String> setter) {
     Label label = new Label(parent, SWT.NONE);
     label.setText(labelName);
     {
@@ -121,13 +125,13 @@ public abstract class AbstractSettingsDialog extends TitleAreaDialog {
       container.setLayout(new GridLayout(2, false));
     }
     Text text = new Text(container, SWT.BORDER);
-    text.setText(preferences.get(preference, ""));
+    text.setText(getter.apply(settings));
     text.setLayoutData(gridDataFactory.create());
     text.addModifyListener(new ModifyListener() {
 
       @Override
       public void modifyText(ModifyEvent e) {
-        doPrefChange(preference, text.getText());
+        doPrefChange(setter, text.getText(), getter.apply(settings));
       }
     });
     Button button = new Button(container, SWT.PUSH);
@@ -136,7 +140,7 @@ public abstract class AbstractSettingsDialog extends TitleAreaDialog {
       @Override
       public void widgetSelected(SelectionEvent e) {
         FileDialog fd = new FileDialog(parent.getShell(), SWT.OPEN);
-        fd.setFilterPath(preferences.get(preference, "C:\\"));
+        fd.setFilterPath(getter.apply(settings));
         String path = fd.open();
         if (path != null) {
           text.setText(path);
@@ -151,7 +155,7 @@ public abstract class AbstractSettingsDialog extends TitleAreaDialog {
   }
 
   protected Text createLabeledDirectoryChooser(Composite parent, String labelName,
-      String preference) {
+      Function<JSONSettings, String> getter, BiConsumer<JSONSettings, String> setter) {
     Label label = new Label(parent, SWT.NONE);
     label.setText(labelName);
     {
@@ -168,13 +172,13 @@ public abstract class AbstractSettingsDialog extends TitleAreaDialog {
       container.setLayout(new GridLayout(2, false));
     }
     Text text = new Text(container, SWT.BORDER);
-    text.setText(preferences.get(preference, ""));
+    text.setText(getter.apply(settings));
     text.setLayoutData(gridDataFactory.create());
     text.addModifyListener(new ModifyListener() {
 
       @Override
       public void modifyText(ModifyEvent e) {
-        doPrefChange(preference, text.getText());
+        doPrefChange(setter, text.getText(), getter.apply(settings));
       }
     });
     Button button = new Button(container, SWT.PUSH);
@@ -183,7 +187,7 @@ public abstract class AbstractSettingsDialog extends TitleAreaDialog {
       @Override
       public void widgetSelected(SelectionEvent e) {
         DirectoryDialog dd = new DirectoryDialog(getShell());
-        dd.setFilterPath(preferences.get(preference, "C:\\"));
+        dd.setFilterPath(getter.apply(settings));
         String path = dd.open();
         if (path != null) {
           text.setText(path);
@@ -199,12 +203,8 @@ public abstract class AbstractSettingsDialog extends TitleAreaDialog {
 
   @Override
   protected void okPressed() {
-    try {
-      preferences.flush();
+    SettingsAccessor.getInstance().flushSettingsIgnore();
 
-    } catch (BackingStoreException e) {
-
-    }
     super.okPressed();
   }
 
@@ -217,37 +217,26 @@ public abstract class AbstractSettingsDialog extends TitleAreaDialog {
 
   }
 
-  public IEclipsePreferences getPreferences() {
-    return preferences;
-  }
 
-  protected void doPrefChange(String setting, String newValue) {
-    PrefChangeCommand cmd =
-        new PrefChangeCommand(preferences, setting, preferences.get(setting, ""), newValue);
-    preferences.put(setting, newValue);
+  protected <T> void doPrefChange(BiConsumer<JSONSettings, T> setter, T newValue, T oldValue) {
+    PrefChangeCommand<T> cmd = new PrefChangeCommand<T>(setter, oldValue, newValue);
+    cmd.redo();
     changes.add(cmd);
   }
 
-  protected void doPrefChange(String setting, boolean newValue) {
-    doPrefChange(setting, String.valueOf(newValue));
-  }
 
-  private final class PrefChangeCommand {
+  private final class PrefChangeCommand<T> {
 
-    private final IEclipsePreferences preferences;
+    private final BiConsumer<JSONSettings, T> setter;
 
-    private final String setting;
+    private final T oldValue;
 
-    private final String oldValue;
-
-    private final String newValue;
+    private final T newValue;
 
 
 
-    public PrefChangeCommand(IEclipsePreferences preferences, String setting, String oldValue,
-        String newValue) {
-      this.preferences = preferences;
-      this.setting = setting;
+    public PrefChangeCommand(BiConsumer<JSONSettings, T> setter, T oldValue, T newValue) {
+      this.setter = setter;
       this.oldValue = oldValue;
       this.newValue = newValue;
     }
@@ -255,11 +244,11 @@ public abstract class AbstractSettingsDialog extends TitleAreaDialog {
 
 
     public void undo() {
-      preferences.put(setting, oldValue);
+      setter.accept(settings, oldValue);
     }
 
     public void redo() {
-      preferences.put(setting, newValue);
+      setter.accept(settings, newValue);
     }
 
 

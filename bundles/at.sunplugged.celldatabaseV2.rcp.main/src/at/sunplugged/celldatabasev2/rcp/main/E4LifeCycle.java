@@ -13,7 +13,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import at.sunplugged.celldatabaseV2.common.settings.SettingsAccessor;
 import at.sunplugged.celldatabaseV2.persistence.api.DatabaseService;
 import at.sunplugged.celldatabaseV2.persistence.api.DatabaseServiceException;
 import at.sunplugged.celldatabasev2.rcp.main.wizards.StartupWizard;
@@ -49,8 +48,7 @@ public class E4LifeCycle {
 
     DatabaseService databaseService = workbenchContext.get(DatabaseService.class);
     try {
-      databaseService.openDatabase(
-          SettingsAccessor.getInstance().getSettings().getRecentDatabases().iterator().next());
+      databaseService.openDatabase(startupWizard.getDatabasePath());
     } catch (DatabaseServiceException e) {
       LOG.error("Faild to load database intially...", e);
       return;

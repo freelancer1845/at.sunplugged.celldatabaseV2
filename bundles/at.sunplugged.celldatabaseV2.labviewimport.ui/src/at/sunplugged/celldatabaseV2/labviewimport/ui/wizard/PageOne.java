@@ -35,7 +35,6 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import at.sunplugged.celldatabaseV2.common.GeneralSettings;
 import at.sunplugged.celldatabaseV2.common.PrefNodes;
 import at.sunplugged.celldatabaseV2.common.RegexPatterns;
 import at.sunplugged.celldatabaseV2.common.VariableInputDialog;
@@ -114,17 +113,22 @@ public class PageOne extends WizardPage {
       @Override
       public void widgetSelected(SelectionEvent e) {
         FileDialog dialog = new FileDialog(buttonsGroup.getShell(), SWT.MULTI);
+        LabviewImportDefaultSettings settings =
+            SettingsAccessor.getInstance().getSettings().getLabviewImportDefaultSettings();
 
-        if (ConfigurationScope.INSTANCE.getNode(PrefNodes.GENERAL)
-            .getBoolean(GeneralSettings.USE_LABVIEW_IMPORT_PATH, false) == true) {
-          dialog.setFilterPath(ConfigurationScope.INSTANCE.getNode(PrefNodes.GENERAL)
-              .get(GeneralSettings.LABVIEW_IMPORT_PATH, ""));
+
+        if (settings.isUseImportPath()) {
+          dialog.setFilterPath(settings.getImportPath());
+        } else {
+          dialog.setFilterPath(settings.getLastImportPath());
         }
+
 
         dialog.setFilterExtensions(new String[] {"*.txt", "*.*"});
         dialog.setFilterNames(new String[] {"Text Files", "All"});
         if (dialog.open() != null) {
-
+          settings.setLastImportPath(dialog.getFilterPath());
+          SettingsAccessor.getInstance().flushSettingsIgnore();
           String[] names = dialog.getFileNames();
 
           checkNamesForLabviewFiles(names);
