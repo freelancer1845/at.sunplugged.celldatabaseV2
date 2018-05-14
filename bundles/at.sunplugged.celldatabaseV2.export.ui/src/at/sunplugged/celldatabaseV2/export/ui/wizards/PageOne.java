@@ -127,7 +127,6 @@ public class PageOne extends WizardPage {
 
 
 
-    groups.forEach(group -> treeViewer.setSubtreeChecked(group, true));
     treeViewer.addCheckStateListener(new ICheckStateListener() {
 
       @Override
@@ -165,7 +164,7 @@ public class PageOne extends WizardPage {
       }
     });
 
-    treeViewer.setCheckStateProvider(new ICheckStateProvider() {
+    ICheckStateProvider checkStateProvider = new ICheckStateProvider() {
 
       @Override
       public boolean isChecked(Object element) {
@@ -191,7 +190,9 @@ public class PageOne extends WizardPage {
 
       }
 
-    });
+    };
+
+    treeViewer.setCheckStateProvider(checkStateProvider);
     AdapterFactory adapterFactory = new DatamodelItemProviderAdapterFactory();
     AdapterFactoryLabelProvider labelProvider = new AdapterFactoryLabelProvider(adapterFactory);
     treeViewer.setLabelProvider(labelProvider);
@@ -207,6 +208,14 @@ public class PageOne extends WizardPage {
 
     treeViewer.setInput(groups);
 
+
+    groups.forEach(group -> {
+
+      treeViewer.setSubtreeChecked(group, true);
+
+      treeViewer.setChecked(group, true);
+    });
+    treeViewer.refresh();
     setControl(container);
     setPageComplete(treeViewer.getCheckedElements().length != 0);
 
