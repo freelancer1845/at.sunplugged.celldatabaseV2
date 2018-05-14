@@ -15,7 +15,9 @@ public class CreateCellGroupHandler {
   public void execute(Database database, EditingDomain editingDomain, CommandStack stack) {
     CellGroup cellGroup = DatamodelFactory.eINSTANCE.createCellGroup();
     cellGroup.setName("New Group");
-    Command cmd = AddCommand.create(editingDomain, database, null, cellGroup);
+
+    Command cmd = AddCommand.create(editingDomain, database, null, cellGroup, 0);
+
     stack.execute(cmd);
   }
 
