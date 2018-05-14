@@ -32,27 +32,22 @@ public class ExportExcelGroup {
     LOG.debug("Exporting Excel CellResults...");
     List<CellResult> cellResults = new ArrayList<>();
     if (selection instanceof Object[]) {
-      Arrays.stream((Object[]) selection)
-          .sequential()
-          .forEach(object -> {
-            if (object instanceof CellGroup) {
-              CellGroup group = (CellGroup) object;
-              group.getCellResults()
-                  .stream()
-                  .sequential()
-                  .forEach(result -> {
-                    if (cellResults.contains(result) == false) {
-                      cellResults.add(result);
-                    }
-                  });
-            } else if (object instanceof CellResult) {
-              CellResult result = (CellResult) object;
-              if (cellResults.contains(result) == false) {
-                cellResults.add(result);
-              }
+      Arrays.stream((Object[]) selection).sequential().forEach(object -> {
+        if (object instanceof CellGroup) {
+          CellGroup group = (CellGroup) object;
+          group.getCellResults().stream().sequential().forEach(result -> {
+            if (cellResults.contains(result) == false) {
+              cellResults.add(result);
             }
-
           });
+        } else if (object instanceof CellResult) {
+          CellResult result = (CellResult) object;
+          if (cellResults.contains(result) == false) {
+            cellResults.add(result);
+          }
+        }
+
+      });
     } else if (selection instanceof CellGroup) {
       cellResults.addAll(((CellGroup) selection).getCellResults());
     } else if (selection instanceof CellResult) {
@@ -67,6 +62,7 @@ public class ExportExcelGroup {
     FileDialog dialog = new FileDialog(parent, SWT.SAVE);
     dialog.setFilterExtensions(new String[] {"*.xlsx"});
     dialog.setFilterNames(new String[] {"Microsoft Open XML Format"});
+    dialog.setFileName(((CellGroup) cellResults.get(0).eContainer()).getName());
     if (dialog.open() != null) {
 
       Job exportJob = Job.create("Cell Results export Job", new IJobFunction() {
@@ -75,14 +71,15 @@ public class ExportExcelGroup {
         public IStatus run(IProgressMonitor monitor) {
           try {
             monitor.beginTask("Exporting...", 1);
-            ExcelExports.exportCellResults(Paths.get(dialog.getFilterPath(), dialog.getFileName())
-                .toString(), cellResults);
+            ExcelExports.exportCellResults(
+                Paths.get(dialog.getFilterPath(), dialog.getFileName()).toString(), cellResults);
             LOG.debug("Done exporting Excel CellResults");
 
           } catch (Exception e) {
             LOG.error("Failed to export...", e);
-            return new Status(Status.ERROR, FrameworkUtil.getBundle(this.getClass())
-                .getSymbolicName(), "Failed to export..", e);
+            return new Status(Status.ERROR,
+                FrameworkUtil.getBundle(this.getClass()).getSymbolicName(), "Failed to export..",
+                e);
           } finally {
             monitor.done();
           }
