@@ -5,6 +5,7 @@ Bundle-SymbolicName: at.sunplugged.celldatabaseV2.labviewimport.ui
 Bundle-Version: 1.1.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: at.sunplugged.celldatabaseV2.common,
+ at.sunplugged.celldatabaseV2.common.settings,
  at.sunplugged.celldatabaseV2.common.ui.dialog,
  at.sunplugged.celldatabaseV2.labviewimport,
  at.sunplugged.celldatabaseV2.plotting,

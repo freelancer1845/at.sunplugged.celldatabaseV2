@@ -39,6 +39,8 @@ import at.sunplugged.celldatabaseV2.common.GeneralSettings;
 import at.sunplugged.celldatabaseV2.common.PrefNodes;
 import at.sunplugged.celldatabaseV2.common.RegexPatterns;
 import at.sunplugged.celldatabaseV2.common.VariableInputDialog;
+import at.sunplugged.celldatabaseV2.common.settings.LabviewImportDefaultSettings;
+import at.sunplugged.celldatabaseV2.common.settings.SettingsAccessor;
 import at.sunplugged.celldatabaseV2.labviewimport.LabviewDataFile;
 import datamodel.util.DatamodelUtils;
 
@@ -323,10 +325,16 @@ public class PageOne extends WizardPage {
     setAllCombindend.addSelectionListener(new SelectionAdapter() {
       @Override
       public void widgetSelected(SelectionEvent e) {
+
+        LabviewImportDefaultSettings settings =
+            SettingsAccessor.getInstance().getSettings().getLabviewImportDefaultSettings();
+
+
         VariableInputDialog dialog = new VariableInputDialog(getShell(), "Parameters...",
             "Input parameters for recorded data.",
             new String[] {"Area[cm^2]", "Power Input[W/m^2]", "Number of Cells"},
-            new String[] {"0.0", "890", "1"},
+            new String[] {String.format("%.2f", settings.getArea()),
+                String.format("%.2f", settings.getPower()), settings.getCells().toString()},
             new IInputValidator[] {
                 new VariableInputDialog.DoubleInputValidator(0, Double.MAX_VALUE),
                 new VariableInputDialog.DoubleInputValidator(0, Double.MAX_VALUE),
@@ -337,6 +345,11 @@ public class PageOne extends WizardPage {
             file.setPowerInput(Double.valueOf(dialog.getValues()[1]));
             file.setNumberOfCells(Integer.valueOf(dialog.getValues()[2]));
           });
+          settings.setArea(Double.valueOf(dialog.getValues()[0]));
+          settings.setPower(Double.valueOf(dialog.getValues()[1]));
+          settings.setCells(Integer.valueOf(dialog.getValues()[2]));
+          SettingsAccessor.getInstance().flushSettingsIgnore();
+
           viewer.refresh();
         }
       }
