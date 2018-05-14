@@ -4,7 +4,6 @@ import java.util.ArrayDeque;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;
-import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.jface.util.IPropertyChangeListener;
@@ -30,15 +29,13 @@ public class DatabasePage extends WizardPage {
   private static final String DESCRIPTION = "Choose database file.";
   private BooleanFieldEditor useDefaultFieldEditor;
   private FileFieldEditor fileFieldEditor;
-  private final IEclipsePreferences prefsLocations;
 
 
-  protected DatabasePage(IEclipsePreferences prefsLocations) {
+  protected DatabasePage() {
     super(TITLE);
     setTitle(TITLE);
     setDescription(DESCRIPTION);
     setPageComplete(true);
-    this.prefsLocations = prefsLocations;
   }
 
   @Override
@@ -89,7 +86,6 @@ public class DatabasePage extends WizardPage {
       }
     });
 
-    fileFieldEditor.setStringValue(prefsLocations.get(LocationsGeneral.DATABASE_FILE_XMI, ""));
 
     createRecentDatabasesGroup(container);
 

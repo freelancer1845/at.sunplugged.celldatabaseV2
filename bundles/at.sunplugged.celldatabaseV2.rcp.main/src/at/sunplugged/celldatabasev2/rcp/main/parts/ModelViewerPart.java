@@ -106,6 +106,12 @@ public class ModelViewerPart {
         app, editingDomain);
   }
 
+  public void setNewDatabase(Database database) {
+    if (this.treeViewer != null) {
+      this.treeViewer.setInput(database);
+    }
+  }
+
   private void createTreeViewer(Composite parent, Database database, EMenuService menuService,
       ESelectionService selectionService, EPartService partService, EModelService modelService,
       MApplication app, EditingDomain editingDomain) {
@@ -115,7 +121,6 @@ public class ModelViewerPart {
 
     AdapterFactoryLabelProvider labelProvider =
         new AdapterFactoryLabelProvider(composedAdapterFactory);
-
     treeViewer = TreeViewerSWTFactory.fillDefaults(parent, database)
         .customizeContentProvider(new ITreeContentProvider() {
 
