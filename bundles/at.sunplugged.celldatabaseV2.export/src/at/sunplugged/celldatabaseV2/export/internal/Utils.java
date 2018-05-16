@@ -4,6 +4,7 @@ import java.util.Vector;
 import java.util.function.ToDoubleFunction;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import at.sunplugged.celldatabaseV2.common.StringUtils;
 import datamodel.CellResult;
 
 public class Utils {
@@ -47,8 +48,8 @@ public class Utils {
         return result -> result.getShortCircuitCurrent();
       case Keys.JSC:
         return result -> {
-          System.out.println(String.format("ISC: %f\nAREA: %f", result.getShortCircuitCurrent(),
-              result.getLightMeasurementDataSet().getArea()));
+          System.out.println(StringUtils.format("ISC: %f\nAREA: %f",
+              result.getShortCircuitCurrent(), result.getLightMeasurementDataSet().getArea()));
           return result.getShortCircuitCurrent() / result.getLightMeasurementDataSet().getArea()
               / 10000;
         };

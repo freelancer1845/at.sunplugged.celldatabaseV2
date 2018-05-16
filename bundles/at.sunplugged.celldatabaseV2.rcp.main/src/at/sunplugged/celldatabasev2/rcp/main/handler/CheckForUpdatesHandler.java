@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import at.sunplugged.celldatabaseV2.common.StringUtils;
 
 public class CheckForUpdatesHandler {
   private static final Logger LOG = LoggerFactory.getLogger(CheckForUpdatesHandler.class);
@@ -45,6 +46,7 @@ public class CheckForUpdatesHandler {
       }
     }
 
+
     Job j = new Job("Update Job") {
       @Override
       protected IStatus run(final IProgressMonitor monitor) {
@@ -63,7 +65,6 @@ public class CheckForUpdatesHandler {
     final UpdateOperation operation = new UpdateOperation(session);
     configureUpdate(operation);
     LOG.debug("Code added Repository Location: " + repositoryLocation);
-
     // check for updates, this causes I/O
     final IStatus status = operation.resolveModal(monitor);
 
@@ -74,6 +75,9 @@ public class CheckForUpdatesHandler {
     if (status.getCode() == UpdateOperation.STATUS_NOTHING_TO_UPDATE) {
       showMessage(shell, sync);
       return Status.CANCEL_STATUS;
+    } else {
+      LOG.debug(StringUtils.format("Status Message: %s", status.getMessage()),
+          status.getException());
     }
 
     // run installation
@@ -135,6 +139,7 @@ public class CheckForUpdatesHandler {
       LOG.error("Repository location is not valid.", e);
       return null;
     }
+
     // set location of artifact and metadata repo
     operation.getProvisioningContext().setArtifactRepositories(new URI[] {uri});
     operation.getProvisioningContext().setMetadataRepositories(new URI[] {uri});

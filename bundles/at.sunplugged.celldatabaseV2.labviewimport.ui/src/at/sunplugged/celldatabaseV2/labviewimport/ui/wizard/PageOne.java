@@ -30,16 +30,18 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import at.sunplugged.celldatabaseV2.common.PrefNodes;
 import at.sunplugged.celldatabaseV2.common.RegexPatterns;
+import at.sunplugged.celldatabaseV2.common.StringUtils;
 import at.sunplugged.celldatabaseV2.common.VariableInputDialog;
 import at.sunplugged.celldatabaseV2.common.settings.LabviewImportDefaultSettings;
 import at.sunplugged.celldatabaseV2.common.settings.SettingsAccessor;
+import at.sunplugged.celldatabaseV2.common.ui.dialog.FileDialogWithLastOpen;
+import at.sunplugged.celldatabaseV2.common.ui.dialog.FileDialogWithLastOpen.IDs;
 import at.sunplugged.celldatabaseV2.labviewimport.LabviewDataFile;
 import datamodel.util.DatamodelUtils;
 
@@ -112,23 +114,9 @@ public class PageOne extends WizardPage {
     buttonAdd.addSelectionListener(new SelectionAdapter() {
       @Override
       public void widgetSelected(SelectionEvent e) {
-        FileDialog dialog = new FileDialog(buttonsGroup.getShell(), SWT.MULTI);
-        LabviewImportDefaultSettings settings =
-            SettingsAccessor.getInstance().getSettings().getLabviewImportDefaultSettings();
-
-
-        if (settings.isUseImportPath()) {
-          dialog.setFilterPath(settings.getImportPath());
-        } else {
-          dialog.setFilterPath(settings.getLastImportPath());
-        }
-
-
-        dialog.setFilterExtensions(new String[] {"*.txt", "*.*"});
-        dialog.setFilterNames(new String[] {"Text Files", "All"});
+        FileDialogWithLastOpen dialog =
+            new FileDialogWithLastOpen(getShell(), SWT.MULTI, IDs.LABVIEW_IMPORT);
         if (dialog.open() != null) {
-          settings.setLastImportPath(dialog.getFilterPath());
-          SettingsAccessor.getInstance().flushSettingsIgnore();
           String[] names = dialog.getFileNames();
 
           checkNamesForLabviewFiles(names);
@@ -337,8 +325,8 @@ public class PageOne extends WizardPage {
         VariableInputDialog dialog = new VariableInputDialog(getShell(), "Parameters...",
             "Input parameters for recorded data.",
             new String[] {"Area[cm^2]", "Power Input[W/m^2]", "Number of Cells"},
-            new String[] {String.format("%.2f", settings.getArea()),
-                String.format("%.2f", settings.getPower()), settings.getCells().toString()},
+            new String[] {StringUtils.format("%.2f", settings.getArea()),
+                StringUtils.format("%.2f", settings.getPower()), settings.getCells().toString()},
             new IInputValidator[] {
                 new VariableInputDialog.DoubleInputValidator(0, Double.MAX_VALUE),
                 new VariableInputDialog.DoubleInputValidator(0, Double.MAX_VALUE),

@@ -34,6 +34,11 @@ public class SWTLogAppender extends AppenderBase<ILoggingEvent> {
   }
 
   private void showMessage(ILoggingEvent eventObject) {
+    if (eventObject.getMessage().equals("Bundle: org.eclipse.core.jobs Message: Unhandled error")) {
+      // TODO : This is just a tempory fix to avoid a annoying bug message caused by error in
+      // progress view.
+      return;
+    }
     if (checkShell()) {
       MessageDialog.openError(shell, "Error", eventObject.getMessage());
     }

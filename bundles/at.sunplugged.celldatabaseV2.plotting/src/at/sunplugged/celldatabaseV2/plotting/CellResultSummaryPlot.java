@@ -19,6 +19,7 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.experimental.chart.swt.ChartComposite;
 import org.jfree.ui.Layer;
 import org.jfree.ui.RectangleInsets;
+import at.sunplugged.celldatabaseV2.common.StringUtils;
 import at.sunplugged.celldatabaseV2.common.ui.LabelHelper;
 import datamodel.CellResult;
 import datamodel.UIDataPoint;
@@ -134,7 +135,7 @@ public class CellResultSummaryPlot extends Composite {
 
     Marker vocMarker =
         new ValueMarker(cellResult.getOpenCircuitVoltage(), Color.MAGENTA, new BasicStroke(1.5f));
-    vocMarker.setLabel(String.format("Voc: %.2f", cellResult.getOpenCircuitVoltage()));
+    vocMarker.setLabel(StringUtils.format("Voc: %.2f", cellResult.getOpenCircuitVoltage()));
     vocMarker.setLabelOffset(new RectangleInsets(30.0f, 20.0f, 0, 0));
     plot.addDomainMarker(vocMarker);
 
@@ -163,7 +164,7 @@ public class CellResultSummaryPlot extends Composite {
 
     Marker iscMarker = new ValueMarker(cellResult.getShortCircuitCurrent() * -1, Color.MAGENTA,
         new BasicStroke(1.5f));
-    iscMarker.setLabel(String.format("Isc: %.4f", cellResult.getShortCircuitCurrent() * -1));
+    iscMarker.setLabel(StringUtils.format("Isc: %.4f", cellResult.getShortCircuitCurrent() * -1));
     iscMarker.setLabelOffset(new RectangleInsets(10.0f, 50.0f, 0, 0));
     plot.addRangeMarker(iscMarker);
 

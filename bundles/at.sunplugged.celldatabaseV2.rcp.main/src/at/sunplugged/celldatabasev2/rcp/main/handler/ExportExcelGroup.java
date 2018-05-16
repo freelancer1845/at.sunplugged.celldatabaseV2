@@ -15,11 +15,12 @@ import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.osgi.framework.FrameworkUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import at.sunplugged.celldatabaseV2.common.ui.dialog.FileDialogWithLastOpen;
+import at.sunplugged.celldatabaseV2.common.ui.dialog.FileDialogWithLastOpen.IDs;
 import at.sunplugged.celldatabaseV2.export.api.ExcelExports;
 import datamodel.CellGroup;
 import datamodel.CellResult;
@@ -59,9 +60,13 @@ public class ExportExcelGroup {
       return;
     }
 
-    FileDialog dialog = new FileDialog(parent, SWT.SAVE);
-    dialog.setFilterExtensions(new String[] {"*.xlsx"});
-    dialog.setFilterNames(new String[] {"Microsoft Open XML Format"});
+
+    FileDialogWithLastOpen dialog =
+        new FileDialogWithLastOpen(parent, SWT.SAVE, IDs.CELL_RESULTS_EXPORT);
+
+    // FileDialog dialog = new FileDialog(parent, SWT.SAVE);
+    // dialog.setFilterExtensions(new String[] {"*.xlsx"});
+    // dialog.setFilterNames(new String[] {"Microsoft Open XML Format"});
     dialog.setFileName(((CellGroup) cellResults.get(0).eContainer()).getName());
     if (dialog.open() != null) {
 

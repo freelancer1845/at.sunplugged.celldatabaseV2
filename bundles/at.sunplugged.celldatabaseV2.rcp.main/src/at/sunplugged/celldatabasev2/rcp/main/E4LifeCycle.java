@@ -27,7 +27,7 @@ import javafx.application.Platform;
 public class E4LifeCycle {
   private static final Logger LOG = LoggerFactory.getLogger(E4LifeCycle.class);
 
-
+  private String initialDatabasePath = null;
 
   @PostContextCreate
   void postContextCreate(IEclipseContext workbenchContext, Display display) {
@@ -45,14 +45,8 @@ public class E4LifeCycle {
     }
     shell.dispose();
 
+    this.initialDatabasePath = startupWizard.getDatabasePath();
 
-    DatabaseService databaseService = workbenchContext.get(DatabaseService.class);
-    try {
-      databaseService.openDatabase(startupWizard.getDatabasePath());
-    } catch (DatabaseServiceException e) {
-      LOG.error("Faild to load database intially...", e);
-      return;
-    }
 
 
     LOG.debug("Leaving PostConstruct method.");
@@ -65,7 +59,15 @@ public class E4LifeCycle {
   }
 
   @ProcessAdditions
-  void processAdditions(IEclipseContext workbenchContext) throws IOException {}
+  void processAdditions(IEclipseContext workbenchContext) throws IOException {
+    DatabaseService databaseService = workbenchContext.get(DatabaseService.class);
+    try {
+      databaseService.openDatabase(this.initialDatabasePath);
+    } catch (DatabaseServiceException e) {
+      LOG.error("Faild to load database intially...", e);
+      return;
+    }
+  }
 
   @ProcessRemovals
   void processRemovals(IEclipseContext workbenchContext) {}

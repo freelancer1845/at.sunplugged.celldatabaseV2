@@ -13,6 +13,8 @@
       </vmArgsMac>
    </launcherArgs>
 
+   <windowImages/>
+
    <launcher name="CellDatabase">
       <win useIco="false">
          <bmp/>
@@ -37,10 +39,18 @@
       <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+      <property name="org.eclipse.update.reconcile" value="false" />
    </configurations>
 
    <repositories>
       <repository location="file:///updates/repository" enabled="true" />
    </repositories>
+
+   <preferencesInfo>
+      <targetfile overwrite="false"/>
+   </preferencesInfo>
+
+   <cssInfo>
+   </cssInfo>
 
 </product>

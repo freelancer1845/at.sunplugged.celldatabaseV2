@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Vector;
@@ -49,12 +50,20 @@ public class CellResultSheetXSSFCreator {
     sheet = workbook.cloneSheet(workbook.getSheetIndex(TEMPLATE_SHEET));
     workbook.setSheetName(workbook.getSheetIndex(sheet), cellResult.getName());
 
-    for (Row row : sheet) {
-      XSSFRow xssfRow = (XSSFRow) row;
-      for (Cell cell : xssfRow) {
-        XSSFCell xssfCell = (XSSFCell) cell;
-        handleCellCellResult(xssfCell);
+    Row row;
+    int i = 0;
+    while (i < sheet.getLastRowNum() + 1) {
+      row = sheet.getRow(i);
+      if (row != null) {
+        XSSFRow xssfRow = (XSSFRow) row;
+        for (Cell cell : xssfRow) {
+
+          XSSFCell xssfCell = (XSSFCell) cell;
+          handleCellCellResult(xssfCell);
+        }
       }
+      i++;
+
     }
 
 
@@ -62,7 +71,9 @@ public class CellResultSheetXSSFCreator {
 
 
   private void handleCellCellResult(Cell cell) throws IOException {
-
+    if (cell.getCellType() != XSSFCell.CELL_TYPE_STRING) {
+      return;
+    }
     Vector<String> keys = Utils.decodeKey(cell.getStringCellValue());
 
     if (keys.size() == 0) {
@@ -78,8 +89,41 @@ public class CellResultSheetXSSFCreator {
       createUiPlot(cell);
     } else if (keys.get(0).equals(Keys.UI_PLOT_DARK)) {
       createUiPlotDark(cell);
+    } else if (keys.get(0).equals(Keys.UI_PLOT_LIGHT_DARK)) {
+      createUiPlotLightDark(cell);
     } else {
       workbook.writeValueToCell(cell, Utils.getChainedInterface(keys).applyAsDouble(cellResult));
+    }
+  }
+
+  private void createUiPlotLightDark(Cell cell) throws IOException {
+    if (cellResult.getLightMeasurementDataSet() != null) {
+      String darkImageName = "tempImage" + new Random().nextInt() + ".jpg";
+      File darkImageFile = Activator.getContext().getDataFile(darkImageName);
+      JFreeChart lightDarkChart =
+          PlotHelper.createJFreeChart(Arrays.asList(cellResult.getLightMeasurementDataSet(),
+              cellResult.getDarkMeasuremenetDataSet()), Collections.EMPTY_MAP);
+
+      try {
+        ChartUtilities.saveChartAsJPEG(darkImageFile, 1.0f, lightDarkChart, 600, 400);
+      } catch (IOException e) {
+        LOG.error("Failed to save Chart as file...", e);
+        throw e;
+      }
+      BufferedInputStream in = new BufferedInputStream(new FileInputStream(darkImageFile));
+      byte[] bytes = IOUtils.toByteArray(in);
+      int imageIndex = workbook.addPicture(bytes, Workbook.PICTURE_TYPE_JPEG);
+      in.close();
+      CreationHelper helper = workbook.getCreationHelper();
+      Drawing drawing = sheet.createDrawingPatriarch();
+      ClientAnchor anchor = helper.createClientAnchor();
+      anchor.setCol1(cell.getColumnIndex());
+      anchor.setCol2(cell.getColumnIndex() + 2);
+      anchor.setRow1(cell.getRowIndex());
+      anchor.setRow2(cell.getRowIndex() + 2);
+      anchor.setAnchorType(3);
+      Picture pic = drawing.createPicture(anchor, imageIndex);
+      pic.resize();
     }
   }
 

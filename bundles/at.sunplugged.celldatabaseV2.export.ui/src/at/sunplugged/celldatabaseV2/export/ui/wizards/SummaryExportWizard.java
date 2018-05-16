@@ -12,10 +12,11 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.change.util.ChangeRecorder;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.FileDialog;
 import org.osgi.framework.FrameworkUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import at.sunplugged.celldatabaseV2.common.ui.dialog.FileDialogWithLastOpen;
+import at.sunplugged.celldatabaseV2.common.ui.dialog.FileDialogWithLastOpen.IDs;
 import at.sunplugged.celldatabaseV2.export.api.ExcelExports;
 import datamodel.CellGroup;
 
@@ -49,9 +50,8 @@ public class SummaryExportWizard extends Wizard {
 
   @Override
   public boolean performFinish() {
-    FileDialog dialog = new FileDialog(getShell(), SWT.SAVE);
-    dialog.setFilterExtensions(new String[] {"*.xlsx"});
-    dialog.setFilterNames(new String[] {"Ms Excel Open XML Format Spreadsheet"});
+    FileDialogWithLastOpen dialog =
+        new FileDialogWithLastOpen(getShell(), SWT.SAVE, IDs.CELL_GROUPS_EXPORT);
 
     if (dialog.open() != null) {
       Path filePath = Paths.get(dialog.getFilterPath(), dialog.getFileName());

@@ -70,7 +70,7 @@ public abstract class AbstractSettingsDialog extends TitleAreaDialog {
     Composite container = new Composite(area, SWT.NONE);
     container.setLayoutData(gridDataFactory.create());
 
-    GridLayout layout = new GridLayout(2, false);
+    GridLayout layout = new GridLayout(1, false);
     container.setLayout(layout);
 
     createFields(container);

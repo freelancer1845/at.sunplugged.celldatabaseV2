@@ -44,6 +44,8 @@ public class Keys {
 
   public static final String UI_PLOT_DARK = "#UIChartDark";
 
+  public static final String UI_PLOT_LIGHT_DARK = "#UIChartLightDark";
+
   public static final String DIVIDE_BY_AREA = "#divideByArea";
 
   public static final String DIVIDE_BY_CELLS = "#divideByCells";
