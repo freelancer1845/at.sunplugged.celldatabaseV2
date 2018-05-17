@@ -63,10 +63,20 @@ public class E4LifeCycle {
     DatabaseService databaseService = workbenchContext.get(DatabaseService.class);
     try {
       databaseService.openDatabase(this.initialDatabasePath);
+
+      // if (SettingsAccessor.getInstance().getSettings().isAutoSortGroups()) {
+      //
+      //
+      // new AutoSortGroupsHandler().activate(databaseService.getDatabase());
+      // } else {
+      // new AutoSortGroupsHandler().deactivate(databaseService.getDatabase());
+      // }
     } catch (DatabaseServiceException e) {
       LOG.error("Faild to load database intially...", e);
-      return;
     }
+
+
+
   }
 
   @ProcessRemovals

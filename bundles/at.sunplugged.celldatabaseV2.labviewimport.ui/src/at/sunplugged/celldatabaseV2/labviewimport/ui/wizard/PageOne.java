@@ -136,7 +136,7 @@ public class PageOne extends WizardPage {
             dataFiles.add(dataFile);
             dataFiles.sort(new Comparator<LabviewDataFile>() {
               private Comparator<String> helper =
-                  DatamodelUtils.Comparetors.compareCellResultNamesNatural();
+                  DatamodelUtils.Comparators.compareCellResultNamesNatural();
 
               @Override
               public int compare(LabviewDataFile o1, LabviewDataFile o2) {

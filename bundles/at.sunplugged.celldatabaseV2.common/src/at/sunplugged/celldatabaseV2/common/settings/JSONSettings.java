@@ -25,6 +25,8 @@ public class JSONSettings {
 
   private Map<FileDialogWithLastOpen.IDs, FileDialogSetting> dialogPaths = new HashMap<>();
 
+  private Boolean autoSortGroups = true;
+
 
   public Set<String> getRecentDatabases() {
     if (recentDatabases == null) {
@@ -55,6 +57,14 @@ public class JSONSettings {
 
   public void setDialogPaths(Map<IDs, FileDialogSetting> dialogPaths) {
     this.dialogPaths = dialogPaths;
+  }
+
+  public boolean isAutoSortGroups() {
+    return this.autoSortGroups;
+  }
+
+  public void setAutoSortGroups(Boolean autoSortGroups) {
+    this.autoSortGroups = autoSortGroups;
   }
 
 }

@@ -41,6 +41,9 @@
         <children xsi:type="menu:HandledMenuItem" xmi:id="_TUILMMvBEee5gMuqTz2Tog" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.saveas" label="Save as..." command="_KoDoYMvAEee5gMuqTz2Tog"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_e8SskCeUEeizY7v8Nvohfw" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.importdatabase" label="Import Database" command="_6_d8MMu6Eee5gMuqTz2Tog"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_2ZJg0FdxEeiqEfAyWSgUZQ" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.switchdatabase" label="Switch Database" command="_Z3gFQFdxEeiqEfAyWSgUZQ"/>
+        <children xsi:type="menu:MenuSeparator" xmi:id="_UWAbUFnREei7nL1mRXkwpw" elementId="at.sunplugged.celldatabasev2.rcp.main.menuseparator.1"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_8AbQQFkPEei7nL1mRXkwpw" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.sortgroups" label="Sort Groups" command="_iyWeQFkPEei7nL1mRXkwpw"/>
+        <children xsi:type="menu:DirectMenuItem" xmi:id="_cCAdsFnREei7nL1mRXkwpw" elementId="at.sunplugged.celldatabasev2.rcp.main.directmenuitem.autosortgroups" label="Auto Sort Groups" type="Check" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.AutoSortGroupsHandler"/>
       </children>
       <children xsi:type="menu:Menu" xmi:id="_8D9oMLPWEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.menu.import" label="Import/Export">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_9HSGYLPWEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.importfromlabview" label="Import from Labview" command="_eJyEILNtEee9C5ECqbuxVA"/>
@@ -77,6 +80,7 @@
   <handlers xmi:id="_a4j7ECYYEeizY7v8Nvohfw" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.13" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.ReevaluateHandler" command="_YXDAkCYYEeizY7v8Nvohfw"/>
   <handlers xmi:id="_Lj_aEChjEeizY7v8Nvohfw" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.14" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.InvertDataHandler" command="_J_wAIChjEeizY7v8Nvohfw"/>
   <handlers xmi:id="_cZpR4FdxEeiqEfAyWSgUZQ" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.6" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.SwitchDatabaseHandler" command="_Z3gFQFdxEeiqEfAyWSgUZQ"/>
+  <handlers xmi:id="_lZdqcFkPEei7nL1mRXkwpw" elementId="at.sunplugged.celldatabasev2.rcp.main.handler.15" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.SortGroupsHandler" command="_iyWeQFkPEei7nL1mRXkwpw"/>
   <bindingTables xmi:id="_H2iCcLRHEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.bindingtable.0" bindingContext="_c3AF2cjYEeSyMNYR5xypkQ">
     <bindings xmi:id="_I8838LRHEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.keybinding.0" keySequence="M1+S" command="_I0eM0LQEEee9C5ECqbuxVA">
       <tags>type:user</tags>
@@ -112,6 +116,7 @@
   <commands xmi:id="_YXDAkCYYEeizY7v8Nvohfw" elementId="at.sunplugged.celldatabasev2.rcp.main.command.reevaluate" commandName="Reevaluate"/>
   <commands xmi:id="_J_wAIChjEeizY7v8Nvohfw" elementId="at.sunplugged.celldatabasev2.rcp.main.command.invertdata" commandName="Invert Data"/>
   <commands xmi:id="_Z3gFQFdxEeiqEfAyWSgUZQ" elementId="at.sunplugged.celldatabasev2.rcp.main.command.switchdatabase" commandName="Switch Database"/>
+  <commands xmi:id="_iyWeQFkPEei7nL1mRXkwpw" elementId="at.sunplugged.celldatabasev2.rcp.main.command.sortgroups" commandName="Sort Groups"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

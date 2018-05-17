@@ -35,18 +35,21 @@ import datamodel.util.DatamodelValidator;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link datamodel.impl.CellGroupImpl#getName <em>Name</em>}</li>
- *   <li>{@link datamodel.impl.CellGroupImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link datamodel.impl.CellGroupImpl#getCellResults <em>Cell Results</em>}</li>
+ * <li>{@link datamodel.impl.CellGroupImpl#getName <em>Name</em>}</li>
+ * <li>{@link datamodel.impl.CellGroupImpl#getDescription <em>Description</em>}</li>
+ * <li>{@link datamodel.impl.CellGroupImpl#getCellResults <em>Cell Results</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellGroup {
+
+  public static final String CANNOT_BE_DEDUCED = "Cannot be deduced...";
+
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * 
    * @see #getName()
    * @generated
    * @ordered
@@ -54,9 +57,9 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
   protected static final String NAME_EDEFAULT = "Unkown Group";
 
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * 
    * @see #getName()
    * @generated
    * @ordered
@@ -84,8 +87,9 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
   protected String description = DESCRIPTION_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getCellResults() <em>Cell Results</em>}' containment reference list.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getCellResults() <em>Cell Results</em>}' containment reference
+   * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @see #getCellResults()
    * @generated
    * @ordered
@@ -94,6 +98,7 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   protected CellGroupImpl() {
@@ -104,6 +109,7 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
@@ -113,6 +119,7 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated NOT
    */
   public String getName() {
@@ -122,17 +129,20 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setName(String newName) {
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_GROUP__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_GROUP__NAME,
+          oldName, name));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public String getDescription() {
@@ -141,13 +151,15 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   public void setDescription(String newDescription) {
     String oldDescription = description;
     description = newDescription;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DatamodelPackage.CELL_GROUP__DESCRIPTION, oldDescription, description));
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_GROUP__DESCRIPTION, oldDescription, description));
   }
 
   /**
@@ -167,19 +179,17 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
         @Override
         protected void didAdd(int index, CellResult newObject) {
           super.didAdd(index, newObject);
-          newObject.eAdapters()
-              .add(new AdapterImpl() {
-                @Override
-                public void notifyChanged(Notification msg) {
-                  if (msg.getFeature() != null) {
-                    if (msg.getFeature()
-                        .equals(DatamodelPackage.Literals.CELL_RESULT__NAME)) {
-                      calculateNewName();
-                    }
-                  }
-                  super.notifyChanged(msg);
+          newObject.eAdapters().add(new AdapterImpl() {
+            @Override
+            public void notifyChanged(Notification msg) {
+              if (msg.getFeature() != null) {
+                if (msg.getFeature().equals(DatamodelPackage.Literals.CELL_RESULT__NAME)) {
+                  calculateNewName();
                 }
-              });
+              }
+              super.notifyChanged(msg);
+            }
+          });
         }
       };
     }
@@ -208,6 +218,7 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
@@ -215,13 +226,14 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
       NotificationChain msgs) {
     switch (featureID) {
       case DatamodelPackage.CELL_GROUP__CELL_RESULTS:
-        return ((InternalEList<?>)getCellResults()).basicRemove(otherEnd, msgs);
+        return ((InternalEList<?>) getCellResults()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
@@ -239,6 +251,7 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @SuppressWarnings("unchecked")
@@ -246,14 +259,14 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
   public void eSet(int featureID, Object newValue) {
     switch (featureID) {
       case DatamodelPackage.CELL_GROUP__NAME:
-        setName((String)newValue);
+        setName((String) newValue);
         return;
       case DatamodelPackage.CELL_GROUP__DESCRIPTION:
-        setDescription((String)newValue);
+        setDescription((String) newValue);
         return;
       case DatamodelPackage.CELL_GROUP__CELL_RESULTS:
         getCellResults().clear();
-        getCellResults().addAll((Collection<? extends CellResult>)newValue);
+        getCellResults().addAll((Collection<? extends CellResult>) newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -261,6 +274,7 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
@@ -281,6 +295,7 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
@@ -289,7 +304,8 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
       case DatamodelPackage.CELL_GROUP__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case DatamodelPackage.CELL_GROUP__DESCRIPTION:
-        return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+        return DESCRIPTION_EDEFAULT == null ? description != null
+            : !DESCRIPTION_EDEFAULT.equals(description);
       case DatamodelPackage.CELL_GROUP__CELL_RESULTS:
         return cellResults != null && !cellResults.isEmpty();
     }
@@ -298,13 +314,15 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
   public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
     switch (operationID) {
       case DatamodelPackage.CELL_GROUP___CELL_RESULTS_NAMES_CORRECT__DIAGNOSTICCHAIN_MAP:
-        return cellResultsNamesCorrect((DiagnosticChain)arguments.get(0), (Map<?, ?>)arguments.get(1));
+        return cellResultsNamesCorrect((DiagnosticChain) arguments.get(0),
+            (Map<?, ?>) arguments.get(1));
     }
     return super.eInvoke(operationID, arguments);
   }
@@ -313,11 +331,13 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
   public String toString() {
-    if (eIsProxy()) return super.toString();
+    if (eIsProxy())
+      return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
@@ -336,27 +356,19 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
   private void calculateNewName() {
     EList<CellResult> cellResults = getCellResults();
     if (cellResults == null || cellResults.isEmpty()) {
-      String name = "Cannot be deduced...";
+      String name = CANNOT_BE_DEDUCED;
       setName(name);
       return;
     }
     String regex = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS)
         .get(RegexPatterns.LABVIEW_GROUP_COMPLEMENT, "");
     Map<String, List<CellResult>> grouped = cellResults.stream()
-        .collect(Collectors.groupingBy(cellResult -> cellResult.getName()
-            .replaceAll(regex, "")));
+        .collect(Collectors.groupingBy(cellResult -> cellResult.getName().replaceAll(regex, "")));
 
-    String name = grouped.entrySet()
-        .stream()
-        .max((a, b) -> Integer.max(a.getValue()
-            .size(),
-            b.getValue()
-                .size()))
-        .orElse(null)
-        .getKey();
+    String name = grouped.entrySet().stream()
+        .max((a, b) -> Integer.max(a.getValue().size(), b.getValue().size())).orElse(null).getKey();
 
-    if (grouped.keySet()
-        .size() != 1) {
+    if (grouped.keySet().size() != 1) {
       setName(name + " (Not named properly)");
       return;
     }
@@ -374,10 +386,8 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
     String regex = ConfigurationScope.INSTANCE.getNode(PrefNodes.REGEX_PATTERNS)
         .get(RegexPatterns.LABVIEW_GROUP_COMPLEMENT, "");
     Map<String, List<CellResult>> grouped = cellResults.stream()
-        .collect(Collectors.groupingBy(cellResult -> cellResult.getName()
-            .replaceAll(regex, "")));
-    if (grouped.keySet()
-        .size() != 1) {
+        .collect(Collectors.groupingBy(cellResult -> cellResult.getName().replaceAll(regex, "")));
+    if (grouped.keySet().size() != 1) {
       return false;
     }
     return true;

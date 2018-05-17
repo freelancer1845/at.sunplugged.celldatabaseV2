@@ -289,7 +289,7 @@ public class PageTwo extends WizardPage {
 
 
       List<CellResult> sortedResults =
-          results.stream().sorted(DatamodelUtils.Comparetors.comapreCellResultsNatural())
+          results.stream().sorted(DatamodelUtils.Comparators.comapreCellResultsNatural())
               .collect(Collectors.toList());
       tempGroup.getCellResults().addAll(sortedResults);
       calculationDone = !cancleEvaluation;

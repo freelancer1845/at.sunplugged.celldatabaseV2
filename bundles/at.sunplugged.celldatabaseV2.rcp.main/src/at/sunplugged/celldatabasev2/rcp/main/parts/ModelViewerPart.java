@@ -1,11 +1,14 @@
 
 package at.sunplugged.celldatabasev2.rcp.main.parts;
 
+import java.util.Collections;
 import java.util.EventObject;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import org.eclipse.e4.core.contexts.Active;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.di.UISynchronize;
@@ -13,6 +16,8 @@ import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
+import org.eclipse.e4.ui.model.application.ui.menu.MDirectMenuItem;
 import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
@@ -53,8 +58,10 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import at.sunplugged.celldatabaseV2.common.settings.SettingsAccessor;
 import at.sunplugged.celldatabaseV2.persistence.api.DatabaseService;
 import at.sunplugged.celldatabaseV2.persistence.api.DatabaseServiceException;
+import at.sunplugged.celldatabasev2.rcp.main.handler.AutoSortGroupsHandler;
 import datamodel.CellGroup;
 import datamodel.CellMeasurementDataSet;
 import datamodel.CellResult;
@@ -82,7 +89,7 @@ public class ModelViewerPart {
   @PostConstruct
   public void postConstruct(Composite parent, Database database, EMenuService menuService,
       ESelectionService selectionService, EPartService partService, EModelService modelService,
-      MApplication app, EditingDomain editingDomain) {
+      MApplication app, EditingDomain editingDomain, @Active MWindow window) {
 
     Composite wrapper = new Composite(parent, SWT.NONE);
     wrapper.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
@@ -104,11 +111,31 @@ public class ModelViewerPart {
 
     createTreeViewer(wrapper, database, menuService, selectionService, partService, modelService,
         app, editingDomain);
+
+    List<MDirectMenuItem> items = modelService.findElements(window.getMainMenu(),
+        "at.sunplugged.celldatabasev2.rcp.main.directmenuitem.autosortgroups",
+        MDirectMenuItem.class, Collections.emptyList());
+    items.stream().findFirst().ifPresent(item -> {
+
+      item.setSelected(SettingsAccessor.getInstance().getSettings().isAutoSortGroups());
+      if (item.isSelected()) {
+        new AutoSortGroupsHandler().activate(database);
+      } else {
+        new AutoSortGroupsHandler().deactivate(database);
+      }
+
+    });
   }
 
   public void setNewDatabase(Database database) {
     if (this.treeViewer != null) {
       this.treeViewer.setInput(database);
+      database.eAdapters().add(new AdapterImpl() {
+        @Override
+        public void notifyChanged(Notification msg) {
+          treeViewer.refresh();
+        }
+      });
     }
   }
 
@@ -185,6 +212,7 @@ public class ModelViewerPart {
     treeViewer.collapseAll();
 
 
+
     CommandStack commandStack =
         AdapterFactoryEditingDomain.getEditingDomainFor(database).getCommandStack();
     commandStack.addCommandStackListener(new CommandStackListener() {
@@ -227,6 +255,7 @@ public class ModelViewerPart {
         }
       }
     });
+    setNewDatabase(database);
   }
 
   @Persist
