@@ -16,15 +16,18 @@ import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import at.sunplugged.celldatabaseV2.common.PrefNodes;
 import at.sunplugged.celldatabaseV2.common.RegexPatterns;
 import datamodel.CellGroup;
 import datamodel.CellResult;
+import datamodel.Database;
 import datamodel.DatamodelPackage;
 import datamodel.util.DatamodelValidator;
 
@@ -38,6 +41,7 @@ import datamodel.util.DatamodelValidator;
  * <li>{@link datamodel.impl.CellGroupImpl#getName <em>Name</em>}</li>
  * <li>{@link datamodel.impl.CellGroupImpl#getDescription <em>Description</em>}</li>
  * <li>{@link datamodel.impl.CellGroupImpl#getCellResults <em>Cell Results</em>}</li>
+ * <li>{@link datamodel.impl.CellGroupImpl#getNameSuffix <em>Name Suffix</em>}</li>
  * </ul>
  *
  * @generated
@@ -95,6 +99,26 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
    * @ordered
    */
   protected EList<CellResult> cellResults;
+
+  /**
+   * The default value of the '{@link #getNameSuffix() <em>Name Suffix</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @see #getNameSuffix()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_SUFFIX_EDEFAULT = "";
+
+  /**
+   * The cached value of the '{@link #getNameSuffix() <em>Name Suffix</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @see #getNameSuffix()
+   * @generated
+   * @ordered
+   */
+  protected String nameSuffix = NAME_SUFFIX_EDEFAULT;
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -199,6 +223,32 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * 
+   * @generated
+   */
+  public String getNameSuffix() {
+    return nameSuffix;
+  }
+
+
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @generated
+   */
+  public void setNameSuffix(String newNameSuffix) {
+    String oldNameSuffix = nameSuffix;
+    nameSuffix = newNameSuffix;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET,
+          DatamodelPackage.CELL_GROUP__NAME_SUFFIX, oldNameSuffix, nameSuffix));
+  }
+
+
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated NOT
    */
   public boolean cellResultsNamesCorrect(DiagnosticChain chain, Map<?, ?> context) {
@@ -208,6 +258,26 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
             DatamodelValidator.CELL_GROUP__CELL_RESULTS_NAMES_CORRECT,
             "CellResults are not correctly named.",
             new Object[] {this, DatamodelPackage.eINSTANCE.getCellResult_Name()}));
+      }
+      return false;
+    }
+    return true;
+  }
+
+
+
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @generated NOT
+   */
+  public boolean cellGroupNameUnique(DiagnosticChain chain, Map<?, ?> context) {
+    if (cellGroupNameUnqiue() == false) {
+      if (chain != null) {
+        chain.add(new BasicDiagnostic(Diagnostic.ERROR, DatamodelValidator.DIAGNOSTIC_SOURCE,
+            DatamodelValidator.CELL_GROUP__CELL_GROUP_NAME_UNIQUE,
+            "Duplicate Cell Group name! Add a suffix.",
+            new Object[] {this, DatamodelPackage.eINSTANCE.getCellGroup_Name()}));
       }
       return false;
     }
@@ -245,6 +315,8 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
         return getDescription();
       case DatamodelPackage.CELL_GROUP__CELL_RESULTS:
         return getCellResults();
+      case DatamodelPackage.CELL_GROUP__NAME_SUFFIX:
+        return getNameSuffix();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -268,6 +340,9 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
         getCellResults().clear();
         getCellResults().addAll((Collection<? extends CellResult>) newValue);
         return;
+      case DatamodelPackage.CELL_GROUP__NAME_SUFFIX:
+        setNameSuffix((String) newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -289,6 +364,9 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
       case DatamodelPackage.CELL_GROUP__CELL_RESULTS:
         getCellResults().clear();
         return;
+      case DatamodelPackage.CELL_GROUP__NAME_SUFFIX:
+        setNameSuffix(NAME_SUFFIX_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -308,6 +386,9 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
             : !DESCRIPTION_EDEFAULT.equals(description);
       case DatamodelPackage.CELL_GROUP__CELL_RESULTS:
         return cellResults != null && !cellResults.isEmpty();
+      case DatamodelPackage.CELL_GROUP__NAME_SUFFIX:
+        return NAME_SUFFIX_EDEFAULT == null ? nameSuffix != null
+            : !NAME_SUFFIX_EDEFAULT.equals(nameSuffix);
     }
     return super.eIsSet(featureID);
   }
@@ -322,6 +403,9 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
     switch (operationID) {
       case DatamodelPackage.CELL_GROUP___CELL_RESULTS_NAMES_CORRECT__DIAGNOSTICCHAIN_MAP:
         return cellResultsNamesCorrect((DiagnosticChain) arguments.get(0),
+            (Map<?, ?>) arguments.get(1));
+      case DatamodelPackage.CELL_GROUP___CELL_GROUP_NAME_UNIQUE__DIAGNOSTICCHAIN_MAP:
+        return cellGroupNameUnique((DiagnosticChain) arguments.get(0),
             (Map<?, ?>) arguments.get(1));
     }
     return super.eInvoke(operationID, arguments);
@@ -344,6 +428,8 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
     result.append(name);
     result.append(", description: ");
     result.append(description);
+    result.append(", nameSuffix: ");
+    result.append(nameSuffix);
     result.append(')');
     return result.toString();
   }
@@ -391,6 +477,35 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
       return false;
     }
     return true;
+  }
+
+  /**
+   * @generated NOT
+   */
+  private boolean cellGroupNameUnqiue() {
+
+    EObject object = eContainer();
+
+    if (object instanceof Database) {
+      Database database = (Database) object;
+      return !database.getCellGroups().stream().filter(group -> !EcoreUtil.equals(this, group))
+          .anyMatch(group2 -> {
+
+            if (group2.getName().equals(this.getName())) {
+              System.out.println("Group name equla");
+              if (group2.getNameSuffix().equals(this.getNameSuffix())) {
+                System.out.println("Also Group name suffix equal");
+                return true;
+              }
+            }
+            return false;
+            //
+            // return group2.getName().equals(getName())
+            // && group2.getNameSuffix().equals(getNameSuffix());
+          });
+    } else {
+      return true;
+    }
   }
 
 } // CellGroupImpl

@@ -25,8 +25,10 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
+import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.common.ui.viewer.ColumnViewerInformationControlToolTipSupport;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
@@ -35,12 +37,11 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.emf.edit.ui.provider.DecoratingColumLabelProvider;
 import org.eclipse.emf.edit.ui.provider.DiagnosticDecorator;
 import org.eclipse.emfforms.spi.swt.treemasterdetail.TreeViewerSWTFactory;
-import org.eclipse.jface.viewers.DecoratingLabelProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
-import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -72,6 +73,9 @@ public class ModelViewerPart {
   private static final Logger LOG = LoggerFactory.getLogger(ModelViewerPart.class);
 
   private Text searchText;
+
+  private AdapterFactory adapterFactory =
+      new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 
   @Inject
   private MDirtyable dirtyable;
@@ -202,10 +206,15 @@ public class ModelViewerPart {
           }
         }).create();
 
-
     treeViewer.setLabelProvider(
-        new DecoratingLabelProvider((ILabelProvider) treeViewer.getLabelProvider(),
+        new DecoratingColumLabelProvider(new AdapterFactoryLabelProvider(adapterFactory),
             new DiagnosticDecorator(editingDomain, treeViewer)));
+
+    new ColumnViewerInformationControlToolTipSupport(treeViewer,
+        new DiagnosticDecorator.EditingDomainLocationListener(editingDomain, treeViewer));
+    // treeViewer.setLabelProvider(
+    // new DecoratingLabelProvider((ILabelProvider) treeViewer.getLabelProvider(),
+    // new DiagnosticDecorator(editingDomain, treeViewer)));
 
 
     treeViewer.setAutoExpandLevel(0);

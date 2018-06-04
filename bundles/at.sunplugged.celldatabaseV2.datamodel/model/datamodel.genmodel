@@ -4,7 +4,7 @@
     modelPluginID="at.sunplugged.celldatabaseV2.datamodel" modelName="Datamodel" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
     editorPluginID="at.sunplugged.celldatabaseV2.datamodel.editor" operationReflection="true"
-    importOrganizing="true">
+    importOrganizing="true" decoration="Live">
   <foreignModel>datamodel.ecore</foreignModel>
   <genPackages prefix="Datamodel" disposableProviderFactory="true" ecorePackage="datamodel.ecore#/">
     <genClasses ecoreClass="datamodel.ecore#//Database">
@@ -15,6 +15,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/dataEvaluated"/>
       <genFeatures createChild="false" propertyDescription="" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/openCircuitVoltage"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/numberOfCells"/>
       <genFeatures createChild="false" propertyDescription="" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/shortCircuitCurrent"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/parallelResistance"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/darkParallelResistance"/>
@@ -27,6 +28,12 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datamodel.ecore#//CellResult/lightMeasurementDataSet"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference datamodel.ecore#//CellResult/darkMeasuremenetDataSet"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/maximumPower"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/rsVocFitCoefficients"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/rpIscFitCoefficients"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/mppFitCoefficients"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/darkRpFitCoefficients"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/darkRsFitCoefficients"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellResult/vocPerCell"/>
       <genOperations ecoreOperation="datamodel.ecore#//CellResult/validateName">
         <genParameters ecoreParameter="datamodel.ecore#//CellResult/validateName/chain"/>
         <genParameters ecoreParameter="datamodel.ecore#//CellResult/validateName/context"/>
@@ -36,9 +43,14 @@
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellGroup/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellGroup/description"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference datamodel.ecore#//CellGroup/cellResults"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datamodel.ecore#//CellGroup/nameSuffix"/>
       <genOperations ecoreOperation="datamodel.ecore#//CellGroup/cellResultsNamesCorrect">
         <genParameters ecoreParameter="datamodel.ecore#//CellGroup/cellResultsNamesCorrect/chain"/>
         <genParameters ecoreParameter="datamodel.ecore#//CellGroup/cellResultsNamesCorrect/context"/>
+      </genOperations>
+      <genOperations ecoreOperation="datamodel.ecore#//CellGroup/cellGroupNameUnique">
+        <genParameters ecoreParameter="datamodel.ecore#//CellGroup/cellGroupNameUnique/chain"/>
+        <genParameters ecoreParameter="datamodel.ecore#//CellGroup/cellGroupNameUnique/context"/>
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="datamodel.ecore#//CellMeasurementDataSet">

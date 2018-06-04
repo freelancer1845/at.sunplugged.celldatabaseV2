@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link datamodel.CellGroup#getName <em>Name</em>}</li>
  *   <li>{@link datamodel.CellGroup#getDescription <em>Description</em>}</li>
  *   <li>{@link datamodel.CellGroup#getCellResults <em>Cell Results</em>}</li>
+ *   <li>{@link datamodel.CellGroup#getNameSuffix <em>Name Suffix</em>}</li>
  * </ul>
  *
  * @see datamodel.DatamodelPackage#getCellGroup()
@@ -97,11 +98,46 @@ public interface CellGroup extends EObject {
   EList<CellResult> getCellResults();
 
   /**
+   * Returns the value of the '<em><b>Name Suffix</b></em>' attribute.
+   * The default value is <code>""</code>.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Name Suffix</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Name Suffix</em>' attribute.
+   * @see #setNameSuffix(String)
+   * @see datamodel.DatamodelPackage#getCellGroup_NameSuffix()
+   * @model default="" unique="false"
+   * @generated
+   */
+  String getNameSuffix();
+
+  /**
+   * Sets the value of the '{@link datamodel.CellGroup#getNameSuffix <em>Name Suffix</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name Suffix</em>' attribute.
+   * @see #getNameSuffix()
+   * @generated
+   */
+  void setNameSuffix(String value);
+
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model
    * @generated
    */
   boolean cellResultsNamesCorrect(DiagnosticChain chain, Map<?, ?> context);
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @model
+   * @generated
+   */
+  boolean cellGroupNameUnique(DiagnosticChain chain, Map<?, ?> context);
 
 } // CellGroup

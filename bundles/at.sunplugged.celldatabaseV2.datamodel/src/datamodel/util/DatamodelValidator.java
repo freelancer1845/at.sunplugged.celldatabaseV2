@@ -56,12 +56,20 @@ public class DatamodelValidator extends EObjectValidator {
   public static final int CELL_GROUP__CELL_RESULTS_NAMES_CORRECT = 2;
 
   /**
+   * The {@link org.eclipse.emf.common.util.Diagnostic#getCode() code} for constraint 'Cell Group Name Unique' of 'Cell Group'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public static final int CELL_GROUP__CELL_GROUP_NAME_UNIQUE = 3;
+
+  /**
    * A constant with a fixed name that can be used as the base value for additional hand written constants.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private static final int GENERATED_DIAGNOSTIC_CODE_COUNT = 2;
+  private static final int GENERATED_DIAGNOSTIC_CODE_COUNT = 3;
 
   /**
    * A constant with a fixed name that can be used as the base value for additional hand written constants in a derived class.
@@ -170,6 +178,7 @@ public class DatamodelValidator extends EObjectValidator {
     if (result || diagnostics != null) result &= validate_EveryKeyUnique(cellGroup, diagnostics, context);
     if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(cellGroup, diagnostics, context);
     if (result || diagnostics != null) result &= validateCellGroup_cellResultsNamesCorrect(cellGroup, diagnostics, context);
+    if (result || diagnostics != null) result &= validateCellGroup_cellGroupNameUnique(cellGroup, diagnostics, context);
     return result;
   }
 
@@ -181,6 +190,16 @@ public class DatamodelValidator extends EObjectValidator {
    */
   public boolean validateCellGroup_cellResultsNamesCorrect(CellGroup cellGroup, DiagnosticChain diagnostics, Map<Object, Object> context) {
     return cellGroup.cellResultsNamesCorrect(diagnostics, context);
+  }
+
+  /**
+   * Validates the cellGroupNameUnique constraint of '<em>Cell Group</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean validateCellGroup_cellGroupNameUnique(CellGroup cellGroup, DiagnosticChain diagnostics, Map<Object, Object> context) {
+    return cellGroup.cellGroupNameUnique(diagnostics, context);
   }
 
   /**

@@ -376,13 +376,22 @@ public interface DatamodelPackage extends EPackage {
   int CELL_GROUP__CELL_RESULTS = 2;
 
   /**
+   * The feature id for the '<em><b>Name Suffix</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CELL_GROUP__NAME_SUFFIX = 3;
+
+  /**
    * The number of structural features of the '<em>Cell Group</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CELL_GROUP_FEATURE_COUNT = 3;
+  int CELL_GROUP_FEATURE_COUNT = 4;
 
   /**
    * The operation id for the '<em>Cell Results Names Correct</em>' operation.
@@ -394,13 +403,22 @@ public interface DatamodelPackage extends EPackage {
   int CELL_GROUP___CELL_RESULTS_NAMES_CORRECT__DIAGNOSTICCHAIN_MAP = 0;
 
   /**
+   * The operation id for the '<em>Cell Group Name Unique</em>' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CELL_GROUP___CELL_GROUP_NAME_UNIQUE__DIAGNOSTICCHAIN_MAP = 1;
+
+  /**
    * The number of operations of the '<em>Cell Group</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CELL_GROUP_OPERATION_COUNT = 1;
+  int CELL_GROUP_OPERATION_COUNT = 2;
 
   /**
    * The meta object id for the '{@link datamodel.impl.CellMeasurementDataSetImpl <em>Cell Measurement Data Set</em>}' class.
@@ -869,6 +887,17 @@ public interface DatamodelPackage extends EPackage {
   EReference getCellGroup_CellResults();
 
   /**
+   * Returns the meta object for the attribute '{@link datamodel.CellGroup#getNameSuffix <em>Name Suffix</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name Suffix</em>'.
+   * @see datamodel.CellGroup#getNameSuffix()
+   * @see #getCellGroup()
+   * @generated
+   */
+  EAttribute getCellGroup_NameSuffix();
+
+  /**
    * Returns the meta object for the '{@link datamodel.CellGroup#cellResultsNamesCorrect(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Cell Results Names Correct</em>}' operation.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -877,6 +906,16 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    */
   EOperation getCellGroup__CellResultsNamesCorrect__DiagnosticChain_Map();
+
+  /**
+   * Returns the meta object for the '{@link datamodel.CellGroup#cellGroupNameUnique(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map) <em>Cell Group Name Unique</em>}' operation.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the '<em>Cell Group Name Unique</em>' operation.
+   * @see datamodel.CellGroup#cellGroupNameUnique(org.eclipse.emf.common.util.DiagnosticChain, java.util.Map)
+   * @generated
+   */
+  EOperation getCellGroup__CellGroupNameUnique__DiagnosticChain_Map();
 
   /**
    * Returns the meta object for class '{@link datamodel.CellMeasurementDataSet <em>Cell Measurement Data Set</em>}'.
@@ -1264,12 +1303,28 @@ public interface DatamodelPackage extends EPackage {
     EReference CELL_GROUP__CELL_RESULTS = eINSTANCE.getCellGroup_CellResults();
 
     /**
+     * The meta object literal for the '<em><b>Name Suffix</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CELL_GROUP__NAME_SUFFIX = eINSTANCE.getCellGroup_NameSuffix();
+
+    /**
      * The meta object literal for the '<em><b>Cell Results Names Correct</b></em>' operation.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EOperation CELL_GROUP___CELL_RESULTS_NAMES_CORRECT__DIAGNOSTICCHAIN_MAP = eINSTANCE.getCellGroup__CellResultsNamesCorrect__DiagnosticChain_Map();
+
+    /**
+     * The meta object literal for the '<em><b>Cell Group Name Unique</b></em>' operation.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EOperation CELL_GROUP___CELL_GROUP_NAME_UNIQUE__DIAGNOSTICCHAIN_MAP = eINSTANCE.getCellGroup__CellGroupNameUnique__DiagnosticChain_Map();
 
     /**
      * The meta object literal for the '{@link datamodel.impl.CellMeasurementDataSetImpl <em>Cell Measurement Data Set</em>}' class.

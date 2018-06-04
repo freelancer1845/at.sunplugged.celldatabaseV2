@@ -56,6 +56,7 @@ public class CellGroupItemProvider extends ItemProviderAdapter
       addNamePropertyDescriptor(object);
       addDescriptionPropertyDescriptor(object);
       addCellResultsPropertyDescriptor(object);
+      addNameSuffixPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -127,6 +128,28 @@ public class CellGroupItemProvider extends ItemProviderAdapter
   }
 
   /**
+   * This adds a property descriptor for the Name Suffix feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addNameSuffixPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_CellGroup_nameSuffix_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_CellGroup_nameSuffix_feature", "_UI_CellGroup_type"),
+         DatamodelPackage.Literals.CELL_GROUP__NAME_SUFFIX,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
    * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
    * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -193,6 +216,7 @@ public class CellGroupItemProvider extends ItemProviderAdapter
     switch (notification.getFeatureID(CellGroup.class)) {
       case DatamodelPackage.CELL_GROUP__NAME:
       case DatamodelPackage.CELL_GROUP__DESCRIPTION:
+      case DatamodelPackage.CELL_GROUP__NAME_SUFFIX:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case DatamodelPackage.CELL_GROUP__CELL_RESULTS:
