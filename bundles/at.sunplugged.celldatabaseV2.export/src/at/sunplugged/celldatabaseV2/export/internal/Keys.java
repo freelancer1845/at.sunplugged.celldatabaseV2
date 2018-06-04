@@ -22,6 +22,10 @@ public class Keys {
 
   public static final String MP = "#mp";
 
+  public static final String VMPP = "#vmpp";
+
+  public static final String IMPP = "#impp";
+
   public static final String EFF = "#eff";
 
   public static final String FF = "#ff";

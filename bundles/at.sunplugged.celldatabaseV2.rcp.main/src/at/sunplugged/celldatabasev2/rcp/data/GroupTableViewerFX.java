@@ -73,15 +73,19 @@ public class GroupTableViewerFX {
         createDoubleColumn("RpDark[ohm]", 4, result -> result.getDarkParallelResistance());
     TableColumn pmmpCol = createDoubleColumn("Pmpp[W/cm^2]", 4,
         result -> result.getMaximumPower() / result.getLightMeasurementDataSet().getArea() / 10000);
+    TableColumn vmmpCol =
+        createDoubleColumn("Vmpp[V]", 4, result -> result.getMaximumPowerVoltage());
+    TableColumn imppCol =
+        createDoubleColumn("Impp[A]", 4, result -> result.getMaximumPowerCurrent());
     TableColumn effCol = createDoubleColumn("Efficiency[%]", 3, result -> result.getEfficiency());
     TableColumn ffCol = createDoubleColumn("FillFactor[%]", 3, result -> result.getFillFactor());
 
     if (needsVocPerCellColumn == true) {
       table.getColumns().addAll(nameCol, vocCol, vocPerCelCol, jscCol, rsCol, rsDarkCol, rpCol,
-          rpDarkCol, pmmpCol, effCol, ffCol);
+          rpDarkCol, pmmpCol, vmmpCol, imppCol, effCol, ffCol);
     } else {
       table.getColumns().addAll(nameCol, vocCol, jscCol, rsCol, rsDarkCol, rpCol, rpDarkCol,
-          pmmpCol, effCol, ffCol);
+          pmmpCol, vmmpCol, imppCol, effCol, ffCol);
     }
 
 

@@ -71,6 +71,10 @@ public class Utils {
         return result -> result.getLightMeasurementDataSet().getArea() * 10000;
       case Keys.POWER_INPUT:
         return result -> result.getLightMeasurementDataSet().getPowerInput();
+      case Keys.IMPP:
+        return result -> result.getMaximumPowerCurrent() * -1;
+      case Keys.VMPP:
+        return result -> result.getMaximumPowerVoltage();
       default:
         throw new IllegalArgumentException("Unhandled Key: " + key);
     }
