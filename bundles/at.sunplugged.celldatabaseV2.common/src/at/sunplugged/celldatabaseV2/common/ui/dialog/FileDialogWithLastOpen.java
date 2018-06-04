@@ -14,12 +14,14 @@ public class FileDialogWithLastOpen {
 
   public FileDialogWithLastOpen(Shell parent, int style, IDs pathId) {
     this.backingDialog = new FileDialog(parent, style);
+    this.backingDialog.setOverwrite(true);
     this.pathId = pathId;
     loadSettings();
   }
 
   public FileDialogWithLastOpen(Shell parent, IDs pathId) {
     this.backingDialog = new FileDialog(parent);
+    this.backingDialog.setOverwrite(true);
     this.pathId = pathId;
     loadSettings();
   }
