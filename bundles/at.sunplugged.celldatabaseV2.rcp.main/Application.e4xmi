@@ -6,6 +6,9 @@
         <children xsi:type="basic:Part" xmi:id="_g8lvgLNYEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.part.modelviewer" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.parts.ModelViewerPart" label="Model Viewer">
           <menus xsi:type="menu:PopupMenu" xmi:id="_tct8ULNlEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.popupmenu.treemenu" label="TreeMenu">
             <children xsi:type="menu:HandledMenuItem" xmi:id="_y3mQoLNlEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.createcellgroup" label="Create CellGroup" command="_v9yK4LNlEee9C5ECqbuxVA"/>
+            <children xsi:type="menu:DirectMenuItem" xmi:id="_aPUl8GvWEeiAsuoULh8ImA" elementId="at.sunplugged.celldatabasev2.rcp.main.directmenuitem.setgroupsuffix" label="Set Group Suffix" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.SetGroupSuffixHandler">
+              <visibleWhen xsi:type="ui:ImperativeExpression" xmi:id="_crr6sGvWEeiAsuoULh8ImA" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.handler.SetGroupSuffixHandler"/>
+            </children>
             <children xsi:type="menu:MenuSeparator" xmi:id="_iDvEQLRJEeevVvMUer7mvw" elementId="at.sunplugged.celldatabasev2.rcp.main.menuseparator.2"/>
             <children xsi:type="menu:HandledMenuItem" xmi:id="_BiyLULNpEee9C5ECqbuxVA" elementId="at.sunplugged.celldatabasev2.rcp.main.handledmenuitem.delete" label="Delete" command="_-7xs0LNoEee9C5ECqbuxVA">
               <visibleWhen xsi:type="ui:ImperativeExpression" xmi:id="_PrFtULNqEee9C5ECqbuxVA" contributionURI="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.imperativeexp.IsEObjectSelected"/>

@@ -4,7 +4,6 @@ import java.util.Vector;
 import java.util.function.ToDoubleFunction;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import at.sunplugged.celldatabaseV2.common.StringUtils;
 import datamodel.CellResult;
 
 public class Utils {
@@ -47,12 +46,8 @@ public class Utils {
       case Keys.ISC:
         return result -> result.getShortCircuitCurrent();
       case Keys.JSC:
-        return result -> {
-          System.out.println(StringUtils.format("ISC: %f\nAREA: %f",
-              result.getShortCircuitCurrent(), result.getLightMeasurementDataSet().getArea()));
-          return result.getShortCircuitCurrent() / result.getLightMeasurementDataSet().getArea()
-              / 10000;
-        };
+        return result -> result.getShortCircuitCurrent()
+            / result.getLightMeasurementDataSet().getArea() / 10000.0;
       case Keys.RP:
         return result -> result.getParallelResistance();
       case Keys.RP_DARK:
@@ -75,6 +70,8 @@ public class Utils {
         return result -> result.getMaximumPowerCurrent() * -1;
       case Keys.VMPP:
         return result -> result.getMaximumPowerVoltage();
+      case Keys.CELLS:
+        return result -> result.getNumberOfCells();
       default:
         throw new IllegalArgumentException("Unhandled Key: " + key);
     }

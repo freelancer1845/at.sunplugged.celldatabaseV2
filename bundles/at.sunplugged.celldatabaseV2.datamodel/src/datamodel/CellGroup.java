@@ -18,9 +18,9 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link datamodel.CellGroup#getName <em>Name</em>}</li>
+ *   <li>{@link datamodel.CellGroup#getNameSuffix <em>Name Suffix</em>}</li>
  *   <li>{@link datamodel.CellGroup#getDescription <em>Description</em>}</li>
  *   <li>{@link datamodel.CellGroup#getCellResults <em>Cell Results</em>}</li>
- *   <li>{@link datamodel.CellGroup#getNameSuffix <em>Name Suffix</em>}</li>
  * </ul>
  *
  * @see datamodel.DatamodelPackage#getCellGroup()

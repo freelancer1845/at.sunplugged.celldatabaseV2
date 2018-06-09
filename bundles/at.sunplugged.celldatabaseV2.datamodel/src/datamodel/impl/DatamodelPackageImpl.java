@@ -366,7 +366,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * @generated
    */
   public EAttribute getCellGroup_Description() {
-    return (EAttribute)cellGroupEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)cellGroupEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -374,7 +374,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * @generated
    */
   public EReference getCellGroup_CellResults() {
-    return (EReference)cellGroupEClass.getEStructuralFeatures().get(2);
+    return (EReference)cellGroupEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -383,7 +383,7 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
    * @generated
    */
   public EAttribute getCellGroup_NameSuffix() {
-    return (EAttribute)cellGroupEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)cellGroupEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -539,9 +539,9 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 
     cellGroupEClass = createEClass(CELL_GROUP);
     createEAttribute(cellGroupEClass, CELL_GROUP__NAME);
+    createEAttribute(cellGroupEClass, CELL_GROUP__NAME_SUFFIX);
     createEAttribute(cellGroupEClass, CELL_GROUP__DESCRIPTION);
     createEReference(cellGroupEClass, CELL_GROUP__CELL_RESULTS);
-    createEAttribute(cellGroupEClass, CELL_GROUP__NAME_SUFFIX);
     createEOperation(cellGroupEClass, CELL_GROUP___CELL_RESULTS_NAMES_CORRECT__DIAGNOSTICCHAIN_MAP);
     createEOperation(cellGroupEClass, CELL_GROUP___CELL_GROUP_NAME_UNIQUE__DIAGNOSTICCHAIN_MAP);
 
@@ -625,9 +625,9 @@ public class DatamodelPackageImpl extends EPackageImpl implements DatamodelPacka
 
     initEClass(cellGroupEClass, CellGroup.class, "CellGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getCellGroup_Name(), ecorePackage.getEString(), "name", "Unkown Group", 0, 1, CellGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCellGroup_NameSuffix(), ecorePackage.getEString(), "nameSuffix", "", 0, 1, CellGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCellGroup_Description(), ecorePackage.getEString(), "description", null, 0, 1, CellGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCellGroup_CellResults(), this.getCellResult(), null, "cellResults", null, 0, -1, CellGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getCellGroup_NameSuffix(), ecorePackage.getEString(), "nameSuffix", "", 0, 1, CellGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     op = initEOperation(getCellGroup__CellResultsNamesCorrect__DiagnosticChain_Map(), ecorePackage.getEBoolean(), "cellResultsNamesCorrect", 0, 1, IS_UNIQUE, IS_ORDERED);
     addEParameter(op, ecorePackage.getEDiagnosticChain(), "chain", 0, 1, IS_UNIQUE, IS_ORDERED);

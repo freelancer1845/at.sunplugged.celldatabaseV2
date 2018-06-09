@@ -44,11 +44,17 @@ public class Keys {
 
   public static final String CURRENT_DATA = "#currentData";
 
+  public static final String DARK_VOLTAGE_DATA = "#darkVoltageData";
+
+  public static final String DARK_CURRENT_DATA = "#darkCurrentData";
+
   public static final String UI_PLOT = "#UIChart";
 
   public static final String UI_PLOT_DARK = "#UIChartDark";
 
   public static final String UI_PLOT_LIGHT_DARK = "#UIChartLightDark";
+
+  public static final String CELLS = "#cells";
 
   public static final String DIVIDE_BY_AREA = "#divideByArea";
 

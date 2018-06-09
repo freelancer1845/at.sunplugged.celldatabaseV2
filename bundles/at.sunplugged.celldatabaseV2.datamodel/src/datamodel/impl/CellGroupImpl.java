@@ -39,9 +39,9 @@ import datamodel.util.DatamodelValidator;
  * </p>
  * <ul>
  * <li>{@link datamodel.impl.CellGroupImpl#getName <em>Name</em>}</li>
+ * <li>{@link datamodel.impl.CellGroupImpl#getNameSuffix <em>Name Suffix</em>}</li>
  * <li>{@link datamodel.impl.CellGroupImpl#getDescription <em>Description</em>}</li>
  * <li>{@link datamodel.impl.CellGroupImpl#getCellResults <em>Cell Results</em>}</li>
- * <li>{@link datamodel.impl.CellGroupImpl#getNameSuffix <em>Name Suffix</em>}</li>
  * </ul>
  *
  * @generated
@@ -69,6 +69,26 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getNameSuffix() <em>Name Suffix</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @see #getNameSuffix()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_SUFFIX_EDEFAULT = "";
+
+  /**
+   * The cached value of the '{@link #getNameSuffix() <em>Name Suffix</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
+   * 
+   * @see #getNameSuffix()
+   * @generated
+   * @ordered
+   */
+  protected String nameSuffix = NAME_SUFFIX_EDEFAULT;
 
   /**
    * The default value of the '{@link #getDescription() <em>Description</em>}' attribute. <!--
@@ -99,26 +119,6 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
    * @ordered
    */
   protected EList<CellResult> cellResults;
-
-  /**
-   * The default value of the '{@link #getNameSuffix() <em>Name Suffix</em>}' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @see #getNameSuffix()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_SUFFIX_EDEFAULT = "";
-
-  /**
-   * The cached value of the '{@link #getNameSuffix() <em>Name Suffix</em>}' attribute. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
-   * 
-   * @see #getNameSuffix()
-   * @generated
-   * @ordered
-   */
-  protected String nameSuffix = NAME_SUFFIX_EDEFAULT;
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -311,12 +311,12 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
     switch (featureID) {
       case DatamodelPackage.CELL_GROUP__NAME:
         return getName();
+      case DatamodelPackage.CELL_GROUP__NAME_SUFFIX:
+        return getNameSuffix();
       case DatamodelPackage.CELL_GROUP__DESCRIPTION:
         return getDescription();
       case DatamodelPackage.CELL_GROUP__CELL_RESULTS:
         return getCellResults();
-      case DatamodelPackage.CELL_GROUP__NAME_SUFFIX:
-        return getNameSuffix();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -333,15 +333,15 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
       case DatamodelPackage.CELL_GROUP__NAME:
         setName((String) newValue);
         return;
+      case DatamodelPackage.CELL_GROUP__NAME_SUFFIX:
+        setNameSuffix((String) newValue);
+        return;
       case DatamodelPackage.CELL_GROUP__DESCRIPTION:
         setDescription((String) newValue);
         return;
       case DatamodelPackage.CELL_GROUP__CELL_RESULTS:
         getCellResults().clear();
         getCellResults().addAll((Collection<? extends CellResult>) newValue);
-        return;
-      case DatamodelPackage.CELL_GROUP__NAME_SUFFIX:
-        setNameSuffix((String) newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -358,14 +358,14 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
       case DatamodelPackage.CELL_GROUP__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case DatamodelPackage.CELL_GROUP__NAME_SUFFIX:
+        setNameSuffix(NAME_SUFFIX_EDEFAULT);
+        return;
       case DatamodelPackage.CELL_GROUP__DESCRIPTION:
         setDescription(DESCRIPTION_EDEFAULT);
         return;
       case DatamodelPackage.CELL_GROUP__CELL_RESULTS:
         getCellResults().clear();
-        return;
-      case DatamodelPackage.CELL_GROUP__NAME_SUFFIX:
-        setNameSuffix(NAME_SUFFIX_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -381,14 +381,14 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
     switch (featureID) {
       case DatamodelPackage.CELL_GROUP__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case DatamodelPackage.CELL_GROUP__NAME_SUFFIX:
+        return NAME_SUFFIX_EDEFAULT == null ? nameSuffix != null
+            : !NAME_SUFFIX_EDEFAULT.equals(nameSuffix);
       case DatamodelPackage.CELL_GROUP__DESCRIPTION:
         return DESCRIPTION_EDEFAULT == null ? description != null
             : !DESCRIPTION_EDEFAULT.equals(description);
       case DatamodelPackage.CELL_GROUP__CELL_RESULTS:
         return cellResults != null && !cellResults.isEmpty();
-      case DatamodelPackage.CELL_GROUP__NAME_SUFFIX:
-        return NAME_SUFFIX_EDEFAULT == null ? nameSuffix != null
-            : !NAME_SUFFIX_EDEFAULT.equals(nameSuffix);
     }
     return super.eIsSet(featureID);
   }
@@ -426,10 +426,10 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", description: ");
-    result.append(description);
     result.append(", nameSuffix: ");
     result.append(nameSuffix);
+    result.append(", description: ");
+    result.append(description);
     result.append(')');
     return result.toString();
   }
@@ -492,9 +492,7 @@ public class CellGroupImpl extends MinimalEObjectImpl.Container implements CellG
           .anyMatch(group2 -> {
 
             if (group2.getName().equals(this.getName())) {
-              System.out.println("Group name equla");
               if (group2.getNameSuffix().equals(this.getNameSuffix())) {
-                System.out.println("Also Group name suffix equal");
                 return true;
               }
             }

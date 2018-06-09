@@ -6,8 +6,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.Vector;
+import java.util.function.ToDoubleFunction;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -85,6 +87,10 @@ public class CellResultSheetXSSFCreator {
       writeVoltageData(cell);
     } else if (keys.get(0).equals(Keys.CURRENT_DATA)) {
       writeCurrentData(cell);
+    } else if (keys.get(0).equals(Keys.DARK_VOLTAGE_DATA)) {
+      writeDarkVoltageData(cell);
+    } else if (keys.get(0).equals(Keys.DARK_CURRENT_DATA)) {
+      writeDarkCurrentData(cell);
     } else if (keys.get(0).equals(Keys.UI_PLOT)) {
       createUiPlot(cell);
     } else if (keys.get(0).equals(Keys.UI_PLOT_DARK)) {
@@ -95,6 +101,8 @@ public class CellResultSheetXSSFCreator {
       workbook.writeValueToCell(cell, Utils.getChainedInterface(keys).applyAsDouble(cellResult));
     }
   }
+
+
 
   private void createUiPlotLightDark(Cell cell) throws IOException {
     if (cellResult.getLightMeasurementDataSet() != null) {
@@ -190,48 +198,59 @@ public class CellResultSheetXSSFCreator {
 
 
   private void writeVoltageData(Cell cell) {
-    int startRow = cell.getRowIndex();
-    int col = cell.getColumnIndex();
-    int rowIndex = startRow;
-    for (UIDataPoint dataPoint : cellResult.getLightMeasurementDataSet().getData()) {
-      XSSFCell cCell = getOrCreateCell(rowIndex, col);
-      workbook.writeValueToCell(cCell, dataPoint.getVoltage());
-      rowIndex++;
+    if (cellResult.getLightMeasurementDataSet() != null
+        && cellResult.getLightMeasurementDataSet().getData().isEmpty() == false) {
+      writeDataToCell(cell, cellResult.getLightMeasurementDataSet().getData(),
+          UIDataPoint::getVoltage);
+    } else {
+      workbook.writeValueToCell(cell, "No Light Mesaurement data in cell result!");
     }
-    char colChar = (char) (65 + col);
-    StringBuilder builder = new StringBuilder();
-    builder.append(colChar);
-    builder.append(".");
-    builder.append(colChar);
-    builder.append(startRow - 1);
-    builder.append(":");
-    builder.append(colChar);
-    builder.append(".");
-    builder.append(colChar);
-    builder.append(rowIndex);
+
   }
 
   private void writeCurrentData(Cell cell) {
+    if (cellResult.getLightMeasurementDataSet() != null
+        && cellResult.getLightMeasurementDataSet().getData().isEmpty() == false) {
+      writeDataToCell(cell, cellResult.getLightMeasurementDataSet().getData(),
+          UIDataPoint::getCurrent);
+    } else {
+      workbook.writeValueToCell(cell, "No Light Mesaurement data in cell result!");
+    }
+
+  }
+
+  private void writeDarkCurrentData(Cell cell) {
+    if (cellResult.getDarkMeasuremenetDataSet() != null) {
+      writeDataToCell(cell, cellResult.getDarkMeasuremenetDataSet().getData(),
+          UIDataPoint::getCurrent);
+    } else {
+      workbook.writeValueToCell(cell, "No Dark Mesaurement data in cell result!");
+    }
+
+  }
+
+  private void writeDarkVoltageData(Cell cell) {
+    if (cellResult.getDarkMeasuremenetDataSet() != null
+        && cellResult.getDarkMeasuremenetDataSet().getData().isEmpty() == false) {
+      writeDataToCell(cell, cellResult.getDarkMeasuremenetDataSet().getData(),
+          UIDataPoint::getVoltage);
+    } else {
+      workbook.writeValueToCell(cell, "No Dark Mesaurement data in cell result!");
+    }
+
+  }
+
+  private void writeDataToCell(Cell cell, List<UIDataPoint> dataPoints,
+      ToDoubleFunction<UIDataPoint> func) {
     int startRow = cell.getRowIndex();
     int col = cell.getColumnIndex();
     int rowIndex = startRow;
 
-    for (UIDataPoint dataPoint : cellResult.getLightMeasurementDataSet().getData()) {
+    for (UIDataPoint dataPoint : dataPoints) {
       XSSFCell cCell = getOrCreateCell(rowIndex, col);
-      workbook.writeValueToCell(cCell, dataPoint.getCurrent());
+      workbook.writeValueToCell(cCell, func.applyAsDouble(dataPoint));
       rowIndex++;
     }
-    char colChar = (char) (65 + col);
-    StringBuilder builder = new StringBuilder();
-    builder.append(colChar);
-    builder.append(".");
-    builder.append(colChar);
-    builder.append(startRow - 1);
-    builder.append(":");
-    builder.append(colChar);
-    builder.append(".");
-    builder.append(colChar);
-    builder.append(rowIndex);
   }
 
   private XSSFCell getOrCreateCell(int row, int col) {

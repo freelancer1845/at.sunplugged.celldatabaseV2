@@ -24,18 +24,18 @@ import datamodel.DatamodelFactory;
 import datamodel.DatamodelPackage;
 
 /**
- * This is the item provider adapter for a {@link datamodel.CellGroup} object.
- * <!-- begin-user-doc
+ * This is the item provider adapter for a {@link datamodel.CellGroup} object. <!-- begin-user-doc
  * --> <!-- end-user-doc -->
+ * 
  * @generated
  */
 public class CellGroupItemProvider extends ItemProviderAdapter
     implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider,
     IItemLabelProvider, IItemPropertySource {
   /**
-   * This constructs an instance from a factory and a notifier.
-   * <!-- begin-user-doc --> <!--
+   * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!--
    * end-user-doc -->
+   * 
    * @generated
    */
   public CellGroupItemProvider(AdapterFactory adapterFactory) {
@@ -43,9 +43,9 @@ public class CellGroupItemProvider extends ItemProviderAdapter
   }
 
   /**
-   * This returns the property descriptors for the adapted class.
-   * <!-- begin-user-doc --> <!--
+   * This returns the property descriptors for the adapted class. <!-- begin-user-doc --> <!--
    * end-user-doc -->
+   * 
    * @generated
    */
   @Override
@@ -54,9 +54,9 @@ public class CellGroupItemProvider extends ItemProviderAdapter
       super.getPropertyDescriptors(object);
 
       addNamePropertyDescriptor(object);
+      addNameSuffixPropertyDescriptor(object);
       addDescriptionPropertyDescriptor(object);
       addCellResultsPropertyDescriptor(object);
-      addNameSuffixPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -68,93 +68,69 @@ public class CellGroupItemProvider extends ItemProviderAdapter
    * @generated
    */
   protected void addNamePropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_CellGroup_name_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_CellGroup_name_feature", "_UI_CellGroup_type"),
-         DatamodelPackage.Literals.CELL_GROUP__NAME,
-         false,
-         false,
-         false,
-         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-         null,
-         null));
+    itemPropertyDescriptors.add(createItemPropertyDescriptor(
+        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+        getString("_UI_CellGroup_name_feature"),
+        getString("_UI_PropertyDescriptor_description", "_UI_CellGroup_name_feature",
+            "_UI_CellGroup_type"),
+        DatamodelPackage.Literals.CELL_GROUP__NAME, false, false, false,
+        ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
   }
 
   /**
-   * This adds a property descriptor for the Description feature.
-   * <!-- begin-user-doc --> <!--
+   * This adds a property descriptor for the Description feature. <!-- begin-user-doc --> <!--
    * end-user-doc -->
+   * 
    * @generated
    */
   protected void addDescriptionPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_CellGroup_description_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_CellGroup_description_feature", "_UI_CellGroup_type"),
-         DatamodelPackage.Literals.CELL_GROUP__DESCRIPTION,
-         true,
-         false,
-         false,
-         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-         null,
-         null));
+    itemPropertyDescriptors.add(createItemPropertyDescriptor(
+        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+        getString("_UI_CellGroup_description_feature"),
+        getString("_UI_PropertyDescriptor_description", "_UI_CellGroup_description_feature",
+            "_UI_CellGroup_type"),
+        DatamodelPackage.Literals.CELL_GROUP__DESCRIPTION, true, false, false,
+        ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
   }
 
   /**
-   * This adds a property descriptor for the Cell Results feature.
-   * <!-- begin-user-doc --> <!--
+   * This adds a property descriptor for the Cell Results feature. <!-- begin-user-doc --> <!--
    * end-user-doc -->
+   * 
    * @generated
    */
   protected void addCellResultsPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_CellGroup_cellResults_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_CellGroup_cellResults_feature", "_UI_CellGroup_type"),
-         DatamodelPackage.Literals.CELL_GROUP__CELL_RESULTS,
-         true,
-         false,
-         true,
-         null,
-         null,
-         null));
+    itemPropertyDescriptors.add(createItemPropertyDescriptor(
+        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+        getString("_UI_CellGroup_cellResults_feature"),
+        getString("_UI_PropertyDescriptor_description", "_UI_CellGroup_cellResults_feature",
+            "_UI_CellGroup_type"),
+        DatamodelPackage.Literals.CELL_GROUP__CELL_RESULTS, true, false, true, null, null, null));
   }
 
   /**
-   * This adds a property descriptor for the Name Suffix feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * This adds a property descriptor for the Name Suffix feature. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
+   * 
    * @generated
    */
   protected void addNameSuffixPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_CellGroup_nameSuffix_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_CellGroup_nameSuffix_feature", "_UI_CellGroup_type"),
-         DatamodelPackage.Literals.CELL_GROUP__NAME_SUFFIX,
-         true,
-         false,
-         false,
-         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-         null,
-         null));
+    itemPropertyDescriptors.add(createItemPropertyDescriptor(
+        ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+        getString("_UI_CellGroup_nameSuffix_feature"),
+        getString("_UI_PropertyDescriptor_description", "_UI_CellGroup_nameSuffix_feature",
+            "_UI_CellGroup_type"),
+        DatamodelPackage.Literals.CELL_GROUP__NAME_SUFFIX, true, false, false,
+        ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
   }
 
   /**
-   * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-   * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-   * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-   * <!-- begin-user-doc
+   * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate
+   * feature for an {@link org.eclipse.emf.edit.command.AddCommand},
+   * {@link org.eclipse.emf.edit.command.RemoveCommand} or
+   * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}. <!-- begin-user-doc
    * --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
@@ -168,6 +144,7 @@ public class CellGroupItemProvider extends ItemProviderAdapter
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
@@ -192,14 +169,21 @@ public class CellGroupItemProvider extends ItemProviderAdapter
    * This returns the label text for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc
    * -->
    * 
-   * @generated
+   * @generated NOT
    */
   @Override
   public String getText(Object object) {
-    String label = ((CellGroup)object).getName();
-    return label == null || label.length() == 0 ?
-      getString("_UI_CellGroup_type") :
-      getString("_UI_CellGroup_type") + " " + label;
+    StringBuilder labelBuilder = new StringBuilder();
+    labelBuilder.append(((CellGroup) object).getName());
+    String suffix = ((CellGroup) object).getNameSuffix();
+    if (suffix.trim().isEmpty() == false) {
+      labelBuilder.append(" - ");
+      labelBuilder.append(suffix.trim());
+    }
+    String label = labelBuilder.toString();
+
+    return label == null || label.length() == 0 ? getString("_UI_CellGroup_type")
+        : getString("_UI_CellGroup_type") + " " + label;
   }
 
 
@@ -207,6 +191,7 @@ public class CellGroupItemProvider extends ItemProviderAdapter
    * This handles model notifications by calling {@link #updateChildren} to update any cached
    * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
@@ -215,37 +200,37 @@ public class CellGroupItemProvider extends ItemProviderAdapter
 
     switch (notification.getFeatureID(CellGroup.class)) {
       case DatamodelPackage.CELL_GROUP__NAME:
-      case DatamodelPackage.CELL_GROUP__DESCRIPTION:
       case DatamodelPackage.CELL_GROUP__NAME_SUFFIX:
-        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+      case DatamodelPackage.CELL_GROUP__DESCRIPTION:
+        fireNotifyChanged(
+            new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case DatamodelPackage.CELL_GROUP__CELL_RESULTS:
-        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+        fireNotifyChanged(
+            new ViewerNotification(notification, notification.getNotifier(), true, false));
         return;
     }
     super.notifyChanged(notification);
   }
 
   /**
-   * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
-   * that can be created under this object.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children that
+   * can be created under this object. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * 
    * @generated
    */
   @Override
   protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
     super.collectNewChildDescriptors(newChildDescriptors, object);
 
-    newChildDescriptors.add
-      (createChildParameter
-        (DatamodelPackage.Literals.CELL_GROUP__CELL_RESULTS,
-         DatamodelFactory.eINSTANCE.createCellResult()));
+    newChildDescriptors.add(createChildParameter(DatamodelPackage.Literals.CELL_GROUP__CELL_RESULTS,
+        DatamodelFactory.eINSTANCE.createCellResult()));
   }
 
   /**
-   * Return the resource locator for this item provider's resources.
-   * <!-- begin-user-doc --> <!--
+   * Return the resource locator for this item provider's resources. <!-- begin-user-doc --> <!--
    * end-user-doc -->
+   * 
    * @generated
    */
   @Override

@@ -358,13 +358,22 @@ public interface DatamodelPackage extends EPackage {
   int CELL_GROUP__NAME = 0;
 
   /**
+   * The feature id for the '<em><b>Name Suffix</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CELL_GROUP__NAME_SUFFIX = 1;
+
+  /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CELL_GROUP__DESCRIPTION = 1;
+  int CELL_GROUP__DESCRIPTION = 2;
 
   /**
    * The feature id for the '<em><b>Cell Results</b></em>' containment reference list.
@@ -373,16 +382,7 @@ public interface DatamodelPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int CELL_GROUP__CELL_RESULTS = 2;
-
-  /**
-   * The feature id for the '<em><b>Name Suffix</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CELL_GROUP__NAME_SUFFIX = 3;
+  int CELL_GROUP__CELL_RESULTS = 3;
 
   /**
    * The number of structural features of the '<em>Cell Group</em>' class.
