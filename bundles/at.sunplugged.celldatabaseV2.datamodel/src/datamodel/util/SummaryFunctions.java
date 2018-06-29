@@ -7,30 +7,39 @@ import datamodel.CellResult;
 
 public class SummaryFunctions {
 
+  public static double getMin(CellGroup group, ToDoubleFunction<CellResult> valueMapper) {
+    return group.getCellResults()
+                .stream()
+                .mapToDouble(valueMapper)
+                .min()
+                .getAsDouble();
+  }
+
   public static double getAverage(CellGroup group, ToDoubleFunction<CellResult> valueMapper) {
     return group.getCellResults()
-        .stream()
-        .mapToDouble(valueMapper)
-        .average()
-        .getAsDouble();
+                .stream()
+                .mapToDouble(valueMapper)
+                .average()
+                .getAsDouble();
   }
 
   public static double getMax(CellGroup group, ToDoubleFunction<CellResult> valueMapper) {
     return group.getCellResults()
-        .stream()
-        .mapToDouble(valueMapper)
-        .max()
-        .getAsDouble();
+                .stream()
+                .mapToDouble(valueMapper)
+                .max()
+                .getAsDouble();
   }
 
   public static double getStd(CellGroup group, ToDoubleFunction<CellResult> valueMapper) {
     StandardDeviation stdObject = new StandardDeviation();
     double[] values = group.getCellResults()
-        .stream()
-        .mapToDouble(valueMapper)
-        .toArray();
+                           .stream()
+                           .mapToDouble(valueMapper)
+                           .toArray();
     return stdObject.evaluate(values, getAverage(group, valueMapper));
   }
+
 
 
   private SummaryFunctions() {

@@ -38,11 +38,20 @@ public class GroupTableViewerFX {
   public GroupTableViewerFX(Composite parent, CellGroup group) {
     this.group = group;
     canvas = new FXCanvas(parent, SWT.NONE);
-    GridDataFactory.fillDefaults().grab(true, true).applyTo(canvas);
+    GridDataFactory.fillDefaults()
+                   .grab(true, true)
+                   .applyTo(canvas);
 
     BorderPane layout = new BorderPane();
-    Scene scene = new Scene(layout, Color.rgb(parent.getShell().getBackground().getRed(),
-        parent.getShell().getBackground().getGreen(), parent.getShell().getBackground().getBlue()));
+    Scene scene = new Scene(layout, Color.rgb(parent.getShell()
+                                                    .getBackground()
+                                                    .getRed(),
+        parent.getShell()
+              .getBackground()
+              .getGreen(),
+        parent.getShell()
+              .getBackground()
+              .getBlue()));
 
     canvas.setScene(scene);
 
@@ -53,18 +62,21 @@ public class GroupTableViewerFX {
 
     TableColumn nameCol = new TableColumn("Name");
     nameCol.setCellValueFactory(result -> new ReadOnlyStringWrapper(
-        ((CellDataFeatures<CellResult, String>) result).getValue().getName()));
+        ((CellDataFeatures<CellResult, String>) result).getValue()
+                                                       .getName()));
 
     TableColumn vocCol = createDoubleColumn("Voc[V]", 2, result -> result.getOpenCircuitVoltage());
 
-    boolean needsVocPerCellColumn =
-        group.getCellResults().stream().anyMatch(result -> result.getNumberOfCells() > 1);
+    boolean needsVocPerCellColumn = group.getCellResults()
+                                         .stream()
+                                         .anyMatch(result -> result.getNumberOfCells() > 1);
     TableColumn vocPerCelCol =
         createDoubleColumn("Voc/Cell[V]", 2, result -> result.getVocPerCell());
 
-    TableColumn jscCol =
-        createDoubleColumn("Jsc[A/cm^2]", 2, result -> result.getShortCircuitCurrent()
-            / result.getLightMeasurementDataSet().getArea() / 10000);
+    TableColumn jscCol = createDoubleColumn("Jsc[A/cm^2]", 2,
+        result -> result.getShortCircuitCurrent() / result.getLightMeasurementDataSet()
+                                                          .getArea()
+            / 10000);
     TableColumn rsCol = createDoubleColumn("Rs[ohm]", 4, result -> result.getSeriesResistance());
     TableColumn rsDarkCol =
         createDoubleColumn("RsDark[ohm]", 4, result -> result.getDarkSeriesResistance());
@@ -72,7 +84,9 @@ public class GroupTableViewerFX {
     TableColumn rpDarkCol =
         createDoubleColumn("RpDark[ohm]", 4, result -> result.getDarkParallelResistance());
     TableColumn pmmpCol = createDoubleColumn("Pmpp[W/cm^2]", 4,
-        result -> result.getMaximumPower() / result.getLightMeasurementDataSet().getArea() / 10000);
+        result -> result.getMaximumPower() / result.getLightMeasurementDataSet()
+                                                   .getArea()
+            / 10000);
     TableColumn vmmpCol =
         createDoubleColumn("Vmpp[V]", 4, result -> result.getMaximumPowerVoltage());
     TableColumn imppCol =
@@ -81,11 +95,13 @@ public class GroupTableViewerFX {
     TableColumn ffCol = createDoubleColumn("FillFactor[%]", 3, result -> result.getFillFactor());
 
     if (needsVocPerCellColumn == true) {
-      table.getColumns().addAll(nameCol, vocCol, vocPerCelCol, jscCol, rsCol, rsDarkCol, rpCol,
-          rpDarkCol, pmmpCol, vmmpCol, imppCol, effCol, ffCol);
+      table.getColumns()
+           .addAll(nameCol, vocCol, vocPerCelCol, jscCol, rsCol, rsDarkCol, rpCol, rpDarkCol,
+               pmmpCol, vmmpCol, imppCol, effCol, ffCol);
     } else {
-      table.getColumns().addAll(nameCol, vocCol, jscCol, rsCol, rsDarkCol, rpCol, rpDarkCol,
-          pmmpCol, vmmpCol, imppCol, effCol, ffCol);
+      table.getColumns()
+           .addAll(nameCol, vocCol, jscCol, rsCol, rsDarkCol, rpCol, rpDarkCol, pmmpCol, vmmpCol,
+               imppCol, effCol, ffCol);
     }
 
 
@@ -96,9 +112,10 @@ public class GroupTableViewerFX {
         SummaryFunctions.getAverage(group, result -> result.getOpenCircuitVoltage()));
     meanDummy.setNumberOfCells(
         (int) Math.round(SummaryFunctions.getAverage(group, result -> result.getNumberOfCells())));
-    meanDummy.setShortCircuitCurrent(
-        SummaryFunctions.getAverage(group, result -> result.getShortCircuitCurrent()
-            / result.getLightMeasurementDataSet().getArea() / 10000));
+    meanDummy.setShortCircuitCurrent(SummaryFunctions.getAverage(group,
+        result -> result.getShortCircuitCurrent() / result.getLightMeasurementDataSet()
+                                                          .getArea()
+            / 10000));
     meanDummy.setSeriesResistance(
         SummaryFunctions.getAverage(group, result -> result.getSeriesResistance()));
     meanDummy.setDarkSeriesResistance(
@@ -109,9 +126,10 @@ public class GroupTableViewerFX {
         SummaryFunctions.getAverage(group, result -> result.getDarkParallelResistance()));
     meanDummy.setMaximumPowerCurrent(
         SummaryFunctions.getAverage(group, result -> result.getMaximumPowerCurrent()));
-    meanDummy.setMaximumPowerVoltage(
-        SummaryFunctions.getAverage(group, result -> result.getMaximumPowerVoltage()
-            / result.getLightMeasurementDataSet().getArea() / 10000));
+    meanDummy.setMaximumPowerVoltage(SummaryFunctions.getAverage(group,
+        result -> result.getMaximumPowerVoltage() / result.getLightMeasurementDataSet()
+                                                          .getArea()
+            / 10000));
     meanDummy.setEfficiency(SummaryFunctions.getAverage(group, result -> result.getEfficiency()));
     meanDummy.setFillFactor(SummaryFunctions.getAverage(group, result -> result.getFillFactor()));
 
@@ -120,9 +138,10 @@ public class GroupTableViewerFX {
     stdDummy.setOpenCircuitVoltage(
         SummaryFunctions.getStd(group, result -> result.getOpenCircuitVoltage()));
     stdDummy.setNumberOfCells(meanDummy.getNumberOfCells());
-    stdDummy.setShortCircuitCurrent(
-        SummaryFunctions.getStd(group, result -> result.getShortCircuitCurrent()
-            / result.getLightMeasurementDataSet().getArea() / 10000));
+    stdDummy.setShortCircuitCurrent(SummaryFunctions.getStd(group,
+        result -> result.getShortCircuitCurrent() / result.getLightMeasurementDataSet()
+                                                          .getArea()
+            / 10000));
     stdDummy.setSeriesResistance(
         SummaryFunctions.getStd(group, result -> result.getSeriesResistance()));
     stdDummy.setDarkSeriesResistance(
@@ -133,34 +152,37 @@ public class GroupTableViewerFX {
         SummaryFunctions.getStd(group, result -> result.getDarkParallelResistance()));
     stdDummy.setMaximumPowerCurrent(
         SummaryFunctions.getStd(group, result -> result.getMaximumPowerCurrent()));
-    stdDummy.setMaximumPowerVoltage(
-        SummaryFunctions.getStd(group, result -> result.getMaximumPowerVoltage()
-            / result.getLightMeasurementDataSet().getArea() / 10000));
+    stdDummy.setMaximumPowerVoltage(SummaryFunctions.getStd(group,
+        result -> result.getMaximumPowerVoltage() / result.getLightMeasurementDataSet()
+                                                          .getArea()
+            / 10000));
     stdDummy.setEfficiency(SummaryFunctions.getStd(group, result -> result.getEfficiency()));
     stdDummy.setFillFactor(SummaryFunctions.getStd(group, result -> result.getFillFactor()));
 
     CellResult maxDummy = DatamodelFactory.eINSTANCE.createCellResult();
-    maxDummy.setName("Max");
+    maxDummy.setName("Best");
     maxDummy.setOpenCircuitVoltage(
         SummaryFunctions.getMax(group, result -> result.getOpenCircuitVoltage()));
     maxDummy.setNumberOfCells(
         (int) Math.round(SummaryFunctions.getMax(group, result -> result.getNumberOfCells())));
-    maxDummy.setShortCircuitCurrent(
-        SummaryFunctions.getMax(group, result -> result.getShortCircuitCurrent()
-            / result.getLightMeasurementDataSet().getArea() / 10000));
+    maxDummy.setShortCircuitCurrent(SummaryFunctions.getMax(group,
+        result -> result.getShortCircuitCurrent() / result.getLightMeasurementDataSet()
+                                                          .getArea()
+            / 10000));
     maxDummy.setSeriesResistance(
-        SummaryFunctions.getMax(group, result -> result.getSeriesResistance()));
+        SummaryFunctions.getMin(group, result -> result.getSeriesResistance()));
     maxDummy.setDarkSeriesResistance(
-        SummaryFunctions.getMax(group, result -> result.getDarkSeriesResistance()));
+        SummaryFunctions.getMin(group, result -> result.getDarkSeriesResistance()));
     maxDummy.setParallelResistance(
         SummaryFunctions.getMax(group, result -> result.getParallelResistance()));
     maxDummy.setDarkParallelResistance(
         SummaryFunctions.getMax(group, result -> result.getDarkParallelResistance()));
     maxDummy.setMaximumPowerCurrent(
         SummaryFunctions.getMax(group, result -> result.getMaximumPowerCurrent()));
-    maxDummy.setMaximumPowerVoltage(
-        SummaryFunctions.getMax(group, result -> result.getMaximumPowerVoltage()
-            / result.getLightMeasurementDataSet().getArea() / 10000));
+    maxDummy.setMaximumPowerVoltage(SummaryFunctions.getMax(group,
+        result -> result.getMaximumPowerVoltage() / result.getLightMeasurementDataSet()
+                                                          .getArea()
+            / 10000));
     maxDummy.setEfficiency(SummaryFunctions.getMax(group, result -> result.getEfficiency()));
     maxDummy.setFillFactor(SummaryFunctions.getMax(group, result -> result.getFillFactor()));
 
@@ -176,13 +198,15 @@ public class GroupTableViewerFX {
     results.add(meanDummy);
     results.add(stdDummy);
     results.add(maxDummy);
-    table.getItems().setAll(results);
+    table.getItems()
+         .setAll(results);
 
 
 
     VBox vbox = new VBox();
 
-    vbox.getChildren().add(table);
+    vbox.getChildren()
+        .add(table);
     layout.setCenter(vbox);
 
 

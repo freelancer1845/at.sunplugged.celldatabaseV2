@@ -58,12 +58,22 @@ public class CellGroupSummarySheetXSSFCreator {
     if (keys.size() == 0) {
       return;
     }
-    if (keys.get(0).equals(Keys.NAME)) {
+    if (keys.get(0)
+            .equals(Keys.NAME)) {
       writeStringAttributeToCellColumn(cell, result -> result.getName());
-    } else if (keys.get(0).equals(Keys.GROUP_NAME)) {
+    } else if (keys.get(0)
+                   .equals(Keys.GROUP_NAME)) {
       cell.setCellValue(cellGroup.getName());
     } else {
-      writeDoubleAttributetoCellColumn(cell, Utils.getChainedInterface(keys));
+      if (keys.get(0)
+              .equals(Keys.RS)
+          || keys.get(0)
+                 .equals(Keys.RS_DARK)) {
+        writeDoubleAttributetoCellColumn(cell, Utils.getChainedInterface(keys), true);
+      } else {
+        writeDoubleAttributetoCellColumn(cell, Utils.getChainedInterface(keys), false);
+      }
+
     }
 
   }
@@ -82,8 +92,8 @@ public class CellGroupSummarySheetXSSFCreator {
 
   }
 
-  private void writeDoubleAttributetoCellColumn(Cell cell,
-      ToDoubleFunction<CellResult> valueMapper) {
+  private void writeDoubleAttributetoCellColumn(Cell cell, ToDoubleFunction<CellResult> valueMapper,
+      boolean switchMaxMin) {
     int columnIndex = cell.getColumnIndex();
     int currentRow = cell.getRowIndex();
 
@@ -106,9 +116,15 @@ public class CellGroupSummarySheetXSSFCreator {
     currentCell = getOrCreateCell(currentRow++, columnIndex);
     workbook.writeValueToCell(currentCell, SummaryFunctions.getStd(cellGroup, valueMapper));
 
-    getOrCreateCell(currentRow, 0).setCellValue("Max");
+
+    getOrCreateCell(currentRow, 0).setCellValue("Best");
     currentCell = getOrCreateCell(currentRow++, columnIndex);
-    workbook.writeValueToCell(currentCell, SummaryFunctions.getMax(cellGroup, valueMapper));
+    if (switchMaxMin) {
+      workbook.writeValueToCell(currentCell, SummaryFunctions.getMin(cellGroup, valueMapper));
+    } else {
+      workbook.writeValueToCell(currentCell, SummaryFunctions.getMax(cellGroup, valueMapper));
+    }
+
   }
 
 
