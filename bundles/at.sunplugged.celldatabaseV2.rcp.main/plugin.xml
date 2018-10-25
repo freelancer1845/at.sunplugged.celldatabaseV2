@@ -13,10 +13,6 @@
                value="bundleclass://at.sunplugged.celldatabaseV2.rcp.main/at.sunplugged.celldatabasev2.rcp.main.E4LifeCycle">
          </property>
          <property
-               name="applicationCSS"
-               value="platform:/plugin/at.sunplugged.celldatabaseV2.rcp.main/css/default.css">
-         </property>
-         <property
                name="appName"
                value="at.sunplugged.celldatabaseV2">
          </property>

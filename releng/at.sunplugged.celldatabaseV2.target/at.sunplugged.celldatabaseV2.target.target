@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="at.sunplugged.celldatabaseV2.target" sequenceNumber="17">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><?pde version="3.8"?><target name="at.sunplugged.celldatabaseV2.target" sequenceNumber="17">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="ch.qos.logback.classic" version="1.1.2.v20160208-0839"/>
@@ -791,8 +790,8 @@
 <plugin id="org.eclipse.jdt"/>
 <plugin id="org.eclipse.jdt.annotation" version="1.1.100.v20160418-1457"/>
 <plugin id="org.eclipse.jdt.annotation" version="2.1.100.v20170511-1408"/>
-<plugin id="org.eclipse.jdt.annotation.source" version="2.1.100.v20170511-1408"/>
 <plugin id="org.eclipse.jdt.annotation.source" version="1.1.100.v20160418-1457"/>
+<plugin id="org.eclipse.jdt.annotation.source" version="2.1.100.v20170511-1408"/>
 <plugin id="org.eclipse.jdt.apt.core"/>
 <plugin id="org.eclipse.jdt.apt.core.source"/>
 <plugin id="org.eclipse.jdt.apt.pluggable.core"/>
@@ -955,7 +954,7 @@
 <plugin id="org.eclipse.search"/>
 <plugin id="org.eclipse.search.source"/>
 <plugin id="org.eclipse.swt" version="3.106.3.v20180214-0345"/>
-<plugin id="org.eclipse.swt.win32.win32.x86_64" version="3.106.3.v20180214-0345"/>
+<plugin id="org.eclipse.swt.win32.win32.x86_64"/>
 <plugin id="org.eclipse.team.core"/>
 <plugin id="org.eclipse.team.core.source"/>
 <plugin id="org.eclipse.team.cvs.core"/>
@@ -1081,4 +1080,9 @@
 <plugin id="org.w3c.dom.svg"/>
 <plugin id="org.w3c.dom.svg.source"/>
 </includeBundles>
+	<environment>
+		<arch>x86_64</arch>
+		<os>win32</os>
+		<ws>win32</ws>
+	</environment>
 </target>
